@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Layers, TrendingUp, AlertTriangle, CheckCircle, Info, BookOpen, Zap, Target } from "lucide-react";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Sparkles, Layers, TrendingUp, AlertTriangle, CheckCircle, Info, BookOpen, Zap, Target, Activity, Calendar } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
+import { format } from "date-fns";
 import PageHeader from "@/components/PageHeader";
 import ResultCard from "@/components/ResultCard";
 import { MysticalLoader } from "@/components/LoadingStates";
@@ -17,8 +19,10 @@ import ExplainableInsight from "@/components/ExplainableInsight";
 export default function MysticSynthesis() {
   const [synthesis, setSynthesis] = useState(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
-  const queryClient = useQueryClient();
+  const [selectedIds, setSelectedIds] = useState(new Set());
+  const [includeMood, setIncludeMood] = useState(true);
   
+  const queryClient = useQueryClient();
   const { incrementUsage, subscription } = useSubscription();
 
   const { data: userProfile } = useQuery({
@@ -37,14 +41,53 @@ export default function MysticSynthesis() {
     initialData: []
   });
 
+  const { data: moodEntries } = useQuery({
+    queryKey: ['recentMoodsForSynthesis'],
+    queryFn: () => base44.entities.MoodEntry.list('-entry_date', 30),
+    staleTime: 60000,
+    initialData: []
+  });
+
+  // Select all analyses by default when loaded
+  useEffect(() => {
+    if (analyses.length > 0 && selectedIds.size === 0) {
+      // Default: Select latest of each type + up to 3 tarot
+      const toSelect = new Set();
+      const types = {};
+      analyses.forEach(a => {
+        if (a.tool_type === 'tarot') {
+          if (!types.tarot) types.tarot = 0;
+          if (types.tarot < 3) {
+            toSelect.add(a.id);
+            types.tarot++;
+          }
+        } else {
+          if (!types[a.tool_type]) {
+            toSelect.add(a.id);
+            types[a.tool_type] = true;
+          }
+        }
+      });
+      setSelectedIds(toSelect);
+    }
+  }, [analyses.length]); // Only run when analyses load
+
+  const toggleSelection = (id) => {
+    const newSet = new Set(selectedIds);
+    if (newSet.has(id)) newSet.delete(id);
+    else newSet.add(id);
+    setSelectedIds(newSet);
+  };
+
   const synthesizeMutation = useMutation({
-    mutationFn: async ({ profile, previousAnalyses }) => {
-      // Prepare data from all tools
-      const numerologyData = previousAnalyses.filter(a => a.tool_type === 'numerology').slice(0, 1);
-      const astrologyData = previousAnalyses.filter(a => a.tool_type === 'astrology').slice(0, 1);
-      const palmistryData = previousAnalyses.filter(a => a.tool_type === 'palmistry').slice(0, 1);
-      const graphologyData = previousAnalyses.filter(a => a.tool_type === 'graphology').slice(0, 1);
-      const tarotData = previousAnalyses.filter(a => a.tool_type === 'tarot').slice(0, 3);
+    mutationFn: async ({ profile, selectedAnalyses, moodData }) => {
+      // Use explicitly selected analyses
+      const numerologyData = selectedAnalyses.filter(a => a.tool_type === 'numerology');
+      const astrologyData = selectedAnalyses.filter(a => a.tool_type === 'astrology');
+      const palmistryData = selectedAnalyses.filter(a => a.tool_type === 'palmistry');
+      const graphologyData = selectedAnalyses.filter(a => a.tool_type === 'graphology');
+      const tarotData = selectedAnalyses.filter(a => a.tool_type === 'tarot');
+      const drawingData = selectedAnalyses.filter(a => a.tool_type === 'drawing_analysis' || a.tool_type === 'drawing');
 
       const prompt = `אתה מומחה עולמי בסינתזה מיסטית הוליסטית, משלב ידע עמוק בנומרולוגיה קבלית, אסטרולוגיה פסיכולוגית, קריאת כף יד, גרפולוגיה משולבת Big Five, טארוט ופסיכולוגיה יונגיאנית.
 
@@ -96,6 +139,15 @@ ${JSON.stringify(graphologyData[0].results, null, 2)}` : ''}
 
 ${tarotData.length > 0 ? `**טארוט (${tarotData.length} קריאות):**
 ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
+
+${drawingData.length > 0 ? `**ניתוח ציורים (${drawingData.length} ניתוחים):**
+${JSON.stringify(drawingData.map(d => d.results), null, 2)}` : ''}
+
+${moodData && moodData.length > 0 ? `**נתוני מצב רוח (30 יום אחרונים):**
+- מספר רשומות: ${moodData.length}
+- מצב רוח ממוצע: ${(moodData.reduce((acc, m) => acc + (m.mood_score || 0), 0) / moodData.length).toFixed(1)}/10
+- רמות אנרגיה ממוצעות: ${(moodData.reduce((acc, m) => acc + (m.energy_level || 0), 0) / moodData.length).toFixed(1)}/10
+- דפוסים אחרונים: ${JSON.stringify(moodData.slice(0, 5).map(m => ({ date: m.entry_date, mood: m.mood, score: m.mood_score })))}` : ''}
 
 ---
 
@@ -333,9 +385,12 @@ ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
       return;
     }
 
-    if (analyses.length < 2) {
-      toast.error('נדרשים לפחות 2 ניתוחים קודמים', {
-        description: 'השתמש בכלים השונים קודם (נומרולוגיה, אסטרולוגיה וכו\')'
+    const selectedAnalysesList = analyses.filter(a => selectedIds.has(a.id));
+    const totalSources = selectedAnalysesList.length + (includeMood ? 1 : 0);
+
+    if (totalSources < 2) {
+      toast.error('נא לבחור לפחות 2 מקורות מידע', {
+        description: 'שילוב מידע דורש הצלבה של מספר מקורות'
       });
       return;
     }
@@ -345,7 +400,8 @@ ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
     try {
       const result = await synthesizeMutation.mutateAsync({
         profile: userProfile,
-        previousAnalyses: analyses
+        selectedAnalyses: selectedAnalysesList,
+        moodData: includeMood ? moodEntries : []
       });
 
       setSynthesis(result);
@@ -354,7 +410,8 @@ ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
         tool_type: "combined",
         input_data: { 
           type: "mystic_synthesis",
-          tools_used: [...new Set(analyses.map(a => a.tool_type))]
+          tools_used: [...new Set(selectedAnalysesList.map(a => a.tool_type))],
+          mood_included: includeMood
         },
         results: result,
         summary: "סינתזה מיסטית הוליסטית מתקדמת - שילוב כל הכלים",
@@ -461,18 +518,74 @@ ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
                       שילוב מתקדם של כל הכלים למפה אישית מקיפה ומדויקת
                     </p>
 
-                    {availableTools.length >= 2 ? (
-                      <div className="mb-8">
-                        <p className="text-purple-300 mb-4">הכלים שזמינים לסינתזה:</p>
-                        <div className="flex flex-wrap justify-center gap-3">
-                          {availableTools.map(tool => (
-                            <Badge key={tool} className="bg-purple-700 text-white text-base px-4 py-2">
-                              {tool === 'numerology' && '🔢 נומרולוגיה קבלית'}
-                              {tool === 'astrology' && '⭐ אסטרולוגיה פסיכולוגית'}
-                              {tool === 'palmistry' && '🖐️ כף יד'}
-                              {tool === 'graphology' && '✍️ גרפולוגיה + Big Five'}
-                              {tool === 'tarot' && '🃏 טארוט'}
-                            </Badge>
+                    {analyses.length > 0 ? (
+                      <div className="mb-8 text-right max-w-2xl mx-auto">
+                        <p className="text-purple-200 font-bold mb-4 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5" />
+                          בחר את מקורות המידע לניתוח:
+                        </p>
+                        
+                        <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar bg-black/20 rounded-xl p-4 border border-purple-500/20">
+                          {/* Mood Selection */}
+                          {moodEntries.length > 0 && (
+                            <div 
+                              onClick={() => setIncludeMood(!includeMood)}
+                              className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
+                                includeMood ? 'bg-purple-600/30 border-purple-500' : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
+                              }`}
+                            >
+                              <Checkbox checked={includeMood} onCheckedChange={setIncludeMood} className="border-purple-300" />
+                              <div className="flex items-center gap-3 flex-1">
+                                <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center">
+                                  <Activity className="w-4 h-4 text-pink-300" />
+                                </div>
+                                <div>
+                                  <p className="text-white font-medium">הרגשה ומצב רוח</p>
+                                  <p className="text-purple-200 text-xs">{moodEntries.length} רשומות אחרונות</p>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Analyses Selection */}
+                          {analyses.map((analysis) => (
+                            <div 
+                              key={analysis.id}
+                              onClick={() => toggleSelection(analysis.id)}
+                              className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
+                                selectedIds.has(analysis.id) ? 'bg-purple-600/30 border-purple-500' : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
+                              }`}
+                            >
+                              <Checkbox 
+                                checked={selectedIds.has(analysis.id)} 
+                                onCheckedChange={() => toggleSelection(analysis.id)}
+                                className="border-purple-300"
+                              />
+                              <div className="flex items-center gap-3 flex-1">
+                                <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
+                                  {analysis.tool_type === 'numerology' && <span className="text-lg">🔢</span>}
+                                  {analysis.tool_type === 'astrology' && <span className="text-lg">⭐</span>}
+                                  {analysis.tool_type === 'palmistry' && <span className="text-lg">🖐️</span>}
+                                  {analysis.tool_type === 'graphology' && <span className="text-lg">✍️</span>}
+                                  {analysis.tool_type === 'tarot' && <span className="text-lg">🃏</span>}
+                                  {analysis.tool_type === 'drawing_analysis' && <span className="text-lg">🎨</span>}
+                                </div>
+                                <div>
+                                  <p className="text-white font-medium">
+                                    {analysis.tool_type === 'numerology' && 'נומרולוגיה'}
+                                    {analysis.tool_type === 'astrology' && 'אסטרולוגיה'}
+                                    {analysis.tool_type === 'palmistry' && 'כף יד'}
+                                    {analysis.tool_type === 'graphology' && 'גרפולוגיה'}
+                                    {analysis.tool_type === 'tarot' && 'פריסת טארוט'}
+                                    {analysis.tool_type === 'drawing_analysis' && 'ניתוח ציור'}
+                                  </p>
+                                  <p className="text-purple-200 text-xs flex items-center gap-1">
+                                    <Calendar className="w-3 h-3" />
+                                    {format(new Date(analysis.created_date), 'dd/MM/yyyy HH:mm')}
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
                           ))}
                         </div>
                       </div>
@@ -492,11 +605,11 @@ ${tarotData.map(t => JSON.stringify(t.results, null, 2)).join('\n')}` : ''}
 
                     <Button
                       onClick={handleSynthesize}
-                      disabled={availableTools.length < 2}
+                      disabled={selectedIds.size === 0 && !includeMood}
                       className="bg-gradient-to-r from-purple-500 via-pink-500 to-purple-500 hover:from-purple-600 hover:via-pink-600 hover:to-purple-600 text-white text-xl px-12 py-7 shadow-2xl disabled:opacity-50"
                     >
                       <Sparkles className="w-7 h-7 ml-2" />
-                      התחל סינתזה מתקדמת
+                      צור דו"ח מסכם ({selectedIds.size + (includeMood ? 1 : 0)} מקורות)
                     </Button>
                   </CardContent>
                 </Card>
