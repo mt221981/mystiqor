@@ -146,38 +146,40 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* 2. Tools Grid - Reordered to Top & Wider */}
+        {/* 2. Tools Grid - Reordered to Top, 3 Cols, More Prominent */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-4"
+          className="space-y-6"
         >
-          <div className="flex items-center justify-between px-2">
-            <h2 className="text-2xl font-bold text-slate-200">כלים לגילוי עצמי</h2>
-            <Link to="/Dashboard" className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
-              לכל הכלים
-              <ChevronLeft className="w-4 h-4" />
-            </Link>
+          <div className="flex items-center justify-center mb-2">
+            <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 drop-shadow-sm">כלים לגילוי עצמי</h2>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.path} to={createPageUrl(tool.path)}>
                   <motion.div
-                    whileHover={{ y: -3, scale: 1.02 }}
+                    whileHover={{ y: -8, scale: 1.03 }}
                     className="h-full"
                   >
-                    <div className="flex flex-col items-center text-center gap-4 p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-xl hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
-                      <div className={`w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-lg`}>
-                        <div className="w-full h-full bg-slate-950 rounded-[15px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                          <Icon className="w-8 h-8 text-white" />
+                    <div className={`relative flex flex-col items-center text-center gap-5 p-8 rounded-[2rem] h-full group overflow-hidden border-2 transition-all duration-300 bg-slate-900/40 border-slate-700/50 hover:border-purple-400/50 hover:bg-slate-800/80 hover:shadow-2xl`}>
+                      
+                      {/* Background Glow Effect on Hover */}
+                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
+                      
+                      {/* Larger Icon Container */}
+                      <div className={`w-24 h-24 shrink-0 rounded-3xl bg-gradient-to-br ${tool.gradient} p-0.5 shadow-2xl group-hover:scale-110 transition-transform duration-500 ring-4 ring-slate-900/50`}>
+                        <div className="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center group-hover:bg-white/10 transition-colors">
+                          <Icon className="w-10 h-10 text-white drop-shadow-md" />
                         </div>
                       </div>
-                      <div className="w-full">
-                        <span className="block text-lg font-bold text-slate-100 mb-1 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
-                        <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
+                      
+                      <div className="w-full relative z-10 space-y-2">
+                        <span className="block text-2xl font-black text-white group-hover:text-purple-200 transition-colors">{tool.name}</span>
+                        <span className="text-lg text-slate-300 group-hover:text-white transition-colors block font-medium">{tool.description}</span>
                       </div>
                     </div>
                   </motion.div>
