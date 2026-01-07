@@ -146,12 +146,54 @@ export default function Home() {
           </p>
         </motion.div>
 
-        {/* 2. Daily Insight - The "One Thing" to focus on */}
+        {/* 2. Tools Grid - Reordered to Top & Wider */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="space-y-4"
+        >
+          <div className="flex items-center justify-between px-2">
+            <h2 className="text-2xl font-bold text-slate-200">כלים לגילוי עצמי</h2>
+            <Link to="/Dashboard" className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
+              לכל הכלים
+              <ChevronLeft className="w-4 h-4" />
+            </Link>
+          </div>
+          
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+            {tools.map((tool, index) => {
+              const Icon = tool.icon;
+              return (
+                <Link key={tool.path} to={createPageUrl(tool.path)}>
+                  <motion.div
+                    whileHover={{ y: -2, scale: 1.02 }}
+                    className="h-full"
+                  >
+                    <div className="flex flex-col items-center text-center gap-3 p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-lg hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
+                      <div className={`w-10 h-10 shrink-0 rounded-lg bg-gradient-to-br ${tool.gradient} p-[1px] shadow-sm`}>
+                        <div className="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
+                          <Icon className="w-5 h-5 text-white" />
+                        </div>
+                      </div>
+                      <div className="w-full">
+                        <span className="block text-sm font-bold text-slate-100 mb-0.5 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
+                        <span className="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
+                      </div>
+                    </div>
+                  </motion.div>
+                </Link>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* 3. Daily Insight - Moved Down */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
           transition={{ delay: 0.1 }}
-          className="max-w-xl mx-auto"
+          className="max-w-xl mx-auto w-full"
         >
           <ErrorBoundary>
             <Suspense fallback={<div className="h-64 bg-slate-900/50 rounded-3xl animate-pulse" />}>
@@ -163,48 +205,6 @@ export default function Home() {
               </div>
             </Suspense>
           </ErrorBoundary>
-        </motion.div>
-
-        {/* 3. Tools Grid - Reordered & Renamed */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          className="space-y-6"
-        >
-          <div className="flex items-center justify-between px-2">
-            <h2 className="text-2xl font-bold text-slate-200">כלים לגילוי עצמי</h2>
-            <Link to="/Dashboard" className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
-              לכל הכלים
-              <ChevronLeft className="w-4 h-4" />
-            </Link>
-          </div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {tools.map((tool, index) => {
-              const Icon = tool.icon;
-              return (
-                <Link key={tool.path} to={createPageUrl(tool.path)}>
-                  <motion.div
-                    whileHover={{ y: -3, scale: 1.01 }}
-                    className="h-full"
-                  >
-                    <div className="flex flex-row items-center gap-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-lg hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
-                      <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-md`}>
-                        <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                          <Icon className="w-6 h-6 text-white" />
-                        </div>
-                      </div>
-                      <div className="text-right flex-1 min-w-0">
-                        <span className="block text-lg font-bold text-slate-100 mb-0.5 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
-                        <span className="text-xs text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
-                      </div>
-                    </div>
-                  </motion.div>
-                </Link>
-              );
-            })}
-          </div>
         </motion.div>
 
         {/* 4. Quick Actions - Moved down */}

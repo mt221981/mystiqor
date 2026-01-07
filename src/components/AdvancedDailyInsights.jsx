@@ -377,58 +377,40 @@ ${JSON.stringify(contextData, null, 2)}
                 </p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
                 <Link to={createPageUrl("MyGoals")} className="block group h-full">
-                    <div className={`relative overflow-hidden rounded-2xl p-6 border-2 transition-all duration-300 h-full flex flex-col ${goals.length > 0 ? 'bg-green-900/40 border-green-500/50' : 'bg-gray-800/60 border-gray-600/50 hover:border-blue-400/50 hover:bg-gray-800/80 hover:shadow-lg hover:shadow-blue-500/20 group-hover:-translate-y-1'}`}>
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={`p-3 rounded-xl ${goals.length > 0 ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'}`}>
-                                <Target className="w-8 h-8" />
-                            </div>
-                            {goals.length > 0 ? (
-                                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                                    <CheckCircle className="w-3 h-3 ml-1" />
-                                    יש נתונים
-                                </Badge>
-                            ) : (
-                                <Badge className="bg-gray-700 text-gray-300 border-gray-600">
-                                    ממתין לנתונים
-                                </Badge>
-                            )}
+                    <div className={`relative overflow-hidden rounded-xl p-5 border transition-all duration-300 h-full flex flex-row items-center gap-4 ${goals.length > 0 ? 'bg-green-900/20 border-green-500/30' : 'bg-slate-800/50 border-slate-700/50 hover:border-blue-500/50 hover:bg-slate-800/80 hover:shadow-lg hover:shadow-blue-900/10'}`}>
+                        <div className={`shrink-0 p-3 rounded-xl ${goals.length > 0 ? 'bg-green-500/20 text-green-400' : 'bg-blue-500/20 text-blue-400'}`}>
+                            <Target className="w-6 h-6" />
                         </div>
-                        <h4 className="text-xl font-bold text-white mb-2">1. הגדרת יעדים</h4>
-                        <p className="text-gray-300 text-sm mb-6 flex-grow">
-                            הגדר יעדים כדי שה-AI יוכל לעזור לך להתמקד ולעקוב אחר התקדמות.
-                        </p>
-                        <Button className={`w-full mt-auto ${goals.length > 0 ? 'bg-green-600/50 hover:bg-green-600/70 text-green-100' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md font-bold'}`}>
-                            {goals.length > 0 ? 'הוסף עוד יעדים' : 'הגדר יעד ראשון'}
-                        </Button>
+                        <div className="flex-1 text-right">
+                            <h4 className="text-lg font-bold text-white mb-1">הגדרת יעדים</h4>
+                            <p className="text-slate-400 text-xs mb-2">
+                                עזור ל-AI להבין את המטרות שלך
+                            </p>
+                            <span className={`text-xs font-bold ${goals.length > 0 ? 'text-green-400' : 'text-blue-400 group-hover:underline'}`}>
+                                {goals.length > 0 ? 'הוסף עוד יעדים' : 'הגדר יעד ראשון ->'}
+                            </span>
+                        </div>
+                        {goals.length > 0 && <CheckCircle className="w-5 h-5 text-green-500" />}
                     </div>
                 </Link>
                 
                 <Link to={createPageUrl("MoodTracker")} className="block group h-full">
-                    <div className={`relative overflow-hidden rounded-2xl p-6 border-2 transition-all duration-300 h-full flex flex-col ${moodEntries.length > 0 ? 'bg-green-900/40 border-green-500/50' : 'bg-gray-800/60 border-gray-600/50 hover:border-pink-400/50 hover:bg-gray-800/80 hover:shadow-lg hover:shadow-pink-500/20 group-hover:-translate-y-1'}`}>
-                        <div className="flex items-center justify-between mb-4">
-                            <div className={`p-3 rounded-xl ${moodEntries.length > 0 ? 'bg-green-500/20 text-green-300' : 'bg-pink-500/20 text-pink-300'}`}>
-                                <TrendingUp className="w-8 h-8" />
-                            </div>
-                            {moodEntries.length > 0 ? (
-                                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
-                                    <CheckCircle className="w-3 h-3 ml-1" />
-                                    יש נתונים
-                                </Badge>
-                            ) : (
-                                <Badge className="bg-gray-700 text-gray-300 border-gray-600">
-                                    ממתין לנתונים
-                                </Badge>
-                            )}
+                    <div className={`relative overflow-hidden rounded-xl p-5 border transition-all duration-300 h-full flex flex-row items-center gap-4 ${moodEntries.length > 0 ? 'bg-green-900/20 border-green-500/30' : 'bg-slate-800/50 border-slate-700/50 hover:border-pink-500/50 hover:bg-slate-800/80 hover:shadow-lg hover:shadow-pink-900/10'}`}>
+                        <div className={`shrink-0 p-3 rounded-xl ${moodEntries.length > 0 ? 'bg-green-500/20 text-green-400' : 'bg-pink-500/20 text-pink-400'}`}>
+                            <TrendingUp className="w-6 h-6" />
                         </div>
-                        <h4 className="text-xl font-bold text-white mb-2">2. מעקב מצב רוח</h4>
-                        <p className="text-gray-300 text-sm mb-6 flex-grow">
-                            תעד איך אתה מרגיש כדי לזהות דפוסים ולקבל תובנות רגשיות.
-                        </p>
-                        <Button className={`w-full mt-auto ${moodEntries.length > 0 ? 'bg-green-600/50 hover:bg-green-600/70 text-green-100' : 'bg-pink-600 hover:bg-pink-500 text-white shadow-md font-bold'}`}>
-                            {moodEntries.length > 0 ? 'תעד שוב' : 'התחל מעקב'}
-                        </Button>
+                        <div className="flex-1 text-right">
+                            <h4 className="text-lg font-bold text-white mb-1">מעקב מצב רוח</h4>
+                            <p className="text-slate-400 text-xs mb-2">
+                                זיהוי דפוסים רגשיים
+                            </p>
+                            <span className={`text-xs font-bold ${moodEntries.length > 0 ? 'text-green-400' : 'text-pink-400 group-hover:underline'}`}>
+                                {moodEntries.length > 0 ? 'תעד שוב' : 'התחל מעקב ->'}
+                            </span>
+                        </div>
+                        {moodEntries.length > 0 && <CheckCircle className="w-5 h-5 text-green-500" />}
                     </div>
                 </Link>
             </div>
