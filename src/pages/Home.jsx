@@ -160,24 +160,24 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.path} to={createPageUrl(tool.path)}>
                   <motion.div
-                    whileHover={{ y: -2, scale: 1.02 }}
+                    whileHover={{ y: -3, scale: 1.02 }}
                     className="h-full"
                   >
-                    <div className="flex flex-col items-center text-center gap-3 p-3 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-lg hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
-                      <div className={`w-10 h-10 shrink-0 rounded-lg bg-gradient-to-br ${tool.gradient} p-[1px] shadow-sm`}>
-                        <div className="w-full h-full bg-slate-950 rounded-[7px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                          <Icon className="w-5 h-5 text-white" />
+                    <div className="flex flex-col items-center text-center gap-4 p-6 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-xl hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
+                      <div className={`w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-lg`}>
+                        <div className="w-full h-full bg-slate-950 rounded-[15px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
+                          <Icon className="w-8 h-8 text-white" />
                         </div>
                       </div>
                       <div className="w-full">
-                        <span className="block text-sm font-bold text-slate-100 mb-0.5 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
-                        <span className="text-[10px] text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
+                        <span className="block text-lg font-bold text-slate-100 mb-1 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
+                        <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
                       </div>
                     </div>
                   </motion.div>
