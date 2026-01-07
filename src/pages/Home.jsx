@@ -126,7 +126,7 @@ export default function Home() {
         <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px]" />
       </div>
 
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
         
         {/* 1. Hero Section - Clean & Welcoming */}
         <motion.div 
@@ -165,34 +165,7 @@ export default function Home() {
           </ErrorBoundary>
         </motion.div>
 
-        {/* 3. Quick Actions - Minimalist Bar */}
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex flex-wrap justify-center gap-4"
-        >
-          <Link to="/MoodTracker">
-            <Button variant="outline" className="h-12 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-purple-400 hover:border-purple-500/50 transition-all gap-2">
-              <Smile className="w-5 h-5" />
-              <span>איך אני מרגיש?</span>
-            </Button>
-          </Link>
-          <Link to="/Journal">
-            <Button variant="outline" className="h-12 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-blue-400 hover:border-blue-500/50 transition-all gap-2">
-              <BookOpen className="w-5 h-5" />
-              <span>יומן אישי</span>
-            </Button>
-          </Link>
-          <Link to="/AskQuestion">
-            <Button variant="outline" className="h-12 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-amber-400 hover:border-amber-500/50 transition-all gap-2">
-              <HelpCircle className="w-5 h-5" />
-              <span>שאל שאלה</span>
-            </Button>
-          </Link>
-        </motion.div>
-
-        {/* 4. Tools Grid - Clean & Spacious - BIGGER CARDS */}
+        {/* 3. Tools Grid - Reordered & Renamed */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -200,31 +173,31 @@ export default function Home() {
           className="space-y-6"
         >
           <div className="flex items-center justify-between px-2">
-            <h2 className="text-2xl font-bold text-slate-200">כלים לדרך</h2>
+            <h2 className="text-2xl font-bold text-slate-200">כלים לגילוי עצמי</h2>
             <Link to="/Dashboard" className="text-sm text-purple-400 hover:text-purple-300 flex items-center gap-1 transition-colors">
               לכל הכלים
               <ChevronLeft className="w-4 h-4" />
             </Link>
           </div>
           
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.path} to={createPageUrl(tool.path)}>
                   <motion.div
-                    whileHover={{ y: -5, scale: 1.02 }}
+                    whileHover={{ y: -3, scale: 1.01 }}
                     className="h-full"
                   >
-                    <div className="flex flex-row items-center gap-5 p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-xl hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
-                      <div className={`w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-lg`}>
-                        <div className="w-full h-full bg-slate-950 rounded-[15px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                          <Icon className="w-8 h-8 text-white" />
+                    <div className="flex flex-row items-center gap-4 p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-lg hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
+                      <div className={`w-12 h-12 shrink-0 rounded-xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-md`}>
+                        <div className="w-full h-full bg-slate-950 rounded-[11px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
+                          <Icon className="w-6 h-6 text-white" />
                         </div>
                       </div>
-                      <div className="text-right flex-1">
-                        <span className="block text-xl font-bold text-slate-100 mb-1 group-hover:text-purple-300 transition-colors">{tool.name}</span>
-                        <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">{tool.description}</span>
+                      <div className="text-right flex-1 min-w-0">
+                        <span className="block text-lg font-bold text-slate-100 mb-0.5 group-hover:text-purple-300 transition-colors truncate">{tool.name}</span>
+                        <span className="text-xs text-slate-400 group-hover:text-slate-300 transition-colors truncate block">{tool.description}</span>
                       </div>
                     </div>
                   </motion.div>
@@ -232,6 +205,33 @@ export default function Home() {
               );
             })}
           </div>
+        </motion.div>
+
+        {/* 4. Quick Actions - Moved down */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex flex-wrap justify-center gap-4"
+        >
+          <Link to="/MoodTracker">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-purple-400 hover:border-purple-500/50 transition-all gap-2">
+              <Smile className="w-4 h-4" />
+              <span>איך אני מרגיש?</span>
+            </Button>
+          </Link>
+          <Link to="/Journal">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-blue-400 hover:border-blue-500/50 transition-all gap-2">
+              <BookOpen className="w-4 h-4" />
+              <span>יומן אישי</span>
+            </Button>
+          </Link>
+          <Link to="/AskQuestion">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-slate-700 bg-slate-900/50 hover:bg-slate-800 hover:text-amber-400 hover:border-amber-500/50 transition-all gap-2">
+              <HelpCircle className="w-4 h-4" />
+              <span>שאל שאלה</span>
+            </Button>
+          </Link>
         </motion.div>
 
         {/* 5. Personal Growth Section - 2 Columns */}
