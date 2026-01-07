@@ -155,7 +155,6 @@ export default function Home() {
         >
           <ErrorBoundary>
             <Suspense fallback={<div className="h-64 bg-slate-900/50 rounded-3xl animate-pulse" />}>
-              {/* Show Advanced if available, otherwise standard widget but styled cleanly */}
               <div className="relative group">
                 <div className="absolute -inset-1 bg-gradient-to-r from-purple-600 to-pink-600 rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
                 <div className="relative bg-slate-900 rounded-[1.75rem] overflow-hidden shadow-2xl border border-slate-800">
@@ -193,7 +192,7 @@ export default function Home() {
           </Link>
         </motion.div>
 
-        {/* 4. Tools Grid - Clean & Spacious */}
+        {/* 4. Tools Grid - Clean & Spacious - BIGGER CARDS */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -248,7 +247,9 @@ export default function Home() {
                 <Zap className="w-5 h-5 text-yellow-500" />
                 <h3 className="text-xl font-bold text-slate-200">המטרות שלי</h3>
              </div>
-             <GoalProgressWidget />
+             <ErrorBoundary>
+                <GoalProgressWidget />
+             </ErrorBoundary>
           </motion.div>
 
           {/* Active Journey or Recommendations */}
@@ -289,12 +290,14 @@ export default function Home() {
                     <Heart className="w-5 h-5 text-pink-500" />
                     <h3 className="text-xl font-bold text-slate-200">מומלץ עבורך</h3>
                  </div>
-                 <SmartRecommendations 
-                    profile={userProfile} 
-                    goals={goals} 
-                    moodEntries={moodEntries}
-                    analyses={allAnalyses}
-                  />
+                 <ErrorBoundary>
+                   <SmartRecommendations 
+                      profile={userProfile} 
+                      goals={goals} 
+                      moodEntries={moodEntries}
+                      analyses={allAnalyses}
+                    />
+                 </ErrorBoundary>
                </>
              )}
           </motion.div>
@@ -312,7 +315,9 @@ export default function Home() {
                  <BookOpen className="w-5 h-5 text-blue-400" />
                  <h2 className="text-2xl font-bold text-slate-200">תובנות אחרונות</h2>
               </div>
-              <RecentAnalysesWidget analyses={allAnalyses} />
+              <ErrorBoundary>
+                 <RecentAnalysesWidget analyses={allAnalyses} />
+              </ErrorBoundary>
            </motion.div>
         )}
 
