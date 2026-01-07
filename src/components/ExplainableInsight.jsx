@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -197,9 +196,25 @@ export default function ExplainableInsight({ insight, showProvenance = true }) {
                   >
                     <ul className="space-y-2">
                       {actionable_advice.map((advice, idx) => (
-                        <li key={idx} className="flex items-start gap-2 text-cyan-100 text-sm">
-                          <span className="text-cyan-400 font-bold shrink-0">{idx + 1}.</span>
-                          <span>{advice}</span>
+                        <li key={idx} className="flex flex-col sm:flex-row sm:items-start gap-2 text-cyan-100 text-sm bg-cyan-950/20 p-2 rounded-md">
+                          <div className="flex gap-2">
+                            <span className="text-cyan-400 font-bold shrink-0">{idx + 1}.</span>
+                            <span>{advice}</span>
+                          </div>
+                          
+                          {/* Smart Action Buttons for Advice */}
+                          <div className="mt-2 sm:mt-0 sm:mr-auto shrink-0 flex gap-2">
+                            {(advice.includes('יומן') || advice.includes('כתיבה')) && (
+                              <Button size="sm" variant="outline" className="h-6 text-xs px-2 border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/50" onClick={() => window.location.href = '/Journal'}>
+                                <BookOpen className="w-3 h-3 ml-1" /> יומן
+                              </Button>
+                            )}
+                            {(advice.includes('מטרה') || advice.includes('יעד')) && (
+                              <Button size="sm" variant="outline" className="h-6 text-xs px-2 border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/50" onClick={() => window.location.href = '/MyGoals'}>
+                                <Target className="w-3 h-3 ml-1" /> יעד
+                              </Button>
+                            )}
+                          </div>
                         </li>
                       ))}
                     </ul>

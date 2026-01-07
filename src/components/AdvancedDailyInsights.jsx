@@ -295,9 +295,35 @@ ${JSON.stringify(contextData, null, 2)}
                         initial={{ opacity: 0, x: -20 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: idx * 0.1 }}
-                        className="bg-green-900/30 rounded-lg p-3 border border-green-600/30"
+                        className="bg-green-900/30 rounded-lg p-3 border border-green-600/30 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
                       >
-                        <p className="text-green-100 text-sm">✓ {rec}</p>
+                        <p className="text-green-100 text-sm flex-1">✓ {rec}</p>
+                        
+                        {/* Action Button based on recommendation content */}
+                        <div className="shrink-0">
+                          {rec.includes('יומן') || rec.includes('כתיבה') ? (
+                            <Link to={createPageUrl("Journal")}>
+                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                                <BookOpen className="w-3 h-3 ml-1" />
+                                כתוב ביומן
+                              </Button>
+                            </Link>
+                          ) : (rec.includes('מטרה') || rec.includes('יעד') || rec.includes('תכנון')) ? (
+                            <Link to={createPageUrl("MyGoals")}>
+                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                                <Target className="w-3 h-3 ml-1" />
+                                הגדר יעד
+                              </Button>
+                            </Link>
+                          ) : (rec.includes('שאלה') || rec.includes('התייעצות')) ? (
+                            <Link to={createPageUrl("AICoach")}>
+                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                                <Sparkles className="w-3 h-3 ml-1" />
+                                התייעץ
+                              </Button>
+                            </Link>
+                          ) : null}
+                        </div>
                       </motion.div>
                     ))}
                   </div>
