@@ -162,7 +162,7 @@ export default function Home() {
             <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 drop-shadow-sm">כלים לגילוי עצמי</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 max-w-7xl mx-auto">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
@@ -171,16 +171,16 @@ export default function Home() {
                     whileHover={{ y: -5, scale: 1.02 }}
                     className="h-full"
                   >
-                    <div className="relative h-full overflow-hidden rounded-[2rem] border border-slate-700/50 bg-slate-900/40 p-1 transition-all duration-300 hover:bg-slate-800/60 hover:shadow-2xl hover:shadow-purple-500/10 group">
+                    <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/40 p-1 transition-all duration-300 hover:bg-slate-800/60 hover:shadow-xl hover:shadow-purple-500/10 group hover:-translate-y-1">
                       {tool.image ? (
                         <div className="w-full h-full relative">
                            <img 
                              src={tool.image} 
                              alt={tool.name} 
-                             className="w-full h-full object-cover rounded-[1.75rem]"
+                             className="w-full h-full object-cover rounded-xl"
                            />
                            {/* Overlay for hover effect */}
-                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-[1.75rem]" />
+                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-xl" />
                         </div>
                       ) : (
                         <>
