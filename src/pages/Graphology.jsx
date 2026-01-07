@@ -42,6 +42,7 @@ import GraphologyQuickStats from "@/components/GraphologyQuickStats";
 import GraphologyLearnMore from "@/components/GraphologyLearnMore";
 import GraphologyShareButton from "@/components/GraphologyShareButton";
 import { usePageView, useTimeTracking } from "@/components/Analytics";
+import HelpTooltip from "@/components/HelpTooltip";
 
 export default function Graphology() {
   usePageView('Graphology');
@@ -710,9 +711,12 @@ export default function Graphology() {
                           </div>
                         </div>
                         <div className="flex-1">
-                          <h2 className="text-3xl font-bold text-white mb-2">
-                            Formniveau
-                          </h2>
+                          <div className="flex items-center gap-2 mb-2">
+                            <h2 className="text-3xl font-bold text-white">
+                              Formniveau
+                            </h2>
+                            <HelpTooltip text="מדד לרמת ההתפתחות, המקוריות והאיזון הפנימי של הכותב. ציון גבוה מעיד על חיוניות, יצירתיות ואינטגרציה אישיותית טובה." />
+                          </div>
                           <Badge className="bg-yellow-600 text-white mb-3">
                             תיאוריה
                           </Badge>
@@ -793,6 +797,7 @@ export default function Graphology() {
                       <h2 className="text-3xl font-bold text-white flex items-center gap-3">
                         <Zap className="w-8 h-8 text-yellow-400" aria-hidden="true" />
                         סינתזה גשטאלטית
+                        <HelpTooltip text="גישת הגשטאלט בגרפולוגיה מסתכלת על הכתב כשלם, ולא רק כאוסף של סימנים בודדים. היא בוחנת את האינטראקציה בין התנועה, הצורה והמרחב." />
                       </h2>
                       <Badge className="bg-yellow-600 text-white">
                         Gestalt Graphology

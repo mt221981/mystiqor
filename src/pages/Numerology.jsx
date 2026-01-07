@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -24,6 +23,7 @@ import ConfidenceBadge from "@/components/ConfidenceBadge";
 import { usePageView, useTimeTracking, trackAnalysisComplete } from "@/components/Analytics";
 import { useCachedQuery, CACHE_TIMES } from "@/components/CachedQuery";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import HelpTooltip from "@/components/HelpTooltip";
 
 // Memoized sub-components for performance
 const NumberCard = React.memo(({ number, title, subtitle, gradient, onClick, delay = 0 }) => (
@@ -955,7 +955,12 @@ export default function Numerology() {
                     {results.calculation.life_path && (
                       <NumberCard
                         number={results.calculation.life_path.number}
-                        title="הדרך שלך בחיים"
+                        title={
+                          <div className="flex items-center justify-center gap-2">
+                            הדרך שלך בחיים
+                            <HelpTooltip text="מספר נתיב החיים נחשב למספר החשוב ביותר בנומרולוגיה. הוא חושף את המתווה הכללי של חייך, את ההזדמנויות והאתגרים שתפגוש." />
+                          </div>
+                        }
                         subtitle="המספר שמגדיר למה אתה פה"
                         gradient="from-purple-600 to-purple-800"
                         onClick={() => setSelectedNumber({
@@ -971,12 +976,17 @@ export default function Numerology() {
                     {results.calculation.destiny && (
                       <NumberCard
                         number={results.calculation.destiny.number}
-                        title="המספר שלך"
+                        title={
+                          <div className="flex items-center justify-center gap-2">
+                            מספר הגורל
+                            <HelpTooltip text="מחושב מהשם המלא שלך. מספר הגורל (או הביטוי) מייצג את הכישרונות הטבעיים שלך ואת מה שבאת לעולם כדי להשיג ולבטא." />
+                          </div>
+                        }
                         subtitle="מה אתה כאן לבטא"
                         gradient="from-pink-600 to-pink-800"
                         onClick={() => setSelectedNumber({
                           number: results.calculation.destiny.number,
-                          title: "המספר שלך",
+                          title: "מספר הגורל",
                           subtitle: "מה אתה כאן לבטא",
                           insights: getInsightsForNumber('destiny', results.calculation.destiny.number)
                         })}
@@ -987,7 +997,12 @@ export default function Numerology() {
                     {results.calculation.soul && (
                       <NumberCard
                         number={results.calculation.soul.number}
-                        title="דחף הנשמה"
+                        title={
+                          <div className="flex items-center justify-center gap-2">
+                            דחף הנשמה
+                            <HelpTooltip text="מחושב מתנועות השם שלך. מספר זה חושף את הרצונות העמוקים ביותר, המניעים הפנימיים ומה באמת גורם לך אושר." />
+                          </div>
+                        }
                         subtitle="מה הנשמה רוצה"
                         gradient="from-indigo-600 to-indigo-800"
                         onClick={() => setSelectedNumber({
@@ -1003,7 +1018,12 @@ export default function Numerology() {
                     {results.calculation.personality && (
                       <NumberCard
                         number={results.calculation.personality.number}
-                        title="האישיות החיצונית"
+                        title={
+                          <div className="flex items-center justify-center gap-2">
+                            האישיות החיצונית
+                            <HelpTooltip text="מחושב מעיצורי השם. זהו 'כרטיס הביקור' שלך - הרושם הראשוני שאתה משאיר על אחרים וכיצד העולם החיצוני תופס אותך." />
+                          </div>
+                        }
                         subtitle="איך אחרים רואים אותך"
                         gradient="from-blue-600 to-blue-800"
                         onClick={() => setSelectedNumber({

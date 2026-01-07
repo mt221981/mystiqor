@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery } from "@tanstack/react-query";
@@ -17,6 +16,7 @@ import { notifyAnalysisComplete } from "@/components/NotificationManager";
 import ExplainableInsight from "@/components/ExplainableInsight";
 import BirthChart from "@/components/BirthChart";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import HelpTooltip from "@/components/HelpTooltip";
 
 export default function Astrology() {
   const [formData, setFormData] = useState({
@@ -574,7 +574,10 @@ export default function Astrology() {
                 {results.calculation && results.calculation.sun_sign && results.calculation.moon_sign && results.calculation.rising_sign && (
                   <div className="grid md:grid-cols-3 gap-6">
                     <Card className="bg-gradient-to-br from-yellow-600 to-orange-600 border-none shadow-xl">
-                      <CardContent className="p-6 text-center">
+                      <CardContent className="p-6 text-center relative">
+                        <div className="absolute top-2 left-2">
+                          <HelpTooltip text="מזל השמש מייצג את המהות הפנימית שלך, את האגו, כוח הרצון והדרך בה אתה מבטא את עצמך בעולם." />
+                        </div>
                         <div className="text-5xl mb-3">☀️</div>
                         <h3 className="text-2xl font-bold text-white mb-2">שמש</h3>
                         <p className="text-white text-xl">{results.calculation.sun_sign}</p>
@@ -583,7 +586,10 @@ export default function Astrology() {
                     </Card>
 
                     <Card className="bg-gradient-to-br from-blue-600 to-indigo-600 border-none shadow-xl">
-                      <CardContent className="p-6 text-center">
+                      <CardContent className="p-6 text-center relative">
+                        <div className="absolute top-2 left-2">
+                          <HelpTooltip text="מזל הירח משקף את העולם הרגשי שלך, את הצרכים הלא-מודעים, האינסטינקטים ומה גורם לך להרגיש ביטחון." />
+                        </div>
                         <div className="text-5xl mb-3">🌙</div>
                         <h3 className="text-2xl font-bold text-white mb-2">ירח</h3>
                         <p className="text-white text-xl">{results.calculation.moon_sign}</p>
@@ -592,7 +598,10 @@ export default function Astrology() {
                     </Card>
 
                     <Card className="bg-gradient-to-br from-purple-600 to-pink-600 border-none shadow-xl">
-                      <CardContent className="p-6 text-center">
+                      <CardContent className="p-6 text-center relative">
+                        <div className="absolute top-2 left-2">
+                          <HelpTooltip text="האופק (Ascendant) הוא המזל שעלה במזרח ברגע הלידה. הוא מייצג את הרושם הראשוני, ההופעה החיצונית והגישה לחיים." />
+                        </div>
                         <div className="text-5xl mb-3">⬆️</div>
                         <h3 className="text-2xl font-bold text-white mb-2">אסצנדנט</h3>
                         <p className="text-white text-xl">{results.calculation.rising_sign}</p>
