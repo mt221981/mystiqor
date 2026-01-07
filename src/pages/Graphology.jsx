@@ -42,12 +42,10 @@ import GraphologyQuickStats from "@/components/GraphologyQuickStats";
 import GraphologyLearnMore from "@/components/GraphologyLearnMore";
 import GraphologyShareButton from "@/components/GraphologyShareButton";
 import { usePageView, useTimeTracking } from "@/components/Analytics";
-import { usePerformanceMarker } from "@/components/PerformanceOptimizer";
 
 export default function Graphology() {
   usePageView('Graphology');
   useTimeTracking('Graphology');
-  usePerformanceMarker('graphology-analysis');
 
   const [step, setStep] = useState(1);
   const [handwritingImage, setHandwritingImage] = useState(null);
