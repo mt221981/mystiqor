@@ -296,6 +296,17 @@ export default function Home() {
               />
             </motion.div>
 
+            {/* Recent Analyses */}
+            {allAnalyses.length > 0 && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <RecentAnalysesWidget analyses={allAnalyses} />
+              </motion.div>
+            )}
+
             {/* Compact Tools Grid */}
             <div className="bg-gradient-to-br from-slate-900/80 to-purple-900/20 rounded-3xl p-6 md:p-8 border border-purple-500/20 backdrop-blur-md">
               <div className="flex items-center justify-between mb-6">
