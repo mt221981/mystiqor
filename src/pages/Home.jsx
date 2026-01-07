@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Hash, Hand, PenTool, Layers, Sparkles, Heart, ArrowLeft, Stars, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft } from "lucide-react";
+import { Hash, Hand, PenTool, Layers, Sparkles, Heart, ArrowLeft, Stars, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCachedQuery, useUserDataQuery } from "@/components/CachedQuery";
 import { useState, Suspense } from "react";
@@ -56,7 +56,7 @@ const tools = [
   {
     name: "ציורים",
     path: "DrawingAnalysis",
-    icon: PenTool,
+    icon: Palette,
     gradient: "from-pink-500 via-rose-600 to-purple-600",
     description: "פסיכולוגיה בציור"
   },
@@ -150,36 +150,41 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-6"
+          className="space-y-8"
         >
-          <div className="flex items-center justify-center mb-2">
+          <div className="flex items-center justify-center mb-4">
             <h2 className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-pink-200 drop-shadow-sm">כלים לגילוי עצמי</h2>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.path} to={createPageUrl(tool.path)}>
                   <motion.div
-                    whileHover={{ y: -8, scale: 1.03 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
                     className="h-full"
                   >
-                    <div className={`relative flex flex-col items-center text-center gap-5 p-8 rounded-[2rem] h-full group overflow-hidden border-2 transition-all duration-300 bg-slate-900/40 border-slate-700/50 hover:border-purple-400/50 hover:bg-slate-800/80 hover:shadow-2xl`}>
+                    <div className="relative h-full overflow-hidden rounded-[2rem] border border-slate-700/50 bg-slate-900/40 p-1 transition-all duration-300 hover:bg-slate-800/60 hover:shadow-2xl hover:shadow-purple-500/10 group">
+                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`} />
                       
-                      {/* Background Glow Effect on Hover */}
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`} />
-                      
-                      {/* Larger Icon Container */}
-                      <div className={`w-24 h-24 shrink-0 rounded-3xl bg-gradient-to-br ${tool.gradient} p-0.5 shadow-2xl group-hover:scale-110 transition-transform duration-500 ring-4 ring-slate-900/50`}>
-                        <div className="w-full h-full bg-slate-950 rounded-[22px] flex items-center justify-center group-hover:bg-white/10 transition-colors">
-                          <Icon className="w-10 h-10 text-white drop-shadow-md" />
+                      <div className="flex h-full flex-col items-center justify-center p-8 text-center relative z-10">
+                        {/* Icon with soft glow */}
+                        <div className="relative mb-6">
+                          <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
+                          <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg`}>
+                            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                              <Icon className="w-9 h-9 text-white/90" />
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      
-                      <div className="w-full relative z-10 space-y-2">
-                        <span className="block text-2xl font-black text-white group-hover:text-purple-200 transition-colors">{tool.name}</span>
-                        <span className="text-lg text-slate-300 group-hover:text-white transition-colors block font-medium">{tool.description}</span>
+
+                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-200 transition-colors">
+                          {tool.name}
+                        </h3>
+                        <p className="text-slate-400 font-medium group-hover:text-slate-300 transition-colors">
+                          {tool.description}
+                        </p>
                       </div>
                     </div>
                   </motion.div>
