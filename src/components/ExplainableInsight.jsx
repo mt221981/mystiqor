@@ -205,12 +205,12 @@ export default function ExplainableInsight({ insight, showProvenance = true }) {
                           {/* Smart Action Buttons for Advice */}
                           <div className="mt-2 sm:mt-0 sm:mr-auto shrink-0 flex gap-2">
                             {(advice.includes('יומן') || advice.includes('כתיבה')) && (
-                              <Button size="sm" variant="outline" className="h-6 text-xs px-2 border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/50" onClick={() => window.location.href = '/Journal'}>
+                              <Button size="sm" className="h-7 text-xs px-3 bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm font-bold transition-all hover:scale-105" onClick={() => window.location.href = '/Journal'}>
                                 <BookOpen className="w-3 h-3 ml-1" /> יומן
                               </Button>
                             )}
                             {(advice.includes('מטרה') || advice.includes('יעד')) && (
-                              <Button size="sm" variant="outline" className="h-6 text-xs px-2 border-cyan-500/30 text-cyan-300 hover:bg-cyan-900/50" onClick={() => window.location.href = '/MyGoals'}>
+                              <Button size="sm" className="h-7 text-xs px-3 bg-cyan-600 hover:bg-cyan-700 text-white shadow-sm font-bold transition-all hover:scale-105" onClick={() => window.location.href = '/MyGoals'}>
                                 <Target className="w-3 h-3 ml-1" /> יעד
                               </Button>
                             )}

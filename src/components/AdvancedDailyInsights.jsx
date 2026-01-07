@@ -183,10 +183,10 @@ ${JSON.stringify(contextData, null, 2)}
             onClick={handleRegenerate}
             disabled={isGenerating || isLoading}
             size="sm"
-            variant="ghost"
-            className="text-purple-300 hover:text-white"
+            className="bg-purple-600 hover:bg-purple-700 text-white shadow-lg border border-purple-400/30 transition-all hover:scale-105 active:scale-95"
           >
-            <RefreshCw className={`w-4 h-4 ${(isGenerating || isLoading) ? 'animate-spin' : ''}`} />
+            <RefreshCw className={`w-4 h-4 ml-2 ${(isGenerating || isLoading) ? 'animate-spin' : ''}`} />
+            <span className="font-bold">רענן תובנות</span>
           </Button>
         </div>
       </CardHeader>
@@ -303,21 +303,21 @@ ${JSON.stringify(contextData, null, 2)}
                         <div className="shrink-0">
                           {rec.includes('יומן') || rec.includes('כתיבה') ? (
                             <Link to={createPageUrl("Journal")}>
-                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs shadow-md transition-all hover:scale-105 font-bold">
                                 <BookOpen className="w-3 h-3 ml-1" />
                                 כתוב ביומן
                               </Button>
                             </Link>
                           ) : (rec.includes('מטרה') || rec.includes('יעד') || rec.includes('תכנון')) ? (
                             <Link to={createPageUrl("MyGoals")}>
-                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs shadow-md transition-all hover:scale-105 font-bold">
                                 <Target className="w-3 h-3 ml-1" />
                                 הגדר יעד
                               </Button>
                             </Link>
                           ) : (rec.includes('שאלה') || rec.includes('התייעצות')) ? (
                             <Link to={createPageUrl("AICoach")}>
-                              <Button size="sm" variant="ghost" className="text-green-300 hover:text-green-100 hover:bg-green-800/50 h-8 text-xs border border-green-500/30">
+                              <Button size="sm" className="bg-emerald-600 hover:bg-emerald-700 text-white h-8 text-xs shadow-md transition-all hover:scale-105 font-bold">
                                 <Sparkles className="w-3 h-3 ml-1" />
                                 התייעץ
                               </Button>
