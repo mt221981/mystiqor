@@ -125,11 +125,12 @@ export default function Home() {
   const firstName = user?.full_name?.split(' ')[0] || userProfile?.full_name_hebrew?.split(' ')[0] || "חבר";
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-50 pb-20 overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-slate-50 pb-20 overflow-x-hidden">
       {/* Abstract Background Elements */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-900/20 rounded-full blur-[120px]" />
-        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-900/20 rounded-full blur-[100px]" />
+        <div className="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] bg-purple-600/20 rounded-full blur-[120px] mix-blend-screen animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[100px] mix-blend-screen animate-pulse" style={{ animationDuration: '7s' }} />
+        <div className="absolute top-[40%] left-[20%] w-[300px] h-[300px] bg-pink-600/10 rounded-full blur-[80px] mix-blend-screen animate-pulse" style={{ animationDuration: '5s' }} />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-12">
