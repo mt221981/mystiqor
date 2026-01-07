@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 
-export default function SmartRecommendations({ profile, goals = [], moodEntries = [], analyses = [] }) {
+export default function SmartRecommendations({ profile, goals = [], moodEntries = [], analyses = [], className }) {
   const recommendations = useMemo(() => {
     const recs = [];
 
@@ -60,7 +60,7 @@ export default function SmartRecommendations({ profile, goals = [], moodEntries 
   if (recommendations.length === 0) return null;
 
   return (
-    <Card className="bg-gradient-to-br from-pink-900/50 to-purple-900/50 border-pink-700/50">
+    <Card className={`bg-gradient-to-br from-pink-900/50 to-purple-900/50 border-pink-700/50 ${className}`}>
       <CardHeader>
         <CardTitle className="text-white flex items-center gap-2">
           <Sparkles className="w-5 h-5 text-pink-400" />

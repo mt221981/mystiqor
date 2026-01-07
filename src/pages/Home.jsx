@@ -268,15 +268,17 @@ export default function Home() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-4 flex flex-col h-full"
           >
-             <div className="flex items-center gap-2 mb-2">
+             <div className="flex items-center gap-2 mb-2 shrink-0">
                 <Zap className="w-5 h-5 text-yellow-500" />
                 <h3 className="text-xl font-bold text-slate-200">המטרות שלי</h3>
              </div>
-             <ErrorBoundary>
-                <GoalProgressWidget />
-             </ErrorBoundary>
+             <div className="flex-1">
+               <ErrorBoundary>
+                  <GoalProgressWidget className="h-full" />
+               </ErrorBoundary>
+             </div>
           </motion.div>
 
           {/* Active Journey or Recommendations */}
@@ -284,18 +286,19 @@ export default function Home() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-4"
+            className="space-y-4 flex flex-col h-full"
           >
              {activeJourneys.length > 0 ? (
                <>
-                 <div className="flex items-center gap-2 mb-2">
+                 <div className="flex items-center gap-2 mb-2 shrink-0">
                     <Compass className="w-5 h-5 text-emerald-500" />
                     <h3 className="text-xl font-bold text-slate-200">המסע הנוכחי</h3>
                  </div>
-                 <Link to={createPageUrl("JourneyDashboard")}>
-                    <Card className="bg-slate-900/60 border-slate-800 hover:border-emerald-500/30 transition-all cursor-pointer overflow-hidden">
-                      <CardContent className="p-6">
-                         <div className="flex justify-between items-start mb-4">
+                 <div className="flex-1">
+                   <Link to={createPageUrl("JourneyDashboard")} className="h-full block">
+                      <Card className="bg-slate-900/60 border-slate-800 hover:border-emerald-500/30 transition-all cursor-pointer overflow-hidden h-full">
+                        <CardContent className="p-6">
+                           <div className="flex justify-between items-start mb-4">
                             <div>
                                <h4 className="text-lg font-bold text-white mb-1">המשך את המסע</h4>
                                <p className="text-sm text-slate-400">
@@ -313,18 +316,21 @@ export default function Home() {
                </>
              ) : (
                <>
-                 <div className="flex items-center gap-2 mb-2">
+                 <div className="flex items-center gap-2 mb-2 shrink-0">
                     <Heart className="w-5 h-5 text-pink-500" />
                     <h3 className="text-xl font-bold text-slate-200">מומלץ עבורך</h3>
                  </div>
-                 <ErrorBoundary>
-                   <SmartRecommendations 
-                      profile={userProfile} 
-                      goals={goals} 
-                      moodEntries={moodEntries}
-                      analyses={allAnalyses}
-                    />
-                 </ErrorBoundary>
+                 <div className="flex-1">
+                   <ErrorBoundary>
+                     <SmartRecommendations 
+                        profile={userProfile} 
+                        goals={goals} 
+                        moodEntries={moodEntries}
+                        analyses={allAnalyses}
+                        className="h-full"
+                      />
+                   </ErrorBoundary>
+                 </div>
                </>
              )}
           </motion.div>

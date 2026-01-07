@@ -32,7 +32,7 @@ const FOCUS_ICONS = {
   creativity: "🎨"
 };
 
-export default function GoalProgressWidget() {
+export default function GoalProgressWidget({ className }) {
   const { data: goals = [], isLoading: loadingGoals } = useQuery({
     queryKey: ['activeGoals'],
     queryFn: async () => {
@@ -112,8 +112,9 @@ export default function GoalProgressWidget() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
+      className={className}
     >
-      <Card className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 backdrop-blur-xl border-purple-700/50">
+      <Card className="bg-gradient-to-br from-purple-900/50 to-pink-900/50 backdrop-blur-xl border-purple-700/50 h-full flex flex-col">
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
@@ -227,7 +228,7 @@ export default function GoalProgressWidget() {
           )}
 
           {/* Action Buttons */}
-          <div className="flex gap-2">
+          <div className="flex gap-2 mt-auto">
             <Link to={createPageUrl("MyGoals")} className="flex-1">
               <Button className="w-full bg-purple-600 hover:bg-purple-700 border-purple-500" size="sm">
                 יעדים
