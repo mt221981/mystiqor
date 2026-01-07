@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import { Hash, Hand, PenTool, Layers, Sparkles, Heart, ArrowLeft, Stars, TrendingUp, BookOpen, Compass, Brain, Zap, Smile, MessageSquare, Plus, CheckCircle, Search, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCachedQuery, useUserDataQuery } from "@/components/CachedQuery";
