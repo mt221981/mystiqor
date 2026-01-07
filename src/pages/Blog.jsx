@@ -16,7 +16,7 @@ import { motion } from "framer-motion";
 import { format } from "date-fns";
 import { he } from "date-fns/locale";
 import PageHeader from "@/components/PageHeader";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { FadeIn } from "@/components/PageTransition";
 
 const blogPosts = [
   {
@@ -299,71 +299,73 @@ export default function Blog() {
             </CardContent>
           </Card>
         ) : (
-          <StaggerContainer staggerDelay={0.1}>
-            <div className="grid md:grid-cols-2 gap-6">
-              {filteredPosts.map((post) => (
-                <StaggerItem key={post.id}>
-                  <motion.div whileHover={{ y: -5 }}>
-                    <Card className="bg-gray-900/80 backdrop-blur-xl border-purple-700/30 hover:border-purple-600/50 transition-all h-full cursor-pointer group"
-                          onClick={() => setSelectedPost(post)}>
-                      <CardHeader>
-                        <div className="flex items-start justify-between mb-4">
-                          <Badge className="bg-purple-600 text-white">
-                            {post.category}
+          <div className="grid md:grid-cols-2 gap-6">
+            {filteredPosts.map((post, idx) => (
+              <motion.div
+                key={post.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                whileHover={{ y: -5 }}
+              >
+                <Card className="bg-gray-900/80 backdrop-blur-xl border-purple-700/30 hover:border-purple-600/50 transition-all h-full cursor-pointer group"
+                      onClick={() => setSelectedPost(post)}>
+                  <CardHeader>
+                    <div className="flex items-start justify-between mb-4">
+                      <Badge className="bg-purple-600 text-white">
+                        {post.category}
+                      </Badge>
+                      {post.trending && (
+                        <Badge className="bg-orange-600 text-white">
+                          <TrendingUp className="w-3 h-3 ml-1" />
+                          טרנדי
+                        </Badge>
+                      )}
+                    </div>
+
+                    <CardTitle className="text-white text-xl mb-3 group-hover:text-purple-300 transition-colors">
+                      {post.title}
+                    </CardTitle>
+
+                    <p className="text-purple-300 leading-relaxed mb-4">
+                      {post.excerpt}
+                    </p>
+
+                    <div className="flex flex-wrap gap-3 text-sm text-purple-400">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        {format(post.date, 'dd MMM', { locale: he })}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <Clock className="w-4 h-4" />
+                        {post.readTime}
+                      </div>
+                      <div className="flex items-center gap-1">
+                        <User className="w-4 h-4" />
+                        {post.author}
+                      </div>
+                    </div>
+                  </CardHeader>
+
+                  <CardContent>
+                    <div className="flex items-center justify-between">
+                      <div className="flex flex-wrap gap-2">
+                        {post.tags.slice(0, 2).map((tag, i) => (
+                          <Badge key={i} variant="outline" className="border-purple-600/50 text-purple-300 text-xs">
+                            #{tag}
                           </Badge>
-                          {post.trending && (
-                            <Badge className="bg-orange-600 text-white">
-                              <TrendingUp className="w-3 h-3 ml-1" />
-                              טרנדי
-                            </Badge>
-                          )}
-                        </div>
-
-                        <CardTitle className="text-white text-xl mb-3 group-hover:text-purple-300 transition-colors">
-                          {post.title}
-                        </CardTitle>
-
-                        <p className="text-purple-300 leading-relaxed mb-4">
-                          {post.excerpt}
-                        </p>
-
-                        <div className="flex flex-wrap gap-3 text-sm text-purple-400">
-                          <div className="flex items-center gap-1">
-                            <Calendar className="w-4 h-4" />
-                            {format(post.date, 'dd MMM', { locale: he })}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <Clock className="w-4 h-4" />
-                            {post.readTime}
-                          </div>
-                          <div className="flex items-center gap-1">
-                            <User className="w-4 h-4" />
-                            {post.author}
-                          </div>
-                        </div>
-                      </CardHeader>
-
-                      <CardContent>
-                        <div className="flex items-center justify-between">
-                          <div className="flex flex-wrap gap-2">
-                            {post.tags.slice(0, 2).map((tag, i) => (
-                              <Badge key={i} variant="outline" className="border-purple-600/50 text-purple-300 text-xs">
-                                #{tag}
-                              </Badge>
-                            ))}
-                          </div>
-                          <Button variant="ghost" className="text-purple-400 group-hover:text-purple-300">
-                            קרא עוד
-                            <ArrowRight className="w-4 h-4 mr-2" />
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </div>
-          </StaggerContainer>
+                        ))}
+                      </div>
+                      <Button variant="ghost" className="text-purple-400 group-hover:text-purple-300">
+                        קרא עוד
+                        <ArrowRight className="w-4 h-4 mr-2" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
         )}
       </div>
     </div>
