@@ -19,6 +19,7 @@ import DrawingTutor from './pages/DrawingTutor';
 import DreamAnalysis from './pages/DreamAnalysis';
 import EditProfile from './pages/EditProfile';
 import Graphology from './pages/Graphology';
+import Home from './pages/Home';
 import IconGenerator from './pages/IconGenerator';
 import Journal from './pages/Journal';
 import JourneyDashboard from './pages/JourneyDashboard';
@@ -48,7 +49,6 @@ import Tutorials from './pages/Tutorials';
 import UserProfile from './pages/UserProfile';
 import UserSettings from './pages/UserSettings';
 import myanalyses from './pages/myanalyses';
-import Home from './pages/Home';
 import __Layout from './Layout.jsx';
 
 
@@ -74,6 +74,7 @@ export const PAGES = {
     "DreamAnalysis": DreamAnalysis,
     "EditProfile": EditProfile,
     "Graphology": Graphology,
+    "Home": Home,
     "IconGenerator": IconGenerator,
     "Journal": Journal,
     "JourneyDashboard": JourneyDashboard,
@@ -103,7 +104,6 @@ export const PAGES = {
     "UserProfile": UserProfile,
     "UserSettings": UserSettings,
     "myanalyses": myanalyses,
-    "Home": Home,
 }
 
 export const pagesConfig = {

@@ -77,7 +77,7 @@ export default function Home() {
     { staleTime: 60000 }
   );
 
-  const { data: userProfile } = useCachedQuery(
+  const { data: userProfile, isLoading: isLoadingProfile } = useCachedQuery(
     ['userProfile'],
     async () => {
       const profiles = await base44.entities.UserProfile.list('', 1);
@@ -118,6 +118,10 @@ export default function Home() {
   );
 
   // Check onboarding
+  if (isLoadingProfile) {
+    return <div className="min-h-screen bg-slate-950 flex items-center justify-center"></div>;
+  }
+
   if (!userProfile || !userProfile.birth_date) {
     return <OnboardingFlow />;
   }
