@@ -1,20 +1,23 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { base44 } from "@/api/base44Client";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Sparkles, Layers, TrendingUp, AlertTriangle, CheckCircle, Info, BookOpen, Zap, Target, Activity, Calendar } from "lucide-react";
+import { Sparkles, Layers, TrendingUp, AlertTriangle, CheckCircle, Info, BookOpen, Zap, Target, Activity, Calendar, Wand2, ArrowLeft } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from "sonner";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import { createPageUrl } from "@/utils";
 import PageHeader from "@/components/PageHeader";
 import ResultCard from "@/components/ResultCard";
 import { MysticalLoader } from "@/components/LoadingStates";
 import SubscriptionGuard from "@/components/SubscriptionGuard";
 import useSubscription from "@/components/useSubscription";
 import ExplainableInsight from "@/components/ExplainableInsight";
+import HelpTooltip from "@/components/HelpTooltip";
 
 export default function MysticSynthesis() {
   const [synthesis, setSynthesis] = useState(null);
@@ -48,29 +51,53 @@ export default function MysticSynthesis() {
     initialData: []
   });
 
-  // Select all analyses by default when loaded
-  useEffect(() => {
-    if (analyses.length > 0 && selectedIds.size === 0) {
-      // Default: Select latest of each type + up to 3 tarot
-      const toSelect = new Set();
-      const types = {};
-      analyses.forEach(a => {
-        if (a.tool_type === 'tarot') {
-          if (!types.tarot) types.tarot = 0;
-          if (types.tarot < 3) {
-            toSelect.add(a.id);
-            types.tarot++;
-          }
-        } else {
-          if (!types[a.tool_type]) {
-            toSelect.add(a.id);
-            types[a.tool_type] = true;
-          }
+  // Group analyses by type for easier display
+  const groupedAnalyses = useMemo(() => {
+    const groups = {
+      numerology: [],
+      astrology: [],
+      palmistry: [],
+      graphology: [],
+      tarot: [],
+      drawing_analysis: [],
+      other: []
+    };
+    
+    analyses.forEach(a => {
+      if (groups[a.tool_type]) {
+        groups[a.tool_type].push(a);
+      } else {
+        groups.other.push(a);
+      }
+    });
+    
+    return groups;
+  }, [analyses]);
+
+  const handleSmartSelect = () => {
+    const toSelect = new Set();
+    const types = {};
+    
+    analyses.forEach(a => {
+      // Logic: Pick latest of each major type, up to 3 tarot readings
+      if (a.tool_type === 'tarot') {
+        if (!types.tarot) types.tarot = 0;
+        if (types.tarot < 3) {
+          toSelect.add(a.id);
+          types.tarot++;
         }
-      });
-      setSelectedIds(toSelect);
-    }
-  }, [analyses.length]); // Only run when analyses load
+      } else {
+        if (!types[a.tool_type]) {
+          toSelect.add(a.id);
+          types[a.tool_type] = true;
+        }
+      }
+    });
+    
+    setSelectedIds(toSelect);
+    setIncludeMood(true);
+    toast.success("נבחרו הנתונים העדכניים והרלוונטיים ביותר");
+  };
 
   const toggleSelection = (id) => {
     const newSet = new Set(selectedIds);
@@ -78,6 +105,13 @@ export default function MysticSynthesis() {
     else newSet.add(id);
     setSelectedIds(newSet);
   };
+  
+  // Auto-select on first load
+  useEffect(() => {
+    if (analyses.length > 0 && selectedIds.size === 0) {
+      handleSmartSelect();
+    }
+  }, [analyses.length]);
 
   const synthesizeMutation = useMutation({
     mutationFn: async ({ profile, selectedAnalyses, moodData }) => {
@@ -519,74 +553,101 @@ ${moodData && moodData.length > 0 ? `**נתוני מצב רוח (30 יום אח�
                     </p>
 
                     {analyses.length > 0 ? (
-                      <div className="mb-8 text-right max-w-2xl mx-auto">
-                        <p className="text-purple-200 font-bold mb-4 flex items-center gap-2">
-                          <CheckCircle className="w-5 h-5" />
-                          בחר את מקורות המידע לניתוח:
-                        </p>
+                      <div className="mb-8 text-right max-w-3xl mx-auto">
+                        <div className="flex justify-between items-center mb-4">
+                          <p className="text-purple-200 font-bold flex items-center gap-2">
+                            <CheckCircle className="w-5 h-5" />
+                            מקורות המידע לניתוח
+                            <HelpTooltip text="בחר אילו ניתוחים ונתונים תרצה לכלול בסינתזה. המערכת תצליב את כל המידע שבחרת כדי למצוא דפוסים ותובנות." />
+                          </p>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={handleSmartSelect}
+                            className="bg-purple-900/50 border-purple-500/50 text-purple-200 hover:text-white hover:bg-purple-800"
+                          >
+                            <Wand2 className="w-3 h-3 ml-2" />
+                            בחירה חכמה
+                          </Button>
+                        </div>
                         
-                        <div className="space-y-4 max-h-60 overflow-y-auto pr-2 custom-scrollbar bg-black/20 rounded-xl p-4 border border-purple-500/20">
+                        <div className="space-y-4 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar bg-black/20 rounded-xl p-4 border border-purple-500/20">
                           {/* Mood Selection */}
                           {moodEntries.length > 0 && (
                             <div 
                               onClick={() => setIncludeMood(!includeMood)}
                               className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
-                                includeMood ? 'bg-purple-600/30 border-purple-500' : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
+                                includeMood ? 'bg-pink-900/40 border-pink-500' : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
                               }`}
                             >
-                              <Checkbox checked={includeMood} onCheckedChange={setIncludeMood} className="border-purple-300" />
+                              <Checkbox checked={includeMood} onCheckedChange={setIncludeMood} className="border-pink-300 data-[state=checked]:bg-pink-500" />
                               <div className="flex items-center gap-3 flex-1">
                                 <div className="w-8 h-8 rounded-full bg-pink-500/20 flex items-center justify-center">
                                   <Activity className="w-4 h-4 text-pink-300" />
                                 </div>
                                 <div>
                                   <p className="text-white font-medium">הרגשה ומצב רוח</p>
-                                  <p className="text-purple-200 text-xs">{moodEntries.length} רשומות אחרונות</p>
+                                  <p className="text-pink-200 text-xs">{moodEntries.length} רשומות (ממוצע: {(moodEntries.reduce((a,b)=>a+(b.mood_score||0),0)/moodEntries.length).toFixed(1)})</p>
                                 </div>
                               </div>
                             </div>
                           )}
 
-                          {/* Analyses Selection */}
-                          {analyses.map((analysis) => (
-                            <div 
-                              key={analysis.id}
-                              onClick={() => toggleSelection(analysis.id)}
-                              className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
-                                selectedIds.has(analysis.id) ? 'bg-purple-600/30 border-purple-500' : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
-                              }`}
-                            >
-                              <Checkbox 
-                                checked={selectedIds.has(analysis.id)} 
-                                onCheckedChange={() => toggleSelection(analysis.id)}
-                                className="border-purple-300"
-                              />
-                              <div className="flex items-center gap-3 flex-1">
-                                <div className="w-8 h-8 rounded-full bg-indigo-500/20 flex items-center justify-center">
-                                  {analysis.tool_type === 'numerology' && <span className="text-lg">🔢</span>}
-                                  {analysis.tool_type === 'astrology' && <span className="text-lg">⭐</span>}
-                                  {analysis.tool_type === 'palmistry' && <span className="text-lg">🖐️</span>}
-                                  {analysis.tool_type === 'graphology' && <span className="text-lg">✍️</span>}
-                                  {analysis.tool_type === 'tarot' && <span className="text-lg">🃏</span>}
-                                  {analysis.tool_type === 'drawing_analysis' && <span className="text-lg">🎨</span>}
-                                </div>
-                                <div>
-                                  <p className="text-white font-medium">
-                                    {analysis.tool_type === 'numerology' && 'נומרולוגיה'}
-                                    {analysis.tool_type === 'astrology' && 'אסטרולוגיה'}
-                                    {analysis.tool_type === 'palmistry' && 'כף יד'}
-                                    {analysis.tool_type === 'graphology' && 'גרפולוגיה'}
-                                    {analysis.tool_type === 'tarot' && 'פריסת טארוט'}
-                                    {analysis.tool_type === 'drawing_analysis' && 'ניתוח ציור'}
-                                  </p>
-                                  <p className="text-purple-200 text-xs flex items-center gap-1">
-                                    <Calendar className="w-3 h-3" />
-                                    {format(new Date(analysis.created_date), 'dd/MM/yyyy HH:mm')}
-                                  </p>
-                                </div>
+                          {/* Grouped Analyses Selection */}
+                          {Object.entries(groupedAnalyses).map(([type, items]) => {
+                            if (items.length === 0) return null;
+                            const typeLabels = {
+                              numerology: { label: 'נומרולוגיה', icon: '🔢', color: 'indigo' },
+                              astrology: { label: 'אסטרולוגיה', icon: '⭐', color: 'blue' },
+                              palmistry: { label: 'כף יד', icon: '🖐️', color: 'teal' },
+                              graphology: { label: 'גרפולוגיה', icon: '✍️', color: 'emerald' },
+                              tarot: { label: 'טארוט', icon: '🃏', color: 'purple' },
+                              drawing_analysis: { label: 'ניתוח ציור', icon: '🎨', color: 'orange' },
+                              other: { label: 'אחר', icon: '📁', color: 'gray' }
+                            };
+                            const info = typeLabels[type] || typeLabels.other;
+
+                            return (
+                              <div key={type} className="space-y-2">
+                                <h4 className="text-gray-400 text-xs font-bold uppercase tracking-wider px-1 mt-2 mb-1">{info.label}</h4>
+                                {items.map((analysis) => (
+                                  <div 
+                                    key={analysis.id}
+                                    onClick={() => toggleSelection(analysis.id)}
+                                    className={`flex items-center gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
+                                      selectedIds.has(analysis.id) 
+                                        ? `bg-${info.color}-900/40 border-${info.color}-500` 
+                                        : 'bg-gray-800/30 border-gray-700 hover:bg-gray-800/50'
+                                    }`}
+                                  >
+                                    <Checkbox 
+                                      checked={selectedIds.has(analysis.id)} 
+                                      onCheckedChange={() => toggleSelection(analysis.id)}
+                                      className={`border-${info.color}-300 data-[state=checked]:bg-${info.color}-600`}
+                                    />
+                                    <div className="flex items-center gap-3 flex-1">
+                                      <div className={`w-8 h-8 rounded-full bg-${info.color}-500/20 flex items-center justify-center text-lg`}>
+                                        {info.icon}
+                                      </div>
+                                      <div className="flex-1">
+                                        <div className="flex justify-between items-center">
+                                          <p className="text-white font-medium text-sm">
+                                            {info.label}
+                                          </p>
+                                          <span className="text-[10px] text-gray-400 font-mono">
+                                            {format(new Date(analysis.created_date), 'dd/MM')}
+                                          </span>
+                                        </div>
+                                        <p className="text-gray-300 text-xs truncate max-w-[200px]">
+                                          {analysis.summary || 'ניתוח ללא כותרת'}
+                                        </p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                ))}
                               </div>
-                            </div>
-                          ))}
+                            );
+                          })}
                         </div>
                       </div>
                     ) : (
@@ -871,10 +932,45 @@ ${moodData && moodData.length > 0 ? `**נתוני מצב רוח (30 יום אח�
                             <span className="text-teal-400 font-bold text-2xl shrink-0">{idx + 1}.</span>
                             <div className="flex-1">
                               <h4 className="text-teal-100 font-bold text-lg mb-2">{rec.recommendation}</h4>
-                              <p className="text-teal-200 text-sm leading-relaxed mb-3">{rec.why_for_you}</p>
-                              
+                              <p className="text-teal-200 text-sm leading-relaxed mb-4">{rec.why_for_you}</p>
+
+                              <div className="flex flex-wrap gap-2 mb-4">
+                                {rec.actionable && (
+                                  <div className="flex gap-2 w-full sm:w-auto">
+                                    {/* Intelligent Action Buttons based on content */}
+                                    {rec.recommendation.includes('יומן') && (
+                                      <Link to={createPageUrl("Journal")}>
+                                        <Button size="sm" variant="outline" className="border-teal-500/50 text-teal-200 hover:bg-teal-800/50 w-full">
+                                          <BookOpen className="w-3 h-3 ml-2" />
+                                          כתוב ביומן
+                                        </Button>
+                                      </Link>
+                                    )}
+                                    {rec.recommendation.includes('מטרה') || rec.recommendation.includes('יעד') && (
+                                      <Link to={createPageUrl("MyGoals")}>
+                                        <Button size="sm" variant="outline" className="border-teal-500/50 text-teal-200 hover:bg-teal-800/50 w-full">
+                                          <Target className="w-3 h-3 ml-2" />
+                                          הגדר יעד
+                                        </Button>
+                                      </Link>
+                                    )}
+                                    {!rec.recommendation.includes('יומן') && !rec.recommendation.includes('מטרה') && (
+                                      <Link to={createPageUrl("AICoach")}>
+                                        <Button size="sm" variant="outline" className="border-teal-500/50 text-teal-200 hover:bg-teal-800/50 w-full">
+                                          <Sparkles className="w-3 h-3 ml-2" />
+                                          התייעץ עם המאמן
+                                        </Button>
+                                      </Link>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+
                               <div className="bg-teal-900/40 rounded-lg p-3">
-                                <p className="text-teal-300 text-xs font-semibold mb-2">מבוסס על:</p>
+                                <div className="flex items-center justify-between mb-2">
+                                  <p className="text-teal-300 text-xs font-semibold">מבוסס על:</p>
+                                  <HelpTooltip text="המידע הספציפי מהכלים השונים שהוביל להמלצה זו" className="text-teal-400" />
+                                </div>
                                 <div className="flex flex-wrap gap-2 mb-2">
                                   {rec.based_on_tools.map((tool, i) => (
                                     <Badge key={i} className="bg-teal-700 text-white text-xs">
@@ -885,11 +981,11 @@ ${moodData && moodData.length > 0 ? `**נתוני מצב רוח (30 יום אח�
                                 <p className="text-teal-200 text-xs">{rec.specific_basis}</p>
                               </div>
                             </div>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </ResultCard>
+                            </div>
+                            </motion.div>
+                            ))}
+                            </div>
+                            </ResultCard>
                 )}
 
                 {/* Missing Tools Notice */}
