@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import { motion } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
-import { FadeIn, StaggerContainer, StaggerItem } from "@/components/PageTransition";
+import { FadeIn } from "@/components/PageTransition";
 
 const tutorials = [
   {
@@ -210,68 +210,70 @@ export default function Tutorials() {
             </FadeIn>
 
             {/* Tutorials Grid */}
-            <StaggerContainer staggerDelay={0.1}>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-                {tutorials.map((tutorial) => {
-                  const Icon = tutorial.icon;
-                  const isCompleted = completedTutorials.includes(tutorial.id);
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              {tutorials.map((tutorial, idx) => {
+                const Icon = tutorial.icon;
+                const isCompleted = completedTutorials.includes(tutorial.id);
 
-                  return (
-                    <StaggerItem key={tutorial.id}>
-                      <motion.div whileHover={{ y: -5 }}>
-                        <Card className="bg-gray-900/80 backdrop-blur-xl border-purple-700/30 hover:border-purple-600/50 transition-all h-full relative overflow-hidden group">
-                          {isCompleted && (
-                            <div className="absolute top-4 left-4 z-10">
-                              <CheckCircle className="w-8 h-8 text-green-400" />
-                            </div>
-                          )}
+                return (
+                  <motion.div
+                    key={tutorial.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: idx * 0.1 }}
+                    whileHover={{ y: -5 }}
+                  >
+                    <Card className="bg-gray-900/80 backdrop-blur-xl border-purple-700/30 hover:border-purple-600/50 transition-all h-full relative overflow-hidden group">
+                      {isCompleted && (
+                        <div className="absolute top-4 left-4 z-10">
+                          <CheckCircle className="w-8 h-8 text-green-400" />
+                        </div>
+                      )}
 
-                          <div className={`absolute inset-0 bg-gradient-to-br ${tutorial.gradient} opacity-0 group-hover:opacity-10 transition-opacity`} />
+                      <div className={`absolute inset-0 bg-gradient-to-br ${tutorial.gradient} opacity-0 group-hover:opacity-10 transition-opacity`} />
 
-                          <CardHeader>
-                            <div className={`w-16 h-16 bg-gradient-to-br ${tutorial.gradient} rounded-2xl flex items-center justify-center mb-4 shadow-xl`}>
-                              <Icon className="w-8 h-8 text-white" />
-                            </div>
+                      <CardHeader>
+                        <div className={`w-16 h-16 bg-gradient-to-br ${tutorial.gradient} rounded-2xl flex items-center justify-center mb-4 shadow-xl`}>
+                          <Icon className="w-8 h-8 text-white" />
+                        </div>
 
-                            <CardTitle className="text-white text-xl mb-3">
-                              {tutorial.title}
-                            </CardTitle>
+                        <CardTitle className="text-white text-xl mb-3">
+                          {tutorial.title}
+                        </CardTitle>
 
-                            <p className="text-purple-300 text-sm leading-relaxed mb-4">
-                              {tutorial.description}
-                            </p>
+                        <p className="text-purple-300 text-sm leading-relaxed mb-4">
+                          {tutorial.description}
+                        </p>
 
-                            <div className="flex gap-2 flex-wrap">
-                              <Badge className={getLevelColor(tutorial.level)}>
-                                {tutorial.level}
-                              </Badge>
-                              <Badge variant="outline" className="border-purple-600/50 text-purple-300">
-                                <Clock className="w-3 h-3 ml-1" />
-                                {tutorial.duration}
-                              </Badge>
-                            </div>
-                          </CardHeader>
+                        <div className="flex gap-2 flex-wrap">
+                          <Badge className={getLevelColor(tutorial.level)}>
+                            {tutorial.level}
+                          </Badge>
+                          <Badge variant="outline" className="border-purple-600/50 text-purple-300">
+                            <Clock className="w-3 h-3 ml-1" />
+                            {tutorial.duration}
+                          </Badge>
+                        </div>
+                      </CardHeader>
 
-                          <CardContent>
-                            <Button
-                              onClick={() => setSelectedTutorial(tutorial)}
-                              className={`w-full ${
-                                isCompleted 
-                                  ? 'bg-gray-700 hover:bg-gray-600'
-                                  : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
-                              }`}
-                            >
-                              <PlayCircle className="w-5 h-5 ml-2" />
-                              {isCompleted ? 'צפה שוב' : 'התחל ללמוד'}
-                            </Button>
-                          </CardContent>
-                        </Card>
-                      </motion.div>
-                    </StaggerItem>
-                  );
-                })}
-              </div>
-            </StaggerContainer>
+                      <CardContent>
+                        <Button
+                          onClick={() => setSelectedTutorial(tutorial)}
+                          className={`w-full ${
+                            isCompleted 
+                              ? 'bg-gray-700 hover:bg-gray-600'
+                              : 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700'
+                          }`}
+                        >
+                          <PlayCircle className="w-5 h-5 ml-2" />
+                          {isCompleted ? 'צפה שוב' : 'התחל ללמוד'}
+                        </Button>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                );
+              })}
+            </div>
 
             {/* FAQ */}
             <FadeIn delay={0.5}>
