@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { base44 } from "@/api/base44Client";
-import { Sparkles, TrendingUp, Target, Brain, Loader2, RefreshCw, Crown, Lock } from "lucide-react";
+import { Sparkles, TrendingUp, Target, Brain, Loader2, RefreshCw, Crown, Lock, CheckCircle } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import useSubscription from "./useSubscription";
 import { Link } from "react-router-dom";
@@ -361,10 +361,77 @@ ${JSON.stringify(contextData, null, 2)}
           )}
         </AnimatePresence>
 
-        {!insights && !isLoading && goals.length === 0 && (
-          <div className="text-center py-8">
-            <Brain className="w-12 h-12 text-gray-500 mx-auto mb-3" />
-            <p className="text-gray-400">התחל להגדיר יעדים ולעקוב אחר מצב הרוח כדי לקבל תובנות מתקדמות</p>
+        {!insights && !isLoading && (goals.length === 0 || moodEntries.length === 0) && (
+          <div className="py-6 px-4">
+            <div className="text-center mb-8">
+                <div className="bg-white/10 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-4 backdrop-blur-md border border-white/20 shadow-xl shadow-purple-500/20 relative">
+                    <Brain className="w-10 h-10 text-purple-200" />
+                    <div className="absolute -top-1 -right-1 bg-yellow-500 rounded-full p-1.5 animate-pulse">
+                        <Sparkles className="w-4 h-4 text-white" />
+                    </div>
+                </div>
+                <h3 className="text-2xl font-bold text-white mb-3">בוא נפעיל את ה-AI שלך 🧠</h3>
+                <p className="text-purple-100 text-lg max-w-lg mx-auto leading-relaxed">
+                  המערכת זקוקה לנתונים כדי לייצר תובנות חכמות עבורך.
+                  בצע את הפעולות הבאות כדי להתחיל:
+                </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-2xl mx-auto">
+                <Link to={createPageUrl("MyGoals")} className="block group h-full">
+                    <div className={`relative overflow-hidden rounded-2xl p-6 border-2 transition-all duration-300 h-full flex flex-col ${goals.length > 0 ? 'bg-green-900/40 border-green-500/50' : 'bg-gray-800/60 border-gray-600/50 hover:border-blue-400/50 hover:bg-gray-800/80 hover:shadow-lg hover:shadow-blue-500/20 group-hover:-translate-y-1'}`}>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className={`p-3 rounded-xl ${goals.length > 0 ? 'bg-green-500/20 text-green-300' : 'bg-blue-500/20 text-blue-300'}`}>
+                                <Target className="w-8 h-8" />
+                            </div>
+                            {goals.length > 0 ? (
+                                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                                    <CheckCircle className="w-3 h-3 ml-1" />
+                                    יש נתונים
+                                </Badge>
+                            ) : (
+                                <Badge className="bg-gray-700 text-gray-300 border-gray-600">
+                                    ממתין לנתונים
+                                </Badge>
+                            )}
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">1. הגדרת יעדים</h4>
+                        <p className="text-gray-300 text-sm mb-6 flex-grow">
+                            הגדר יעדים כדי שה-AI יוכל לעזור לך להתמקד ולעקוב אחר התקדמות.
+                        </p>
+                        <Button className={`w-full mt-auto ${goals.length > 0 ? 'bg-green-600/50 hover:bg-green-600/70 text-green-100' : 'bg-blue-600 hover:bg-blue-500 text-white shadow-md font-bold'}`}>
+                            {goals.length > 0 ? 'הוסף עוד יעדים' : 'הגדר יעד ראשון'}
+                        </Button>
+                    </div>
+                </Link>
+                
+                <Link to={createPageUrl("MoodTracker")} className="block group h-full">
+                    <div className={`relative overflow-hidden rounded-2xl p-6 border-2 transition-all duration-300 h-full flex flex-col ${moodEntries.length > 0 ? 'bg-green-900/40 border-green-500/50' : 'bg-gray-800/60 border-gray-600/50 hover:border-pink-400/50 hover:bg-gray-800/80 hover:shadow-lg hover:shadow-pink-500/20 group-hover:-translate-y-1'}`}>
+                        <div className="flex items-center justify-between mb-4">
+                            <div className={`p-3 rounded-xl ${moodEntries.length > 0 ? 'bg-green-500/20 text-green-300' : 'bg-pink-500/20 text-pink-300'}`}>
+                                <TrendingUp className="w-8 h-8" />
+                            </div>
+                            {moodEntries.length > 0 ? (
+                                <Badge className="bg-green-500/20 text-green-300 border-green-500/30">
+                                    <CheckCircle className="w-3 h-3 ml-1" />
+                                    יש נתונים
+                                </Badge>
+                            ) : (
+                                <Badge className="bg-gray-700 text-gray-300 border-gray-600">
+                                    ממתין לנתונים
+                                </Badge>
+                            )}
+                        </div>
+                        <h4 className="text-xl font-bold text-white mb-2">2. מעקב מצב רוח</h4>
+                        <p className="text-gray-300 text-sm mb-6 flex-grow">
+                            תעד איך אתה מרגיש כדי לזהות דפוסים ולקבל תובנות רגשיות.
+                        </p>
+                        <Button className={`w-full mt-auto ${moodEntries.length > 0 ? 'bg-green-600/50 hover:bg-green-600/70 text-green-100' : 'bg-pink-600 hover:bg-pink-500 text-white shadow-md font-bold'}`}>
+                            {moodEntries.length > 0 ? 'תעד שוב' : 'התחל מעקב'}
+                        </Button>
+                    </div>
+                </Link>
+            </div>
           </div>
         )}
       </CardContent>
