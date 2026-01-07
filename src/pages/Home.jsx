@@ -312,9 +312,10 @@ export default function Home() {
                          <Progress value={activeJourneys[0].progress_percentage || 0} className="h-2 bg-slate-800" />
                       </CardContent>
                     </Card>
-                 </Link>
-               </>
-             ) : (
+                    </Link>
+                    </div>
+                    </>
+                    ) : (
                <>
                  <div className="flex items-center gap-2 mb-2 shrink-0">
                     <Heart className="w-5 h-5 text-pink-500" />
