@@ -69,28 +69,34 @@ export default function GoalProgressWidget({ className }) {
 
   if (goals.length === 0 && journeys.length === 0) {
     return (
-      <Card className="bg-purple-900/30 border-purple-700/30">
-        <CardContent className="p-6">
-          <div className="text-center">
-            <Target className="w-12 h-12 text-purple-400 mx-auto mb-3 opacity-50" />
-            <p className="text-purple-300 mb-4">עדיין אין יעדים או מסעות</p>
-            <div className="flex gap-2">
-              <Link to={createPageUrl("MyGoals")} className="flex-1">
-                <Button className="w-full bg-purple-600 hover:bg-purple-700" size="sm">
-                  <Target className="w-4 h-4 ml-2" />
-                  צור יעד
-                </Button>
-              </Link>
-              <Link to={createPageUrl("AICoach")} className="flex-1">
-                <Button className="w-full bg-indigo-600 hover:bg-indigo-700" size="sm">
-                  <Map className="w-4 h-4 ml-2" />
-                  צור מסע
-                </Button>
-              </Link>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className={className}
+      >
+        <Card className="bg-purple-900/30 border-purple-700/30 h-full flex flex-col justify-center">
+          <CardContent className="p-6">
+            <div className="text-center">
+              <Target className="w-12 h-12 text-purple-400 mx-auto mb-3 opacity-50" />
+              <p className="text-purple-300 mb-4">עדיין אין יעדים או מסעות</p>
+              <div className="flex gap-2">
+                <Link to={createPageUrl("MyGoals")} className="flex-1">
+                  <Button className="w-full bg-purple-600 hover:bg-purple-700" size="sm">
+                    <Target className="w-4 h-4 ml-2" />
+                    צור יעד
+                  </Button>
+                </Link>
+                <Link to={createPageUrl("AICoach")} className="flex-1">
+                  <Button className="w-full bg-indigo-600 hover:bg-indigo-700" size="sm">
+                    <Map className="w-4 h-4 ml-2" />
+                    צור מסע
+                  </Button>
+                </Link>
+              </div>
             </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      </motion.div>
     );
   }
 
