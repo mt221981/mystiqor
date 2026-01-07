@@ -21,6 +21,7 @@ const tools = [
   {
     name: "נומרולוגיה",
     path: "Numerology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/10257c7b0_2026-01-07174648.png",
     icon: Calculator,
     gradient: "from-purple-500 via-purple-600 to-pink-600",
     description: "גלה את כוח המספרים"
@@ -28,6 +29,7 @@ const tools = [
   {
     name: "אסטרולוגיה",
     path: "Astrology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/7b9e34d8e_2026-01-07174644.png",
     icon: Sun,
     gradient: "from-indigo-500 via-blue-600 to-purple-600",
     description: "מפת הכוכבים שלך"
@@ -35,6 +37,7 @@ const tools = [
   {
     name: "קריאת כף יד",
     path: "Palmistry",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/957bd019e_2026-01-07174640.png",
     icon: Hand,
     gradient: "from-blue-500 via-cyan-600 to-teal-600",
     description: "סודות כף היד"
@@ -42,6 +45,7 @@ const tools = [
   {
     name: "טארוט",
     path: "Tarot",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/94dc4b47b_2026-01-07174627.png",
     icon: FileStack,
     gradient: "from-amber-500 via-orange-600 to-red-600",
     description: "מסרים מהקלפים"
@@ -49,6 +53,7 @@ const tools = [
   {
     name: "גרפולוגיה",
     path: "Graphology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/d32a255ec_2026-01-07174631.png",
     icon: FileSignature,
     gradient: "from-green-500 via-emerald-600 to-teal-600",
     description: "ניתוח כתב יד"
@@ -56,6 +61,7 @@ const tools = [
   {
     name: "ציורים",
     path: "DrawingAnalysis",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/553543711_2026-01-07174635.png",
     icon: Palette,
     gradient: "from-pink-500 via-rose-600 to-purple-600",
     description: "פסיכולוגיה בציור"
@@ -166,26 +172,40 @@ export default function Home() {
                     className="h-full"
                   >
                     <div className="relative h-full overflow-hidden rounded-[2rem] border border-slate-700/50 bg-slate-900/40 p-1 transition-all duration-300 hover:bg-slate-800/60 hover:shadow-2xl hover:shadow-purple-500/10 group">
-                      <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`} />
-                      
-                      <div className="flex h-full flex-col items-center justify-center p-8 text-center relative z-10">
-                        {/* Icon with soft glow */}
-                        <div className="relative mb-6">
-                          <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
-                          <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg`}>
-                            <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                              <Icon className="w-9 h-9 text-white/90" />
-                            </div>
-                          </div>
+                      {tool.image ? (
+                        <div className="w-full h-full relative">
+                           <img 
+                             src={tool.image} 
+                             alt={tool.name} 
+                             className="w-full h-full object-cover rounded-[1.75rem]"
+                           />
+                           {/* Overlay for hover effect */}
+                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-[1.75rem]" />
                         </div>
+                      ) : (
+                        <>
+                          <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-5`} />
 
-                        <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-200 transition-colors">
-                          {tool.name}
-                        </h3>
-                        <p className="text-slate-400 font-medium group-hover:text-slate-300 transition-colors">
-                          {tool.description}
-                        </p>
-                      </div>
+                          <div className="flex h-full flex-col items-center justify-center p-8 text-center relative z-10">
+                            {/* Icon with soft glow */}
+                            <div className="relative mb-6">
+                              <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
+                              <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg`}>
+                                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                                  <Icon className="w-9 h-9 text-white/90" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <h3 className="text-2xl font-bold text-white mb-2 group-hover:text-purple-200 transition-colors">
+                              {tool.name}
+                            </h3>
+                            <p className="text-slate-400 font-medium group-hover:text-slate-300 transition-colors">
+                              {tool.description}
+                            </p>
+                          </div>
+                        </>
+                      )}
                     </div>
                   </motion.div>
                 </Link>
