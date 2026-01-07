@@ -171,16 +171,16 @@ export default function Home() {
                     whileHover={{ y: -5, scale: 1.02 }}
                     className="h-full"
                   >
-                    <div className="relative aspect-square overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/40 p-1 transition-all duration-300 hover:bg-slate-800/60 hover:shadow-xl hover:shadow-purple-500/10 group hover:-translate-y-1">
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl border border-slate-700/50 bg-slate-900/80 p-0.5 transition-all duration-300 hover:bg-slate-800/80 hover:shadow-xl hover:shadow-purple-500/10 group hover:-translate-y-1">
                       {tool.image ? (
-                        <div className="w-full h-full relative">
+                        <div className="w-full h-full relative flex items-center justify-center bg-black rounded-xl overflow-hidden">
                            <img 
                              src={tool.image} 
                              alt={tool.name} 
-                             className="w-full h-full object-cover rounded-xl"
+                             className="w-full h-full object-contain"
                            />
                            {/* Overlay for hover effect */}
-                           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 rounded-xl" />
+                           <div className="absolute inset-0 bg-transparent group-hover:bg-white/5 transition-colors duration-300" />
                         </div>
                       ) : (
                         <>
