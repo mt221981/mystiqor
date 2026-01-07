@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Hash, Hand, PenTool, Layers, Sparkles, Heart, ArrowLeft, Stars, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft, Palette } from "lucide-react";
+import { Binary, Hand, PenTool, FileStack, Sparkles, Heart, ArrowLeft, Stars, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCachedQuery, useUserDataQuery } from "@/components/CachedQuery";
 import { useState, Suspense } from "react";
@@ -21,7 +21,7 @@ const tools = [
   {
     name: "נומרולוגיה",
     path: "Numerology",
-    icon: Hash,
+    icon: Binary,
     gradient: "from-purple-500 via-purple-600 to-pink-600",
     description: "גלה את כוח המספרים"
   },
@@ -42,7 +42,7 @@ const tools = [
   {
     name: "טארוט",
     path: "Tarot",
-    icon: Layers,
+    icon: FileStack,
     gradient: "from-amber-500 via-orange-600 to-red-600",
     description: "מסרים מהקלפים"
   },
