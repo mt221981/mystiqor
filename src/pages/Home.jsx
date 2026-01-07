@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { createPageUrl } from "@/utils";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Binary, Hand, PenTool, FileStack, Sparkles, Heart, ArrowLeft, Stars, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft, Palette } from "lucide-react";
+import { Calculator, Hand, FileSignature, FileStack, Sparkles, Heart, ArrowLeft, Sun, BookOpen, Compass, Brain, Zap, Smile, Search, HelpCircle, ChevronLeft, Palette } from "lucide-react";
 import { motion } from "framer-motion";
 import { useCachedQuery, useUserDataQuery } from "@/components/CachedQuery";
 import { useState, Suspense } from "react";
@@ -21,14 +21,14 @@ const tools = [
   {
     name: "נומרולוגיה",
     path: "Numerology",
-    icon: Binary,
+    icon: Calculator,
     gradient: "from-purple-500 via-purple-600 to-pink-600",
     description: "גלה את כוח המספרים"
   },
   {
     name: "אסטרולוגיה",
     path: "Astrology",
-    icon: Stars,
+    icon: Sun,
     gradient: "from-indigo-500 via-blue-600 to-purple-600",
     description: "מפת הכוכבים שלך"
   },
@@ -49,7 +49,7 @@ const tools = [
   {
     name: "גרפולוגיה",
     path: "Graphology",
-    icon: PenTool,
+    icon: FileSignature,
     gradient: "from-green-500 via-emerald-600 to-teal-600",
     description: "ניתוח כתב יד"
   },
