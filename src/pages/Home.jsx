@@ -151,7 +151,7 @@ export default function Home() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="max-w-3xl mx-auto"
+          className="max-w-xl mx-auto"
         >
           <ErrorBoundary>
             <Suspense fallback={<div className="h-64 bg-slate-900/50 rounded-3xl animate-pulse" />}>
@@ -208,24 +208,24 @@ export default function Home() {
             </Link>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool, index) => {
               const Icon = tool.icon;
               return (
                 <Link key={tool.path} to={createPageUrl(tool.path)}>
                   <motion.div
-                    whileHover={{ y: -5 }}
+                    whileHover={{ y: -5, scale: 1.02 }}
                     className="h-full"
                   >
-                    <div className="flex flex-col items-center gap-4 p-5 rounded-2xl bg-slate-900/60 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/80 transition-all cursor-pointer h-full group">
-                      <div className={`w-12 h-12 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-lg`}>
+                    <div className="flex flex-row items-center gap-5 p-6 rounded-3xl bg-slate-900/80 border border-slate-800 hover:border-purple-500/30 hover:bg-slate-800/90 hover:shadow-xl hover:shadow-purple-900/20 transition-all cursor-pointer h-full group">
+                      <div className={`w-16 h-16 shrink-0 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[1px] shadow-lg`}>
                         <div className="w-full h-full bg-slate-950 rounded-[15px] flex items-center justify-center group-hover:bg-transparent transition-colors duration-300">
-                          <Icon className="w-6 h-6 text-white" />
+                          <Icon className="w-8 h-8 text-white" />
                         </div>
                       </div>
-                      <div className="text-center">
-                        <span className="block font-medium text-slate-200 mb-1">{tool.name}</span>
-                        <span className="text-xs text-slate-500 line-clamp-1">{tool.description}</span>
+                      <div className="text-right flex-1">
+                        <span className="block text-xl font-bold text-slate-100 mb-1 group-hover:text-purple-300 transition-colors">{tool.name}</span>
+                        <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">{tool.description}</span>
                       </div>
                     </div>
                   </motion.div>
