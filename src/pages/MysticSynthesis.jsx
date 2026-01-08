@@ -4,7 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Sparkles, Brain, TrendingUp, Calendar, ArrowRight, Loader2, Layers, Star, Zap } from "lucide-react";
+import { Sparkles, Brain, TrendingUp, Calendar, ArrowRight, Loader2, Layers, Star, Zap, Activity, CheckCircle, Database } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import PageHeader from "@/components/PageHeader";
 import EnhancedToast from "@/components/EnhancedToast";
@@ -31,7 +31,12 @@ export default function MysticSynthesis() {
   });
 
   const generateSynthesisMutation = useMutation({
-    mutationFn: () => base44.functions.invoke('synthesizeMysticInsights'),
+    mutationFn: (type = 'on_demand') => {
+        if (type === 'weekly') {
+            return base44.functions.invoke('generateWeeklyReport', { report_type: 'weekly' });
+        }
+        return base44.functions.invoke('synthesizeMysticInsights');
+    },
     onMutate: () => setIsGenerating(true),
     onSuccess: () => {
       queryClient.invalidateQueries(['mysticSyntheses']);
@@ -45,8 +50,8 @@ export default function MysticSynthesis() {
     }
   });
 
-  const handleGenerate = () => {
-    generateSynthesisMutation.mutate();
+  const handleGenerate = (type = 'on_demand') => {
+    generateSynthesisMutation.mutate(type);
   };
 
   const containerVariants = {
@@ -75,54 +80,59 @@ export default function MysticSynthesis() {
         />
 
         {/* Hero / Action Section */}
-        <Card className="bg-gradient-to-br from-indigo-900/40 via-purple-900/40 to-slate-900/40 border-indigo-500/30 overflow-hidden relative">
-          <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 animate-pulse" />
-          <CardContent className="p-8 md:p-12 text-center relative z-10">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              <div className="w-20 h-20 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-purple-500/20">
-                <Brain className="w-10 h-10 text-white" />
-              </div>
-              <h2 className="text-3xl font-bold text-white mb-4">
-                התמונה המלאה שלך
-              </h2>
-              <p className="text-indigo-200 text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
-                המערכת אוספת את כל הנתונים מהניתוחים הנומרולוגיים, האסטרולוגיים, קריאות הקלפים וניתוחי הכתב שלך, 
-                ומייצרת פרופיל אישיות מאוחד ותחזית הוליסטית לעתיד.
-              </p>
-              
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <Button 
-                  size="lg" 
-                  onClick={handleGenerate}
-                  disabled={isGenerating}
-                  className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 px-8 h-14 text-lg rounded-xl transition-all hover:scale-105 active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-                >
-                  {isGenerating ? (
-                    <>
-                      <Loader2 className="w-5 h-5 ml-2 animate-spin" />
-                      מעבד נתונים...
-                    </>
-                  ) : (
-                    <>
-                      <Sparkles className="w-5 h-5 ml-2" />
-                      צור סינתזה חדשה
-                    </>
-                  )}
-                </Button>
-                
-                {analyses.length > 0 && (
-                   <div className="text-sm text-indigo-300 bg-indigo-950/50 px-4 py-2 rounded-lg border border-indigo-500/20">
-                     מבוסס על {analyses.length} ניתוחים קודמים
-                   </div>
-                )}
-              </div>
-            </motion.div>
-          </CardContent>
-        </Card>
+        <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="bg-gradient-to-br from-indigo-900/40 via-purple-900/40 to-slate-900/40 border-indigo-500/30 overflow-hidden relative">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 animate-pulse" />
+              <CardContent className="p-8 text-center relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-purple-500/20">
+                        <Brain className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-2">
+                        סינתזה הוליסטית
+                    </h2>
+                    <p className="text-indigo-200 text-sm mb-6 leading-relaxed">
+                        שילוב כל הכלים לפרופיל אישיות מאוחד ותחזית עתידית.
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    size="lg" 
+                    onClick={() => handleGenerate('on_demand')}
+                    disabled={isGenerating}
+                    className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg shadow-indigo-500/25 h-12 text-lg rounded-xl transition-all hover:scale-105"
+                  >
+                    {isGenerating ? <Loader2 className="w-5 h-5 animate-spin" /> : "צור סינתזה חדשה"}
+                  </Button>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-gradient-to-br from-blue-900/40 via-cyan-900/40 to-slate-900/40 border-cyan-500/30 overflow-hidden relative">
+              <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/stardust.png')] opacity-20 animate-pulse" />
+              <CardContent className="p-8 text-center relative z-10 flex flex-col h-full justify-between">
+                  <div>
+                    <div className="w-16 h-16 mx-auto bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mb-6 shadow-xl shadow-blue-500/20">
+                        <Activity className="w-8 h-8 text-white" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-white mb-2">
+                        דוח שבועי חכם
+                    </h2>
+                    <p className="text-cyan-200 text-sm mb-6 leading-relaxed">
+                        ניתוח דפוסי שימוש, המלצות לשילוב רוחני וסיכום שבועי.
+                    </p>
+                  </div>
+                  
+                  <Button 
+                    size="lg" 
+                    onClick={() => handleGenerate('weekly')}
+                    disabled={isGenerating}
+                    className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg shadow-cyan-500/25 h-12 text-lg rounded-xl transition-all hover:scale-105"
+                  >
+                    {isGenerating ? <Loader2 className="w-5 h-5 animate-spin" /> : "צור דוח שבועי"}
+                  </Button>
+              </CardContent>
+            </Card>
+        </div>
 
         {/* Results Section */}
         <AnimatePresence mode="wait">
@@ -134,16 +144,88 @@ export default function MysticSynthesis() {
               className="space-y-8"
             >
                <div className="flex items-center justify-between border-b border-indigo-500/20 pb-4">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="w-4 h-4 text-indigo-400" />
-                    <span className="text-slate-400 text-sm">
-                      עודכן לאחרונה: {new Date(latestSynthesis.synthesis_date).toLocaleDateString('he-IL')}
-                    </span>
+                  <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-2">
+                        <Calendar className="w-4 h-4 text-indigo-400" />
+                        <span className="text-slate-400 text-sm">
+                        {new Date(latestSynthesis.synthesis_date).toLocaleDateString('he-IL')}
+                        </span>
+                    </div>
+                    {latestSynthesis.report_type === 'weekly' && (
+                        <Badge className="bg-cyan-500/20 text-cyan-300 border-cyan-500/50">
+                            דוח שבועי
+                        </Badge>
+                    )}
                   </div>
                   <Badge variant="outline" className="border-indigo-500/50 text-indigo-300">
                     מבוסס על: {latestSynthesis.input_sources?.join(', ') || 'מספר כלים'}
                   </Badge>
                </div>
+
+               {/* Weekly Report Specific Sections */}
+               {latestSynthesis.report_type === 'weekly' && latestSynthesis.usage_analysis && (
+                   <div className="grid md:grid-cols-2 gap-6">
+                       <Card className="bg-slate-800/40 border-slate-700">
+                           <CardHeader>
+                               <CardTitle className="text-lg text-white flex items-center gap-2">
+                                   <Activity className="w-5 h-5 text-blue-400" />
+                                   ניתוח דפוסים
+                               </CardTitle>
+                           </CardHeader>
+                           <CardContent className="space-y-4">
+                               <div className="text-slate-300 text-sm bg-slate-900/50 p-3 rounded-lg">
+                                   {latestSynthesis.usage_analysis.pattern_insight}
+                               </div>
+                               <div className="flex flex-wrap gap-2">
+                                   {latestSynthesis.usage_analysis.most_used_tools?.map((tool, i) => (
+                                       <span key={i} className="bg-slate-700 text-xs px-2 py-1 rounded-full text-slate-300">
+                                           {tool}
+                                       </span>
+                                   ))}
+                               </div>
+                               <div className="text-xs text-slate-500">
+                                   זמן פעילות שיא: {latestSynthesis.usage_analysis.peak_activity_times}
+                               </div>
+                           </CardContent>
+                       </Card>
+
+                       <Card className="bg-slate-800/40 border-slate-700">
+                           <CardHeader>
+                               <CardTitle className="text-lg text-white flex items-center gap-2">
+                                   <CheckCircle className="w-5 h-5 text-green-400" />
+                                   שילוב ביומיום
+                               </CardTitle>
+                           </CardHeader>
+                           <CardContent className="space-y-3">
+                               {latestSynthesis.practical_integration?.map((item, i) => (
+                                   <div key={i} className="flex gap-3 p-3 bg-slate-900/30 rounded-lg">
+                                       <div className="mt-1">
+                                           <div className={`w-2 h-2 rounded-full ${
+                                               item.difficulty === 'easy' ? 'bg-green-500' : 
+                                               item.difficulty === 'medium' ? 'bg-yellow-500' : 'bg-red-500'
+                                           }`} />
+                                       </div>
+                                       <div>
+                                           <p className="text-white text-sm font-medium">{item.suggestion}</p>
+                                           <p className="text-xs text-slate-400 mt-1">{item.context}</p>
+                                       </div>
+                                   </div>
+                               ))}
+                           </CardContent>
+                       </Card>
+                       
+                       {latestSynthesis.period_summary && (
+                           <Card className="md:col-span-2 bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border-indigo-500/20">
+                               <CardContent className="p-6">
+                                   <h3 className="text-lg font-bold text-white mb-3">סיכום המסע השבועי</h3>
+                                   <p className="text-slate-300 leading-relaxed">
+                                       {latestSynthesis.period_summary}
+                                   </p>
+                               </CardContent>
+                           </Card>
+                       )}
+                   </div>
+               )}
 
                {/* Personality Profile */}
                <motion.div variants={itemVariants}>
