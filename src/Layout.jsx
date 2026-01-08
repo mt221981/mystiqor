@@ -38,31 +38,30 @@ const basicTools = [
   { title: "שאל שאלה", url: createPageUrl("AskQuestion"), icon: HelpCircle },
 ];
 
-// כלים מיוחדים - מוצגים רק כשמרחיבים
+// כלים מתקדמים
 const advancedTools = [
-  { title: "המסעות שלי 🧭", url: createPageUrl("JourneyDashboard"), icon: Compass },
-  { title: "התזכורות שלי 🔔", url: createPageUrl("Notifications"), icon: Bell },
   { title: "קריאות אסטרולוגיות ✨", url: createPageUrl("AstrologyReadings"), icon: BookOpen },
   { title: "ניתוח חלומות 🌙", url: createPageUrl("DreamAnalysis"), icon: Moon },
-  { title: "מעקב מצב רוח 📊", url: createPageUrl("MoodTracker"), icon: Activity },
-  { title: "ניתוח יחסים 💕", url: createPageUrl("RelationshipAnalysis"), icon: Heart },
-  { title: "Synastry - יחסים 💕", url: createPageUrl("Synastry"), icon: Heart },
   { title: "Solar Return ☀️", url: createPageUrl("SolarReturn"), icon: Sun },
   { title: "מעברים אסטרולוגיים", url: createPageUrl("Transits"), icon: TrendingUp },
   { title: "כלי תזמון", url: createPageUrl("TimingTools"), icon: Clock },
   { title: "מנתח מסמכים 🤖", url: createPageUrl("DocumentAnalyzer"), icon: FileText },
   { title: "שילוב של הכלים ✨", url: createPageUrl("MysticSynthesis"), icon: Sparkles },
-  { title: "תובנות יומיות ✨", url: createPageUrl("DailyInsights"), icon: Sparkles },
-  { title: "ניתוח אישיות", url: createPageUrl("PersonalityAnalysis"), icon: User },
-  { title: "ייעוץ בעבודה", url: createPageUrl("CareerGuidance"), icon: Briefcase },
-  { title: "יחסים ואהבה", url: createPageUrl("Relationships"), icon: Heart },
+  { title: "Synastry - יחסים 💕", url: createPageUrl("Synastry"), icon: Heart },
+  { title: "ניתוח יחסים 💕", url: createPageUrl("RelationshipAnalysis"), icon: Heart },
   { title: "התאמה בזוגיות", url: createPageUrl("Compatibility"), icon: Users },
+];
+
+// כלים למסע אישי ומעקב
+const personalJourneyTools = [
+  { title: "המסעות שלי 🧭", url: createPageUrl("JourneyDashboard"), icon: Compass },
   { title: "המאמן שלי", url: createPageUrl("AICoach"), icon: Sparkles },
-  { title: "המורה לאסטרולוגיה 🎓", url: createPageUrl("AstrologyTutor"), icon: GraduationCap },
-  { title: "המורה לניתוח ציורים 🎨", url: createPageUrl("DrawingTutor"), icon: Palette },
-  { title: "היומן שלי", url: createPageUrl("Journal"), icon: BookOpen },
   { title: "היעדים שלי 🎯", url: createPageUrl("MyGoals"), icon: Target },
+  { title: "היומן שלי", url: createPageUrl("Journal"), icon: BookOpen },
+  { title: "מעקב מצב רוח 📊", url: createPageUrl("MoodTracker"), icon: Activity },
   { title: "לוח שנה", url: createPageUrl("AstroCalendar"), icon: CalendarIcon },
+  { title: "התזכורות שלי 🔔", url: createPageUrl("Notifications"), icon: Bell },
+  { title: "תובנות יומיות ✨", url: createPageUrl("DailyInsights"), icon: Sparkles },
   { title: "הזמן חברים", url: createPageUrl("Referrals"), icon: Gift },
 ];
 
@@ -83,12 +82,15 @@ const accountItems = [
 const learningItems = [
   { title: "הדרכות", url: createPageUrl("Tutorials"), icon: Video },
   { title: "מאמרים", url: createPageUrl("Blog"), icon: BookOpen },
+  { title: "המורה לאסטרולוגיה 🎓", url: createPageUrl("AstrologyTutor"), icon: GraduationCap },
+  { title: "המורה לניתוח ציורים 🎨", url: createPageUrl("DrawingTutor"), icon: Palette },
   { title: "תובנות שמורות", url: createPageUrl("SavedGraphologyInsights"), icon: BookOpen },
 ];
 
 export default function Layout({ children }) {
   const location = useLocation();
   const [showAdvancedTools, setShowAdvancedTools] = useState(false);
+  const [showPersonalJourneyTools, setShowPersonalJourneyTools] = useState(false);
   
   const {
     subscription,
@@ -251,7 +253,7 @@ export default function Layout({ children }) {
                 >
                   <span className="flex items-center gap-2 font-black text-base">
                     <Sparkles className="w-5 h-5" />
-                    ✨ כלים מיוחדים
+                    ✨ כלים מתקדמים
                     <Badge className="bg-white/20 text-white text-xs font-bold">
                       {advancedTools.length}
                     </Badge>
@@ -264,7 +266,7 @@ export default function Layout({ children }) {
                 </button>
               </div>
 
-              {/* כלים מיוחדים - מוצגים רק כשמרחיבים */}
+              {/* כלים מתקדמים - מוצגים רק כשמרחיבים */}
               {showAdvancedTools && (
                 <SidebarGroup>
                   <SidebarGroupContent>
@@ -277,6 +279,62 @@ export default function Layout({ children }) {
                               location.pathname === item.url 
                                 ? 'bg-gradient-to-r from-purple-600/90 to-pink-600/90 text-white shadow-lg border-purple-400/50 scale-105' 
                                 : 'text-gray-100 border-purple-800/30 bg-gray-800/50 hover:bg-purple-900/40 hover:border-purple-500/50 hover:scale-102 hover:text-white'
+                            }`}
+                          >
+                            <Link 
+                              to={item.url} 
+                              className="flex items-center gap-3 px-4 py-3"
+                              aria-current={location.pathname === item.url ? 'page' : undefined}
+                            >
+                              <item.icon className="w-5 h-5" aria-hidden="true" />
+                              <span className="font-bold text-base">{item.title}</span>
+                            </Link>
+                          </SidebarMenuButton>
+                        </SidebarMenuItem>
+                      ))}
+                    </SidebarMenu>
+                  </SidebarGroupContent>
+                </SidebarGroup>
+              )}
+
+              {/* כפתור להצגת כלים למסע אישי */}
+              <div className="px-3 mb-2 mt-4">
+                <button
+                  onClick={() => setShowPersonalJourneyTools(!showPersonalJourneyTools)}
+                  className={`w-full justify-between transition-all duration-300 rounded-xl border h-auto py-4 px-4 flex items-center shadow-lg ${
+                    showPersonalJourneyTools
+                      ? 'bg-gradient-to-r from-blue-600/90 to-cyan-600/90 text-white shadow-lg border-blue-400/50 scale-105'
+                      : 'text-gray-100 border-blue-800/30 bg-gray-800/50 hover:bg-blue-900/40 hover:border-blue-500/50 hover:scale-102'
+                  }`}
+                >
+                  <span className="flex items-center gap-2 font-black text-base">
+                    <Compass className="w-5 h-5" />
+                    🧭 מסע אישי וכלים
+                    <Badge className="bg-white/20 text-white text-xs font-bold">
+                      {personalJourneyTools.length}
+                    </Badge>
+                  </span>
+                  {showPersonalJourneyTools ? (
+                    <ChevronUp className="w-6 h-6" />
+                  ) : (
+                    <ChevronDown className="w-6 h-6" />
+                  )}
+                </button>
+              </div>
+
+              {/* כלים למסע אישי - מוצגים רק כשמרחיבים */}
+              {showPersonalJourneyTools && (
+                <SidebarGroup>
+                  <SidebarGroupContent>
+                    <SidebarMenu role="navigation" aria-label="כלים למסע אישי">
+                      {personalJourneyTools.map((item) => (
+                        <SidebarMenuItem key={item.title}>
+                          <SidebarMenuButton 
+                            asChild 
+                            className={`transition-all duration-300 rounded-xl mb-2 border ${
+                              location.pathname === item.url 
+                                ? 'bg-gradient-to-r from-blue-600/90 to-cyan-600/90 text-white shadow-lg border-blue-400/50 scale-105' 
+                                : 'text-gray-100 border-blue-800/30 bg-gray-800/50 hover:bg-blue-900/40 hover:border-blue-500/50 hover:scale-102 hover:text-white'
                             }`}
                           >
                             <Link 
