@@ -9,10 +9,8 @@ import { useState, Suspense } from "react";
 import ErrorBoundary from "@/components/ErrorBoundary";
 import { base44 } from "@/api/base44Client";
 import OnboardingFlow from "@/components/OnboardingFlow";
-import GoalProgressWidget from "@/components/GoalProgressWidget";
 import AdvancedDailyInsights from "@/components/AdvancedDailyInsights";
 import DailyInsightWidget from "@/components/DailyInsightWidget";
-import SmartRecommendations from "@/components/SmartRecommendations";
 import AIAssistant from "@/components/AIAssistant";
 import { Progress } from "@/components/ui/progress";
 import RecentAnalysesWidget from "@/components/RecentAnalysesWidget";
@@ -92,30 +90,7 @@ export default function Home() {
     { staleTime: 30000 }
   );
 
-  const { data: activeJourneys = [] } = useCachedQuery(
-    ['active_journeys'],
-    async () => {
-      const journeys = await base44.entities.CoachingJourney.filter(
-        { created_by: (await base44.auth.me()).email, status: 'active' },
-        '-start_date',
-        1
-      );
-      return journeys;
-    },
-    { staleTime: 30000 }
-  );
 
-  const { data: goals = [] } = useCachedQuery(
-    ['userGoals'],
-    () => base44.entities.UserGoal.list('-created_date', 5),
-    { staleTime: 60000 }
-  );
-
-  const { data: moodEntries = [] } = useCachedQuery(
-    ['moodEntries'],
-    () => base44.entities.MoodEntry.list('-entry_date', 7),
-    { staleTime: 60000 }
-  );
 
   // Check onboarding
   if (isLoadingProfile) {
@@ -265,81 +240,7 @@ export default function Home() {
           </Link>
         </motion.div>
 
-        {/* 5. Personal Growth Section - 2 Columns */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Goals */}
-          <motion.div
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-4 flex flex-col h-full"
-          >
-             <div className="flex items-center gap-2 mb-2 shrink-0">
-                <Zap className="w-5 h-5 text-yellow-500" />
-                <h3 className="text-xl font-bold text-slate-200">המטרות שלי</h3>
-             </div>
-             <div className="flex-1">
-               <ErrorBoundary>
-                  <GoalProgressWidget className="h-full" />
-               </ErrorBoundary>
-             </div>
-          </motion.div>
-
-          {/* Active Journey or Recommendations */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="space-y-4 flex flex-col h-full"
-          >
-             {activeJourneys.length > 0 ? (
-               <>
-                 <div className="flex items-center gap-2 mb-2 shrink-0">
-                    <Compass className="w-5 h-5 text-emerald-500" />
-                    <h3 className="text-xl font-bold text-slate-200">המסע הנוכחי</h3>
-                 </div>
-                 <div className="flex-1">
-                   <Link to={createPageUrl("JourneyDashboard")} className="h-full block">
-                      <Card className="bg-slate-900/60 border-slate-800 hover:border-emerald-500/30 transition-all cursor-pointer overflow-hidden h-full">
-                        <CardContent className="p-6">
-                           <div className="flex justify-between items-start mb-4">
-                            <div>
-                               <h4 className="text-lg font-bold text-white mb-1">המשך את המסע</h4>
-                               <p className="text-sm text-slate-400">
-                                 {activeJourneys[0].completed_steps} מתוך {activeJourneys[0].total_steps} צעדים
-                               </p>
-                            </div>
-                            <div className="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-                               <ArrowLeft className="w-5 h-5" />
-                            </div>
-                         </div>
-                         <Progress value={activeJourneys[0].progress_percentage || 0} className="h-2 bg-slate-800" />
-                      </CardContent>
-                    </Card>
-                    </Link>
-                    </div>
-                    </>
-                    ) : (
-               <>
-                 <div className="flex items-center gap-2 mb-2 shrink-0">
-                    <Heart className="w-5 h-5 text-pink-500" />
-                    <h3 className="text-xl font-bold text-slate-200">מומלץ עבורך</h3>
-                 </div>
-                 <div className="flex-1">
-                   <ErrorBoundary>
-                     <SmartRecommendations 
-                        profile={userProfile} 
-                        goals={goals} 
-                        moodEntries={moodEntries}
-                        analyses={allAnalyses}
-                        className="h-full"
-                      />
-                   </ErrorBoundary>
-                 </div>
-               </>
-             )}
-          </motion.div>
-        </div>
+        {/* 5. Personal Growth Section - Removed by user request */}
 
         {/* 6. Recent History */}
         {allAnalyses.length > 0 && (
