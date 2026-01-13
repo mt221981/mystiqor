@@ -163,9 +163,9 @@ export default function Home() {
                             {/* Icon with soft glow */}
                             <div className="relative mb-6">
                               <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
-                              <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg`}>
-                                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
-                                  <Icon className="w-9 h-9 text-white/90" />
+                              <div className={`relative z-10 w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg overflow-visible`}>
+                                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center relative z-20">
+                                  <Icon className="w-9 h-9 text-white/90 relative z-30" style={{ color: 'white' }} />
                                 </div>
                               </div>
                             </div>
