@@ -658,16 +658,16 @@ export default function Numerology() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
               >
-                <Card className="bg-indigo-900/50 backdrop-blur-xl border-indigo-700/50 mb-6">
+                <Card className="bg-indigo-950/90 backdrop-blur-xl border-indigo-500/50 mb-6 shadow-lg">
                   <CardContent className="p-6">
                     <div className="flex items-start gap-3">
                       <Info className="w-6 h-6 text-indigo-300 shrink-0 mt-1" />
                       <div>
-                        <h3 className="text-indigo-200 font-bold text-lg mb-2">איך זה עובד?</h3>
-                        <p className="text-indigo-100 text-sm leading-relaxed">
+                        <h3 className="text-white font-bold text-lg mb-2">איך זה עובד?</h3>
+                        <p className="text-gray-100 text-sm leading-relaxed font-medium">
                           נומרולוגיה היא חכמה עתיקה שמאמינה שלכל מספר יש משמעות רוחנית. השם ותאריך הלידה שלך נושאים בתוכם קוד ייחודי שמגלה את תכונות האישיות, הכישרונות והייעוד שלך.
                         </p>
-                        <p className="text-yellow-200 text-xs mt-2 font-semibold">
+                        <p className="text-yellow-300 text-xs mt-2 font-bold">
                           💡 חשוב: הניתוח מציג פוטנציאלים ונטיות, לא גורל קבוע.
                         </p>
                       </div>
@@ -683,8 +683,8 @@ export default function Numerology() {
                         onClick={() => setMode('personal')}
                         className={`h-24 text-lg transition-all ${
                           mode === 'personal'
-                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-xl scale-105'
-                            : 'bg-gray-800 hover:bg-gray-700'
+                            ? 'bg-gradient-to-r from-purple-600 to-pink-600 shadow-xl scale-105 text-white'
+                            : 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                         }`}
                       >
                         <User className="w-6 h-6 ml-2" />
@@ -694,8 +694,8 @@ export default function Numerology() {
                         onClick={() => setMode('compatibility')}
                         className={`h-24 text-lg transition-all ${
                           mode === 'compatibility'
-                            ? 'bg-gradient-to-r from-pink-600 to-rose-600 shadow-xl scale-105'
-                            : 'bg-gray-800 hover:bg-gray-700'
+                            ? 'bg-gradient-to-r from-pink-600 to-rose-600 shadow-xl scale-105 text-white'
+                            : 'bg-gray-800 hover:bg-gray-700 text-gray-200'
                         }`}
                       >
                         <Users className="w-6 h-6 ml-2" />
