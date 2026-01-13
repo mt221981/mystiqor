@@ -19,6 +19,7 @@ const tools = [
   {
     name: "נומרולוגיה",
     path: "Numerology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/10257c7b0_2026-01-07174648.png",
     icon: Calculator,
     gradient: "from-purple-500 via-purple-600 to-pink-600",
     description: "גלה את כוח המספרים"
@@ -26,6 +27,7 @@ const tools = [
   {
     name: "אסטרולוגיה",
     path: "Astrology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/7b9e34d8e_2026-01-07174644.png",
     icon: Sun,
     gradient: "from-indigo-500 via-blue-600 to-purple-600",
     description: "מפת הכוכבים שלך"
@@ -33,6 +35,7 @@ const tools = [
   {
     name: "קריאת כף יד",
     path: "Palmistry",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/957bd019e_2026-01-07174640.png",
     icon: Hand,
     gradient: "from-blue-500 via-cyan-600 to-teal-600",
     description: "סודות כף היד"
@@ -40,6 +43,7 @@ const tools = [
   {
     name: "טארוט",
     path: "Tarot",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/94dc4b47b_2026-01-07174627.png",
     icon: FileStack,
     gradient: "from-amber-500 via-orange-600 to-red-600",
     description: "מסרים מהקלפים"
@@ -47,6 +51,7 @@ const tools = [
   {
     name: "גרפולוגיה",
     path: "Graphology",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/d32a255ec_2026-01-07174631.png",
     icon: FileSignature,
     gradient: "from-green-500 via-emerald-600 to-teal-600",
     description: "ניתוח כתב יד"
@@ -54,6 +59,7 @@ const tools = [
   {
     name: "ציורים",
     path: "DrawingAnalysis",
+    image: "https://qtrypzzcjebvfcihiynt.supabase.co/storage/v1/object/public/base44-prod/public/68fdca3b375fda3f5576f3d2/553543711_2026-01-07174635.png",
     icon: Palette,
     gradient: "from-pink-500 via-rose-600 to-purple-600",
     description: "פסיכולוגיה בציור"
@@ -163,9 +169,9 @@ export default function Home() {
                             {/* Icon with soft glow */}
                             <div className="relative mb-6">
                               <div className={`absolute inset-0 bg-gradient-to-br ${tool.gradient} blur-xl opacity-20 group-hover:opacity-40 transition-opacity duration-500`} />
-                              <div className={`relative z-10 w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg overflow-visible`}>
-                                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center relative z-20">
-                                  <Icon className="w-9 h-9 text-white/90 relative z-30" style={{ color: 'white' }} />
+                              <div className={`relative w-20 h-20 rounded-2xl bg-gradient-to-br ${tool.gradient} p-[2px] shadow-lg`}>
+                                <div className="w-full h-full bg-slate-950 rounded-[14px] flex items-center justify-center">
+                                  <Icon className="w-9 h-9 text-white/90" />
                                 </div>
                               </div>
                             </div>

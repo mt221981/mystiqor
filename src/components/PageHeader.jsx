@@ -30,12 +30,12 @@ export default function PageHeader({
           className="inline-block mb-6"
         >
           <div 
-            className={`relative z-10 w-20 h-20 md:w-24 md:h-24 mx-auto bg-gradient-to-br ${iconGradient} rounded-2xl flex items-center justify-center shadow-2xl ring-2 ring-purple-400/30 overflow-visible`}
+            className={`w-20 h-20 md:w-24 md:h-24 mx-auto bg-gradient-to-br ${iconGradient} rounded-2xl flex items-center justify-center shadow-2xl ring-2 ring-purple-400/30`}
             style={{
               boxShadow: '0 0 40px rgba(168, 85, 247, 0.4)'
             }}
           >
-            <Icon className="w-10 h-10 md:w-12 md:h-12 text-white drop-shadow-lg relative z-20" style={{ color: 'white' }} />
+            <Icon className="w-10 h-10 md:w-12 md:h-12 text-white drop-shadow-lg" />
           </div>
         </motion.div>
       )}
