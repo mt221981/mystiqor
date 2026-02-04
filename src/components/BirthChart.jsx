@@ -163,26 +163,24 @@ export default function BirthChart({ astrologyData, showTooltips = true }) {
                   viewBox="0 0 500 500" 
                   className="w-full h-auto bg-gray-900/50 rounded-xl border-2 border-indigo-600/30"
                 >
-                  {/* מעגל חיצוני */}
-                  <circle
-                    cx="250"
-                    cy="250"
-                    r="240"
-                    fill="none"
-                    stroke="#4F46E5"
-                    strokeWidth="3"
-                  />
+                  <defs>
+                    <radialGradient id="wheelGradient" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+                      <stop offset="0%" stopColor="#312e81" stopOpacity="0.4" />
+                      <stop offset="100%" stopColor="#1e1b4b" stopOpacity="0.8" />
+                    </radialGradient>
+                    <filter id="glow">
+                      <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                      <feMerge>
+                        <feMergeNode in="coloredBlur"/>
+                        <feMergeNode in="SourceGraphic"/>
+                      </feMerge>
+                    </filter>
+                  </defs>
 
-                  {/* מעגל פנימי - מזלות */}
-                  <circle
-                    cx="250"
-                    cy="250"
-                    r="200"
-                    fill="none"
-                    stroke="#6366F1"
-                    strokeWidth="2"
-                    strokeDasharray="5,5"
-                  />
+                  {/* רקע ועיגולים */}
+                  <circle cx="250" cy="250" r="240" fill="url(#wheelGradient)" stroke="#4F46E5" strokeWidth="2" />
+                  <circle cx="250" cy="250" r="200" fill="none" stroke="#6366F1" strokeWidth="1" strokeDasharray="4,4" opacity="0.5" />
+                  <circle cx="250" cy="250" r="160" fill="none" stroke="#818CF8" strokeWidth="1" opacity="0.3" />
 
                   {/* מעגל כוכבי לכת */}
                   <circle

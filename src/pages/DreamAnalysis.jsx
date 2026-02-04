@@ -59,6 +59,19 @@ export default function DreamAnalysis() {
       // Analyze dream with AI asynchronously
       setIsAnalyzing(true);
       
+      // 1. Generate Dream Image (Parallel)
+      base44.integrations.Core.GenerateImage({
+        prompt: `Surrealistic dream art, ethereal, mystical style: ${dreamData.title} - ${dreamData.description.substring(0, 300)}. High quality, detailed, fantasy art.`
+      })
+      .then(async (imgRes) => {
+        if (imgRes && imgRes.url) {
+          await base44.entities.Dream.update(dream.id, { image_url: imgRes.url });
+          queryClient.invalidateQueries(['dreams']);
+        }
+      })
+      .catch(err => console.error("Image generation failed", err));
+
+      // 2. Analyze Text
       base44.integrations.Core.InvokeLLM({
           prompt: `אתה פסיכולוג ומומחה לפרשנות חלומות ברמה עולמית.
 
@@ -370,6 +383,19 @@ ${dreamData.lucid ? '- זהו חלום צלול (lucid dream)!' : ''}
                         <p className="text-gray-300 leading-relaxed mb-6">
                           {dream.description}
                         </p>
+
+                        {dream.image_url && (
+                          <div className="mb-6 rounded-xl overflow-hidden shadow-lg border border-indigo-500/30">
+                            <img 
+                              src={dream.image_url} 
+                              alt="Dream visualization" 
+                              className="w-full h-64 object-cover hover:scale-105 transition-transform duration-700"
+                            />
+                            <div className="bg-indigo-950/80 p-2 text-center text-xs text-indigo-200">
+                              ✨ Dreamscape AI Visualization
+                            </div>
+                          </div>
+                        )}
 
                         {dream.ai_interpretation && (
                           <div className="bg-indigo-950/50 rounded-lg p-6 mb-4">

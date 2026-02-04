@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { base44 } from "@/api/base44Client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -154,16 +153,87 @@ const SPREADS = [
   }
 ];
 
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+
 export default function Tarot() {
+  const [activeTab, setActiveTab] = useState('reading'); // 'reading' or 'personal'
   const [selectedSpread, setSelectedSpread] = useState(null);
   const [question, setQuestion] = useState("");
   const [reading, setReading] = useState(null);
   const [isShuffling, setIsShuffling] = useState(false);
   const [shuffleProgress, setShuffleProgress] = useState(0);
   const [allCards] = useState(TAROT_CARDS);
-  const queryClient = useQueryClient();
   
+  // Personal Card State
+  const [birthDate, setBirthDate] = useState("");
+  const [personalCard, setPersonalCard] = useState(null);
+  const [isGeneratingCard, setIsGeneratingCard] = useState(false);
+
+  const queryClient = useQueryClient();
   const { incrementUsage } = useSubscription();
+
+  // Load existing personal card
+  const { data: existingPersonalCard } = useQuery({
+    queryKey: ['personalTarot'],
+    queryFn: async () => {
+      const cards = await base44.entities.PersonalTarot.list('-generated_at', 1);
+      return cards[0] || null;
+    }
+  });
+
+  const generatePersonalCardMutation = useMutation({
+    mutationFn: async (date) => {
+      setIsGeneratingCard(true);
+      
+      // 1. Calculate Life Path / Tarot Card
+      const dateObj = new Date(date);
+      const day = dateObj.getDate();
+      const month = dateObj.getMonth() + 1;
+      const year = dateObj.getFullYear();
+      
+      const sumDigits = (n) => String(n).split('').reduce((a, b) => a + parseInt(b), 0);
+      
+      let sum = sumDigits(day) + sumDigits(month) + sumDigits(year);
+      while (sum > 21) {
+        sum = sumDigits(sum);
+      }
+      
+      const cardNumber = sum; // 0-21
+      const cardData = TAROT_CARDS.find(c => c.card_number === cardNumber && c.arcana === 'major');
+      
+      if (!cardData) throw new Error("Could not calculate card");
+
+      // 2. Generate Image
+      const imageRes = await base44.integrations.Core.GenerateImage({
+        prompt: `A mystical, highly detailed Tarot card representing ${cardData.name_en} (${cardData.name}). 
+        Style: Ethereal, golden divine light, intricate details, fantasy art, masterpiece. 
+        The card represents the soul's journey for someone born on ${date}.`
+      });
+
+      // 3. Save
+      const newCard = await base44.entities.PersonalTarot.create({
+        birth_date: date,
+        card_name: cardData.name,
+        card_number: cardNumber,
+        image_url: imageRes.url,
+        interpretation: cardData.upright_meaning,
+        generated_at: new Date().toISOString()
+      });
+
+      return newCard;
+    },
+    onSuccess: (data) => {
+      setPersonalCard(data);
+      queryClient.invalidateQueries(['personalTarot']);
+      EnhancedToast.success('הקלף האישי שלך נוצר! ✨');
+      setIsGeneratingCard(false);
+    },
+    onError: (err) => {
+      EnhancedToast.error('שגיאה ביצירת הקלף');
+      setIsGeneratingCard(false);
+    }
+  });
 
   const generateReadingMutation = useMutation({
     mutationFn: async ({ spread, userQuestion, cards }) => {
@@ -454,14 +524,104 @@ ${i + 1}. **${c.position_name}** → ${c.card_name} ${c.is_reversed ? '(הפוך
             iconGradient="from-purple-600 to-pink-600"
           />
 
-          <div className="flex justify-center mb-6">
-            <Badge className="bg-purple-700 text-white text-sm px-4 py-2">
-              {allCards.length} / 78 קלפים מוכנים ✓
-            </Badge>
+          {/* Tabs */}
+          <div className="flex justify-center gap-4 mb-8">
+            <Button
+              onClick={() => setActiveTab('reading')}
+              variant={activeTab === 'reading' ? 'default' : 'outline'}
+              className={activeTab === 'reading' ? 'bg-purple-600' : 'border-purple-500 text-purple-200'}
+            >
+              <Layers className="w-4 h-4 ml-2" />
+              קריאה בטארוט
+            </Button>
+            <Button
+              onClick={() => setActiveTab('personal')}
+              variant={activeTab === 'personal' ? 'default' : 'outline'}
+              className={activeTab === 'personal' ? 'bg-pink-600' : 'border-pink-500 text-pink-200'}
+            >
+              <Sparkles className="w-4 h-4 ml-2" />
+              הקלף האישי שלי
+            </Button>
           </div>
 
           <AnimatePresence mode="wait">
-            {!reading ? (
+            {activeTab === 'personal' ? (
+              <motion.div
+                key="personal"
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+              >
+                <Card className="bg-gradient-to-br from-pink-900/50 to-purple-900/50 border-pink-700/30">
+                  <CardContent className="p-8 text-center">
+                    <h2 className="text-3xl font-bold text-white mb-6">הקלף האישי שלך 🃏</h2>
+                    
+                    {existingPersonalCard || personalCard ? (
+                      <div className="max-w-md mx-auto">
+                        <div className="relative group perspective-1000">
+                          <motion.div
+                            initial={{ rotateY: 180 }}
+                            animate={{ rotateY: 0 }}
+                            transition={{ duration: 1 }}
+                            className="relative"
+                          >
+                            <img 
+                              src={(personalCard || existingPersonalCard).image_url} 
+                              alt="Personal Tarot Card"
+                              className="w-full rounded-xl shadow-2xl border-4 border-yellow-500/50"
+                            />
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent rounded-xl flex flex-col justify-end p-6">
+                              <h3 className="text-3xl font-bold text-yellow-400 mb-2">
+                                {(personalCard || existingPersonalCard).card_name}
+                              </h3>
+                              <p className="text-white text-lg">
+                                {(personalCard || existingPersonalCard).interpretation}
+                              </p>
+                            </div>
+                          </motion.div>
+                        </div>
+                        <Button 
+                          className="mt-6 bg-white/10 hover:bg-white/20 text-white"
+                          onClick={() => { setPersonalCard(null); /* Reset logic if needed */ }}
+                        >
+                          חשב מחדש
+                        </Button>
+                      </div>
+                    ) : (
+                      <div className="max-w-md mx-auto space-y-6">
+                        <p className="text-pink-200 text-lg">
+                          גלה איזה קלף טארוט מייצג את נשמתך על פי תאריך הלידה שלך,
+                          וקבל יצירת אמנות ייחודית שנוצרה במיוחד בשבילך.
+                        </p>
+                        <div className="space-y-2 text-right">
+                          <Label className="text-white">תאריך לידה</Label>
+                          <Input
+                            type="date"
+                            value={birthDate}
+                            onChange={(e) => setBirthDate(e.target.value)}
+                            className="bg-black/30 border-pink-500/50 text-white h-12"
+                          />
+                        </div>
+                        <Button
+                          onClick={() => generatePersonalCardMutation.mutate(birthDate)}
+                          disabled={!birthDate || isGeneratingCard}
+                          className="w-full bg-gradient-to-r from-pink-600 to-purple-600 h-14 text-lg"
+                        >
+                          {isGeneratingCard ? (
+                            <>
+                              <Sparkles className="w-5 h-5 ml-2 animate-spin" />
+                              יוצר קסם...
+                            </>
+                          ) : (
+                            "גלה את הקלף שלי ✨"
+                          )}
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ) : !reading ? (
               <motion.div
                 key="selection"
                 initial={{ opacity: 0 }}
