@@ -12,6 +12,7 @@ import { usePageView } from "@/components/Analytics";
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, ResponsiveContainer, XAxis, YAxis, Tooltip, Legend } from "recharts";
 import { SkeletonStats, SkeletonCard } from "@/components/SkeletonLoader";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import BiorhythmChart from "@/components/dashboard/BiorhythmChart";
 
 const COLORS = {
   primary: '#9333EA',
@@ -197,6 +198,17 @@ export default function Dashboard() {
           description="סקירה מקיפה של כל הפעילות והנתונים שלך"
           icon={BarChart3}
         />
+
+        {/* Biorhythm Chart - Visual Upgrade */}
+        {profile?.birth_date && (
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            className="mb-8"
+          >
+            <BiorhythmChart birthDate={profile.birth_date} />
+          </motion.div>
+        )}
 
         {/* Key Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

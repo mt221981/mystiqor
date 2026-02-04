@@ -40,6 +40,7 @@ const basicTools = [
 
 // כלים מתקדמים
 const advancedTools = [
+  { title: "עיצוב אנושי (Human Design) 🧬", url: createPageUrl("HumanDesign"), icon: User },
   { title: "קריאות אסטרולוגיות ✨", url: createPageUrl("AstrologyReadings"), icon: BookOpen },
   { title: "ניתוח חלומות 🌙", url: createPageUrl("DreamAnalysis"), icon: Moon },
   { title: "Solar Return ☀️", url: createPageUrl("SolarReturn"), icon: Sun },
