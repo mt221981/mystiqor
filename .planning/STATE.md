@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 01-02-PLAN.md — GEM 2 and GEM 3 migrated to TypeScript services
-last_updated: "2026-03-20T14:02:04.990Z"
+stopped_at: Completed 01-01-PLAN.md — test infra + migrations bootstrapped
+last_updated: "2026-03-20T14:02:30.213Z"
 progress:
   total_phases: 5
   completed_phases: 0
@@ -63,6 +63,7 @@ Recent decisions affecting current work:
 - [Phase 01]: Rule engine evaluateCondition uses strict === only — original GEM 3 had loose == operators; replaced with explicit numeric coercion
 - [Phase 01]: Use '@' (without trailing slash) in vitest alias — standard vite form, correctly resolves @/services/foo imports
 - [Phase 01]: Exclude tests/ from tsconfig.json — test files checked by vitest not tsc, prevents false failures from service stubs not yet built
+- [Phase 01]: RLS on ALL 20 tables including system tables — public READ policy for rulebook/tarot_cards/blog_posts, ownership policies for user tables
 
 ### Pending Todos
 
@@ -76,6 +77,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T14:01:36.897Z
-Stopped at: Completed 01-02-PLAN.md — GEM 2 and GEM 3 migrated to TypeScript services
+Last session: 2026-03-20T14:02:30.211Z
+Stopped at: Completed 01-01-PLAN.md — test infra + migrations bootstrapped
 Resume file: None
