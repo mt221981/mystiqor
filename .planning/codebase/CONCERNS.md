@@ -1,323 +1,421 @@
-# Codebase Concerns
+# Codebase Concerns - MystiQor
 
 **Analysis Date:** 2026-03-20
 
-## Tech Debt
+## Critical Issues (BLOCKING)
 
-**Logout Handler Not Implemented:**
-- Issue: Logout button in Header component has empty handler
-- Files: `src/components/layouts/Header.tsx` (line 183)
-- Impact: Users cannot log out from the application, creating security and UX issues
-- Fix approach: Implement logout handler that calls `supabase.auth.signOut()`, clears React Query cache via `queryClient.clear()`, and redirects to login
+### 1. Empty Service Layer
 
-**Hardcoded Environment Variable Access Without Fallback:**
-- Issue: Supabase URL and keys are accessed with `!` assertion without null-coalescing or error boundary
-- Files: `src/lib/supabase/server.ts`, `src/lib/supabase/client.ts`, `src/lib/supabase/admin.ts`
-- Impact: Application will crash at runtime if environment variables are not set, no graceful degradation
-- Fix approach: Add environment variable validation in initialization, throw descriptive errors early
+**Severity:** CRITICAL
+**Impact:** Cannot implement business logic; all features blocked
+**Files:** `src/services/` (analysis/, astrology/, drawing/, email/, numerology/)
+**Current State:** Directory structure exists but zero implementation
 
-**Pagination Not Implemented in List Views:**
-- Issue: Query cache config exists but no actual pagination in displayed lists
-- Files: All potential list views (analyses, goals, journal, insights, dreams, journeys, reminders)
-- Impact: If users accumulate many records, unbounded queries will degrade performance and exceed rate limits
-- Fix approach: Add pagination with `limit` and `offset` to all list-returning API routes and React Query hooks
+**Problem:**
+- Services directory has 5 empty subdirectories
+- No exported functions to handle business logic
+- All feature implementation must go here but framework missing
+- Architecture requires: Typed async functions, DB access, error handling
 
-**No Service Layer for Database Queries:**
-- Issue: Database queries would likely be scattered across components or API routes (no query functions found yet)
-- Files: Planned: `src/services/` (not yet created)
-- Impact: Code duplication, difficult to maintain, harder to add caching/retry logic consistently
-- Fix approach: Create typed service layer in `src/services/` directory with reusable query functions for each table
+**Fix Approach:**
+1. Create `src/services/astrology/calculate.ts` - GEM logic preserved
+2. Create `src/services/numerology/calculate.ts` - GEM logic preserved
+3. Create `src/services/analysis/store.ts` - Save analysis results
+4. Create `src/services/email/send.ts` - Transactional emails
+5. Create `src/services/drawing/analyze.ts` - Image analysis
+6. Pattern: Export typed async functions with full error handling
+7. All use `createClient()` from `@/lib/supabase/server`
 
-**Async Operations Without Loading State:**
-- Issue: Auth forms have loading states via `isSubmitting`, but other async operations likely missing
-- Files: `src/app/(public)/login/page.tsx` has proper handling but pattern not established project-wide
-- Impact: Users can't tell if operations are in-flight, may trigger duplicate requests
-- Fix approach: Establish consistent pattern for all mutations - use React Query's mutation status or local loading state
+**Test:** Phase will not pass until services implemented
 
-## Known Bugs
+---
 
-**Route Group Regex Pattern Mismatch:**
-- Symptoms: Middleware checks for `'/(auth)'` string literal, but Next.js route groups use parentheses as syntax, not literal path
-- Files: `src/lib/supabase/middleware.ts` (line 42)
-- Trigger: Users navigating to protected routes - middleware comparison will always fail because `request.nextUrl.pathname` won't contain the literal string `/(auth)`
-- Workaround: Routes are protected by `AuthLayout` server-side check, so middleware issue doesn't block access (but is ineffective)
-- Fix: Change line 42 to check actual protected paths like `/dashboard` or use a whitelist of public paths instead
+### 2. API Routes Not Implemented
 
-**localStorage Access in SSR Without Type Guards:**
-- Symptoms: Theme store uses localStorage via Zustand persist, but no error handling if localStorage unavailable
-- Files: `src/stores/theme.ts` (lines 20-24), middleware and server components access document/window without full safety checks
-- Trigger: Reading from theme store on server or in environment without DOM/Storage API
-- Workaround: Checks like `if (typeof document === 'undefined')` exist but not comprehensive across codebase
-- Fix: Wrap all localStorage/DOM access in full safe guards, ensure hydration mismatch won't break rendering
+**Severity:** CRITICAL
+**Impact:** No endpoints; entire API missing
+**Files:** All subdirectories in `src/app/api/` except `auth/callback/route.ts`
+**Current State:** 34+ empty folders, 1 implemented route
 
-**Console.error in Production:**
-- Symptoms: ErrorBoundary logs to console in development but still executes on production
-- Files: `src/components/common/ErrorBoundary.tsx` (line 104)
-- Trigger: Any uncaught React error in production will be logged
-- Workaround: Check for development environment prevents logging
-- Fix: Verify development-only flag is sufficient; consider sending to error tracking service instead
+**What Exists:**
+- `src/app/api/auth/callback/route.ts` - OAuth callback (complete, 34 lines)
 
-## Security Considerations
+**What's Missing:**
+- `/api/tools/astrology/birth-chart/route.ts` - Birth chart calculation
+- `/api/tools/astrology/transits/route.ts` - Transit calculations
+- `/api/tools/numerology/calculate/route.ts` - Numerology readings
+- `/api/goals/route.ts` - CRUD goals
+- `/api/insights/daily/route.ts` - Generate daily insights
+- `/api/subscription/checkout/route.ts` - Stripe integration
+- `/api/subscription/cancel/route.ts` - Cancel subscriptions
+- `/api/coach/message/route.ts` - Coaching messages
+- `/api/cron/daily-insights/route.ts` - Scheduled job
+- `/api/upload/route.ts` - File uploads
+- `/api/webhooks/stripe/route.ts` - Stripe events
 
-**No Input Sanitization on Form Submissions:**
-- Risk: User input from birth_place, personal_goals, and other text fields could contain HTML/script tags if not validated
-- Files: `src/lib/validations/profile.ts` has Zod schemas but doesn't call `sanitizeHtml()` before storage
-- Current mitigation: DOMPurify available in `src/lib/utils/sanitize.ts` but not integrated into mutations
-- Recommendations:
-  1. Add sanitization in Zod refinements or transform step
-  2. Sanitize all user-generated string fields before database insert
-  3. Add sanitization test cases
+**Fix Approach:**
+1. Create route per feature: `POST /api/tools/[tool]/route.ts`
+2. Pattern: Validate with Zod, auth check, call service, return typed response
+3. Error handling: try/catch with user-friendly messages
+4. All mutations checked for auth and usage limits
 
-**Missing Rate Limiting on Authentication Endpoints:**
-- Risk: Brute force attacks on login/register/magic-link are not prevented
-- Files: `src/app/(public)/login/page.tsx` - auth handlers have no rate limit checks
-- Current mitigation: Supabase Auth may have built-in limits, but not explicitly enforced on client
-- Recommendations:
-  1. Implement client-side rate limiting (track attempts + timestamp)
-  2. Add server-side rate limiting on auth routes
-  3. Implement exponential backoff for failed attempts
-  4. Block after N attempts for X minutes
+---
 
-**RLS Policies Not Visible - Assumed Missing:**
-- Risk: No SQL/RLS policy files found in codebase; assuming policies are not enforced
-- Files: All Supabase tables in `src/types/database.ts` (rows 84-950)
-- Current mitigation: Admin client exists for privileged operations, but standard user queries lack enforcement
-- Recommendations:
-  1. Create and document RLS policies for every table
-  2. Test that unauthenticated users cannot read any data
-  3. Test that authenticated users can only access their own data
-  4. Implement column-level security for sensitive fields (passwords, PII)
-  5. Store policies in version control (Supabase migration files)
+### 3. Database Connection Missing
 
-**No CSRF Protection on Mutations:**
-- Risk: API routes accept form submissions without CSRF tokens
-- Files: Planned API routes for mutations (not yet created)
-- Current mitigation: Server Components + Server Actions provide some CSRF protection, but standard Route Handlers don't
-- Recommendations:
-  1. Use Server Actions (preferred) for all mutations instead of Route Handlers
-  2. If Route Handlers required, implement double-submit cookie pattern
-  3. Add CSRF token validation middleware
+**Severity:** CRITICAL
+**Impact:** App cannot access data, all features fail
+**Files:** `src/types/database.ts`
+**Current State:** Placeholder types only, no actual DB schema exists
 
-**Admin Service Role Key Not Rotated:**
-- Risk: If `.env.local` is ever committed or exposed, service role key grants full database access
-- Files: `src/lib/supabase/admin.ts` uses `SUPABASE_SERVICE_ROLE_KEY`
-- Current mitigation: File is properly server-only, env vars should be in .gitignore
-- Recommendations:
-  1. Audit .gitignore to ensure .env* is excluded
-  2. Implement key rotation policy
-  3. Restrict admin client to necessary functions only
-  4. Use env variable names with comment explaining sensitivity
+**Problem:**
+- Database types are manually defined (989 lines)
+- Should be auto-generated from `supabase gen types`
+- Actual Supabase tables do not exist in production database
+- RLS (Row-Level Security) policies not created
+- No migrations executed
 
-**Stripe Integration Missing Validation:**
-- Risk: Stripe API keys and webhooks exist in package.json but no webhook validation found
-- Files: Package dependency: `stripe ^20.4.1`, but no webhook route or validation visible
-- Current mitigation: Unknown (no webhook routes found in src)
-- Recommendations:
-  1. Create `/api/webhooks/stripe` route with event signature validation
-  2. Verify webhook secret is never exposed to client
-  3. Implement idempotency for webhook handlers
-  4. Log and alert on webhook failures
+**What's Needed:**
+1. Create Supabase database and tables (20 tables)
+2. Create RLS policies (CRITICAL for security)
+3. Run `supabase gen types` to generate `src/types/database.ts`
+4. Set up Stripe webhook keys
+5. Configure email service (Resend or SendGrid)
 
-## Performance Bottlenecks
+**Fix Approach:**
+1. Execute Supabase migration script (create in `supabase/migrations/`)
+2. Define RLS policies per CLAUDE.md (security requirement)
+3. Regenerate types: `npx supabase gen types --lang typescript`
+4. Test connection with: `const client = await createClient(); const { data } = await client.from('profiles').select('*').limit(1);`
 
-**Database Type Definition File Too Large:**
-- Problem: `src/types/database.ts` is 989 lines, mixing concerns and making imports slower
-- Files: `src/types/database.ts`
-- Cause: All 20 table schemas defined in single file; could be auto-generated but isn't
-- Improvement path:
-  1. Split into `src/types/db/` directory with separate files per domain
-  2. Auto-generate from Supabase using `supabase gen types` CLI
-  3. Use type-only imports (`import type`) throughout codebase
+**Blocking:** No data operations work without this
 
-**No Query Result Caching at HTTP Level:**
-- Problem: React Query has cache config, but API responses may not be cached with HTTP headers
-- Files: Planned API routes would need `Cache-Control` headers
-- Cause: API routes not yet implemented; when created, must set proper cache headers
-- Improvement path:
-  1. Add `Cache-Control: public, max-age=300` to read-only API responses
-  2. Set `Cache-Control: no-store` on mutation responses
-  3. Use `revalidateTag()` for Next.js ISR integration
+---
 
-**Missing Image Optimization:**
-- Problem: Application has mystical/visual theme but no image optimization strategy visible
-- Files: Could affect dreamscape_url, profile images, tarot cards
-- Cause: No dedicated image handling component found
-- Improvement path:
-  1. Use `next/image` for all image sources
-  2. Add image compression pipeline for uploads
-  3. Serve WebP with fallbacks
-  4. Implement lazy loading for long lists
+### 4. Logout Function Not Implemented
 
-**Sidebar Navigation Not Virtualized:**
-- Problem: Sidebar has many nav items (8 mystical tools + 6 advanced + more) - could cause layout thrashing
-- Files: `src/components/layouts/Sidebar.tsx` (284 lines)
-- Cause: All nav items rendered, no virtualization for long lists
-- Improvement path:
-  1. If nav list grows beyond 20 items, implement virtualization using `react-window`
-  2. Add collapsible sections to reduce rendered items
-  3. Measure performance with DevTools Lighthouse
+**Severity:** HIGH
+**Impact:** Users cannot sign out; session remains active
+**Files:** `src/components/layouts/Header.tsx` (line 183)
+**Current State:** TODO comment, button has empty onClick handler
 
-## Fragile Areas
+**Problem:**
+```typescript
+// Line 173-184 in Header.tsx
+onClick={() => {
+  setIsUserMenuOpen(false);
+  // TODO: חיבור לפונקציית התנתקות מ-Supabase Auth
+}}
+```
 
-**Auth State Not Explicitly Synchronized:**
-- Files: `src/lib/supabase/middleware.ts`, `src/app/(auth)/layout.tsx`
-- Why fragile: User session state is checked in middleware and layout separately; if checks diverge, auth bypass possible
-- Safe modification:
-  1. Create single source of truth: hook or utility for auth state
-  2. Centralize user check logic
-  3. Write tests for auth state transitions (login → authenticated → logout)
-- Test coverage: No auth flow tests found yet - critical gap
+**Fix Approach:**
+1. Create `src/lib/supabase/auth.ts` with logout function:
+```typescript
+export async function signOut() {
+  const supabase = await createClient();
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}
+```
+2. Import and call in Header.tsx onClick
+3. Redirect to `/login` after signout using `useRouter().push()`
+4. Clear React Query cache: `queryClient.clear()`
 
-**ErrorBoundary Auto-Reset Logic:**
-- Files: `src/components/common/ErrorBoundary.tsx` (lines 96-99)
-- Why fragile: Hard-coded thresholds (3 errors in 5 seconds) may not fit all scenarios; if errors are fast, user gets redirected without understanding issue
-- Safe modification:
-  1. Make thresholds configurable via props
-  2. Add error logging to external service before auto-reset
-  3. Display reset countdown to user
-  4. Test with various error patterns
-- Test coverage: No tests for error boundary scenarios
+---
 
-**Supabase Client Initialization Pattern:**
-- Files: `src/lib/supabase/server.ts`, `src/lib/supabase/client.ts`, `src/lib/supabase/admin.ts`
-- Why fragile: Three separate client creation functions with different behaviors; if one is used in wrong context (e.g., admin client in browser), breaks security
-- Safe modification:
-  1. Add explicit guards to prevent client usage in wrong context
-  2. Export constants like `SUPABASE_CLIENT_SERVER`, `SUPABASE_CLIENT_BROWSER`
-  3. Use file structure to prevent imports (e.g., admin.ts only importable from server utilities)
-  4. Add JSDoc warnings
-- Test coverage: No tests for client initialization or context validation
+## Tech Debt & Missing Features
 
-**Form Validation Rules Duplicated:**
-- Files: `src/lib/validations/profile.ts` defines schemas for full profile AND onboarding steps; patterns repeat
-- Why fragile: If validation rules change, must update multiple schema definitions; easy to miss
-- Safe modification:
-  1. Extract common validators to utility functions
-  2. Compose smaller schemas: `baseProfileSchema` → `fullProfileSchema`
-  3. Use `z.pick()` and `z.omit()` to derive schemas from base
-  4. DRY up DATE_REGEX and TIME_REGEX into shared constants
-- Test coverage: Schema tests should verify consistency across all steps
+### 1. Placeholder Dashboard
 
-## Scaling Limits
+**Severity:** MEDIUM
+**Impact:** Users see incomplete interface
+**Files:** `src/app/(auth)/dashboard/page.tsx`
+**Current State:** Static cards with hardcoded "0" values, placeholder message
 
-**Single-Component Layout Without Composition:**
-- Current capacity: Sidebar + Header work for small navigation (20-30 items)
-- Limit: If navigation grows beyond 50 items or needs dynamic sections, single component becomes unmaintainable
-- Scaling path:
-  1. Split `src/components/layouts/Sidebar.tsx` into `NavSection`, `NavItem` subcomponents
-  2. Move NAV_SECTIONS to `src/lib/constants/navigation.ts`
-  3. Support dynamic sections from database or config
-  4. Use React.memo to prevent re-renders
+**Problem:**
+- Stats cards show no real data
+- "התוכן המלא ייבנה בקרוב" (Full content coming soon) message
+- Needs actual React Query hooks to fetch:
+  - Analysis count (from subscriptions table)
+  - Active goals count
+  - User streak (from mood entries)
+  - Insight count
 
-**Query Cache Without Eviction Strategy:**
-- Current capacity: Default React Query GC time is 30 minutes; fine for single user
-- Limit: If user performs 100+ queries, old data may pile up and cause memory issues
-- Scaling path:
-  1. Implement aggressive cache invalidation on mutations
-  2. Use React Query `gcTime` appropriately per entity (shorter for volatile data)
-  3. Monitor cache size with React Query DevTools
-  4. Consider background sync for long sessions
+**Fix Approach:**
+1. Add React Query hooks for stats
+2. Replace hardcoded "0" with actual values
+3. Add recent activities list
+4. Add quick action buttons to main tools
 
-**No Database Connection Pooling Config:**
-- Current capacity: Supabase handles pooling, but unknown if optimized
-- Limit: If hitting API rate limits, need explicit pooling strategy
-- Scaling path:
-  1. Check Supabase plan for connection limits
-  2. Consider pgBouncer or built-in pooling
-  3. Add request deduplication to prevent duplicate queries
-  4. Use batch operations where possible
+---
 
-## Dependencies at Risk
+### 2. Placeholder Sidebar Navigation
 
-**Next.js 16.2.0 - Newer Release Cycle:**
-- Risk: Version 16 is relatively new; rapid changes may introduce breaking changes
-- Impact: Dependency updates may require code changes; App Router still evolving
-- Migration plan:
-  1. Pin minor version to 16.2.x
-  2. Test major version upgrades before adopting
-  3. Monitor Next.js blog for App Router deprecations
+**Severity:** LOW-MEDIUM
+**Impact:** Navigation works but layout incomplete
+**Files:** `src/app/(auth)/layout-client.tsx` (lines 33-46)
+**Current State:** Hardcoded sidebar shell, real navigation in `src/components/layouts/Sidebar.tsx`
 
-**Zustand 5.x - Persist Middleware Behavior:**
-- Risk: Persist middleware stores data in localStorage; behavior changes between versions
-- Impact: Theme preference could be lost on version upgrade
-- Migration plan:
-  1. Test localStorage data migration on version bump
-  2. Version store data if shape changes
-  3. Add fallback to default theme if storage corrupted
+**Problem:**
+- Layout-client has inline placeholder sidebar
+- Real Sidebar component exists but not integrated
+- Should use Sidebar component instead of placeholder
 
-**React Hook Form 7.71.2:**
-- Risk: Active maintenance, but consider migration path to alternative if needed
-- Impact: Form validation patterns depend on this library
-- Migration plan:
-  1. Validation logic is Zod-based (decoupled), so schema reuse is possible
-  2. Migration would require replacing `useForm` hooks but validation schemas remain
+**Fix Approach:**
+1. Import Sidebar from components/layouts
+2. Replace placeholder with `<Sidebar />`
+3. Integrate mobile drawer for responsive
 
-**Stripe Integration - SDK Version Mismatch:**
-- Risk: `@stripe/react-stripe-js ^5.6.1` and `stripe ^20.4.1` are separate; synchronization issues possible
-- Impact: Payment flows could break if versions diverge
-- Migration plan:
-  1. Keep versions synchronized when updating
-  2. Test payment flows after dependency updates
-  3. Monitor Stripe SDKs changelog
+---
 
-## Missing Critical Features
+### 3. No Email Service Implementation
 
-**No Logout Implementation:**
-- Problem: Users cannot sign out; session persists until browser close or manual cookie deletion
-- Blocks: User account security, multi-user device support, testing
-- Implementation needed in `src/components/layouts/Header.tsx` logout handler
+**Severity:** HIGH
+**Impact:** Cannot send transactional emails (onboarding, password reset, etc)
+**Files:** `src/services/email/` (empty)
+**Current State:** Directory exists, no files
 
-**No Error Tracking/Logging Service:**
-- Problem: Errors only logged to console; no aggregation or alerting
-- Blocks: Production debugging, error trend analysis, user support
-- Consider integrating: Sentry, LogRocket, or custom logging API
+**Missing Emails:**
+- Welcome email (post-signup)
+- Email verification
+- Password reset link
+- Subscription confirmation
+- Usage limit warnings
+- Daily digest (if premium)
 
-**No API Routes for Data Operations:**
-- Problem: Service layer doesn't exist; no Server Actions visible for mutations
-- Blocks: Cannot save user data, process analyses, update profiles
-- Required: Create `/src/app/api/` route structure with proper validation
+**Fix Approach:**
+1. Create `src/services/email/send.ts`
+2. Use Resend API (recommended) or SendGrid
+3. Create email templates in `src/services/email/templates/`
+4. Export: `sendWelcomeEmail(email: string, name: string)`
+5. Call from `/api/auth/` routes after signup
 
-**No Webhook Implementation:**
-- Problem: Stripe webhooks not visible; email notifications not handled
-- Blocks: Subscription lifecycle management, payment confirmation emails
-- Required: Implement `/api/webhooks/stripe` and email service integration
+---
 
-**No Testing Infrastructure:**
-- Problem: No test files (`.test.ts`, `.spec.ts`) found in codebase
-- Blocks: Cannot safely refactor, regression detection, CI/CD quality gates
-- Required: Add Jest/Vitest config and baseline tests for critical paths (auth, validation)
+### 4. Missing Upload Handler
 
-## Test Coverage Gaps
+**Severity:** MEDIUM
+**Impact:** Cannot handle file uploads (drawings, documents)
+**Files:** `src/app/api/upload/route.ts` (empty)
+**Current State:** Directory only
 
-**Authentication Flow Not Tested:**
-- What's not tested: Login with password, registration, magic link, session refresh, logout
-- Files: `src/app/(public)/login/page.tsx`, `src/app/api/auth/callback/route.ts`, middleware
-- Risk: Silent auth failures, session leaks, browser refresh breaking auth
-- Priority: **High** - auth is critical path
+**Needed For:**
+- Drawing tool (upload images for analysis)
+- Document tool (upload PDFs)
+- Profile avatar upload
 
-**Form Validation Not Tested:**
-- What's not tested: Profile schema validation for all fields, boundary conditions (min/max lengths), Hebrew character handling
-- Files: `src/lib/validations/profile.ts`
-- Risk: Invalid data accepted, inconsistent error messages, validation bypassed on client
-- Priority: **High** - gates data integrity
+**Fix Approach:**
+1. Create `src/app/api/upload/route.ts` with POST handler
+2. Validate: file type, size (max 10MB)
+3. Scan for viruses (optional but recommended)
+4. Upload to Supabase Storage bucket
+5. Return signed URL
+6. Validate on client: Check MIME types before upload
 
-**Error Boundary Behavior Not Tested:**
-- What's not tested: Auto-reset on 3 errors, error count window, recovery actions
-- Files: `src/components/common/ErrorBoundary.tsx`
-- Risk: Error boundary fails to reset, loops infinitely, hides actual error
-- Priority: **Medium** - safety mechanism
+---
 
-**Route Protection Not Tested:**
-- What's not tested: Unauthenticated access to protected routes, middleware behavior, redirect chains
-- Files: `src/lib/supabase/middleware.ts`, `src/app/(auth)/layout.tsx`
-- Risk: Auth bypass, infinite redirect loops, broken public/protected route separation
-- Priority: **High** - security critical
+## Migration Risks from temp_source/
 
-**Sanitization Not Tested:**
-- What's not tested: XSS prevention, HTML stripping, special character handling
-- Files: `src/lib/utils/sanitize.ts`
-- Risk: Stored XSS attacks, prompt injection into LLM, data corruption
-- Priority: **High** - security critical
+### 1. BASE44-Specific Code
+
+**Risk:** Code tied to BASE44 framework will not work in Next.js
+**Location:** `temp_source/base44/` and `temp_source/src/`
+**Approach:** Extract only business logic (calculations, formulas), rebuild UI/API
+
+**Gems to Preserve:**
+- Astrology calculations (GEM 8)
+- Numerology algorithms
+- Tarot card interpretations
+- Dream analysis rules
+- Graphology analysis logic
+
+**Do Not Port:**
+- BASE44 components
+- BASE44 routing
+- BASE44 form system
+- BASE44-specific styling
+
+---
+
+### 2. Missing Configuration
+
+**Risk:** Environment variables, API keys not set up
+**Current:** `.env.local` not in repo (correct, secrets)
+**Needed:**
+```
+NEXT_PUBLIC_SUPABASE_URL=...
+NEXT_PUBLIC_SUPABASE_ANON_KEY=...
+SUPABASE_SERVICE_ROLE_KEY=...
+STRIPE_PUBLIC_KEY=...
+STRIPE_SECRET_KEY=...
+STRIPE_WEBHOOK_SECRET=...
+RESEND_API_KEY=... (or SendGrid key)
+OPENAI_API_KEY=...
+NEXT_PUBLIC_SITE_URL=...
+```
+
+**Fix:** Create `.env.local.example` documenting all required vars
+
+---
+
+### 3. Type Safety Issues
+
+**Risk:** Using `placeholder-not-used` value in forms could mask bugs
+**Files:** `src/app/(public)/login/login-forms.tsx` (line 121)
+**Current:**
+```typescript
+defaultValues: { email: '', password: 'placeholder-not-used' }
+```
+
+**Problem:** Password field has dummy value - could mask validation issues
+**Fix:** Use empty string: `password: ''`
+
+---
+
+## Performance Concerns
+
+### 1. Sidebar Navigation Size
+
+**Severity:** LOW
+**Impact:** Large navigation object in memory
+**Files:** `src/components/layouts/Sidebar.tsx`
+**Current State:** NAV_SECTIONS constant with 50+ items
+
+**Issue:** Full navigation always rendered, should paginate on mobile
+**Fix:** Use scroll area on mobile, lazy load sections
+
+---
+
+### 2. No Image Optimization
+
+**Severity:** MEDIUM
+**Impact:** Large unoptimized images slow page load
+**Files:** All pages using images
+**Current State:** Not using Next.js Image component
+
+**Fix:** Replace `<img>` with `<Image>` from `next/image` with optimization
+
+---
+
+## Security Concerns
+
+### 1. Missing RLS Policies
+
+**Severity:** CRITICAL
+**Impact:** Unauthorized access to data possible
+**Files:** Database (not in repo)
+**Requirement:** Per CLAUDE.md - "RLS policies on EVERY Supabase table — no exceptions"
+
+**Current:** No policies created
+**Fix Approach:**
+1. Create policy for `profiles` table: users can only read/update own profile
+2. Create policy for `subscriptions`: users can only read own
+3. Create policy for `analyses`: users can only read own
+4. Create policy for `analyses`: restrict by user_id
+5. All data tables: Add WHERE clause filtering by user_id
+
+**Example:**
+```sql
+CREATE POLICY "Users can view own profile"
+ON profiles
+FOR SELECT
+USING (auth.uid() = id);
+```
+
+---
+
+### 2. No Input Sanitization on All Routes
+
+**Severity:** MEDIUM
+**Impact:** XSS attacks on user-generated content (journal, mood notes)
+**Files:** All API routes handling text input
+**Current State:** `src/lib/utils/sanitize.ts` exists but not used everywhere
+
+**Risk Areas:**
+- Journal entry content (could contain HTML/JS)
+- Mood notes
+- Goal descriptions
+- Custom question input
+
+**Fix:** Validate all text input with DOMPurify before storing
+
+---
+
+### 3. No Rate Limiting
+
+**Severity:** MEDIUM
+**Impact:** Brute force attacks on login, API abuse
+**Files:** API routes (all)
+**Current State:** No rate limiting implemented
+
+**Missing:**
+- Login endpoint: Max 5 attempts per 15 minutes
+- API endpoints: Rate limit per user
+- Signup: Rate limit per IP
+
+**Fix:** Use `Ratelimit` from `@upstash/ratelimit`
+
+---
+
+## Testing Gaps
+
+**Severity:** HIGH
+**Impact:** No coverage of business logic, easy to introduce bugs
+
+**Missing:**
+- Zero test files in codebase
+- No unit tests for services
+- No integration tests for API routes
+- No E2E tests
+
+**Recommended:**
+- Add vitest for unit tests (services, utils)
+- Add integration tests for API routes
+- Consider Playwright for E2E
+
+---
+
+## Documentation
+
+**Severity:** LOW
+**Impact:** Developers unclear on patterns
+
+**Missing:**
+- README.md for feature development
+- API documentation
+- Database schema documentation
+- Component documentation
+
+**Recommended:**
+- Add JSDoc to all exported functions (required by CLAUDE.md)
+- Create CONTRIBUTING.md
+- Document all API endpoints
+
+---
+
+## Summary Table
+
+| Issue | Severity | Blocking | Fix Time |
+|-------|----------|----------|----------|
+| Empty services layer | CRITICAL | YES | 40h |
+| Missing API routes | CRITICAL | YES | 60h |
+| No database setup | CRITICAL | YES | 20h |
+| No logout function | HIGH | YES | 2h |
+| Missing RLS policies | CRITICAL | YES | 4h |
+| No email service | HIGH | NO | 8h |
+| No input sanitization | MEDIUM | NO | 4h |
+| No rate limiting | MEDIUM | NO | 6h |
+| Missing tests | HIGH | NO | 40h |
+| Dashboard placeholder | MEDIUM | NO | 4h |
+| Upload handler | MEDIUM | NO | 6h |
+
+**Critical Path (Must Complete First):**
+1. Create/migrate Supabase tables + RLS policies
+2. Implement services layer (analysis, astrology, numerology)
+3. Implement API routes (tools, subscription, insights)
+4. Add logout functionality
+5. Add email service
+6. Then: Implement all tool pages
 
 ---
 
