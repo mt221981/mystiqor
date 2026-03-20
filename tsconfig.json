@@ -38,6 +38,7 @@
   ],
   "exclude": [
     "node_modules",
-    "temp_source"
+    "temp_source",
+    "tests"
   ]
 }
