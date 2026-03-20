@@ -82,6 +82,8 @@ type Json = string | number | boolean | null | { [key: string]: Json | undefined
 
 export interface Database {
   public: {
+    /** גרסת PostgREST — נדרש ע"י @supabase/supabase-js v2.99+ לפתרון overloads */
+    PostgrestVersion: '12';
     Tables: {
       /** פרופילי משתמשים - מידע אישי ותצורה */
       profiles: {
@@ -142,6 +144,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: never[];
       };
 
       /** מנויים - תוכנית, מגבלות שימוש, וחיבור ל-Stripe */
@@ -206,6 +209,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: never[];
       };
 
       /** ניתוחים - תוצאות כלי הניתוח השונים */
@@ -240,6 +244,7 @@ export interface Database {
           confidence_score?: number | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** תכונות ניתוח - מאפיינים שחולצו מניתוח */
@@ -274,6 +279,7 @@ export interface Database {
           metadata?: Json;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** מטרות - יעדים אישיים של המשתמש */
@@ -326,6 +332,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: never[];
       };
 
       /** רשומות מצב רוח - מעקב יומי אחר מצב נפשי */
@@ -372,6 +379,7 @@ export interface Database {
           ai_analysis?: Json | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** רשומות יומן - כתיבה אישית רפלקטיבית */
@@ -418,6 +426,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: never[];
       };
 
       /** תובנות יומיות - תובנות מותאמות אישית שנוצרות מדי יום */
@@ -470,6 +479,7 @@ export interface Database {
           insight_date?: string;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** חלומות - מעקב וניתוח חלומות */
@@ -531,6 +541,7 @@ export interface Database {
           symbol_meanings?: Json;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** מסעות אימון - תהליכי ליווי אישי מובנים */
@@ -580,6 +591,7 @@ export interface Database {
           created_at?: string;
           updated_at?: string;
         };
+        Relationships: never[];
       };
 
       /** הודעות אימון - שיחות עם המאמן האישי */
@@ -611,6 +623,7 @@ export interface Database {
           metadata?: Json;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** תזכורות - התראות מתוזמנות למשתמש */
@@ -648,6 +661,7 @@ export interface Database {
           recurrence_rule?: string | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** היסטוריית תשלומים - רשומות תשלום מ-Stripe */
@@ -682,6 +696,7 @@ export interface Database {
           error_message?: string | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** פרופילי אורחים - אנשים קשורים לניתוח */
@@ -716,6 +731,7 @@ export interface Database {
           relationship?: string | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** התקדמות למידה - מעקב אחר לימוד תחומים */
@@ -756,6 +772,7 @@ export interface Database {
           last_studied?: string | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** הפניות - תוכנית הפניית חברים */
@@ -790,6 +807,7 @@ export interface Database {
           created_at?: string;
           completed_at?: string | null;
         };
+        Relationships: never[];
       };
 
       /** ספר כללים - כללים להפקת תובנות אוטומטיות */
@@ -833,6 +851,7 @@ export interface Database {
           is_active?: boolean;
           created_at?: string;
         };
+        Relationships: never[];
       };
 
       /** קלפי טארוט - מידע סטטי על קלפים */
@@ -873,6 +892,7 @@ export interface Database {
           keywords?: string[];
           image_url?: string | null;
         };
+        Relationships: never[];
       };
 
       /** פוסטים בבלוג - תוכן שיווקי ולימודי */
@@ -916,6 +936,7 @@ export interface Database {
           is_published?: boolean;
           published_at?: string;
         };
+        Relationships: never[];
       };
 
       /** אירועי אנליטיקס - מעקב שימוש ואירועים במערכת */
@@ -947,6 +968,7 @@ export interface Database {
           session_id?: string | null;
           created_at?: string;
         };
+        Relationships: never[];
       };
     };
 
