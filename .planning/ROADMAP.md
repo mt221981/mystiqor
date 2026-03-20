@@ -34,8 +34,8 @@ Production rebuild from BASE44 no-code platform to Next.js 16 + TypeScript + Sup
 Plans:
 - [ ] 01-01-PLAN.md — Test infrastructure (vitest), packages (openai, resend), DB migrations (20 tables, 3 functions)
 - [ ] 01-02-PLAN.md — GEM 2: Hebrew gematria + numerology services; GEM 3: rule engine
-- [ ] 01-03-PLAN.md — Geocode service, LLM wrapper, GEM 1: solar return VSOP87, GEM 14: aspects, chart assembly
-- [ ] 01-04-PLAN.md — GEM 12: astrology prompts, drawing analysis service, email services, Header signOut fix
+- [x] 01-03-PLAN.md — Geocode service, LLM wrapper, GEM 1: solar return VSOP87, GEM 14: aspects, chart assembly
+- [x] 01-04-PLAN.md — GEM 12: astrology prompts, drawing analysis service, email services, Header signOut fix
 - [ ] 01-05-PLAN.md — 5 Zod validation schemas (analysis, subscription, goals, mood, journal), onboarding store, analytics hook
 - [ ] 01-06-PLAN.md — GEM 7: useSubscription hook with optimistic updates; FormInput, LocationSearch, BirthDataForm
 - [ ] 01-07-PLAN.md — SubscriptionGuard, UsageBar, PlanCard; GEM 9: ExplainableInsight, ConfidenceBadge; ToolGrid, AnalysisHistory
@@ -93,7 +93,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
-| 1. Core Infrastructure | 2/8 | In Progress|  |
+| 1. Core Infrastructure | 4/8 | In Progress|  |
 | 2. Core Features | 0/TBD | Not started | - |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
