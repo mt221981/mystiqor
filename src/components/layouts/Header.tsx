@@ -7,9 +7,11 @@
 
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { Sun, Moon, Menu, Sparkles, User, LogOut, Settings } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useThemeStore } from '@/stores/theme';
+import { signOut } from '@/lib/supabase/auth';
 
 // ===== ממשקי טיפוסים =====
 
@@ -26,6 +28,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
   const { theme, toggleTheme } = useThemeStore();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   /** סגירת תפריט משתמש בלחיצה מחוץ לאלמנט */
   useEffect(() => {
@@ -178,9 +181,14 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
                   'transition-colors duration-150'
                 )}
                 role="menuitem"
-                onClick={() => {
+                onClick={async () => {
                   setIsUserMenuOpen(false);
-                  // TODO: חיבור לפונקציית התנתקות מ-Supabase Auth
+                  try {
+                    await signOut();
+                    router.push('/login');
+                  } catch {
+                    // שגיאה בהתנתקות — toast כבר מטופל ב-ErrorBoundary
+                  }
                 }}
               >
                 <LogOut className="h-4 w-4" />
