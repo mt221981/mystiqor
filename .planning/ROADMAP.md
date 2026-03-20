@@ -29,7 +29,17 @@ Production rebuild from BASE44 no-code platform to Next.js 16 + TypeScript + Sup
   3. The subscription hook returns the current user's plan and usage from Supabase, and SubscriptionGuard blocks access when the limit is reached
   4. BirthDataForm and LocationSearch render with RTL layout, validate with Zod, and display Hebrew error messages
   5. All API route skeletons (geocode, upload, subscription, analysis) respond with typed JSON — no 404s or 500s on valid requests
-**Plans**: TBD
+**Plans**: 8 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Test infrastructure (vitest), packages (openai, resend), DB migrations (20 tables, 3 functions)
+- [ ] 01-02-PLAN.md — GEM 2: Hebrew gematria + numerology services; GEM 3: rule engine
+- [ ] 01-03-PLAN.md — Geocode service, LLM wrapper, GEM 1: solar return VSOP87, GEM 14: aspects, chart assembly
+- [ ] 01-04-PLAN.md — GEM 12: astrology prompts, drawing analysis service, email services, Header signOut fix
+- [ ] 01-05-PLAN.md — 5 Zod validation schemas (analysis, subscription, goals, mood, journal), onboarding store, analytics hook
+- [ ] 01-06-PLAN.md — GEM 7: useSubscription hook with optimistic updates; FormInput, LocationSearch, BirthDataForm
+- [ ] 01-07-PLAN.md — SubscriptionGuard, UsageBar, PlanCard; GEM 9: ExplainableInsight, ConfidenceBadge; ToolGrid, AnalysisHistory
+- [ ] 01-08-PLAN.md — API routes: geocode, upload, subscription, subscription/usage, analysis, analysis/[id]
 
 ### Phase 2: Core Features
 **Goal**: Users can complete onboarding and use all 13 mystical tools end-to-end, receiving personalized, non-generic AI-generated insights
@@ -83,7 +93,7 @@ Production rebuild from BASE44 no-code platform to Next.js 16 + TypeScript + Sup
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
-| 1. Core Infrastructure | 0/TBD | Not started | - |
+| 1. Core Infrastructure | 0/8 | Planned | - |
 | 2. Core Features | 0/TBD | Not started | - |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
