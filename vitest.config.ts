@@ -5,6 +5,7 @@ import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { resolve } from 'path'
 
+// eslint-disable-next-line import/no-default-export
 export default defineConfig({
   plugins: [react()],
   test: {
@@ -16,6 +17,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
+      // NOTE: must NOT have trailing slash — '@/services/...' imports require '@' only
       '@': resolve(__dirname, './src'),
     },
   },

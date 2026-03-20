@@ -7,7 +7,6 @@
 import { describe, it, expect } from 'vitest';
 import {
   GEMATRIA,
-  HEBREW_VOWELS,
   cleanHebrewText,
   calculateGematria,
 } from '@/services/numerology/gematria';
@@ -35,7 +34,6 @@ describe('GEMATRIA constant', () => {
 
 describe('cleanHebrewText', () => {
   it('מסיר ניקוד (niqqud) מטקסט עברי', () => {
-    // שָׁלוֹם עם ניקוד → שלום ללא ניקוד
     expect(cleanHebrewText('שָׁלוֹם')).toBe('שלום');
   });
 
@@ -76,8 +74,8 @@ describe('reduceToSingleDigit', () => {
     expect(reduceToSingleDigit(33)).toBe(33);
   });
 
-  it('מצמצם 29 ל-11 (מספר מאסטר שמתקבל בסיכום)', () => {
-    // 29: 2+9=11, ו-11 הוא מספר מאסטר — מחזיר 11 ולא 2
+  it('מצמצם 29 ל-11 (29 → 2+9=11, 11 הוא מספר מאסטר)', () => {
+    // PLAN specification: 29 → sum digits = 11 → 11 IS master number → return 11
     expect(reduceToSingleDigit(29)).toBe(11);
   });
 
@@ -88,8 +86,8 @@ describe('reduceToSingleDigit', () => {
 
 describe('calculateLifePath', () => {
   it('מחשב נתיב חיים נכון ל-1990-05-15', () => {
-    // day=15 → reduce(15)=6, month=5→5, year=1990 → reduce(1990)=reduce(1+9+9+0=19)=reduce(10)=1
-    // sum = 6+5+1 = 12 → reduce(12) = 3
+    // d=15→reduce(15)=6, m=5, y=1990→reduce(1990)=1
+    // 6+5+1=12 → reduce(12)=3
     expect(calculateLifePath('1990-05-15')).toBe(3);
   });
 });
