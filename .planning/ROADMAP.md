@@ -51,7 +51,18 @@ Plans:
   3. The numerology tool calculates and displays Hebrew gematria (life path, destiny, soul, personality, personal year) for a given name
   4. The birth chart tool renders an interactive SVG with planet positions and aspect lines, and Solar Return finds the exact solar return moment via VSOP87 binary search
   5. All 13 tool pages accept input, call their API routes, and display AI-generated results — none return errors on valid input
-**Plans**: TBD
+**Plans**: 9 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Onboarding wizard (GEM 13 Barnum ethics step), dashboard (real Supabase stats + Recharts), home page (ToolGrid + insight widget)
+- [ ] 02-02-PLAN.md — TOOL-01: Numerology (NumberCard); TOOL-09: Palmistry (vision AI); TOOL-10: Tarot (DB cards + seed)
+- [ ] 02-03-PLAN.md — TOOL-07: Graphology (Comparison RadarChart + QuickStats); TOOL-08: Drawing (DigitalCanvas + AnnotatedViewer + KoppitzIndicators + MetricsBreakdown)
+- [ ] 02-04-PLAN.md — TOOL-11: Human Design (9-center SVG + LLM simulation); TOOL-12: Dream (async fire-and-forget)
+- [ ] 02-05-PLAN.md — TOOL-02: Astrology birth chart (BirthChart SVG split into 5 sub-components, API + interpret route)
+- [ ] 02-06-PLAN.md — TOOL-03: Solar Return (GEM 1 binary search); TOOL-04: Transits (REBUILD real ephemeris)
+- [ ] 02-07-PLAN.md — TOOL-05: Synastry (dual chart + compatibility scoring); TOOL-06: Readings (8 types + ReadingCard)
+- [ ] 02-08-PLAN.md — TOOL-13: Compatibility (numerology + astrology combined, anti-Barnum)
+- [ ] 02-09-PLAN.md — Phase 2 human verification checkpoint (build clean + 13 tools confirmed working)
 
 ### Phase 3: Advanced Features
 **Goal**: Users have a complete personal journey layer — AI coaching, goal tracking, mood logging, journaling, daily insights, and multi-tool synthesis
@@ -94,7 +105,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
 | 1. Core Infrastructure | 4/8 | In Progress|  |
-| 2. Core Features | 0/TBD | Not started | - |
+| 2. Core Features | 0/9 | Planned | - |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
 | 5. Polish & QA | 0/TBD | Not started | - |
