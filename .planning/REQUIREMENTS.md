@@ -9,7 +9,7 @@ Requirements for production rebuild. Each maps to roadmap phases.
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: Services layer — numerology (gematria, calculations, compatibility), astrology (solar return, aspects, chart), drawing analysis, rule engine
+- [x] **INFRA-01**: Services layer — numerology (gematria, calculations, compatibility), astrology (solar return, aspects, chart), drawing analysis, rule engine
 - [ ] **INFRA-02**: LLM invocation wrapper (OpenAI/Anthropic API) with sanitized prompts
 - [ ] **INFRA-03**: Geocoding service (Nominatim proxy)
 - [ ] **INFRA-04**: Zod validation schemas for all tool inputs
@@ -109,7 +109,7 @@ Requirements for production rebuild. Each maps to roadmap phases.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Pending |
 | INFRA-03 | Phase 1 | Pending |
 | INFRA-04 | Phase 1 | Pending |

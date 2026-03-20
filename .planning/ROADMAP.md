@@ -93,7 +93,7 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
-| 1. Core Infrastructure | 0/8 | Planned | - |
+| 1. Core Infrastructure | 2/8 | In Progress|  |
 | 2. Core Features | 0/TBD | Not started | - |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
