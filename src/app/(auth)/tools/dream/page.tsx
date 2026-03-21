@@ -1,0 +1,302 @@
+'use client';
+
+/**
+ * דף ניתוח חלומות — תיעוד חלום + ניתוח AI אסינכרוני
+ * Pattern: submit → toast מיידי → polling לתוצאה עד שהפרשנות מוכנה
+ */
+
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import ReactMarkdown from 'react-markdown';
+import { toast } from 'sonner';
+import { Loader2, Plus, X, Moon } from 'lucide-react';
+import { motion } from 'framer-motion';
+import type { z } from 'zod';
+
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { PageHeader } from '@/components/layouts/PageHeader';
+import { animations } from '@/lib/animations/presets';
+import { DreamInputSchema } from '@/app/api/tools/dream/route';
+
+// ===== טיפוסים =====
+
+/** טיפוס קלט הטופס — כל שדות חובה ברמת הטופס */
+interface FormValues {
+  title: string;
+  description: string;
+  dreamDate: string;
+  emotions: string[];
+  symbols: string[];
+  generateImage: boolean;
+}
+
+/** תשובת GET polling */
+interface DreamPollResponse {
+  data: { ai_interpretation: string | null; title: string } | null;
+}
+
+/** תשובת POST */
+interface DreamPostResponse {
+  data?: { dream_id: string; status: 'processing' };
+  error?: unknown;
+}
+
+// ===== קומפוננטה: הוספת תגיות =====
+
+/** Props לכלי הוספת תגיות (רגשות / סמלים) */
+interface TagInputProps {
+  label: string;
+  values: string[];
+  onAdd: (value: string) => void;
+  onRemove: (index: number) => void;
+  placeholder: string;
+}
+
+/** רכיב הוספת תגיות — input + כפתור + chips */
+function TagInput({ label, values, onAdd, onRemove, placeholder }: TagInputProps) {
+  const [inputValue, setInputValue] = useState('');
+
+  const handleAdd = useCallback(() => {
+    const trimmed = inputValue.trim();
+    if (trimmed && values.length < 10) {
+      onAdd(trimmed);
+      setInputValue('');
+    }
+  }, [inputValue, values.length, onAdd]);
+
+  const handleKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAdd();
+    }
+  }, [handleAdd]);
+
+  return (
+    <div className="space-y-2">
+      <Label>{label}</Label>
+      <div className="flex gap-2">
+        <Input
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          dir="rtl"
+          className="flex-1"
+        />
+        <Button type="button" variant="outline" size="icon" onClick={handleAdd} disabled={values.length >= 10}>
+          <Plus className="h-4 w-4" />
+          <span className="sr-only">הוסף</span>
+        </Button>
+      </div>
+      {values.length > 0 && (
+        <div className="flex flex-wrap gap-2">
+          {values.map((val, i) => (
+            <Badge key={i} variant="secondary" className="gap-1">
+              {val}
+              <button type="button" onClick={() => onRemove(i)} aria-label={`הסר ${val}`}>
+                <X className="h-3 w-3" />
+              </button>
+            </Badge>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ===== קומפוננטה ראשית =====
+
+/** דף ניתוח חלומות */
+export default function DreamPage() {
+  const [dreamId, setDreamId] = useState<string | null>(null);
+  const [interpretation, setInterpretation] = useState<string | null>(null);
+  const [isPolling, setIsPolling] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const pollingRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormValues>({
+    defaultValues: {
+      title: '',
+      description: '',
+      dreamDate: new Date().toISOString().split('T')[0],
+      emotions: [],
+      symbols: [],
+      generateImage: false,
+    },
+  });
+
+  const emotions = watch('emotions') ?? [];
+  const symbols = watch('symbols') ?? [];
+
+  /** הוספת רגש */
+  const addEmotion = useCallback((val: string) => {
+    setValue('emotions', [...emotions, val], { shouldValidate: false });
+  }, [emotions, setValue]);
+
+  /** הסרת רגש */
+  const removeEmotion = useCallback((i: number) => {
+    setValue('emotions', emotions.filter((_, idx) => idx !== i), { shouldValidate: false });
+  }, [emotions, setValue]);
+
+  /** הוספת סמל */
+  const addSymbol = useCallback((val: string) => {
+    setValue('symbols', [...symbols, val], { shouldValidate: false });
+  }, [symbols, setValue]);
+
+  /** הסרת סמל */
+  const removeSymbol = useCallback((i: number) => {
+    setValue('symbols', symbols.filter((_, idx) => idx !== i), { shouldValidate: false });
+  }, [symbols, setValue]);
+
+  /** polling לפרשנות AI */
+  useEffect(() => {
+    if (!dreamId || !isPolling) return;
+
+    pollingRef.current = setInterval(async () => {
+      try {
+        const res = await fetch(`/api/tools/dream?id=${encodeURIComponent(dreamId)}`);
+        const json = await res.json() as DreamPollResponse;
+        if (json.data?.ai_interpretation) {
+          setInterpretation(json.data.ai_interpretation);
+          setIsPolling(false);
+          if (pollingRef.current) clearInterval(pollingRef.current);
+        }
+      } catch {
+        // שגיאת polling — ממשיכים לנסות
+      }
+    }, 5000);
+
+    return () => {
+      if (pollingRef.current) clearInterval(pollingRef.current);
+    };
+  }, [dreamId, isPolling]);
+
+  /** שליחת הטופס */
+  const onSubmit = useCallback(async (values: FormValues) => {
+    setIsSubmitting(true);
+    try {
+      const res = await fetch('/api/tools/dream', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      });
+      const json = await res.json() as DreamPostResponse;
+
+      if (!res.ok) {
+        toast.error('שגיאה בשמירת החלום — נסה שנית');
+        return;
+      }
+
+      if (json.data?.dream_id) {
+        setDreamId(json.data.dream_id);
+        setIsPolling(true);
+        setInterpretation(null);
+        toast.success('חלומך נשמר! הניתוח יהיה מוכן בקרוב');
+      }
+    } catch {
+      toast.error('שגיאת רשת — נסה שנית');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, []);
+
+  return (
+    <div className="space-y-8" dir="rtl">
+      <PageHeader
+        title="ניתוח חלומות"
+        description="תעד את חלומך וקבל פרשנות פסיכולוגית"
+        icon={<Moon className="h-5 w-5" />}
+        breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'ניתוח חלומות' }]}
+      />
+
+      {/* טופס חלום */}
+      <Card>
+        <CardHeader><CardTitle>תיעוד החלום</CardTitle></CardHeader>
+        <CardContent>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
+            {/* כותרת */}
+            <div className="space-y-2">
+              <Label htmlFor="title">כותרת</Label>
+              <Input id="title" {...register('title')} placeholder="שם קצר לחלום" dir="rtl" />
+              {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
+            </div>
+
+            {/* תיאור */}
+            <div className="space-y-2">
+              <Label htmlFor="description">תיאור החלום</Label>
+              <Textarea
+                id="description"
+                {...register('description')}
+                placeholder="ספר את החלום בפרטים — מה ראית, מה הרגשת, מה קרה?"
+                dir="rtl"
+                rows={5}
+                className="resize-y"
+              />
+              {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
+            </div>
+
+            {/* תאריך */}
+            <div className="space-y-2">
+              <Label htmlFor="dreamDate">תאריך החלום</Label>
+              <Input id="dreamDate" type="date" {...register('dreamDate')} dir="ltr" className="text-start w-auto" />
+            </div>
+
+            {/* רגשות */}
+            <TagInput
+              label="רגשות בחלום"
+              values={emotions}
+              onAdd={addEmotion}
+              onRemove={removeEmotion}
+              placeholder="למשל: שמחה, פחד, בלבול..."
+            />
+
+            {/* סמלים */}
+            <TagInput
+              label="סמלים וחפצים"
+              values={symbols}
+              onAdd={addSymbol}
+              onRemove={removeSymbol}
+              placeholder="למשל: מים, בית, ציפור..."
+            />
+
+            <Button type="submit" disabled={isSubmitting || isPolling} className="w-full sm:w-auto">
+              {isSubmitting ? (
+                <><Loader2 className="ms-2 h-4 w-4 animate-spin" />שומר חלום...</>
+              ) : (
+                'שמור ונתח'
+              )}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
+
+      {/* מצב המתנה לניתוח */}
+      {isPolling && !interpretation && (
+        <motion.div {...animations.fadeIn} className="flex items-center gap-3 text-muted-foreground">
+          <Loader2 className="h-5 w-5 animate-spin" />
+          <span>הניתוח מוכן בקרוב — בדרך כלל תוך 10-30 שניות</span>
+        </motion.div>
+      )}
+
+      {/* תוצאת הניתוח */}
+      {interpretation && (
+        <motion.div {...animations.fadeInUp} transition={{ duration: 0.4 }}>
+          <Card>
+            <CardHeader><CardTitle>ניתוח החלום</CardTitle></CardHeader>
+            <CardContent>
+              <div className="prose prose-sm dark:prose-invert max-w-none">
+                <ReactMarkdown>{interpretation}</ReactMarkdown>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      )}
+    </div>
+  );
+}
