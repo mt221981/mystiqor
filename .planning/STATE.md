@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 01-04-PLAN.md — astrology prompts (GEM 12), drawing analysis, email services, auth helpers, Header logout
-last_updated: "2026-03-20T15:20:00.000Z"
+status: unknown
+stopped_at: Completed 02-01-PLAN.md — OnboardingWizard (GEM 13), Dashboard (real Supabase stats + Recharts), Home page (ToolGrid + insight widget)
+last_updated: "2026-03-21T19:39:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 0
-  total_plans: 8
-  completed_plans: 4
+  total_plans: 17
+  completed_plans: 6
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Every user gets personalized mystical insights grounded in their specific data — not generic content. Anti-Barnum by design.
-**Current focus:** Phase 01 — core-infrastructure
+**Current focus:** Phase 02 — core-features
 
 ## Current Position
 
-Phase: 01 (core-infrastructure) — EXECUTING
-Plan: 4 of 8
+Phase: 02 (core-features) — EXECUTING
+Plan: 2 of 9
 
 ## Performance Metrics
 
@@ -46,6 +46,7 @@ Plan: 4 of 8
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 02 P01 | 21 | 2 tasks | 11 files |
 | Phase 01 P04 | 20 | 2 tasks | 9 files |
 | Phase 01 P03 | 45 | 2 tasks | 6 files |
 | Phase 01 P02 | 20 | 2 tasks | 6 files |
@@ -73,6 +74,11 @@ Recent decisions affecting current work:
 - [Phase 01 P04]: PlanetPositions interface defined inline in transits.ts — not promoted to types/astrology.ts to avoid scope creep
 - [Phase 01 P04]: extractDrawingFeatures returns DEFAULT_DRAWING_FEATURES with console.warn — correct Phase 1 placeholder, Vision API is Phase 2 scope
 - [Phase 01 P04]: Header.tsx logout handler made async — required for await signOut()
+- [Phase 02 P01]: BarnumEthicsStep split into dedicated file — GEM 13 logic isolated as testable named export
+- [Phase 02 P01]: OnboardingWizard split into 4 files (wizard/steps/barnum/preferences) — 300-line compliance
+- [Phase 02 P01]: Home page is authenticated-only — anonymous users redirect to /login, no public landing
+- [Phase 02 P01]: aria-checked set as string literal ('true'/'false') — ARIA spec requires string, not boolean
+- [Phase 02 P01]: onboarding store extended with gender/focusAreas/aiSuggestionsEnabled — plan interface required these fields but store was missing them
 
 ### Pending Todos
 

@@ -22,9 +22,9 @@ Requirements for production rebuild. Each maps to roadmap phases.
 
 ### Onboarding & Dashboard
 
-- [ ] **ONBR-01**: User completes 4-step onboarding (info → location → ethics/Barnum → preferences)
-- [ ] **ONBR-02**: Dashboard shows stats (goals, mood, analyses, reminders) with charts
-- [ ] **ONBR-03**: Home page with tool grid, daily insight widget, recent analyses
+- [x] **ONBR-01**: User completes 4-step onboarding (info → location → ethics/Barnum → preferences)
+- [x] **ONBR-02**: Dashboard shows stats (goals, mood, analyses, reminders) with charts
+- [x] **ONBR-03**: Home page with tool grid, daily insight widget, recent analyses
 
 ### Mystical Tools
 
@@ -119,9 +119,9 @@ Requirements for production rebuild. Each maps to roadmap phases.
 | INFRA-08 | Phase 1 | Pending |
 | INFRA-09 | Phase 1 | Pending |
 | INFRA-10 | Phase 1 | Pending |
-| ONBR-01 | Phase 2 | Pending |
-| ONBR-02 | Phase 2 | Pending |
-| ONBR-03 | Phase 2 | Pending |
+| ONBR-01 | Phase 2 | Complete |
+| ONBR-02 | Phase 2 | Complete |
+| ONBR-03 | Phase 2 | Complete |
 | TOOL-01 | Phase 2 | Pending |
 | TOOL-02 | Phase 2 | Pending |
 | TOOL-03 | Phase 2 | Pending |

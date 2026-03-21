@@ -105,7 +105,7 @@ Plans:
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
 | 1. Core Infrastructure | 4/8 | In Progress|  |
-| 2. Core Features | 0/9 | Planned | - |
+| 2. Core Features | 1/9 | In Progress|  |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
 | 5. Polish & QA | 0/TBD | Not started | - |
