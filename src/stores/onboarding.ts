@@ -23,8 +23,14 @@ interface OnboardingData {
   latitude: number | null;
   /** קו אורך — null עד שנבחר מיקום */
   longitude: number | null;
+  /** מגדר המשתמש */
+  gender: 'male' | 'female' | 'other' | 'prefer_not_to_say';
   /** תחומי העניין שנבחרו */
   disciplines: string[];
+  /** תחומי מיקוד שנבחרו */
+  focusAreas: string[];
+  /** האם להציג הצעות AI */
+  aiSuggestionsEnabled: boolean;
   /** האם הסכים לאזהרת Barnum */
   acceptedBarnum: boolean;
   /** האם הסכים לתנאי השימוש */
@@ -53,7 +59,10 @@ const INITIAL_DATA: OnboardingData = {
   birthPlace: '',
   latitude: null,
   longitude: null,
+  gender: 'prefer_not_to_say',
   disciplines: [],
+  focusAreas: [],
+  aiSuggestionsEnabled: true,
   acceptedBarnum: false,
   acceptedTerms: false,
 };
