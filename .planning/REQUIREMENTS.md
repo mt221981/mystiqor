@@ -12,13 +12,13 @@ Requirements for production rebuild. Each maps to roadmap phases.
 - [x] **INFRA-01**: Services layer — numerology (gematria, calculations, compatibility), astrology (solar return, aspects, chart), drawing analysis, rule engine
 - [x] **INFRA-02**: LLM invocation wrapper (OpenAI/Anthropic API) with sanitized prompts
 - [x] **INFRA-03**: Geocoding service (Nominatim proxy)
-- [ ] **INFRA-04**: Zod validation schemas for all tool inputs
-- [ ] **INFRA-05**: useSubscription hook with Supabase + optimistic updates (GEM 7)
-- [ ] **INFRA-06**: Analytics tracking hooks (page view, tool usage)
-- [ ] **INFRA-07**: Reusable form components (BirthDataForm, LocationSearch, FormInput)
-- [ ] **INFRA-08**: SubscriptionGuard component enforcing plan limits
-- [ ] **INFRA-09**: ExplainableInsight component with provenance display (GEM 9)
-- [ ] **INFRA-10**: API route handlers skeleton (analysis CRUD, subscription, upload, geocode)
+- [x] **INFRA-04**: Zod validation schemas for all tool inputs — Complete (Plan 01-05)
+- [x] **INFRA-05**: useSubscription hook with Supabase + optimistic updates (GEM 7) — Complete (Plan 01-06)
+- [x] **INFRA-06**: Analytics tracking hooks (page view, tool usage) — Complete (Plan 01-05)
+- [x] **INFRA-07**: Reusable form components (BirthDataForm, LocationSearch, FormInput) — Complete (Plan 01-06)
+- [x] **INFRA-08**: SubscriptionGuard component enforcing plan limits — Complete (Plan 01-07)
+- [x] **INFRA-09**: ExplainableInsight component with provenance display (GEM 9) — Complete (Plan 01-07)
+- [x] **INFRA-10**: API route handlers skeleton (analysis CRUD, subscription, upload, geocode) — Complete (Plan 01-08)
 
 ### Onboarding & Dashboard
 
@@ -28,7 +28,7 @@ Requirements for production rebuild. Each maps to roadmap phases.
 
 ### Mystical Tools
 
-- [ ] **TOOL-01**: Numerology — Hebrew gematria calculation (life path, destiny, soul, personality, personal year)
+- [x] **TOOL-01**: Numerology — Hebrew gematria calculation (life path, destiny, soul, personality, personal year) — Complete (Plan 02-02)
 - [ ] **TOOL-02**: Astrology birth chart — geocoding + calculation + interactive SVG + AI interpretation
 - [ ] **TOOL-03**: Astrology Solar Return — VSOP87 binary search + Placidus houses (GEM 1)
 - [ ] **TOOL-04**: Astrology Transits — real ephemeris calculation (rebuild from mocked data)
@@ -36,10 +36,10 @@ Requirements for production rebuild. Each maps to roadmap phases.
 - [ ] **TOOL-06**: Astrology Readings — 8 reading types with type-specific inputs
 - [ ] **TOOL-07**: Graphology — image upload + AI analysis + radar chart comparison
 - [ ] **TOOL-08**: Drawing Analysis — HTP with Koppitz indicators, digital canvas, annotations (GEM 8 pattern)
-- [ ] **TOOL-09**: Palmistry — image upload + AI palm analysis
-- [ ] **TOOL-10**: Tarot — card draw (from DB, not hardcoded) + AI interpretation
-- [ ] **TOOL-11**: Human Design — calculation + centers visualization
-- [ ] **TOOL-12**: Dream Analysis — dream journal + async AI interpretation + image generation
+- [x] **TOOL-09**: Palmistry — image upload + AI palm analysis — Complete (Plan 02-02)
+- [x] **TOOL-10**: Tarot — card draw (from DB, not hardcoded) + AI interpretation — Complete (Plan 02-02)
+- [x] **TOOL-11**: Human Design — calculation + centers visualization — Complete (Plan 02-04)
+- [x] **TOOL-12**: Dream Analysis — dream journal + async AI interpretation + image generation — Complete (Plan 02-04)
 - [ ] **TOOL-13**: Compatibility — numerology + astrology combined, anti-Barnum prompting
 
 ### Personal Journey
@@ -112,17 +112,17 @@ Requirements for production rebuild. Each maps to roadmap phases.
 | INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
-| INFRA-04 | Phase 1 | Pending |
-| INFRA-05 | Phase 1 | Pending |
-| INFRA-06 | Phase 1 | Pending |
-| INFRA-07 | Phase 1 | Pending |
-| INFRA-08 | Phase 1 | Pending |
-| INFRA-09 | Phase 1 | Pending |
-| INFRA-10 | Phase 1 | Pending |
+| INFRA-04 | Phase 1 (01-05) | Complete |
+| INFRA-05 | Phase 1 (01-06) | Complete |
+| INFRA-06 | Phase 1 (01-05) | Complete |
+| INFRA-07 | Phase 1 (01-06) | Complete |
+| INFRA-08 | Phase 1 (01-07) | Complete |
+| INFRA-09 | Phase 1 (01-07) | Complete |
+| INFRA-10 | Phase 1 (01-08) | Complete |
 | ONBR-01 | Phase 2 | Complete |
 | ONBR-02 | Phase 2 | Complete |
 | ONBR-03 | Phase 2 | Complete |
-| TOOL-01 | Phase 2 | Pending |
+| TOOL-01 | Phase 2 (02-02) | Complete |
 | TOOL-02 | Phase 2 | Pending |
 | TOOL-03 | Phase 2 | Pending |
 | TOOL-04 | Phase 2 | Pending |
@@ -130,10 +130,10 @@ Requirements for production rebuild. Each maps to roadmap phases.
 | TOOL-06 | Phase 2 | Pending |
 | TOOL-07 | Phase 2 | Pending |
 | TOOL-08 | Phase 2 | Pending |
-| TOOL-09 | Phase 2 | Pending |
-| TOOL-10 | Phase 2 | Pending |
-| TOOL-11 | Phase 2 | Pending |
-| TOOL-12 | Phase 2 | Pending |
+| TOOL-09 | Phase 2 (02-02) | Complete |
+| TOOL-10 | Phase 2 (02-02) | Complete |
+| TOOL-11 | Phase 2 (02-04) | Complete |
+| TOOL-12 | Phase 2 (02-04) | Complete |
 | TOOL-13 | Phase 2 | Pending |
 | JOUR-01 | Phase 3 | Pending |
 | JOUR-02 | Phase 3 | Pending |
@@ -173,4 +173,4 @@ Requirements for production rebuild. Each maps to roadmap phases.
 
 ---
 *Requirements defined: 2026-03-20*
-*Last updated: 2026-03-20 after initialization from existing PRD + Build Brief*
+*Last updated: 2026-03-22 — synced with actual completion status from git history*

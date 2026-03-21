@@ -11,7 +11,7 @@ Production rebuild from BASE44 no-code platform to Next.js 16 + TypeScript + Sup
 - Decimal phases (2.1, 2.2): Urgent insertions (marked with INSERTED)
 
 - [x] **Phase 0: Foundation** - Project setup, auth, layout, types, GEMs 5/6/7/8/10/11 — COMPLETE
-- [ ] **Phase 1: Core Infrastructure** - Services layer, API skeleton, hooks, form components
+- [x] **Phase 1: Core Infrastructure** - Services layer, API skeleton, hooks, form components — COMPLETE (2026-03-20)
 - [ ] **Phase 2: Core Features** - Onboarding, dashboard, 13 mystical tool pages end-to-end
 - [ ] **Phase 3: Advanced Features** - AI Coach, goals, mood, journal, insights, synthesis
 - [ ] **Phase 4: Integrations & Account** - Stripe, email, profile, learning, referrals
@@ -32,14 +32,14 @@ Production rebuild from BASE44 no-code platform to Next.js 16 + TypeScript + Sup
 **Plans**: 8 plans
 
 Plans:
-- [ ] 01-01-PLAN.md — Test infrastructure (vitest), packages (openai, resend), DB migrations (20 tables, 3 functions)
-- [ ] 01-02-PLAN.md — GEM 2: Hebrew gematria + numerology services; GEM 3: rule engine
+- [x] 01-01-PLAN.md — Test infrastructure (vitest), packages (openai, resend), DB migrations (20 tables, 3 functions)
+- [x] 01-02-PLAN.md — GEM 2: Hebrew gematria + numerology services; GEM 3: rule engine
 - [x] 01-03-PLAN.md — Geocode service, LLM wrapper, GEM 1: solar return VSOP87, GEM 14: aspects, chart assembly
 - [x] 01-04-PLAN.md — GEM 12: astrology prompts, drawing analysis service, email services, Header signOut fix
-- [ ] 01-05-PLAN.md — 5 Zod validation schemas (analysis, subscription, goals, mood, journal), onboarding store, analytics hook
-- [ ] 01-06-PLAN.md — GEM 7: useSubscription hook with optimistic updates; FormInput, LocationSearch, BirthDataForm
-- [ ] 01-07-PLAN.md — SubscriptionGuard, UsageBar, PlanCard; GEM 9: ExplainableInsight, ConfidenceBadge; ToolGrid, AnalysisHistory
-- [ ] 01-08-PLAN.md — API routes: geocode, upload, subscription, subscription/usage, analysis, analysis/[id]
+- [x] 01-05-PLAN.md — 5 Zod validation schemas (analysis, subscription, goals, mood, journal), onboarding store, analytics hook
+- [x] 01-06-PLAN.md — GEM 7: useSubscription hook with optimistic updates; FormInput, LocationSearch, BirthDataForm
+- [x] 01-07-PLAN.md — SubscriptionGuard, UsageBar, PlanCard; GEM 9: ExplainableInsight, ConfidenceBadge; ToolGrid, AnalysisHistory
+- [x] 01-08-PLAN.md — API routes: geocode, upload, subscription, subscription/usage, analysis, analysis/[id]
 
 ### Phase 2: Core Features
 **Goal**: Users can complete onboarding and use all 13 mystical tools end-to-end, receiving personalized, non-generic AI-generated insights
@@ -54,10 +54,10 @@ Plans:
 **Plans**: 9 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Onboarding wizard (GEM 13 Barnum ethics step), dashboard (real Supabase stats + Recharts), home page (ToolGrid + insight widget)
-- [ ] 02-02-PLAN.md — TOOL-01: Numerology (NumberCard); TOOL-09: Palmistry (vision AI); TOOL-10: Tarot (DB cards + seed)
+- [x] 02-01-PLAN.md — Onboarding wizard (GEM 13 Barnum ethics step), dashboard (real Supabase stats + Recharts), home page (ToolGrid + insight widget)
+- [x] 02-02-PLAN.md — TOOL-01: Numerology (NumberCard); TOOL-09: Palmistry (vision AI); TOOL-10: Tarot (DB cards + seed)
 - [ ] 02-03-PLAN.md — TOOL-07: Graphology (Comparison RadarChart + QuickStats); TOOL-08: Drawing (DigitalCanvas + AnnotatedViewer + KoppitzIndicators + MetricsBreakdown)
-- [ ] 02-04-PLAN.md — TOOL-11: Human Design (9-center SVG + LLM simulation); TOOL-12: Dream (async fire-and-forget)
+- [x] 02-04-PLAN.md — TOOL-11: Human Design (9-center SVG + LLM simulation); TOOL-12: Dream (async fire-and-forget)
 - [ ] 02-05-PLAN.md — TOOL-02: Astrology birth chart (BirthChart SVG split into 5 sub-components, API + interpret route)
 - [ ] 02-06-PLAN.md — TOOL-03: Solar Return (GEM 1 binary search); TOOL-04: Transits (REBUILD real ephemeris)
 - [ ] 02-07-PLAN.md — TOOL-05: Synastry (dual chart + compatibility scoring); TOOL-06: Readings (8 types + ReadingCard)
@@ -104,8 +104,8 @@ Plans:
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | - | Complete | 2026-03-20 |
-| 1. Core Infrastructure | 4/8 | In Progress|  |
-| 2. Core Features | 1/9 | In Progress|  |
+| 1. Core Infrastructure | 8/8 | Complete | 2026-03-20 |
+| 2. Core Features | 3/9 | In Progress |  |
 | 3. Advanced Features | 0/TBD | Not started | - |
 | 4. Integrations & Account | 0/TBD | Not started | - |
 | 5. Polish & QA | 0/TBD | Not started | - |

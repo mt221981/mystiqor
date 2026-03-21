@@ -19,16 +19,24 @@ Every user gets personalized mystical insights grounded in their specific data (
 - ✓ Dark/light theme with CSS variables — Phase 0
 - ✓ Type system (database, analysis, astrology, numerology, subscription) — Phase 0
 - ✓ GEMs 5,6,7,8,10,11 migrated (forceToString, zodiac constants, plans, cache, error boundary, animations) — Phase 0
+- ✓ Services layer: numerology, astrology, drawing analysis, rule engine, geocoding, LLM wrapper, email — Phase 1
+- ✓ All GEMs migrated: GEM 1 (VSOP87), GEM 2 (gematria), GEM 3 (rule engine), GEM 7 (subscription), GEM 9 (insights), GEM 12 (prompts), GEM 13 (Barnum), GEM 14 (aspects) — Phase 1+2
+- ✓ Zod validation schemas for all tool inputs — Phase 1
+- ✓ useSubscription hook with optimistic updates (GEM 7) — Phase 1
+- ✓ Form components (BirthDataForm, LocationSearch, FormInput) — Phase 1
+- ✓ SubscriptionGuard, ExplainableInsight (GEM 9), ToolGrid, AnalysisHistory — Phase 1
+- ✓ 6 API route handlers (geocode, upload, subscription, analysis CRUD) — Phase 1
+- ✓ Onboarding (4-step wizard with Barnum Effect education, GEM 13) — Phase 2
+- ✓ Dashboard with stats + Recharts charts — Phase 2
+- ✓ Numerology tool (NumberCard + API) — Phase 2
+- ✓ Palmistry tool (vision AI) — Phase 2
+- ✓ Tarot tool (DB cards + seed + API) — Phase 2
+- ✓ Human Design tool (9-center SVG + LLM simulation) — Phase 2
+- ✓ Dream Analysis tool (async fire-and-forget) — Phase 2
 
 ### Active
 
-- [ ] Services layer: numerology (gematria, calculations, compatibility), astrology (solar return, aspects, chart, prompts), drawing analysis, rule engine, geocoding, LLM wrapper, email templates
-- [ ] API route handlers for all 13+ tools
-- [ ] Subscription hook with Supabase + optimistic updates
-- [ ] Form components (BirthDataForm, LocationSearch, FormInput)
-- [ ] Onboarding (4-step wizard with Barnum Effect education)
-- [ ] Dashboard with stats + charts
-- [ ] 13 mystical tool pages: Numerology, Astrology (birth chart, solar return, transits, synastry, readings), Graphology, Drawing, Palmistry, Tarot, Human Design, Dream, Compatibility, Career, Question
+- [ ] 8 remaining mystical tool pages: Astrology (birth chart, solar return, transits, synastry, readings), Graphology, Drawing, Compatibility
 - [ ] AI Coach (real-time chat + coaching journeys)
 - [ ] Goals management with AI recommendations
 - [ ] Mood tracker with auto AI analysis
@@ -81,13 +89,13 @@ Every user gets personalized mystical insights grounded in their specific data (
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js 16 App Router | Latest stable, RSC support, file-based routing | — Pending |
-| Supabase over Firebase | PostgreSQL + RLS + Realtime + Auth in one | — Pending |
-| React Query + Zustand | Server state + client state separation | — Pending |
+| Next.js 16 App Router | Latest stable, RSC support, file-based routing | ✓ Working |
+| Supabase over Firebase | PostgreSQL + RLS + Realtime + Auth in one | ✓ Working |
+| React Query + Zustand | Server state + client state separation | ✓ Working |
 | shadcn/ui + Tailwind | Customizable, RTL-friendly, great DX | ✓ Good |
-| Hebrew gematria preserved | Core business logic, unique differentiator | — Pending |
-| Anti-Barnum approach | Ethical AI, builds trust, educates users | — Pending |
-| VSOP87 for Solar Return | Accurate astronomical calculations (±0.01°) | — Pending |
+| Hebrew gematria preserved | Core business logic, unique differentiator | ✓ Migrated (GEM 2) |
+| Anti-Barnum approach | Ethical AI, builds trust, educates users | ✓ Implemented (GEM 13) |
+| VSOP87 for Solar Return | Accurate astronomical calculations (±0.01°) | ✓ Migrated (GEM 1) |
 
 ---
-*Last updated: 2026-03-20 after Phase 0 completion*
+*Last updated: 2026-03-22 after Phase 1 completion + Phase 2 progress sync*

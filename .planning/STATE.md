@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-stopped_at: Completed 02-01-PLAN.md — OnboardingWizard (GEM 13), Dashboard (real Supabase stats + Recharts), Home page (ToolGrid + insight widget)
-last_updated: "2026-03-21T19:39:00.000Z"
+status: in_progress
+stopped_at: "Completed 02-04-PLAN.md — Human Design (9-center SVG + LLM simulation) + Dream Analysis (async fire-and-forget)"
+last_updated: "2026-03-21T21:57:00.000Z"
 progress:
   total_phases: 5
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 17
-  completed_plans: 6
+  completed_plans: 11
 ---
 
 # Project State
@@ -19,38 +19,58 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-20)
 
 **Core value:** Every user gets personalized mystical insights grounded in their specific data — not generic content. Anti-Barnum by design.
-**Current focus:** Phase 02 — core-features
+**Current focus:** Phase 02 — core-features (3/9 plans complete)
 
 ## Current Position
 
 Phase: 02 (core-features) — EXECUTING
-Plan: 2 of 9
+Plan: 3 of 9 complete (next: 02-03 Graphology + Drawing)
+
+## Phase Completion
+
+### Phase 1: Core Infrastructure — COMPLETE (8/8 plans, 2026-03-20)
+
+All services, hooks, form components, and API route handlers delivered:
+- 01-01: vitest, DB migrations (20 tables), openai/resend packages
+- 01-02: Hebrew gematria (GEM 2), numerology services, rule engine (GEM 3)
+- 01-03: Geocode, LLM wrapper, solar return VSOP87 (GEM 1), aspects (GEM 14)
+- 01-04: Astrology prompts (GEM 12), drawing analysis, email services, auth signOut
+- 01-05: 5 Zod schemas, onboarding Zustand store, analytics hooks
+- 01-06: useSubscription hook (GEM 7), FormInput, LocationSearch, BirthDataForm
+- 01-07: SubscriptionGuard, ExplainableInsight (GEM 9), ToolGrid, AnalysisHistory
+- 01-08: 6 API routes (geocode, upload, subscription, analysis CRUD)
+
+### Phase 2: Core Features — IN PROGRESS (3/9 plans)
+
+Completed:
+- 02-01: OnboardingWizard (GEM 13 Barnum), Dashboard (Recharts), Home page
+- 02-02: Numerology (NumberCard + API), Palmistry (vision AI), Tarot (DB seed + API)
+- 02-04: Human Design (9-center SVG), Dream Analysis (async fire-and-forget)
+
+Remaining:
+- 02-03: Graphology + Drawing Analysis
+- 02-05: Astrology birth chart (SVG split)
+- 02-06: Solar Return + Transits
+- 02-07: Synastry + Readings
+- 02-08: Compatibility
+- 02-09: Human verification checkpoint
 
 ## Performance Metrics
 
 **Velocity:**
 
-- Total plans completed: 0 (Phase 0 pre-dates GSD workflow)
-- Average duration: —
-- Total execution time: —
-
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| 0. Foundation | pre-GSD | — | — |
-
-**Recent Trend:**
-
-- Last 5 plans: —
-- Trend: —
-
-*Updated after each plan completion*
-| Phase 02 P01 | 21 | 2 tasks | 11 files |
-| Phase 01 P04 | 20 | 2 tasks | 9 files |
-| Phase 01 P03 | 45 | 2 tasks | 6 files |
-| Phase 01 P02 | 20 | 2 tasks | 6 files |
-| Phase 01 P01 | 14 | 3 tasks | 12 files |
+| Plan | Duration (min) | Tasks | Files |
+|------|---------------|-------|-------|
+| Phase 01 P01 | 14 | 3 | 12 |
+| Phase 01 P02 | 20 | 2 | 6 |
+| Phase 01 P03 | 45 | 2 | 6 |
+| Phase 01 P04 | 20 | 2 | 9 |
+| Phase 01 P05 | 45 | 2 | 8 |
+| Phase 01 P06 | — | 2 | 4 |
+| Phase 01 P07 | — | 2 | 7 |
+| Phase 01 P08 | — | 2 | 6 |
+| Phase 02 P01 | 21 | 2 | 11 |
+| Phase 02 P02+P04 | — | 4 | 17 |
 
 ## Accumulated Context
 
@@ -79,6 +99,9 @@ Recent decisions affecting current work:
 - [Phase 02 P01]: Home page is authenticated-only — anonymous users redirect to /login, no public landing
 - [Phase 02 P01]: aria-checked set as string literal ('true'/'false') — ARIA spec requires string, not boolean
 - [Phase 02 P01]: onboarding store extended with gender/focusAreas/aiSuggestionsEnabled — plan interface required these fields but store was missing them
+- [Phase 02 P02]: tarot_cards table schema uses name_he/name_en/meaning_upright/meaning_reversed — not name/name_english/description as in plan interfaces
+- [Phase 02 P02]: drawCards extracted as pure function in tarot route — enables unit testing without Supabase mock
+- [Phase 02 P02]: NumberCard uses @/lib/utils (root cn function) matching shadcn component pattern
 
 ### Pending Todos
 
@@ -92,6 +115,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-20T15:20:00.000Z
-Stopped at: Completed 01-04-PLAN.md — GEM 12 prompts, drawing analysis (HTP), email services (Resend), auth.ts signOut, Header logout fixed
+Last session: 2026-03-21T21:57:00.000Z
+Stopped at: Completed 02-02 + 02-04 — Numerology, Palmistry, Tarot, Human Design, Dream tools
 Resume file: None
