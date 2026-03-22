@@ -96,16 +96,16 @@ Plans:
   5. Dream analysis accepts a text description and returns an AI interpretation
   6. Personality analysis generates a Big Five radar chart from user responses
   7. Every tool form is wrapped in SubscriptionGuard — free users see an upgrade prompt after 3 analyses
-**Plans**: TBD
+**Plans:** 7 plans
 
 Plans:
-- [ ] 04-01: Astrology natal chart (SVG decomposition: ZodiacRing, PlanetPositions, AspectLines, HouseOverlay)
-- [ ] 04-02: Natal chart AI interpretation + astro calendar + daily forecast
-- [ ] 04-03: Numerology (life path, destiny, soul, sub-numbers, compatibility)
-- [ ] 04-04: Daily insights (tarot + numerology + astrology combined, date-keyed caching)
-- [ ] 04-05: Tarot reading with AI interpretation
-- [ ] 04-06: Dream analysis and personality analysis (Big Five radar)
-- [ ] 04-07: SubscriptionGuard integration across all Tier 1 tools
+- [ ] 04-01-PLAN.md — Natal chart SVG decomposition (ZodiacRing, PlanetPositions, AspectLines, HouseOverlay, utils, index)
+- [ ] 04-02-PLAN.md — Numerology enhancements (sub-number breakdown + compatibility card + API route)
+- [ ] 04-03-PLAN.md — Personality Big Five (20-question questionnaire + scoring + radar chart + AI interpretation) + dream SubscriptionGuard fix
+- [ ] 04-04-PLAN.md — Daily astrology forecast + astro calendar (API routes + components + pages)
+- [ ] 04-05-PLAN.md — Astrology page + AI interpretation (birth-chart API with LLM planet approximation + 4 info panels)
+- [ ] 04-06-PLAN.md — Daily insights (cache-or-generate API + hero card + history list + module toggles)
+- [ ] 04-07-PLAN.md — Integration verification (TypeScript build + SubscriptionGuard audit + human-verify all tools)
 
 ### Phase 5: Tools Tier 2 — Image Upload Tools
 **Goal**: Users can upload drawings and handwriting samples for psychological analysis, sketch directly in-browser, and run compatibility analysis between two people — all using the file upload infrastructure from Phase 1.
@@ -236,7 +236,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 1. Infrastructure Hardening | 5/5 | Complete |  |
 | 2. Auth + Onboarding | 3/3 | Complete   | 2026-03-22 |
 | 3. UX Shell + Profile + Dashboard + Tracking | 7/7 | Complete   | 2026-03-22 |
-| 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
+| 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Planned | - |
 | 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 0/5 | Not started | - |
 | 7. AI Coach + Mystic Synthesis | 0/4 | Not started | - |
