@@ -23,6 +23,7 @@ import { Badge } from '@/components/ui/badge';
 import { PageHeader } from '@/components/layouts/PageHeader';
 import { animations } from '@/lib/animations/presets';
 import { DreamInputSchema } from '@/app/api/tools/dream/route';
+import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 
 // ===== טיפוסים =====
 
@@ -219,6 +220,7 @@ export default function DreamPage() {
       <Card>
         <CardHeader><CardTitle>תיעוד החלום</CardTitle></CardHeader>
         <CardContent>
+          <SubscriptionGuard feature="analyses">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             {/* כותרת */}
             <div className="space-y-2">
@@ -273,6 +275,7 @@ export default function DreamPage() {
               )}
             </Button>
           </form>
+          </SubscriptionGuard>
         </CardContent>
       </Card>
 
