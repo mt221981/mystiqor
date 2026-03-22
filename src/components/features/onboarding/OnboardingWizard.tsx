@@ -12,7 +12,6 @@ import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
 import { useOnboardingStore } from '@/stores/onboarding';
-import { createClient } from '@/lib/supabase/client';
 import { animations } from '@/lib/animations/presets';
 import { cn } from '@/lib/utils/cn';
 
@@ -95,41 +94,41 @@ export function OnboardingWizard() {
   };
 
   /**
-   * שמירת הפרופיל ב-Supabase — upsert לטבלת profiles + redirect ל-/tools
+   * השלמת onboarding — קריאה ל-API route שמאמת עם Zod, שומר פרופיל ויוצר מנוי חינמי
    */
   const handleComplete = async () => {
     setIsLoading(true);
     try {
-      const supabase = createClient();
-      const { data: { user } } = await supabase.auth.getUser();
-
-      if (!user) {
-        toast.error('לא מחובר למערכת. נסה להתחבר מחדש');
-        return;
-      }
-
-      const { error } = await supabase.from('profiles').upsert({
-        id: user.id,
-        full_name: data.fullName,
-        birth_date: data.birthDate,
-        birth_time: data.birthTime || null,
-        birth_place: data.birthPlace || null,
-        latitude: data.latitude ?? null,
-        longitude: data.longitude ?? null,
-        gender: data.gender,
-        disciplines: data.disciplines,
-        focus_areas: data.focusAreas,
-        ai_suggestions_enabled: data.aiSuggestionsEnabled,
-        onboarding_completed: true,
+      const response = await fetch('/api/onboarding/complete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: data.fullName,
+          birth_date: data.birthDate,
+          birth_time: data.birthTime || '',
+          birth_place: data.birthPlace || '',
+          latitude: data.latitude,
+          longitude: data.longitude,
+          gender: data.gender,
+          disciplines: data.disciplines,
+          focus_areas: data.focusAreas,
+          ai_suggestions_enabled: data.aiSuggestionsEnabled,
+          accepted_barnum: data.acceptedBarnum,
+          accepted_terms: data.acceptedTerms,
+        }),
       });
 
-      if (error) throw error;
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => null);
+        throw new Error(errorData?.error ?? 'שגיאה בשמירת הפרופיל');
+      }
 
       toast.success('ברוך הבא! הפרופיל נשמר בהצלחה');
       reset();
       router.push('/tools');
-    } catch {
-      toast.error('שגיאה בשמירת הפרופיל. נסה שוב');
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'שגיאה בשמירת הפרופיל. נסה שוב';
+      toast.error(message);
     } finally {
       setIsLoading(false);
     }
