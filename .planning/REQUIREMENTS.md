@@ -7,7 +7,7 @@
 
 ### Infrastructure
 
-- [ ] **INFRA-01**: LLM service layer with Zod response validation for all 20+ call sites
+- [x] **INFRA-01**: LLM service layer with Zod response validation for all 20+ call sites
 - [x] **INFRA-02**: File upload service (multipart, magic-byte validation, Supabase Storage routing)
 - [x] **INFRA-03**: Atomic usage counter (increment_usage DB function with subscription enforcement)
 - [x] **INFRA-04**: Three Supabase client instances (browser, server, admin) correctly used
@@ -183,7 +183,7 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| INFRA-01 | Phase 1 | Pending |
+| INFRA-01 | Phase 1 | Complete |
 | INFRA-02 | Phase 1 | Complete |
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
