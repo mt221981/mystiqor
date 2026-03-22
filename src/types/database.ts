@@ -48,7 +48,7 @@ type GoalCategory =
 type GoalStatus = 'active' | 'in_progress' | 'completed';
 
 /** סוג מצב רוח לתובנה */
-type InsightMoodType = 'inspiring' | 'reflective' | 'empowering' | 'cautionary' | 'celebratory';
+type InsightMoodType = 'inspiring' | 'reflective' | 'empowering' | 'cautionary' | 'celebratory' | 'daily' | 'forecast';
 
 /** סוג מסע אימון */
 type JourneyType = 'daily' | 'weekly' | 'custom';
