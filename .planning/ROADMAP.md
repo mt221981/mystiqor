@@ -73,10 +73,10 @@ Plans:
   4. User can log a mood entry (5-point scale + energy level) and see it appear in the dashboard trend chart within the same session
   5. User can edit their profile (name, birth data, preferences) and the update reflects immediately in the UI
   6. An uncaught render error shows the error boundary recovery UI — not a blank white screen
-**Plans:** 7 plans
+**Plans:** 1/7 plans executed
 
 Plans:
-- [ ] 03-01-PLAN.md — App shell wiring (replace placeholder sidebar with real Sidebar + Header + MobileNav, dir="rtl")
+- [x] 03-01-PLAN.md — App shell wiring (replace placeholder sidebar with real Sidebar + Header + MobileNav, dir="rtl")
 - [ ] 03-02-PLAN.md — Mood tracker (API routes + 5-emoji picker + sliders + page with CRUD)
 - [ ] 03-03-PLAN.md — Personal journal (API routes + form with mood/gratitude/goals + CRUD page)
 - [ ] 03-04-PLAN.md — Goals system (API routes + 8 categories + progress tracking + goal-analysis linker)
@@ -235,7 +235,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
 | 1. Infrastructure Hardening | 5/5 | Complete |  |
 | 2. Auth + Onboarding | 3/3 | Complete   | 2026-03-22 |
-| 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
+| 3. UX Shell + Profile + Dashboard + Tracking | 1/7 | In Progress|  |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
 | 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 0/5 | Not started | - |

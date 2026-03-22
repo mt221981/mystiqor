@@ -146,14 +146,14 @@
 
 ### UX & Infrastructure
 
-- [ ] **UX-01**: RTL Hebrew UI on all pages (dir="rtl", start/end, Hebrew labels)
-- [ ] **UX-02**: Dark/light theme toggle
-- [ ] **UX-03**: Responsive mobile layout
+- [x] **UX-01**: RTL Hebrew UI on all pages (dir="rtl", start/end, Hebrew labels)
+- [x] **UX-02**: Dark/light theme toggle
+- [x] **UX-03**: Responsive mobile layout
 - [ ] **UX-04**: PWA support (install prompt, service worker)
-- [ ] **UX-05**: Page transitions and micro-animations
-- [ ] **UX-06**: Loading skeletons and empty states
-- [ ] **UX-07**: Error boundaries with auto-recovery
-- [ ] **UX-08**: Breadcrumb navigation
+- [x] **UX-05**: Page transitions and micro-animations
+- [x] **UX-06**: Loading skeletons and empty states
+- [x] **UX-07**: Error boundaries with auto-recovery
+- [x] **UX-08**: Breadcrumb navigation
 - [ ] **UX-09**: Analytics dashboard (self-analytics — usage patterns, tool distribution)
 
 ## v2 Requirements
@@ -271,14 +271,14 @@
 | GROW-05 | Phase 9 | Pending |
 | EXPO-01 | Phase 10 | Pending |
 | EXPO-02 | Phase 10 | Pending |
-| UX-01 | Phase 3 | Pending |
-| UX-02 | Phase 3 | Pending |
-| UX-03 | Phase 3 | Pending |
+| UX-01 | Phase 3 | Complete |
+| UX-02 | Phase 3 | Complete |
+| UX-03 | Phase 3 | Complete |
 | UX-04 | Phase 10 | Pending |
-| UX-05 | Phase 3 | Pending |
-| UX-06 | Phase 3 | Pending |
-| UX-07 | Phase 3 | Pending |
-| UX-08 | Phase 3 | Pending |
+| UX-05 | Phase 3 | Complete |
+| UX-06 | Phase 3 | Complete |
+| UX-07 | Phase 3 | Complete |
+| UX-08 | Phase 3 | Complete |
 | UX-09 | Phase 9 | Pending |
 
 **Coverage:**

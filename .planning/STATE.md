@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-03-PLAN.md — Phase 2 auth+onboarding complete
-last_updated: "2026-03-22T13:39:49.985Z"
+stopped_at: Completed 03-01-PLAN.md — app shell wired with Sidebar + Header + MobileNav
+last_updated: "2026-03-22T14:59:22.931Z"
 progress:
   total_phases: 10
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 8
+  total_plans: 15
+  completed_plans: 9
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 02 — auth-onboarding
+**Current focus:** Phase 03 — ux-shell-profile-dashboard-tracking
 
 ## Current Position
 
-Phase: 02 (auth-onboarding) — COMPLETE
-Plan: 3 of 3 — COMPLETE
+Phase: 03 (ux-shell-profile-dashboard-tracking) — EXECUTING
+Plan: 2 of 7
 
 ## Performance Metrics
 
@@ -54,6 +54,7 @@ Plan: 3 of 3 — COMPLETE
 | Phase 02-auth-onboarding P02 | 5 | 2 tasks | 3 files |
 | Phase 02-auth-onboarding P03 | 4 | 2 tasks (1 auto + 1 human-verify) | 2 files |
 | Phase 02-auth-onboarding P03 | 4 | 2 tasks | 2 files |
+| Phase 03 P01 | 3 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,9 @@ Recent decisions affecting current work:
 - [Phase 02-auth-onboarding]: form action={signOut} for sign-out button — idiomatic Next.js Server Action pattern, no onClick or useRouter needed
 - [Phase 02-auth-onboarding]: Phase 2 complete — all 8 test scenarios verified: protected-route redirect, sign-up, login+redirect, onboarding guard, onboarding completion, sign-out, returning user, magic link callback
 - [Phase 02-auth-onboarding]: Phase 2 complete — all 8 test scenarios verified: protected-route redirect, sign-up, login+redirect, onboarding guard, onboarding completion, sign-out, returning user, magic link callback
+- [Phase 03]: Sidebar wrapper uses hidden md:flex md:w-64 md:shrink-0 so Sidebar renders at full height inside its container
+- [Phase 03]: LogOut import and inline signOut form removed from auth layout — sign-out handled by Header.tsx user dropdown
+- [Phase 03]: dir=rtl on shell wrapper div only — single source of truth for RTL direction in auth layout
 
 ### Pending Todos
 
@@ -100,6 +104,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T13:39:49.983Z
-Stopped at: Completed 02-03-PLAN.md — Phase 2 auth+onboarding complete
+Last session: 2026-03-22T14:59:22.929Z
+Stopped at: Completed 03-01-PLAN.md — app shell wired with Sidebar + Header + MobileNav
 Resume file: None
