@@ -1,12 +1,34 @@
 /**
  * עדכון סשן במידלוור של Next.js
- * מרענן את טוקן ה-auth בכל בקשה ומגן על נתיבים מוגנים
+ * אחראי על שלושה דברים:
+ * 1. רענון טוקן auth בכל בקשה — מונע פקיעת סשן
+ * 2. הגנה על נתיבים מוגנים — מפנה ל-/login עם ?next= אם לא מחובר
+ * 3. הזרקת x-pathname header — מאפשר ל-Server Components לדעת את הנתיב הנוכחי
  */
 
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
 
-/** מטפל ברענון סשן ובהגנה על נתיבים שדורשים אימות */
+/** נתיבים מוגנים שדורשים אימות — מידלוור מפנה ל-login אם לא מחובר */
+const PROTECTED_PATHS = [
+  '/dashboard',
+  '/tools',
+  '/onboarding',
+  '/profile',
+  '/settings',
+  '/subscription',
+  '/coach',
+  '/goals',
+  '/mood',
+  '/journal',
+];
+
+/**
+ * מטפל ברענון סשן, הגנה על נתיבים מוגנים, והזרקת x-pathname header
+ * - מרענן את טוקן ה-auth בכל בקשה כדי שהסשן לא יפוג
+ * - אם המשתמש לא מחובר ומנסה לגשת לנתיב מוגן — מפנה ל-/login?next=<pathname>
+ * - מוסיף x-pathname header לתגובה לשימוש ב-Server Components
+ */
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({ request });
 
@@ -38,12 +60,21 @@ export async function updateSession(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  // הפניה לעמוד התחברות אם המשתמש לא מחובר ומנסה לגשת לנתיבים מוגנים
-  if (!user && request.nextUrl.pathname.startsWith('/(auth)')) {
+  // בדיקה אם הנתיב הנוכחי מוגן
+  const isProtected = PROTECTED_PATHS.some((p) =>
+    request.nextUrl.pathname.startsWith(p)
+  );
+
+  // הפניה לעמוד התחברות אם המשתמש לא מחובר ומנסה לגשת לנתיב מוגן
+  if (!user && isProtected) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
+    url.searchParams.set('next', request.nextUrl.pathname);
     return NextResponse.redirect(url);
   }
+
+  // הזרקת x-pathname header — מאפשר ל-Server Components לדעת את הנתיב הנוכחי
+  supabaseResponse.headers.set('x-pathname', request.nextUrl.pathname);
 
   return supabaseResponse;
 }
