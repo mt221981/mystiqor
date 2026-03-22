@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Checkpoint 02-03 Task 2 — awaiting human verification of end-to-end auth+onboarding flow
-last_updated: "2026-03-22T13:12:00.000Z"
+stopped_at: Completed 02-03-PLAN.md — Phase 2 auth+onboarding complete
+last_updated: "2026-03-22T13:39:49.985Z"
 progress:
   total_phases: 10
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 8
-  completed_plans: 7
+  completed_plans: 8
 ---
 
 # Project State
@@ -23,8 +23,8 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 
 ## Current Position
 
-Phase: 02 (auth-onboarding) — EXECUTING
-Plan: 3 of 3
+Phase: 02 (auth-onboarding) — COMPLETE
+Plan: 3 of 3 — COMPLETE
 
 ## Performance Metrics
 
@@ -52,7 +52,8 @@ Plan: 3 of 3
 | Phase 01 P02 | 4 | 2 tasks | 11 files |
 | Phase 02-auth-onboarding P01 | 8 | 2 tasks | 4 files |
 | Phase 02-auth-onboarding P02 | 5 | 2 tasks | 3 files |
-| Phase 02-auth-onboarding P03 | 2 | 1 task (+ checkpoint) | 2 files |
+| Phase 02-auth-onboarding P03 | 4 | 2 tasks (1 auto + 1 human-verify) | 2 files |
+| Phase 02-auth-onboarding P03 | 4 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 02-auth-onboarding]: Auth layout uses pathname !== '/onboarding' guard to prevent redirect loop — /onboarding is inside (auth) group so layout runs for it
 - [Phase 02-auth-onboarding]: maybeSingle() used in profile query — null profile (no row) correctly triggers onboarding redirect without throwing
 - [Phase 02-auth-onboarding]: form action={signOut} for sign-out button — idiomatic Next.js Server Action pattern, no onClick or useRouter needed
+- [Phase 02-auth-onboarding]: Phase 2 complete — all 8 test scenarios verified: protected-route redirect, sign-up, login+redirect, onboarding guard, onboarding completion, sign-out, returning user, magic link callback
+- [Phase 02-auth-onboarding]: Phase 2 complete — all 8 test scenarios verified: protected-route redirect, sign-up, login+redirect, onboarding guard, onboarding completion, sign-out, returning user, magic link callback
 
 ### Pending Todos
 
@@ -97,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T13:12:00.000Z
-Stopped at: Checkpoint 02-03 Task 2 — awaiting human verification of end-to-end auth+onboarding flow
+Last session: 2026-03-22T13:39:49.983Z
+Stopped at: Completed 02-03-PLAN.md — Phase 2 auth+onboarding complete
 Resume file: None

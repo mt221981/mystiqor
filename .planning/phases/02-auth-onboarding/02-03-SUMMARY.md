@@ -2,7 +2,7 @@
 phase: 02-auth-onboarding
 plan: 03
 subsystem: auth
-tags: [onboarding-guard, sign-out, layout, server-component, server-action]
+tags: [onboarding-guard, sign-out, layout, server-component, server-action, end-to-end-verification]
 
 # Dependency graph
 requires:
@@ -14,6 +14,7 @@ provides:
   - Onboarding guard in auth layout — redirects users without completed onboarding to /onboarding
   - Loop prevention — /onboarding path excluded from the guard
   - Sign-out button in sidebar calling signOut server action
+  - Complete end-to-end auth + onboarding flow verified by human
 affects: [all protected route pages, onboarding, dashboard, tools]
 
 # Tech tracking
@@ -37,25 +38,25 @@ key-decisions:
   - "profile?.onboarding_completed with optional chaining handles both null profile and false/null field value"
   - "form action={signOut} is idiomatic Next.js App Router pattern — no onClick handler, no useRouter needed"
 
-# Metrics
-duration: 2min
-completed: 2026-03-22
-tasks_completed: 1 of 2 (awaiting human verification checkpoint)
-files_changed: 2
+requirements-completed: [AUTH-04, AUTH-05, ONBD-03]
 
-status: AWAITING_CHECKPOINT
+# Metrics
+duration: 4min
+completed: 2026-03-22
+tasks_completed: 2 of 2
+files_changed: 2
 ---
 
 # Phase 2 Plan 3: Auth Layout Onboarding Guard + Sign-out Summary
 
-**Onboarding guard in auth layout redirecting users without completed profiles to /onboarding, plus sign-out button in sidebar using Server Action form pattern.**
+**Onboarding guard in auth layout redirecting users without completed profiles to /onboarding, plus sign-out button in sidebar using Server Action form pattern — all 8 end-to-end test scenarios verified by human.**
 
 ## Performance
 
-- **Duration:** ~2 min
+- **Duration:** ~4 min
 - **Started:** 2026-03-22T13:10:34Z
-- **Completed:** Awaiting checkpoint (Task 2: human verification)
-- **Tasks:** 1 of 2 (Task 1 complete, Task 2 is checkpoint:human-verify)
+- **Completed:** 2026-03-22T13:20:00Z
+- **Tasks:** 2 of 2
 - **Files modified:** 2
 
 ## Accomplishments
@@ -66,13 +67,14 @@ status: AWAITING_CHECKPOINT
 - `maybeSingle()` for the profile query — null profile triggers redirect (no profile = onboarding incomplete)
 - Added sign-out button to sidebar using `<form action={signOut}>` — idiomatic Server Action pattern for Client Components
 - `aside` element gets `relative` class so the `absolute bottom-0` sign-out button positions correctly
+- Human verification passed: all 8 test scenarios approved (protected route redirect, sign-up, login+redirect, onboarding guard, onboarding completion, sign-out, returning user, magic link callback)
 
 ## Task Commits
 
 | Task | Description | Commit | Files |
 |------|-------------|--------|-------|
 | 1 | Onboarding guard in layout + sign-out button in sidebar | `7043ec8` | layout.tsx, layout-client.tsx |
-| 2 | Human verification checkpoint | PENDING | — |
+| 2 | Human verification checkpoint | Approved | — |
 
 ## Files Created/Modified
 
@@ -117,23 +119,44 @@ None — plan executed exactly as written.
 - Edge Cases: 8/10 — form submission handles server action error at action level
 - **TOTAL: 89/90 (N/A skipped) = 89%** — PASS (threshold 78%)
 
+## Human Verification Results
+
+All 8 test scenarios approved:
+1. Protected route redirect (AUTH-04) — navigating to /dashboard while logged out redirects to /login
+2. Sign up (AUTH-01) — registration creates session, redirects to /onboarding
+3. Login + redirect (AUTH-02) — login with ?next=/tools redirects to /tools after auth
+4. Onboarding guard — user without completed onboarding is redirected to /onboarding from /dashboard
+5. Onboarding completion (ONBD-01, ONBD-02) — all 4 steps complete, profile saved, subscription created, redirect to /tools
+6. Sign out (AUTH-03) — "התנתק" button clears session, redirects to /login
+7. Returning user (ONBD-03) — user with onboarding_completed=true can access /dashboard directly
+8. Magic link callback (AUTH-05) — callback route exchanges code for session, redirects to /onboarding or /tools
+
 ## Known Stubs
 
-None — all data flows are wired. The sidebar navigation placeholder ("תפריט ניווט — ייבנה בשלב הבא") is an intentional stub planned for a future phase (UX Shell). It does not affect this plan's goal.
+None — all data flows are wired. The sidebar navigation placeholder ("תפריט ניווט — ייבנה בשלב הבא") is an intentional stub planned for Phase 3 (UX Shell). It does not affect this plan's goal.
+
+## Next Phase Readiness
+
+Phase 2 is now complete. Phase 3 (UX Shell + Profile + Dashboard + Tracking) can begin:
+- Auth lifecycle fully operational: sign-up, login, onboarding, session persistence, sign-out
+- Middleware protects all routes in PROTECTED_PATHS array
+- Profile row creation and onboarding_completed flag are reliable
+- subscriptions table row is created at onboarding completion (free tier)
+- Sign-out button exists in sidebar (will be replaced by full nav in Phase 3)
 
 ## Self-Check
 
 Files exist:
-- `mystiqor-build/src/app/(auth)/layout.tsx` — modified
-- `mystiqor-build/src/app/(auth)/layout-client.tsx` — modified
+- `mystiqor-build/src/app/(auth)/layout.tsx` — modified (confirmed, contains onboarding_completed guard)
+- `mystiqor-build/src/app/(auth)/layout-client.tsx` — modified (confirmed, contains signOut button)
 
 Commits:
-- `7043ec8` — feat(02-03): add onboarding guard to auth layout + sign-out button to sidebar
+- `7043ec8` in mystiqor-build submodule — feat(02-03): add onboarding guard to auth layout + sign-out button to sidebar
 
-TypeScript: zero errors (npx tsc --noEmit exit code 0)
+TypeScript: zero errors (npx tsc --noEmit exit code 0, verified during Task 1)
 
 ## Self-Check: PASSED
 
 ---
 *Phase: 02-auth-onboarding*
-*Status: Awaiting checkpoint (Task 2: human verification)*
+*Completed: 2026-03-22*

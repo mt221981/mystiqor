@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Foundation** - Next.js 15 project scaffold, TypeScript strict config, Supabase clients, shadcn/ui, middleware — COMPLETE
 - [x] **Phase 1: Infrastructure Hardening** - LLM service layer, file upload, atomic usage counter, DB schema + types
-- [ ] **Phase 2: Auth + Onboarding** - Supabase Auth flows, multi-step onboarding, protected routes
+- [x] **Phase 2: Auth + Onboarding** - Supabase Auth flows, multi-step onboarding, protected routes
 - [ ] **Phase 3: UX Shell + Profile + Dashboard + Tracking** - App shell, profile editing, dashboard charts, mood/journal/goals
 - [ ] **Phase 4: Tools Tier 1 — Astrology Core + Numerology + Light Tools** - Natal chart, daily forecast, numerology, tarot, dream, personality
 - [ ] **Phase 5: Tools Tier 2 — Image Upload Tools** - Drawing analysis, graphology suite, palmistry, compatibility
@@ -55,12 +55,12 @@ Plans:
   3. User can log out from any page and is redirected to the login screen
   4. Navigating to a protected route while logged out redirects to login, then back after sign-in
   5. Onboarding form collects name, birth date/time, birth place (geocoded to coordinates), and gender — and this data pre-fills all analysis tools
-**Plans:** 2/3 plans executed
+**Plans:** 3/3 plans complete
 
 Plans:
 - [x] 02-01-PLAN.md — Auth infrastructure fixes (middleware path bug, x-pathname header, signOut action, login redirect-after-login, callback default)
 - [x] 02-02-PLAN.md — Onboarding completion (Zod schema with Barnum consent, API route for profile upsert + free subscription creation, wizard update)
-- [ ] 02-03-PLAN.md — Auth layout onboarding guard + sign-out button + end-to-end verification checkpoint
+- [x] 02-03-PLAN.md — Auth layout onboarding guard + sign-out button + end-to-end verification checkpoint
 
 ### Phase 3: UX Shell + Profile + Dashboard + Tracking
 **Goal**: A logged-in user experiences a complete, responsive Hebrew RTL app shell with navigation, theme toggle, and error recovery; can edit their profile; and sees a meaningful dashboard populated with their biorhythm, mood trends, goal progress, and daily insights tracking.
@@ -234,7 +234,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 |-------|----------------|--------|-----------|
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
 | 1. Infrastructure Hardening | 5/5 | Complete |  |
-| 2. Auth + Onboarding | 2/3 | In Progress|  |
+| 2. Auth + Onboarding | 3/3 | Complete   | 2026-03-22 |
 | 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
 | 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
