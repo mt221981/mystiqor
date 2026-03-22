@@ -47,12 +47,12 @@
 
 ### Dashboard
 
-- [ ] **DASH-01**: Dashboard shows biorhythm chart (physical/emotional/intellectual)
-- [ ] **DASH-02**: Key stats cards (active goals, mood score, completed goals, reminders)
-- [ ] **DASH-03**: Mood trend line chart (7-day history)
-- [ ] **DASH-04**: Goal progress + breakdown charts
-- [ ] **DASH-05**: Analysis types distribution bar chart
-- [ ] **DASH-06**: Period selector (daily/weekly/monthly)
+- [x] **DASH-01**: Dashboard shows biorhythm chart (physical/emotional/intellectual)
+- [x] **DASH-02**: Key stats cards (active goals, mood score, completed goals, reminders)
+- [x] **DASH-03**: Mood trend line chart (7-day history)
+- [x] **DASH-04**: Goal progress + breakdown charts
+- [x] **DASH-05**: Analysis types distribution bar chart
+- [x] **DASH-06**: Period selector (daily/weekly/monthly)
 
 ### Astrology
 
@@ -208,12 +208,12 @@
 | SUBS-04 | Phase 8 | Pending |
 | SUBS-05 | Phase 8 | Pending |
 | SUBS-06 | Phase 8 | Pending |
-| DASH-01 | Phase 3 | Pending |
-| DASH-02 | Phase 3 | Pending |
-| DASH-03 | Phase 3 | Pending |
-| DASH-04 | Phase 3 | Pending |
-| DASH-05 | Phase 3 | Pending |
-| DASH-06 | Phase 3 | Pending |
+| DASH-01 | Phase 3 | Complete |
+| DASH-02 | Phase 3 | Complete |
+| DASH-03 | Phase 3 | Complete |
+| DASH-04 | Phase 3 | Complete |
+| DASH-05 | Phase 3 | Complete |
+| DASH-06 | Phase 3 | Complete |
 | ASTR-01 | Phase 4 | Pending |
 | ASTR-02 | Phase 4 | Pending |
 | ASTR-03 | Phase 6 | Pending |
