@@ -109,7 +109,7 @@
 - [x] **TRCK-02**: Personal journal with mood_score, energy_level, gratitude, goals fields
 - [x] **TRCK-03**: Goals with progress tracking and AI recommendations
 - [x] **TRCK-04**: Goal linker connecting goals to specific analyses
-- [ ] **TRCK-05**: Daily insights combining tarot + numerology + astrology
+- [x] **TRCK-05**: Daily insights combining tarot + numerology + astrology
 - [ ] **TRCK-06**: Notifications and reminders system
 
 ### Additional Tools
@@ -249,7 +249,7 @@
 | TRCK-02 | Phase 3 | Complete |
 | TRCK-03 | Phase 3 | Complete |
 | TRCK-04 | Phase 3 | Complete |
-| TRCK-05 | Phase 4 | Pending |
+| TRCK-05 | Phase 4 | Complete |
 | TRCK-06 | Phase 8 | Pending |
 | TOOL-01 | Phase 4 | Pending |
 | TOOL-02 | Phase 5 | Pending |

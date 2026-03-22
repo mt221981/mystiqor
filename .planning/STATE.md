@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-01-PLAN.md — BirthChart SVG decomposition into 6 typed sub-components
-last_updated: "2026-03-22T19:32:42.313Z"
+stopped_at: Completed 04-06-PLAN.md — Daily insights cache-or-generate API + hero card + history list + module toggles
+last_updated: "2026-03-22T20:35:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 22
-  completed_plans: 16
+  completed_plans: 18
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 04 (tools-tier-1) — EXECUTING
-Plan: 2 of 7
+Plan: 7 of 7
 
 ## Performance Metrics
 
@@ -61,6 +61,9 @@ Plan: 2 of 7
 | Phase 03-ux-shell-profile-dashboard-tracking P06 | 12 | 2 tasks | 7 files |
 | Phase 03-ux-shell-profile-dashboard-tracking P07 | 10 | 2 tasks | 0 files |
 | Phase 04-tools-tier-1 P01 | 12 | 2 tasks | 6 files |
+| Phase 04-tools-tier-1 P03 | 15 | 2 tasks | 7 files |
+| Phase 04-tools-tier-1 P06 | 20 | 2 tasks | 6 files |
+| Phase 04-tools-tier-1 P02 | 16 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -110,6 +113,17 @@ Recent decisions affecting current work:
 - [Phase 04-tools-tier-1]: PlanetPositions skips unknown planet names via optional chaining on PLANET_SYMBOLS[planetName as PlanetKey]
 - [Phase 04-tools-tier-1]: AspectLines opacity formula: 0.3 + strength * 0.5 — keeps faint aspects visible while strong ones stand out
 - [Phase 04-tools-tier-1]: BirthChart index exports both named and default — callers can use either import style
+- [Phase 04-tools-tier-1]: BigFiveRadarChart uses dynamic import (ssr: false) — Recharts is SSR-incompatible and heavy
+- [Phase 04-tools-tier-1]: scoreBigFive normalizes with ((sum - 4) / 16) * 100 — 4 items per dimension, min=4 max=20
+- [Phase 04-tools-tier-1]: SubscriptionGuard wraps form content in dream page — matching tarot page pattern for consistent gating
+- [Phase 04-tools-tier-1]: InsightMoodType extended with 'daily' and 'forecast' — existing manual type was too narrow, fixing pre-existing type error in forecast route
+- [Phase 04-tools-tier-1]: Daily insights cache uses insight_date + user_id + mood_type='daily' uniqueness — same-day revisit returns cached row without LLM call
+- [Phase 04-tools-tier-1]: Single LLM call combines zodiac + numerology + tarot (Pitfall 7 compliance) — avoids 3-call latency in daily insights
+- [Phase 04-tools-tier-1]: tarot_cards table access wrapped in try/catch — graceful fallback if table empty or absent in any environment
+- [Phase 04-tools-tier-1]: tool_type='compatibility' used for numerology compatibility analyses — ToolType union has no 'numerology_compatibility' variant
+- [Phase 04-tools-tier-1]: LLM call in compatibility route has inner try/catch — compatibility result returned even if AI interpretation fails
+- [Phase 04-tools-tier-1]: SubNumberBreakdown returns null when rawValue===finalValue and single digit — silent when no reduction needed
+- [Phase 04-tools-tier-1]: getRawLifePathSum computed client-side from birthDate form state — avoids modifying API response shape
 
 ### Pending Todos
 
@@ -124,6 +138,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T19:32:42.311Z
-Stopped at: Completed 04-01-PLAN.md — BirthChart SVG decomposition into 6 typed sub-components
+Last session: 2026-03-22T20:35:00.000Z
+Stopped at: Completed 04-06-PLAN.md — Daily insights cache-or-generate API + hero card + history list + module toggles
 Resume file: None
