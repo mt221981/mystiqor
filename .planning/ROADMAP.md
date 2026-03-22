@@ -55,13 +55,12 @@ Plans:
   3. User can log out from any page and is redirected to the login screen
   4. Navigating to a protected route while logged out redirects to login, then back after sign-in
   5. Onboarding form collects name, birth date/time, birth place (geocoded to coordinates), and gender — and this data pre-fills all analysis tools
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 02-01: Supabase Auth flows (sign-up, sign-in, sign-out, OAuth callback)
-- [ ] 02-02: Protected route middleware and auth callback route
-- [ ] 02-03: Multi-step onboarding UI (name, birth date/time, birth place, gender)
-- [ ] 02-04: Onboarding server action with geocoding + UserProfile creation
+- [ ] 02-01-PLAN.md — Auth infrastructure fixes (middleware path bug, x-pathname header, signOut action, login redirect-after-login, callback default)
+- [ ] 02-02-PLAN.md — Onboarding completion (Zod schema with Barnum consent, API route for profile upsert + free subscription creation, wizard update)
+- [ ] 02-03-PLAN.md — Auth layout onboarding guard + sign-out button + end-to-end verification checkpoint
 
 ### Phase 3: UX Shell + Profile + Dashboard + Tracking
 **Goal**: A logged-in user experiences a complete, responsive Hebrew RTL app shell with navigation, theme toggle, and error recovery; can edit their profile; and sees a meaningful dashboard populated with their biorhythm, mood trends, goal progress, and daily insights tracking.
@@ -172,7 +171,7 @@ Plans:
 **Depends on**: Phase 3 (users and profiles must exist), Phase 4 (SubscriptionGuard must exist)
 **Requirements**: SUBS-01, SUBS-02, SUBS-03, SUBS-04, SUBS-05, SUBS-06, TRCK-06, GROW-01, INFRA-07, INFRA-08
 **Success Criteria** (what must be TRUE):
-  1. Pricing page shows three tiers (Free 3/month, Basic ₪49 20/month, Premium ₪99 unlimited) with clear feature comparison
+  1. Pricing page shows three tiers (Free 3/month, Basic 49/month, Premium 99 unlimited) with clear feature comparison
   2. Clicking "Subscribe" opens a Stripe checkout session and completing payment upgrades the user's plan immediately
   3. Stripe webhook retried 5 times with the same event ID creates exactly one subscription record — not five
   4. A free-tier user who has used 3 analyses sees an upgrade prompt instead of the tool form on the 4th attempt
@@ -229,13 +228,13 @@ Plans:
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 → 9 → 10
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
-| 1. Infrastructure Hardening | 4/5 | In Progress|  |
-| 2. Auth + Onboarding | 0/4 | Not started | - |
+| 1. Infrastructure Hardening | 5/5 | Complete |  |
+| 2. Auth + Onboarding | 0/3 | In Progress | - |
 | 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
 | 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
