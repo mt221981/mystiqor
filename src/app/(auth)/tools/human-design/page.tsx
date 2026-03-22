@@ -23,7 +23,7 @@ import { PageHeader } from '@/components/layouts/PageHeader';
 import { LocationSearch } from '@/components/forms/LocationSearch';
 import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignCenters';
 import { animations } from '@/lib/animations/presets';
-import { HumanDesignInputSchema } from '@/app/api/tools/human-design/route';
+import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { GeocodingResult } from '@/components/forms/LocationSearch';
 
 // ===== טיפוסים =====

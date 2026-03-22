@@ -6,19 +6,13 @@
  */
 
 import { NextResponse } from 'next/server';
-import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { invokeLLM } from '@/services/analysis/llm';
+import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { TablesInsert } from '@/types/database';
 
-// ===== סכמת קלט =====
-
-/** סכמת בדיקת קלט לדף Human Design */
-export const HumanDesignInputSchema = z.object({
-  birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'פורמט תאריך: YYYY-MM-DD'),
-  birthTime: z.string().regex(/^\d{2}:\d{2}$/, 'פורמט שעה: HH:MM'),
-  birthPlace: z.string().min(1, 'מקום לידה חובה'),
-});
+// re-export so legacy imports continue to work
+export { HumanDesignInputSchema };
 
 // ===== טיפוסים =====
 
