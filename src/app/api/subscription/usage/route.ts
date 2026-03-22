@@ -5,6 +5,14 @@
  */
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
+import { z } from 'zod';
+
+/** סכמת תוצאת RPC — מחליפה type assertion לא בטוח */
+const UsageRPCResultSchema = z.object({
+  success: z.boolean(),
+  new_count: z.number().int().nonnegative(),
+  limit: z.number().int(),
+});
 
 export async function POST() {
   try {
@@ -25,11 +33,15 @@ export async function POST() {
       return NextResponse.json({ error: 'שגיאה בעדכון שימוש' }, { status: 500 });
     }
 
-    const result = data as { success: boolean; new_count: number; limit: number } | null;
+    const parsed = UsageRPCResultSchema.safeParse(data);
+    if (!parsed.success) {
+      console.error('Usage RPC returned unexpected shape', data, parsed.error.issues);
+      return NextResponse.json({ error: 'שגיאה בעדכון שימוש' }, { status: 500 });
+    }
 
     return NextResponse.json({
-      new_count: result?.new_count ?? 0,
-      limit: result?.limit ?? 3,
+      new_count: parsed.data.new_count,
+      limit: parsed.data.limit,
     });
   } catch {
     return NextResponse.json({ error: 'שגיאה פנימית' }, { status: 500 });
