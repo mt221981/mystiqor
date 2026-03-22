@@ -1,6 +1,7 @@
 /**
  * לייאאוט מוגן — חלק קליינט
  * עוטף את התוכן עם QueryClientProvider, Toaster, ומבנה sidebar + main
+ * כולל כפתור התנתקות בתחתית ה-sidebar
  */
 
 'use client';
@@ -8,8 +9,10 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
+import { LogOut } from 'lucide-react';
 
 import { defaultQueryOptions } from '@/lib/query/cache-config';
+import { signOut } from '@/app/actions/auth';
 
 import type { ReactNode } from 'react';
 
@@ -31,7 +34,7 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen">
         {/* Sidebar — placeholder עד לבניית הקומפוננטה המלאה */}
-        <aside className="hidden w-64 shrink-0 border-e border-sidebar-border bg-sidebar md:block">
+        <aside className="relative hidden w-64 shrink-0 border-e border-sidebar-border bg-sidebar md:block">
           <div className="flex h-16 items-center gap-2 px-4">
             <div className="h-8 w-8 rounded-lg bg-sidebar-primary/20" />
             <span className="text-lg font-bold text-sidebar-foreground">
@@ -43,6 +46,19 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
               תפריט ניווט — ייבנה בשלב הבא
             </p>
           </nav>
+
+          {/* כפתור התנתקות — מוצמד לתחתית ה-sidebar */}
+          <div className="absolute bottom-0 w-full border-t border-sidebar-border p-3">
+            <form action={signOut}>
+              <button
+                type="submit"
+                className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors"
+              >
+                <LogOut className="h-4 w-4" />
+                התנתק
+              </button>
+            </form>
+          </div>
         </aside>
 
         {/* אזור תוכן ראשי */}
