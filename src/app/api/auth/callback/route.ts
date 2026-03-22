@@ -10,12 +10,13 @@ import type { NextRequest } from 'next/server';
 
 /**
  * מטפל בקריאת callback מ-Supabase Auth
- * מחליף את הקוד לסשן פעיל ומפנה לדשבורד
+ * מחליף את הקוד לסשן פעיל ומפנה ל-/onboarding כברירת מחדל (משתמשים חדשים)
+ * אם מוגדר ?next= — מפנה לנתיב המבוקש (משתמשים קיימים שאומתו מחדש)
  */
 export async function GET(request: NextRequest) {
   const { searchParams, origin } = request.nextUrl;
   const code = searchParams.get('code');
-  const next = searchParams.get('next') ?? '/dashboard';
+  const next = searchParams.get('next') ?? '/onboarding';
 
   if (code) {
     const supabase = await createClient();

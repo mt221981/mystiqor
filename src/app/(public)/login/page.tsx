@@ -1,12 +1,13 @@
 /**
  * דף התחברות והרשמה — טופס משולב עם הזדהות בסיסמה ו-magic link
  * משתמש בקומפוננטות טופס נפרדות מ-login-forms.tsx
+ * תומך ב-?next= query param לניתוב חזרה לדף המבוקש לאחר התחברות
  */
 
 'use client';
 
-import { useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
+import { Suspense, useState, useCallback } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { Sparkles, Wand2 } from 'lucide-react';
 
@@ -34,11 +35,14 @@ function translateAuthError(message: string): string {
   return AUTH_ERROR_MESSAGES[message] ?? 'אירעה שגיאה. נסה שוב מאוחר יותר';
 }
 
-// ===== קומפוננטה =====
+// ===== קומפוננטה פנימית =====
 
-/** דף התחברות והרשמה עם תמיכה ב-magic link */
-export default function LoginPage() {
+/** תוכן דף ההתחברות — עטוף ב-Suspense כי משתמש ב-useSearchParams */
+function LoginPageContent() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get('next') ?? '/dashboard';
+
   const [mode, setMode] = useState<FormMode>('login');
   const [showPassword, setShowPassword] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
@@ -53,7 +57,7 @@ export default function LoginPage() {
     setShowPassword(false);
   }, []);
 
-  /** מטפל בהתחברות עם אימייל וסיסמה */
+  /** מטפל בהתחברות עם אימייל וסיסמה — מפנה ל-?next= לאחר הצלחה */
   const handleLogin = useCallback(
     async (data: LoginFormData) => {
       setIsSubmitting(true);
@@ -68,8 +72,43 @@ export default function LoginPage() {
           setServerError(translateAuthError(error.message));
           return;
         }
-        router.push('/dashboard');
+        router.push(redirectTo);
         router.refresh();
+      } catch {
+        setServerError('אירעה שגיאת תקשורת. נסה שוב מאוחר יותר');
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [router, redirectTo]
+  );
+
+  /** מטפל בהרשמה עם אימייל וסיסמה */
+  const handleRegister = useCallback(
+    async (data: RegisterFormData) => {
+      setIsSubmitting(true);
+      setServerError(null);
+      try {
+        const supabase = createClient();
+        const { data: signUpData, error } = await supabase.auth.signUp({
+          email: data.email,
+          password: data.password,
+          options: {
+            emailRedirectTo: `${window.location.origin}/api/auth/callback`,
+          },
+        });
+        if (error) {
+          setServerError(translateAuthError(error.message));
+          return;
+        }
+        if (signUpData.session) {
+          // אימות אימייל מבוטל — למשתמש יש סשן מיידי, מפנה ל-onboarding
+          router.push('/onboarding');
+          return;
+        }
+        setSuccessMessage(
+          'נשלח אימייל אימות לכתובת שהזנת. בדוק את תיבת הדואר שלך.'
+        );
       } catch {
         setServerError('אירעה שגיאת תקשורת. נסה שוב מאוחר יותר');
       } finally {
@@ -78,33 +117,6 @@ export default function LoginPage() {
     },
     [router]
   );
-
-  /** מטפל בהרשמה עם אימייל וסיסמה */
-  const handleRegister = useCallback(async (data: RegisterFormData) => {
-    setIsSubmitting(true);
-    setServerError(null);
-    try {
-      const supabase = createClient();
-      const { error } = await supabase.auth.signUp({
-        email: data.email,
-        password: data.password,
-        options: {
-          emailRedirectTo: `${window.location.origin}/api/auth/callback`,
-        },
-      });
-      if (error) {
-        setServerError(translateAuthError(error.message));
-        return;
-      }
-      setSuccessMessage(
-        'נשלח אימייל אימות לכתובת שהזנת. בדוק את תיבת הדואר שלך.'
-      );
-    } catch {
-      setServerError('אירעה שגיאת תקשורת. נסה שוב מאוחר יותר');
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, []);
 
   /** מטפל בשליחת magic link */
   const handleMagicLink = useCallback(async (data: LoginFormData) => {
@@ -242,5 +254,22 @@ export default function LoginPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+// ===== ייצוא ראשי =====
+
+/** דף התחברות והרשמה עם תמיכה ב-magic link */
+export default function LoginPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-background">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+        </div>
+      }
+    >
+      <LoginPageContent />
+    </Suspense>
   );
 }
