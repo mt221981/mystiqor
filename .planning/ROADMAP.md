@@ -73,16 +73,16 @@ Plans:
   4. User can log a mood entry (5-point scale + energy level) and see it appear in the dashboard trend chart within the same session
   5. User can edit their profile (name, birth data, preferences) and the update reflects immediately in the UI
   6. An uncaught render error shows the error boundary recovery UI — not a blank white screen
-**Plans**: TBD
+**Plans:** 7 plans
 
 Plans:
-- [ ] 03-01: App shell (sidebar, breadcrumbs, navigation, theme toggle, RTL layout)
-- [ ] 03-02: Profile edit page + guest profiles (PROF-01, PROF-02, PROF-03)
-- [ ] 03-03: Dashboard charts (biorhythm, mood trend, goal progress, analysis distribution) using Recharts
-- [ ] 03-04: Mood tracker (entry form, 5-point scale, energy level, trend charts)
-- [ ] 03-05: Personal journal (CRUD with mood_score, energy_level, gratitude, goals fields)
-- [ ] 03-06: Goals (CRUD, progress tracking, AI recommendations, goal-analysis linker)
-- [ ] 03-07: UX polish (loading skeletons, empty states, error boundaries, mobile responsiveness)
+- [ ] 03-01-PLAN.md — App shell wiring (replace placeholder sidebar with real Sidebar + Header + MobileNav, dir="rtl")
+- [ ] 03-02-PLAN.md — Mood tracker (API routes + 5-emoji picker + sliders + page with CRUD)
+- [ ] 03-03-PLAN.md — Personal journal (API routes + form with mood/gratitude/goals + CRUD page)
+- [ ] 03-04-PLAN.md — Goals system (API routes + 8 categories + progress tracking + goal-analysis linker)
+- [ ] 03-05-PLAN.md — Profile edit + guest profiles + settings (profile form, subscription-gated guests, theme toggle)
+- [ ] 03-06-PLAN.md — Dashboard rebuild (daily insight card, biorhythm, mood trend, goals progress, analysis chart, period selector, stat cards)
+- [ ] 03-07-PLAN.md — Integration verification (TypeScript build + human-verify all pages)
 
 ### Phase 4: Tools Tier 1 — Astrology Core + Numerology + Light Tools
 **Goal**: Users can run the platform's five most-used analysis tools — natal chart, daily astrology forecast, astro calendar, numerology calculations, tarot reading, dream analysis, and personality analysis — with AI interpretation on each, all subscription-gated.
