@@ -13,7 +13,7 @@ MystiQor is a migration project — a fully functional BASE44 application (53 pa
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 0: Foundation** - Next.js 15 project scaffold, TypeScript strict config, Supabase clients, shadcn/ui, middleware — COMPLETE
-- [ ] **Phase 1: Infrastructure Hardening** - LLM service layer, file upload, atomic usage counter, DB schema + types
+- [x] **Phase 1: Infrastructure Hardening** - LLM service layer, file upload, atomic usage counter, DB schema + types
 - [ ] **Phase 2: Auth + Onboarding** - Supabase Auth flows, multi-step onboarding, protected routes
 - [ ] **Phase 3: UX Shell + Profile + Dashboard + Tracking** - App shell, profile editing, dashboard charts, mood/journal/goals
 - [ ] **Phase 4: Tools Tier 1 — Astrology Core + Numerology + Light Tools** - Natal chart, daily forecast, numerology, tarot, dream, personality
@@ -36,14 +36,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Two simultaneous tool submissions from a free-tier user cannot both pass the usage limit check — exactly one succeeds
   4. TypeScript types for all 20 DB tables are generated from the live Supabase schema — no manual type file needed
   5. Birth place input resolves to latitude, longitude, and timezone via the geocoding service
-**Plans:** 4/5 plans executed
+**Plans:** 5/5 plans executed — PHASE COMPLETE
 
 Plans:
 - [x] 01-01-PLAN.md — DB schema migration (003_schema_fixes.sql with 9 fixes) + npm deps + usage route Zod hardening
 - [x] 01-02-PLAN.md — LLM service Zod validation layer (invokeLLM enhancement + 7 response schemas + LLMValidationError type)
 - [x] 01-03-PLAN.md — File upload hardening (presign endpoint + magic-byte validation + EXIF stripping)
 - [x] 01-04-PLAN.md — Geocoding service enhancement (IANA timezone via tz-lookup + 1hr cache + 5s timeout)
-- [ ] 01-05-PLAN.md — Integration verification (TypeScript compilation + Phase 1 approval)
+- [x] 01-05-PLAN.md — Integration verification (TypeScript compilation + Phase 1 approval)
 
 ### Phase 2: Auth + Onboarding
 **Goal**: A new visitor can create an account, complete onboarding with their birth data, and arrive at the app ready to use every tool — and an existing user can log in, stay logged in, and log out safely.

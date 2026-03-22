@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: unknown
-stopped_at: Completed 01-02-PLAN.md — LLM response validation layer
-last_updated: "2026-03-22T09:20:28.269Z"
+status: active
+stopped_at: Phase 1 complete — approved by user. Ready for Phase 2.
+last_updated: "2026-03-22T12:00:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 01 — infrastructure-hardening
+**Current focus:** Phase 02 — Auth + Onboarding
 
 ## Current Position
 
-Phase: 01 (infrastructure-hardening) — EXECUTING
-Plan: 5 of 5
+Phase: 01 (infrastructure-hardening) — COMPLETE
+Next: Phase 02 (auth-onboarding)
 
 ## Performance Metrics
 
@@ -66,7 +66,7 @@ Recent decisions affecting current work:
 - [Phase 01-infrastructure-hardening]: ALLOWED_TYPES and MAX_FILE_SIZE centralized in file-validation.ts — shared by both direct upload and presign routes
 - [Phase 01-infrastructure-hardening]: Presign flow uses createSignedUploadUrl — client uploads directly to Supabase Storage, bypassing Vercel 4.5MB body limit
 - [Phase 01]: Migration uses DO blocks for idempotency — analytics_events and blog_posts already exist in 001_schema.sql so FIX 4 adds indexes only and FIX 5 wraps policy in existence check
-- [Phase 01]: INFRA-05 deferred: Supabase project not yet provisioned. 003_schema_fixes.sql ready to apply via supabase db push once user creates project. Phase 2 blocked until DB is live.
+- [Phase 01]: INFRA-05 RESOLVED: Supabase project provisioned, 3 migrations applied, 22 tables live, database.generated.ts created (1080 lines).
 - [Phase 01]: @photostructure/tz-lookup for IANA timezone from coordinates — no API key, lightweight, pure-JS
 - [Phase 01]: 504 Gateway Timeout for Nominatim hangs — semantically correct HTTP status for upstream timeout
 - [Phase 01]: Zod validation returns LLMValidatedResult (value) not thrown — callers inspect without try/catch
