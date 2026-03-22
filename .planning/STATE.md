@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: "Completed 02-04-PLAN.md — Human Design (9-center SVG + LLM simulation) + Dream Analysis (async fire-and-forget)"
-last_updated: "2026-03-21T21:57:00.000Z"
+stopped_at: "Completed 01-HARDENING (Tasks 1+2 done, Task 3 deferred skip-db) — next: 02-03 Graphology + Drawing"
+last_updated: "2026-03-22T09:30:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 1
@@ -102,6 +102,9 @@ Recent decisions affecting current work:
 - [Phase 02 P02]: tarot_cards table schema uses name_he/name_en/meaning_upright/meaning_reversed — not name/name_english/description as in plan interfaces
 - [Phase 02 P02]: drawCards extracted as pure function in tarot route — enables unit testing without Supabase mock
 - [Phase 02 P02]: NumberCard uses @/lib/utils (root cn function) matching shadcn component pattern
+- [Hardening]: 003_schema_fixes.sql uses idempotent patterns (IF NOT EXISTS / OR REPLACE / DO blocks) — safe to reapply
+- [Hardening]: increment_usage() uses SELECT FOR UPDATE — prevents race conditions under concurrent subscription usage
+- [Hardening]: UsageRPCResultSchema replaces unsafe `as` type assertion — Zod safeParse for RPC result validation
 
 ### Pending Todos
 
@@ -112,9 +115,10 @@ None yet.
 - Phase 1: GEM 1 (VSOP87 solar return) RESOLVED — migrated with binary search porting from JS to TypeScript
 - Phase 1: Real ephemeris for transits (TOOL-04) is a rebuild from mocked data — no source logic to migrate
 - Phase 4: Stripe webhook secret and Resend API key needed in .env.local before Phase 4 testing
+- Infrastructure Hardening: 003_schema_fixes.sql created but NOT applied to Supabase (skip-db). Run `npx supabase db push` when ready.
 
 ## Session Continuity
 
-Last session: 2026-03-21T21:57:00.000Z
-Stopped at: Completed 02-02 + 02-04 — Numerology, Palmistry, Tarot, Human Design, Dream tools
+Last session: 2026-03-22T09:30:00.000Z
+Stopped at: Infrastructure Hardening (01-HARDENING) — Tasks 1+2 done, Task 3 (apply DB migrations) deferred by user (skip-db). Next: 02-03 Graphology + Drawing.
 Resume file: None
