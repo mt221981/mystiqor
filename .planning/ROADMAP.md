@@ -36,13 +36,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Two simultaneous tool submissions from a free-tier user cannot both pass the usage limit check — exactly one succeeds
   4. TypeScript types for all 20 DB tables are generated from the live Supabase schema — no manual type file needed
   5. Birth place input resolves to latitude, longitude, and timezone via the geocoding service
-**Plans:** 5 plans
+**Plans:** 3/5 plans executed
 
 Plans:
-- [ ] 01-01-PLAN.md — DB schema migration (003_schema_fixes.sql with 9 fixes) + npm deps + usage route Zod hardening
+- [x] 01-01-PLAN.md — DB schema migration (003_schema_fixes.sql with 9 fixes) + npm deps + usage route Zod hardening
 - [ ] 01-02-PLAN.md — LLM service Zod validation layer (invokeLLM enhancement + 7 response schemas + LLMValidationError type)
-- [ ] 01-03-PLAN.md — File upload hardening (presign endpoint + magic-byte validation + EXIF stripping)
-- [ ] 01-04-PLAN.md — Geocoding service enhancement (IANA timezone via tz-lookup + 1hr cache + 5s timeout)
+- [x] 01-03-PLAN.md — File upload hardening (presign endpoint + magic-byte validation + EXIF stripping)
+- [x] 01-04-PLAN.md — Geocoding service enhancement (IANA timezone via tz-lookup + 1hr cache + 5s timeout)
 - [ ] 01-05-PLAN.md — Integration verification (TypeScript compilation + Phase 1 approval)
 
 ### Phase 2: Auth + Onboarding
@@ -234,7 +234,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
-| 1. Infrastructure Hardening | 0/5 | Planning complete | - |
+| 1. Infrastructure Hardening | 3/5 | In Progress|  |
 | 2. Auth + Onboarding | 0/4 | Not started | - |
 | 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |

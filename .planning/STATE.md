@@ -1,3 +1,17 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: unknown
+stopped_at: "Checkpoint: Task 3 of 01-01 — awaiting Supabase project provisioning (INFRA-05)"
+last_updated: "2026-03-22T09:19:23.708Z"
+progress:
+  total_phases: 10
+  completed_phases: 0
+  total_plans: 5
+  completed_plans: 2
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +19,17 @@
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 1 — Infrastructure Hardening
+**Current focus:** Phase 01 — infrastructure-hardening
 
 ## Current Position
 
-Phase: 1 of 10 (Infrastructure Hardening)
-Plan: 0 of 5 in current phase
-Status: Ready to plan
-Last activity: 2026-03-22 — Roadmap created (86 requirements mapped to 10 phases)
-
-Progress: [░░░░░░░░░░] 0% (0/57 plans complete, Phase 0 already complete)
+Phase: 01 (infrastructure-hardening) — EXECUTING
+Plan: 3 of 5
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: -
 - Total execution time: -
@@ -30,10 +41,13 @@ Progress: [░░░░░░░░░░] 0% (0/57 plans complete, Phase 0 alre
 | 0. Foundation | 8 | complete | - |
 
 **Recent Trend:**
+
 - Last 5 plans: -
 - Trend: -
 
 *Updated after each plan completion*
+| Phase 01-infrastructure-hardening P03 | 3min | 2 tasks | 3 files |
+| Phase 01 P01 | 12 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -46,6 +60,11 @@ Recent decisions affecting current work:
 - [Roadmap]: Phase 6 isolated for ephemeris-dependent tools — Transits is explicitly mocked in BASE44 source, must be rebuilt with real data
 - [Roadmap]: INFRA-07 (rate limiting) moved to Phase 8 alongside monetization — rate limiting is a business concern, not a foundation concern
 - [Roadmap]: Phase 0 marked complete — 127 files, clean compilation already exists in mystiqor-build/
+- [Phase 01-infrastructure-hardening]: sharp used for EXIF stripping in upload route — removes GPS metadata from JPEG/PNG/WebP before Supabase Storage
+- [Phase 01-infrastructure-hardening]: ALLOWED_TYPES and MAX_FILE_SIZE centralized in file-validation.ts — shared by both direct upload and presign routes
+- [Phase 01-infrastructure-hardening]: Presign flow uses createSignedUploadUrl — client uploads directly to Supabase Storage, bypassing Vercel 4.5MB body limit
+- [Phase 01]: Migration uses DO blocks for idempotency — analytics_events and blog_posts already exist in 001_schema.sql so FIX 4 adds indexes only and FIX 5 wraps policy in existence check
+- [Phase 01]: INFRA-05 deferred: Supabase project not yet provisioned. 003_schema_fixes.sql ready to apply via supabase db push once user creates project. Phase 2 blocked until DB is live.
 
 ### Pending Todos
 
@@ -60,6 +79,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22
-Stopped at: Roadmap written — ROADMAP.md and STATE.md created, REQUIREMENTS.md traceability updated
+Last session: 2026-03-22T09:19:23.706Z
+Stopped at: Checkpoint: Task 3 of 01-01 — awaiting Supabase project provisioning (INFRA-05)
 Resume file: None

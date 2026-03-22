@@ -8,9 +8,9 @@
 ### Infrastructure
 
 - [ ] **INFRA-01**: LLM service layer with Zod response validation for all 20+ call sites
-- [ ] **INFRA-02**: File upload service (multipart, magic-byte validation, Supabase Storage routing)
-- [ ] **INFRA-03**: Atomic usage counter (increment_usage DB function with subscription enforcement)
-- [ ] **INFRA-04**: Three Supabase client instances (browser, server, admin) correctly used
+- [x] **INFRA-02**: File upload service (multipart, magic-byte validation, Supabase Storage routing)
+- [x] **INFRA-03**: Atomic usage counter (increment_usage DB function with subscription enforcement)
+- [x] **INFRA-04**: Three Supabase client instances (browser, server, admin) correctly used
 - [ ] **INFRA-05**: Supabase DB schema provisioned with generated TypeScript types (replace manual database.ts)
 - [ ] **INFRA-06**: Geocoding service for birth place → coordinates + timezone
 - [ ] **INFRA-07**: Rate limiting on sensitive endpoints (Upstash Redis)
@@ -184,9 +184,9 @@
 | Requirement | Phase | Status |
 |-------------|-------|--------|
 | INFRA-01 | Phase 1 | Pending |
-| INFRA-02 | Phase 1 | Pending |
-| INFRA-03 | Phase 1 | Pending |
-| INFRA-04 | Phase 1 | Pending |
+| INFRA-02 | Phase 1 | Complete |
+| INFRA-03 | Phase 1 | Complete |
+| INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Pending |
 | INFRA-06 | Phase 1 | Pending |
 | INFRA-07 | Phase 8 | Pending |
