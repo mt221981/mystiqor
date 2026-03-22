@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-01-PLAN.md — auth infrastructure fix
-last_updated: "2026-03-22T13:08:13.578Z"
+stopped_at: Completed 02-02-PLAN.md — onboarding completion API route
+last_updated: "2026-03-22T13:09:00.735Z"
 progress:
   total_phases: 10
   completed_phases: 1
@@ -51,6 +51,7 @@ Plan: 3 of 3
 | Phase 01 P04 | 3 | 2 tasks | 4 files |
 | Phase 01 P02 | 4 | 2 tasks | 11 files |
 | Phase 02-auth-onboarding P01 | 8 | 2 tasks | 4 files |
+| Phase 02-auth-onboarding P02 | 5 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 02-auth-onboarding]: x-pathname header set on supabaseResponse directly to preserve cookie sync logic in setAll callback
 - [Phase 02-auth-onboarding]: Auth callback defaults to /onboarding — onboarding page already redirects to /tools if onboarding_completed === true
 - [Phase 02-auth-onboarding]: Suspense wraps LoginPageContent because useSearchParams requires Suspense boundary in Next.js App Router
+- [Phase 02-auth-onboarding]: subscriptions.user_id is the FK to auth.users (not id) — RESEARCH.md Pitfall 6 is incorrect per database.generated.ts
+- [Phase 02-auth-onboarding]: Onboarding API route: subscription creation failure is non-fatal — profile saved, log error and return success
 
 ### Pending Todos
 
@@ -90,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T13:07:38.573Z
-Stopped at: Completed 02-01-PLAN.md — auth infrastructure fix
+Last session: 2026-03-22T13:09:00.732Z
+Stopped at: Completed 02-02-PLAN.md — onboarding completion API route
 Resume file: None

@@ -26,9 +26,9 @@
 
 ### Onboarding
 
-- [ ] **ONBD-01**: Multi-step onboarding collecting name, birth date/time, birth place (geocoded), gender
-- [ ] **ONBD-02**: Onboarding auto-fills all analysis tools with birth data
-- [ ] **ONBD-03**: Onboarding redirects to Home if profile already exists
+- [x] **ONBD-01**: Multi-step onboarding collecting name, birth date/time, birth place (geocoded), gender
+- [x] **ONBD-02**: Onboarding auto-fills all analysis tools with birth data
+- [x] **ONBD-03**: Onboarding redirects to Home if profile already exists
 
 ### User Profile
 
@@ -196,9 +196,9 @@
 | AUTH-03 | Phase 2 | Complete |
 | AUTH-04 | Phase 2 | Complete |
 | AUTH-05 | Phase 2 | Complete |
-| ONBD-01 | Phase 2 | Pending |
-| ONBD-02 | Phase 2 | Pending |
-| ONBD-03 | Phase 2 | Pending |
+| ONBD-01 | Phase 2 | Complete |
+| ONBD-02 | Phase 2 | Complete |
+| ONBD-03 | Phase 2 | Complete |
 | PROF-01 | Phase 3 | Pending |
 | PROF-02 | Phase 3 | Pending |
 | PROF-03 | Phase 3 | Pending |
