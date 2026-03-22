@@ -77,9 +77,9 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — App shell wiring (replace placeholder sidebar with real Sidebar + Header + MobileNav, dir="rtl")
-- [ ] 03-02-PLAN.md — Mood tracker (API routes + 5-emoji picker + sliders + page with CRUD)
+- [x] 03-02-PLAN.md — Mood tracker (API routes + 5-emoji picker + sliders + page with CRUD)
 - [ ] 03-03-PLAN.md — Personal journal (API routes + form with mood/gratitude/goals + CRUD page)
-- [ ] 03-04-PLAN.md — Goals system (API routes + 8 categories + progress tracking + goal-analysis linker)
+- [x] 03-04-PLAN.md — Goals system (API routes + 8 categories + progress tracking + goal-analysis linker)
 - [ ] 03-05-PLAN.md — Profile edit + guest profiles + settings (profile form, subscription-gated guests, theme toggle)
 - [ ] 03-06-PLAN.md — Dashboard rebuild (daily insight card, biorhythm, mood trend, goals progress, analysis chart, period selector, stat cards)
 - [ ] 03-07-PLAN.md — Integration verification (TypeScript build + human-verify all pages)

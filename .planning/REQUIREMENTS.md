@@ -105,7 +105,7 @@
 
 ### Tracking & Wellness
 
-- [ ] **TRCK-01**: Mood tracker with 5-point scale + energy level + trend charts
+- [x] **TRCK-01**: Mood tracker with 5-point scale + energy level + trend charts
 - [ ] **TRCK-02**: Personal journal with mood_score, energy_level, gratitude, goals fields
 - [ ] **TRCK-03**: Goals with progress tracking and AI recommendations
 - [ ] **TRCK-04**: Goal linker connecting goals to specific analyses
@@ -245,7 +245,7 @@
 | SYNT-01 | Phase 7 | Pending |
 | SYNT-02 | Phase 7 | Pending |
 | SYNT-03 | Phase 7 | Pending |
-| TRCK-01 | Phase 3 | Pending |
+| TRCK-01 | Phase 3 | Complete |
 | TRCK-02 | Phase 3 | Pending |
 | TRCK-03 | Phase 3 | Pending |
 | TRCK-04 | Phase 3 | Pending |
