@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 02-02-PLAN.md — onboarding completion API route
-last_updated: "2026-03-22T13:09:00.735Z"
+stopped_at: Checkpoint 02-03 Task 2 — awaiting human verification of end-to-end auth+onboarding flow
+last_updated: "2026-03-22T13:12:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 1
@@ -52,6 +52,7 @@ Plan: 3 of 3
 | Phase 01 P02 | 4 | 2 tasks | 11 files |
 | Phase 02-auth-onboarding P01 | 8 | 2 tasks | 4 files |
 | Phase 02-auth-onboarding P02 | 5 | 2 tasks | 3 files |
+| Phase 02-auth-onboarding P03 | 2 | 1 task (+ checkpoint) | 2 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 02-auth-onboarding]: Suspense wraps LoginPageContent because useSearchParams requires Suspense boundary in Next.js App Router
 - [Phase 02-auth-onboarding]: subscriptions.user_id is the FK to auth.users (not id) — RESEARCH.md Pitfall 6 is incorrect per database.generated.ts
 - [Phase 02-auth-onboarding]: Onboarding API route: subscription creation failure is non-fatal — profile saved, log error and return success
+- [Phase 02-auth-onboarding]: Auth layout uses pathname !== '/onboarding' guard to prevent redirect loop — /onboarding is inside (auth) group so layout runs for it
+- [Phase 02-auth-onboarding]: maybeSingle() used in profile query — null profile (no row) correctly triggers onboarding redirect without throwing
+- [Phase 02-auth-onboarding]: form action={signOut} for sign-out button — idiomatic Next.js Server Action pattern, no onClick or useRouter needed
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T13:09:00.732Z
-Stopped at: Completed 02-02-PLAN.md — onboarding completion API route
+Last session: 2026-03-22T13:12:00.000Z
+Stopped at: Checkpoint 02-03 Task 2 — awaiting human verification of end-to-end auth+onboarding flow
 Resume file: None
