@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: "Checkpoint: Task 3 of 01-01 — awaiting Supabase project provisioning (INFRA-05)"
-last_updated: "2026-03-22T09:19:23.708Z"
+stopped_at: Completed 01-04-PLAN.md — geocoding service timezone + cache + timeout
+last_updated: "2026-03-22T09:20:24.047Z"
 progress:
   total_phases: 10
   completed_phases: 0
   total_plans: 5
-  completed_plans: 2
+  completed_plans: 4
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 01 (infrastructure-hardening) — EXECUTING
-Plan: 3 of 5
+Plan: 5 of 5
 
 ## Performance Metrics
 
@@ -48,6 +48,8 @@ Plan: 3 of 5
 *Updated after each plan completion*
 | Phase 01-infrastructure-hardening P03 | 3min | 2 tasks | 3 files |
 | Phase 01 P01 | 12 | 2 tasks | 3 files |
+| Phase 01 P04 | 3 | 2 tasks | 4 files |
+| Phase 01 P02 | 4 | 2 tasks | 11 files |
 
 ## Accumulated Context
 
@@ -65,6 +67,10 @@ Recent decisions affecting current work:
 - [Phase 01-infrastructure-hardening]: Presign flow uses createSignedUploadUrl — client uploads directly to Supabase Storage, bypassing Vercel 4.5MB body limit
 - [Phase 01]: Migration uses DO blocks for idempotency — analytics_events and blog_posts already exist in 001_schema.sql so FIX 4 adds indexes only and FIX 5 wraps policy in existence check
 - [Phase 01]: INFRA-05 deferred: Supabase project not yet provisioned. 003_schema_fixes.sql ready to apply via supabase db push once user creates project. Phase 2 blocked until DB is live.
+- [Phase 01]: @photostructure/tz-lookup for IANA timezone from coordinates — no API key, lightweight, pure-JS
+- [Phase 01]: 504 Gateway Timeout for Nominatim hangs — semantically correct HTTP status for upstream timeout
+- [Phase 01]: Zod validation returns LLMValidatedResult (value) not thrown — callers inspect without try/catch
+- [Phase 01]: zodSchema + responseSchema both required for validation — JSON mode must be active for structured validation
 
 ### Pending Todos
 
@@ -79,6 +85,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:19:23.706Z
-Stopped at: Checkpoint: Task 3 of 01-01 — awaiting Supabase project provisioning (INFRA-05)
+Last session: 2026-03-22T09:20:10.530Z
+Stopped at: Completed 01-04-PLAN.md — geocoding service timezone + cache + timeout
 Resume file: None

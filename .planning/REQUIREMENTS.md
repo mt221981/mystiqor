@@ -12,7 +12,7 @@
 - [x] **INFRA-03**: Atomic usage counter (increment_usage DB function with subscription enforcement)
 - [x] **INFRA-04**: Three Supabase client instances (browser, server, admin) correctly used
 - [ ] **INFRA-05**: Supabase DB schema provisioned with generated TypeScript types (replace manual database.ts)
-- [ ] **INFRA-06**: Geocoding service for birth place → coordinates + timezone
+- [x] **INFRA-06**: Geocoding service for birth place → coordinates + timezone
 - [ ] **INFRA-07**: Rate limiting on sensitive endpoints (Upstash Redis)
 - [ ] **INFRA-08**: Email service (welcome, daily insights, usage limit, payment failed)
 
@@ -188,7 +188,7 @@
 | INFRA-03 | Phase 1 | Complete |
 | INFRA-04 | Phase 1 | Complete |
 | INFRA-05 | Phase 1 | Pending |
-| INFRA-06 | Phase 1 | Pending |
+| INFRA-06 | Phase 1 | Complete |
 | INFRA-07 | Phase 8 | Pending |
 | INFRA-08 | Phase 8 | Pending |
 | AUTH-01 | Phase 2 | Pending |
