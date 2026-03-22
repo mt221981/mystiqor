@@ -1,7 +1,7 @@
 /**
  * לייאאוט מוגן — חלק קליינט
- * עוטף את התוכן עם QueryClientProvider, Toaster, ומבנה sidebar + main
- * כולל כפתור התנתקות בתחתית ה-sidebar
+ * עוטף את התוכן עם QueryClientProvider, Toaster, ומבנה Sidebar + Header + MobileNav
+ * אחראי על מבנה האפליקציה המלא: סרגל צד, כותרת עליונה וניווט מובייל
  */
 
 'use client';
@@ -9,10 +9,11 @@
 import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
-import { LogOut } from 'lucide-react';
 
 import { defaultQueryOptions } from '@/lib/query/cache-config';
-import { signOut } from '@/app/actions/auth';
+import { Sidebar } from '@/components/layouts/Sidebar';
+import { Header } from '@/components/layouts/Header';
+import { MobileNav } from '@/components/layouts/MobileNav';
 
 import type { ReactNode } from 'react';
 
@@ -25,51 +26,40 @@ interface AuthLayoutClientProps {
 
 // ===== קומפוננטה =====
 
-/** לייאאוט קליינט מוגן — מספק React Query, Toaster ומבנה דף */
+/** לייאאוט קליינט מוגן — מספק React Query, Toaster, Sidebar, Header ו-MobileNav */
 export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
   /** יצירת QueryClient חד-פעמית לכל instance */
   const [queryClient] = useState(() => new QueryClient(defaultQueryOptions()));
 
+  /** מצב פתיחת ניווט מובייל */
+  const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen">
-        {/* Sidebar — placeholder עד לבניית הקומפוננטה המלאה */}
-        <aside className="relative hidden w-64 shrink-0 border-e border-sidebar-border bg-sidebar md:block">
-          <div className="flex h-16 items-center gap-2 px-4">
-            <div className="h-8 w-8 rounded-lg bg-sidebar-primary/20" />
-            <span className="text-lg font-bold text-sidebar-foreground">
-              MystiQor
-            </span>
-          </div>
-          <nav className="px-3 py-4">
-            <p className="px-2 text-xs text-sidebar-foreground/50">
-              תפריט ניווט — ייבנה בשלב הבא
-            </p>
-          </nav>
-
-          {/* כפתור התנתקות — מוצמד לתחתית ה-sidebar */}
-          <div className="absolute bottom-0 w-full border-t border-sidebar-border p-3">
-            <form action={signOut}>
-              <button
-                type="submit"
-                className="flex w-full items-center gap-2 rounded-lg px-2 py-2 text-sm text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-sidebar-foreground transition-colors"
-              >
-                <LogOut className="h-4 w-4" />
-                התנתק
-              </button>
-            </form>
-          </div>
-        </aside>
+      <div className="flex min-h-screen bg-background" dir="rtl">
+        {/* סרגל צד לדסקטופ — מוסתר במובייל */}
+        <div className="hidden md:flex md:w-64 md:shrink-0">
+          <Sidebar />
+        </div>
 
         {/* אזור תוכן ראשי */}
-        <main className="flex-1 overflow-auto">
-          <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-            {children}
-          </div>
-        </main>
+        <div className="flex flex-1 flex-col">
+          <Header onMobileMenuOpen={() => setIsMobileNavOpen(true)} />
+          <main className="flex-1 overflow-auto">
+            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+              {children}
+            </div>
+          </main>
+        </div>
+
+        {/* ניווט מובייל — שכבת-על */}
+        <MobileNav
+          isOpen={isMobileNavOpen}
+          onClose={() => setIsMobileNavOpen(false)}
+        />
       </div>
 
-      {/* התראות toast — ממוקם בצד שמאל (RTL) */}
+      {/* התראות toast — ממוקם בצד שמאל (נכון עבור RTL) */}
       <Toaster
         position="bottom-left"
         dir="rtl"
