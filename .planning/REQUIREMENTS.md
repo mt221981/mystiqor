@@ -18,11 +18,11 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can sign up with email and password via Supabase Auth
-- [ ] **AUTH-02**: User can log in and session persists across browser refresh
-- [ ] **AUTH-03**: User can log out from any page
-- [ ] **AUTH-04**: Protected routes redirect unauthenticated users to login
-- [ ] **AUTH-05**: Auth callback route handles OAuth/magic-link redirects
+- [x] **AUTH-01**: User can sign up with email and password via Supabase Auth
+- [x] **AUTH-02**: User can log in and session persists across browser refresh
+- [x] **AUTH-03**: User can log out from any page
+- [x] **AUTH-04**: Protected routes redirect unauthenticated users to login
+- [x] **AUTH-05**: Auth callback route handles OAuth/magic-link redirects
 
 ### Onboarding
 
@@ -191,11 +191,11 @@
 | INFRA-06 | Phase 1 | Complete |
 | INFRA-07 | Phase 8 | Pending |
 | INFRA-08 | Phase 8 | Pending |
-| AUTH-01 | Phase 2 | Pending |
-| AUTH-02 | Phase 2 | Pending |
-| AUTH-03 | Phase 2 | Pending |
-| AUTH-04 | Phase 2 | Pending |
-| AUTH-05 | Phase 2 | Pending |
+| AUTH-01 | Phase 2 | Complete |
+| AUTH-02 | Phase 2 | Complete |
+| AUTH-03 | Phase 2 | Complete |
+| AUTH-04 | Phase 2 | Complete |
+| AUTH-05 | Phase 2 | Complete |
 | ONBD-01 | Phase 2 | Pending |
 | ONBD-02 | Phase 2 | Pending |
 | ONBD-03 | Phase 2 | Pending |

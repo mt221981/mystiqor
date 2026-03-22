@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: active
-stopped_at: Phase 1 complete — approved by user. Ready for Phase 2.
-last_updated: "2026-03-22T12:00:00.000Z"
+status: unknown
+stopped_at: Completed 02-01-PLAN.md — auth infrastructure fix
+last_updated: "2026-03-22T13:08:13.578Z"
 progress:
   total_phases: 10
   completed_phases: 1
-  total_plans: 5
-  completed_plans: 5
+  total_plans: 8
+  completed_plans: 7
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 02 — Auth + Onboarding
+**Current focus:** Phase 02 — auth-onboarding
 
 ## Current Position
 
-Phase: 01 (infrastructure-hardening) — COMPLETE
-Next: Phase 02 (auth-onboarding)
+Phase: 02 (auth-onboarding) — EXECUTING
+Plan: 3 of 3
 
 ## Performance Metrics
 
@@ -50,6 +50,7 @@ Next: Phase 02 (auth-onboarding)
 | Phase 01 P01 | 12 | 2 tasks | 3 files |
 | Phase 01 P04 | 3 | 2 tasks | 4 files |
 | Phase 01 P02 | 4 | 2 tasks | 11 files |
+| Phase 02-auth-onboarding P01 | 8 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -71,6 +72,10 @@ Recent decisions affecting current work:
 - [Phase 01]: 504 Gateway Timeout for Nominatim hangs — semantically correct HTTP status for upstream timeout
 - [Phase 01]: Zod validation returns LLMValidatedResult (value) not thrown — callers inspect without try/catch
 - [Phase 01]: zodSchema + responseSchema both required for validation — JSON mode must be active for structured validation
+- [Phase 02-auth-onboarding]: PROTECTED_PATHS array at middleware module scope replaces dead '/(auth)' check — 10 real URL paths guarded
+- [Phase 02-auth-onboarding]: x-pathname header set on supabaseResponse directly to preserve cookie sync logic in setAll callback
+- [Phase 02-auth-onboarding]: Auth callback defaults to /onboarding — onboarding page already redirects to /tools if onboarding_completed === true
+- [Phase 02-auth-onboarding]: Suspense wraps LoginPageContent because useSearchParams requires Suspense boundary in Next.js App Router
 
 ### Pending Todos
 
@@ -85,6 +90,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:20:28.266Z
-Stopped at: Completed 01-02-PLAN.md — LLM response validation layer
+Last session: 2026-03-22T13:07:38.573Z
+Stopped at: Completed 02-01-PLAN.md — auth infrastructure fix
 Resume file: None

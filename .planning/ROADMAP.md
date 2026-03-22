@@ -55,11 +55,11 @@ Plans:
   3. User can log out from any page and is redirected to the login screen
   4. Navigating to a protected route while logged out redirects to login, then back after sign-in
   5. Onboarding form collects name, birth date/time, birth place (geocoded to coordinates), and gender — and this data pre-fills all analysis tools
-**Plans:** 3 plans
+**Plans:** 2/3 plans executed
 
 Plans:
-- [ ] 02-01-PLAN.md — Auth infrastructure fixes (middleware path bug, x-pathname header, signOut action, login redirect-after-login, callback default)
-- [ ] 02-02-PLAN.md — Onboarding completion (Zod schema with Barnum consent, API route for profile upsert + free subscription creation, wizard update)
+- [x] 02-01-PLAN.md — Auth infrastructure fixes (middleware path bug, x-pathname header, signOut action, login redirect-after-login, callback default)
+- [x] 02-02-PLAN.md — Onboarding completion (Zod schema with Barnum consent, API route for profile upsert + free subscription creation, wizard update)
 - [ ] 02-03-PLAN.md — Auth layout onboarding guard + sign-out button + end-to-end verification checkpoint
 
 ### Phase 3: UX Shell + Profile + Dashboard + Tracking
@@ -234,7 +234,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 |-------|----------------|--------|-----------|
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
 | 1. Infrastructure Hardening | 5/5 | Complete |  |
-| 2. Auth + Onboarding | 0/3 | In Progress | - |
+| 2. Auth + Onboarding | 2/3 | In Progress|  |
 | 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
 | 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
