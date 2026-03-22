@@ -36,14 +36,14 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. Two simultaneous tool submissions from a free-tier user cannot both pass the usage limit check — exactly one succeeds
   4. TypeScript types for all 20 DB tables are generated from the live Supabase schema — no manual type file needed
   5. Birth place input resolves to latitude, longitude, and timezone via the geocoding service
-**Plans**: TBD
+**Plans:** 5 plans
 
 Plans:
-- [ ] 01-01: LLM service layer with Zod response schemas for all 20+ call sites
-- [ ] 01-02: File upload endpoint (multipart, magic-byte validation, Supabase Storage routing)
-- [ ] 01-03: Atomic usage counter (increment_usage DB function + subscription enforcement)
-- [ ] 01-04: Supabase three-client verification + DB schema migration + generated TypeScript types
-- [ ] 01-05: Geocoding service (birth place → coordinates + timezone)
+- [ ] 01-01-PLAN.md — DB schema migration (003_schema_fixes.sql with 9 fixes) + npm deps + usage route Zod hardening
+- [ ] 01-02-PLAN.md — LLM service Zod validation layer (invokeLLM enhancement + 7 response schemas + LLMValidationError type)
+- [ ] 01-03-PLAN.md — File upload hardening (presign endpoint + magic-byte validation + EXIF stripping)
+- [ ] 01-04-PLAN.md — Geocoding service enhancement (IANA timezone via tz-lookup + 1hr cache + 5s timeout)
+- [ ] 01-05-PLAN.md — Integration verification (TypeScript compilation + Phase 1 approval)
 
 ### Phase 2: Auth + Onboarding
 **Goal**: A new visitor can create an account, complete onboarding with their birth data, and arrive at the app ready to use every tool — and an existing user can log in, stay logged in, and log out safely.
@@ -157,7 +157,7 @@ Plans:
   1. User can send a message to the AI coach and receive a response that references their actual natal chart, numerology numbers, or recent mood entries — not generic advice
   2. Chat history persists across sessions — returning to the coach page shows the previous conversation
   3. User can start a coaching journey (e.g., "Life Purpose") and see structured sessions with progress tracking
-  4. Mystic Synthesis button generates a unified reading that explicitly cross-references at least two different analysis types (e.g., "Your life path 7 aligns with your Saturn in Aquarius…")
+  4. Mystic Synthesis button generates a unified reading that explicitly cross-references at least two different analysis types (e.g., "Your life path 7 aligns with your Saturn in Aquarius...")
   5. User can request a weekly synthesis report and receive a summary of all tool activity from the past 7 days
 **Plans**: TBD
 
@@ -234,7 +234,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4 → 5 → 6 → 7 → 8 →
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 0. Foundation | 8/8 | Complete | 2026-03-22 |
-| 1. Infrastructure Hardening | 0/5 | Not started | - |
+| 1. Infrastructure Hardening | 0/5 | Planning complete | - |
 | 2. Auth + Onboarding | 0/4 | Not started | - |
 | 3. UX Shell + Profile + Dashboard + Tracking | 0/7 | Not started | - |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 0/7 | Not started | - |
