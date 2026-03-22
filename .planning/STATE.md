@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 03-07-PLAN.md — Phase 3 integration verification checkpoint approved
-last_updated: "2026-03-22T17:43:12.596Z"
+stopped_at: Completed 04-01-PLAN.md — BirthChart SVG decomposition into 6 typed sub-components
+last_updated: "2026-03-22T19:32:42.313Z"
 progress:
   total_phases: 10
   completed_phases: 3
-  total_plans: 15
-  completed_plans: 15
+  total_plans: 22
+  completed_plans: 16
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 03 — ux-shell-profile-dashboard-tracking
+**Current focus:** Phase 04 — tools-tier-1
 
 ## Current Position
 
-Phase: 03 (ux-shell-profile-dashboard-tracking) — EXECUTING
-Plan: 6 of 7
+Phase: 04 (tools-tier-1) — EXECUTING
+Plan: 2 of 7
 
 ## Performance Metrics
 
@@ -60,6 +60,7 @@ Plan: 6 of 7
 | Phase 03-ux-shell-profile-dashboard-tracking P03 | 10 | 2 tasks | 5 files |
 | Phase 03-ux-shell-profile-dashboard-tracking P06 | 12 | 2 tasks | 7 files |
 | Phase 03-ux-shell-profile-dashboard-tracking P07 | 10 | 2 tasks | 0 files |
+| Phase 04-tools-tier-1 P01 | 12 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -105,6 +106,10 @@ Recent decisions affecting current work:
 - [Phase 03-ux-shell-profile-dashboard-tracking]: Period selector drives separate queryKeys for mood and analyses — cache isolation per period (Pitfall 7)
 - [Phase 03-ux-shell-profile-dashboard-tracking]: DailyInsightCard uses UTC month/day for zodiac calculation to prevent timezone drift in birth_date ISO strings
 - [Phase 03-ux-shell-profile-dashboard-tracking]: Phase 3 verified complete — all 8 functional areas approved by human reviewer
+- [Phase 04-tools-tier-1]: ZodiacRing takes no props — zodiac signs are static constants, no runtime data needed
+- [Phase 04-tools-tier-1]: PlanetPositions skips unknown planet names via optional chaining on PLANET_SYMBOLS[planetName as PlanetKey]
+- [Phase 04-tools-tier-1]: AspectLines opacity formula: 0.3 + strength * 0.5 — keeps faint aspects visible while strong ones stand out
+- [Phase 04-tools-tier-1]: BirthChart index exports both named and default — callers can use either import style
 
 ### Pending Todos
 
@@ -119,6 +124,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T17:43:12.593Z
-Stopped at: Completed 03-07-PLAN.md — Phase 3 integration verification checkpoint approved
+Last session: 2026-03-22T19:32:42.311Z
+Stopped at: Completed 04-01-PLAN.md — BirthChart SVG decomposition into 6 typed sub-components
 Resume file: None

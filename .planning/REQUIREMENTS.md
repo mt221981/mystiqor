@@ -56,7 +56,7 @@
 
 ### Astrology
 
-- [ ] **ASTR-01**: Natal chart calculation and SVG visualization from birth data
+- [x] **ASTR-01**: Natal chart calculation and SVG visualization from birth data
 - [ ] **ASTR-02**: AI interpretation of natal chart with explainable insights
 - [ ] **ASTR-03**: Transit calculations showing current planetary influences on natal chart
 - [ ] **ASTR-04**: Solar Return annual chart and forecast
@@ -214,7 +214,7 @@
 | DASH-04 | Phase 3 | Complete |
 | DASH-05 | Phase 3 | Complete |
 | DASH-06 | Phase 3 | Complete |
-| ASTR-01 | Phase 4 | Pending |
+| ASTR-01 | Phase 4 | Complete |
 | ASTR-02 | Phase 4 | Pending |
 | ASTR-03 | Phase 6 | Pending |
 | ASTR-04 | Phase 6 | Pending |
