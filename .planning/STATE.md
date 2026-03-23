@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: "Completed 05-06-PLAN.md — compatibility tool: dual-person form + API route"
-last_updated: "2026-03-23T13:31:15.485Z"
+stopped_at: Completed 05-01-PLAN.md — drawing analysis tool with API route, 3 components, page
+last_updated: "2026-03-23T13:31:42.819Z"
 progress:
   total_phases: 10
   completed_phases: 3
@@ -140,6 +140,9 @@ Recent decisions affecting current work:
 - [Phase 05-tools-tier-2-image-upload-tools]: Recharts exports imported individually via dynamic() — avoids SSR issues and keeps TypeScript types correct
 - [Phase 05-tools-tier-2-image-upload-tools]: tool_type='compatibility' (not 'numerology_compatibility') — ToolType union has no numerology_compatibility variant
 - [Phase 05-tools-tier-2-image-upload-tools]: No imageUrls in invokeLLM for compatibility route — text-only tool uses gpt-4o-mini
+- [Phase 05-tools-tier-2-image-upload-tools]: invokeLLM<DrawingResponse> typed generic — validationResult.data cast to DrawingResponse for spread into DB row
+- [Phase 05-tools-tier-2-image-upload-tools]: imageUrl preserved in resultImageUrl state via useMutation onSuccess variables — DrawingResponse type has no imageUrl field
+- [Phase 05-tools-tier-2-image-upload-tools]: FDMVisualization is a new HTP-focused component — github-source FDMVisualization.jsx analyzes handwriting forgery, not drawing FDM categories
 
 ### Pending Todos
 
@@ -154,6 +157,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T13:30:49.220Z
-Stopped at: Completed 05-06-PLAN.md — compatibility tool: dual-person form + API route
+Last session: 2026-03-23T13:31:42.816Z
+Stopped at: Completed 05-01-PLAN.md — drawing analysis tool with API route, 3 components, page
 Resume file: None
