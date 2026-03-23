@@ -82,3 +82,11 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+/* ===== Print styles for PDF export ===== */
+@media print {
+  .no-print { display: none !important; }
+  .print-only { display: block !important; }
+  body { background: white !important; color: black !important; }
+  nav, header, aside, footer { display: none !important; }
+}

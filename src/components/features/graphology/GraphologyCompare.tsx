@@ -1,0 +1,334 @@
+'use client'
+
+/**
+ * השוואת ניתוחים גרפולוגיים — בחירת שתי דגימות ועמדן השוואה זו לצד זו
+ * מדוע: מאפשר למשתמש להשוות ציוני מרכיבים בין שתי ניתוחים ולזהות שיפורים/ירידות
+ * Pattern: useQuery רשימה → שני Select → useQuery על כל ID נבחר → תצוגה זה לצד זה
+ */
+
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
+import { ArrowUp, ArrowDown, Minus } from 'lucide-react'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import type { GraphologyResponse } from '@/services/analysis/response-schemas/graphology'
+
+// ===== טיפוסים =====
+
+/** שורת ניתוח מ-GET /api/analysis */
+interface AnalysisRow {
+  id: string
+  tool_type: string
+  summary: string | null
+  confidence_score: number | null
+  created_at: string
+}
+
+/** ניתוח מלא מ-GET /api/analysis/[id] */
+interface FullAnalysis {
+  id: string
+  tool_type: string
+  results: GraphologyResponse
+  summary: string | null
+  created_at: string
+}
+
+/** תגובת API רשימת ניתוחים */
+interface AnalysisListResponse {
+  data: AnalysisRow[]
+  meta: { offset: number; limit: number; total: number }
+}
+
+/** תגובת API ניתוח בודד */
+interface SingleAnalysisResponse {
+  data: FullAnalysis
+}
+
+/** Props לרכיב ההשוואה */
+export interface GraphologyCompareProps {
+  /** מזהה המשתמש (auth מצד השרת) */
+  userId: string
+}
+
+// ===== פונקציות עזר =====
+
+/**
+ * מפרמטת תאריך ISO ל-DD/MM/YYYY
+ */
+function formatDate(iso: string): string {
+  const d = new Date(iso)
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const year = d.getFullYear()
+  return `${day}/${month}/${year}`
+}
+
+/**
+ * מביא רשימת ניתוחי גרפולוגיה
+ */
+async function fetchGraphologyList(): Promise<AnalysisRow[]> {
+  const res = await fetch('/api/analysis?tool_type=graphology&limit=20')
+  if (!res.ok) throw new Error('שגיאה בטעינת רשימת ניתוחים')
+  const json = (await res.json()) as AnalysisListResponse
+  return json.data ?? []
+}
+
+/**
+ * מביא ניתוח מלא לפי ID
+ */
+async function fetchFullAnalysis(id: string): Promise<FullAnalysis> {
+  const res = await fetch(`/api/analysis/${id}`)
+  if (!res.ok) throw new Error('שגיאה בטעינת ניתוח')
+  const json = (await res.json()) as SingleAnalysisResponse
+  return json.data
+}
+
+// ===== קומפוננטות עזר =====
+
+/** אייקון דלתא בין שני ציונים */
+function DeltaIcon({ delta }: { delta: number }) {
+  if (delta > 0) return <ArrowUp className="h-3 w-3 text-green-400" />
+  if (delta < 0) return <ArrowDown className="h-3 w-3 text-red-400" />
+  return <Minus className="h-3 w-3 text-gray-500" />
+}
+
+/** תיבת בחירת ניתוח */
+function AnalysisSelect({
+  label,
+  analyses,
+  selectedId,
+  onSelect,
+  excludeId,
+}: {
+  label: string
+  analyses: AnalysisRow[]
+  selectedId: string
+  onSelect: (id: string) => void
+  excludeId: string
+}) {
+  return (
+    <div className="space-y-1">
+      <label className="text-sm font-medium text-gray-300">{label}</label>
+      <select
+        value={selectedId}
+        onChange={(e) => onSelect(e.target.value)}
+        className="w-full rounded-md border border-purple-500/30 bg-gray-800 text-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+        dir="rtl"
+      >
+        <option value="">— בחר ניתוח —</option>
+        {analyses
+          .filter((a) => a.id !== excludeId)
+          .map((a) => (
+            <option key={a.id} value={a.id}>
+              {formatDate(a.created_at)}{a.summary ? ` — ${a.summary.substring(0, 40)}...` : ''}
+            </option>
+          ))}
+      </select>
+    </div>
+  )
+}
+
+// ===== קומפוננטה ראשית =====
+
+/**
+ * השוואה זה לצד זה של שני ניתוחים גרפולוגיים
+ */
+export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
+  const [idA, setIdA] = useState('')
+  const [idB, setIdB] = useState('')
+
+  // רשימת ניתוחים
+  const { data: analyses = [], isLoading: listLoading } = useQuery({
+    queryKey: ['graphology-compare-list'],
+    queryFn: fetchGraphologyList,
+  })
+
+  // ניתוח A
+  const { data: analysisA } = useQuery({
+    queryKey: ['graphology-full', idA],
+    queryFn: () => fetchFullAnalysis(idA),
+    enabled: !!idA,
+  })
+
+  // ניתוח B
+  const { data: analysisB } = useQuery({
+    queryKey: ['graphology-full', idB],
+    queryFn: () => fetchFullAnalysis(idB),
+    enabled: !!idB,
+  })
+
+  if (listLoading) {
+    return (
+      <Card className="border-purple-500/20 bg-gray-900/50">
+        <CardContent className="py-8 text-center text-gray-400">טוען ניתוחים...</CardContent>
+      </Card>
+    )
+  }
+
+  if (analyses.length < 2) {
+    return (
+      <Card className="border-purple-500/20 bg-gray-900/50">
+        <CardContent className="py-12 text-center">
+          <p className="text-gray-400">נדרשים לפחות 2 ניתוחים להשוואה. בצע ניתוח נוסף!</p>
+        </CardContent>
+      </Card>
+    )
+  }
+
+  // מרכיבים מ-A ו-B
+  const componentsA = analysisA?.results?.components ?? []
+  const componentsB = analysisB?.results?.components ?? []
+
+  // תכונות אישיות
+  const traitsA = new Set(analysisA?.results?.personality_traits ?? [])
+  const traitsB = new Set(analysisB?.results?.personality_traits ?? [])
+  const traitsOnlyA = [...traitsA].filter((t) => !traitsB.has(t))
+  const traitsOnlyB = [...traitsB].filter((t) => !traitsA.has(t))
+  const traitsBoth = [...traitsA].filter((t) => traitsB.has(t))
+
+  return (
+    <Card className="border-purple-500/20 bg-gray-900/50" dir="rtl">
+      <CardHeader>
+        <CardTitle className="text-base text-purple-300">השוואת ניתוחים</CardTitle>
+      </CardHeader>
+      <CardContent className="space-y-6">
+        {/* בחירת ניתוחים */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <AnalysisSelect
+            label="דגימה A"
+            analyses={analyses}
+            selectedId={idA}
+            onSelect={setIdA}
+            excludeId={idB}
+          />
+          <AnalysisSelect
+            label="דגימה B"
+            analyses={analyses}
+            selectedId={idB}
+            onSelect={setIdB}
+            excludeId={idA}
+          />
+        </div>
+
+        {/* טבלת השוואת מרכיבים */}
+        {analysisA && analysisB && componentsA.length > 0 && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-purple-300">השוואת מרכיבים</h3>
+            <div className="space-y-2">
+              {componentsA.map((compA) => {
+                const compB = componentsB.find((c) => c.name === compA.name)
+                const scoreB = compB?.score_1_to_10 ?? null
+                const delta = scoreB !== null ? scoreB - compA.score_1_to_10 : null
+
+                return (
+                  <div
+                    key={compA.name}
+                    className="flex items-center gap-3 p-2 rounded-lg border border-gray-700/50 bg-gray-800/30"
+                  >
+                    {/* שם המרכיב */}
+                    <span className="flex-1 text-xs text-gray-300">{compA.name}</span>
+
+                    {/* ציון A */}
+                    <Badge className="bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs min-w-[3rem] justify-center">
+                      {compA.score_1_to_10}/10
+                    </Badge>
+
+                    {/* אייקון דלתא */}
+                    {delta !== null && (
+                      <div className="flex items-center gap-1">
+                        <DeltaIcon delta={delta} />
+                        <span className={`text-xs font-medium ${
+                          delta > 0 ? 'text-green-400' : delta < 0 ? 'text-red-400' : 'text-gray-500'
+                        }`}>
+                          {delta > 0 ? `+${delta}` : delta}
+                        </span>
+                      </div>
+                    )}
+
+                    {/* ציון B */}
+                    <Badge className={`text-xs min-w-[3rem] justify-center ${
+                      delta === null
+                        ? 'bg-gray-700 text-gray-400'
+                        : delta > 0
+                        ? 'bg-green-600/20 text-green-300 border-green-500/30'
+                        : delta < 0
+                        ? 'bg-red-600/20 text-red-300 border-red-500/30'
+                        : 'bg-gray-700/20 text-gray-400'
+                    }`}>
+                      {scoreB !== null ? `${scoreB}/10` : '—'}
+                    </Badge>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
+
+        {/* השוואת תכונות אישיות */}
+        {analysisA && analysisB && (
+          <div className="space-y-3">
+            <h3 className="text-sm font-semibold text-purple-300">תכונות אישיות</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              {/* תכונות בדגימה A בלבד */}
+              <div className="space-y-1.5">
+                <p className="text-xs font-medium text-purple-400">דגימה A בלבד</p>
+                {traitsOnlyA.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {traitsOnlyA.map((t) => (
+                      <Badge key={t} className="bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500">—</p>
+                )}
+              </div>
+
+              {/* תכונות משותפות */}
+              <div className="space-y-1.5">
+                <p className="text-xs font-medium text-gray-400">משותפות</p>
+                {traitsBoth.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {traitsBoth.map((t) => (
+                      <Badge key={t} className="bg-gray-700/50 text-gray-300 border-gray-600/30 text-xs">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500">—</p>
+                )}
+              </div>
+
+              {/* תכונות בדגימה B בלבד */}
+              <div className="space-y-1.5">
+                <p className="text-xs font-medium text-blue-400">דגימה B בלבד</p>
+                {traitsOnlyB.length > 0 ? (
+                  <div className="flex flex-wrap gap-1.5">
+                    {traitsOnlyB.map((t) => (
+                      <Badge key={t} className="bg-blue-600/20 text-blue-300 border-blue-500/30 text-xs">
+                        {t}
+                      </Badge>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-xs text-gray-500">—</p>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* הוראות אם לא נבחרו */}
+        {(!analysisA || !analysisB) && (
+          <p className="text-xs text-gray-500 text-center py-4">
+            בחר שני ניתוחים להשוואה
+          </p>
+        )}
+      </CardContent>
+    </Card>
+  )
+}
+
+export default GraphologyCompare
