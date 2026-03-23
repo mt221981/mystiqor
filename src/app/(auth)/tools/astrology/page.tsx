@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Star, AlertTriangle } from 'lucide-react'
+import { Star } from 'lucide-react'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -80,7 +80,6 @@ interface BirthChartResult {
   planets: Record<string, { longitude: number }>
   planetDetails: PlanetDetail[]
   interpretation: string
-  isApproximate: boolean
   analysis_id: string | null
 }
 
@@ -289,20 +288,6 @@ export default function AstrologyPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="space-y-6"
         >
-          {/* הצהרת קירוב — מוצגת כשisApproximate=true */}
-          {result.isApproximate && (
-            <div
-              className="flex items-start gap-3 p-4 rounded-lg bg-yellow-900/20 border border-yellow-500/30"
-              role="alert"
-              dir="rtl"
-            >
-              <AlertTriangle className="h-5 w-5 text-yellow-400 mt-0.5 shrink-0" aria-hidden="true" />
-              <p className="text-sm text-yellow-300">
-                מיקומי כוכבים מקורבים — גרסה עתידית תוסיף חישובים מדויקים על בסיס אפמריס
-              </p>
-            </div>
-          )}
-
           {/* SVG מפת הגלגל */}
           <Card className="border-purple-500/20 bg-gray-900/50 p-4">
             <BirthChart planets={result.planets} chartData={result.chartData} />
