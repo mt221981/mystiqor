@@ -59,6 +59,9 @@ export const AnalysisQuerySchema = z.object({
 
   /** היסט לעימוד — ברירת מחדל 0 */
   offset: z.number().int('offset חייב להיות מספר שלם').min(0, 'offset לא יכול להיות שלילי').default(0),
+
+  /** האם לכלול שדה results בתשובה — שימושי להשוואת ניתוחים */
+  include_results: z.enum(['true', 'false']).optional(),
 });
 
 /** טיפוס נתוני יצירת ניתוח */

@@ -63,13 +63,18 @@ export async function GET(request: NextRequest) {
     const limit = parsed.success ? (parsed.data.limit ?? 20) : 20;
     const offset = parsed.success ? (parsed.data.offset ?? 0) : 0;
     const toolType = parsed.success ? parsed.data.tool_type : undefined;
+    const includeResults = parsed.success ? parsed.data.include_results === 'true' : false;
 
     const from = offset;
     const to = from + limit - 1;
 
+    const selectFields = includeResults
+      ? 'id, tool_type, summary, confidence_score, created_at, results, input_data'
+      : 'id, tool_type, summary, confidence_score, created_at';
+
     let query = supabase
       .from('analyses')
-      .select('id, tool_type, summary, confidence_score, created_at', { count: 'exact' })
+      .select(selectFields, { count: 'exact' })
       .eq('user_id', user.id)
       .order('created_at', { ascending: false })
       .range(from, to);
