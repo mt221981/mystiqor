@@ -118,16 +118,16 @@ Plans:
   4. User can upload a handwriting sample and receive a graphology analysis with a PDF export option
   5. User can view graphology progress over multiple sessions on a timeline chart
   6. Compatibility analysis accepts birth data for two people and returns combined astrology + numerology compatibility scores
-**Plans**: TBD
+**Plans:** 7 plans
 
 Plans:
-- [ ] 05-01: Drawing analysis (upload, HTP analysis, Koppitz scoring, FDM visualization, annotation viewer)
-- [ ] 05-02: Digital canvas (HTML5 Canvas, touch events, base64 export for analysis)
-- [ ] 05-03: Drawing comparison and concept cards
-- [ ] 05-04: Graphology analysis (upload, 9-component analysis, quick stats, tooltips)
-- [ ] 05-05: Graphology timeline, comparison, PDF export, reminders
-- [ ] 05-06: Human Design chart (type, authority, profile, centers)
-- [ ] 05-07: Palmistry (palm photo upload + AI interpretation) and compatibility analysis
+- [ ] 05-01-PLAN.md — Drawing analysis core (API route + KoppitzVisualization + FDMVisualization + AnnotatedDrawingViewer + page with upload)
+- [ ] 05-02-PLAN.md — Digital canvas (DigitalCanvas component + page integration as upload/canvas toggle)
+- [ ] 05-03-PLAN.md — Drawing comparison (DrawingCompare + DrawingConceptCards + page tabs)
+- [ ] 05-04-PLAN.md — Graphology analysis core (API route + GraphologyQuickStats radar + page with upload)
+- [ ] 05-05-PLAN.md — Graphology extras (GraphologyTimeline + GraphologyCompare + GraphologyReminder + PDF print CSS + page tabs)
+- [ ] 05-06-PLAN.md — Compatibility analysis (API route + dual-person form page)
+- [ ] 05-07-PLAN.md — Integration verification (TypeScript build + TOOL-02/TOOL-03 audit + human-verify all Phase 5 pages)
 
 ### Phase 6: Tools Tier 3 — Advanced Astrology (Ephemeris)
 **Goal**: Users access the full astrology suite — real transit calculations against their natal chart, Solar Return forecast, synastry overlay for relationships, timing tools for favorable days, plus career and relationship analysis — all backed by real ephemeris data (not mocked calculations).
