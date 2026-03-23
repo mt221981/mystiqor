@@ -118,15 +118,15 @@ Plans:
   4. User can upload a handwriting sample and receive a graphology analysis with a PDF export option
   5. User can view graphology progress over multiple sessions on a timeline chart
   6. Compatibility analysis accepts birth data for two people and returns combined astrology + numerology compatibility scores
-**Plans:** 7 plans
+**Plans:** 3/7 plans executed
 
 Plans:
-- [ ] 05-01-PLAN.md — Drawing analysis core (API route + KoppitzVisualization + FDMVisualization + AnnotatedDrawingViewer + page with upload)
+- [x] 05-01-PLAN.md — Drawing analysis core (API route + KoppitzVisualization + FDMVisualization + AnnotatedDrawingViewer + page with upload)
 - [ ] 05-02-PLAN.md — Digital canvas (DigitalCanvas component + page integration as upload/canvas toggle)
 - [ ] 05-03-PLAN.md — Drawing comparison (DrawingCompare + DrawingConceptCards + page tabs)
-- [ ] 05-04-PLAN.md — Graphology analysis core (API route + GraphologyQuickStats radar + page with upload)
+- [x] 05-04-PLAN.md — Graphology analysis core (API route + GraphologyQuickStats radar + page with upload)
 - [ ] 05-05-PLAN.md — Graphology extras (GraphologyTimeline + GraphologyCompare + GraphologyReminder + PDF print CSS + page tabs)
-- [ ] 05-06-PLAN.md — Compatibility analysis (API route + dual-person form page)
+- [x] 05-06-PLAN.md — Compatibility analysis (API route + dual-person form page)
 - [ ] 05-07-PLAN.md — Integration verification (TypeScript build + TOOL-02/TOOL-03 audit + human-verify all Phase 5 pages)
 
 ### Phase 6: Tools Tier 3 — Advanced Astrology (Ephemeris)
@@ -237,7 +237,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 2. Auth + Onboarding | 3/3 | Complete   | 2026-03-22 |
 | 3. UX Shell + Profile + Dashboard + Tracking | 7/7 | Complete   | 2026-03-22 |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 7/7 | Complete   | 2026-03-23 |
-| 5. Tools Tier 2 — Image Upload Tools | 0/7 | Not started | - |
+| 5. Tools Tier 2 — Image Upload Tools | 3/7 | In Progress|  |
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 0/5 | Not started | - |
 | 7. AI Coach + Mystic Synthesis | 0/4 | Not started | - |
 | 8. Growth + Monetization | 0/8 | Not started | - |

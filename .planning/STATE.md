@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: active
-stopped_at: Completed 04-07-PLAN.md — Phase 4 integration verification, TypeScript + SubscriptionGuard audit + human approval
-last_updated: "2026-03-23T07:20:00.000Z"
+status: unknown
+stopped_at: "Completed 05-06-PLAN.md — compatibility tool: dual-person form + API route"
+last_updated: "2026-03-23T13:31:15.485Z"
 progress:
   total_phases: 10
-  completed_phases: 4
-  total_plans: 22
-  completed_plans: 22
+  completed_phases: 3
+  total_plans: 29
+  completed_plans: 24
 ---
 
 # Project State
@@ -19,13 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 04 — tools-tier-1
+**Current focus:** Phase 05 — tools-tier-2-image-upload-tools
 
 ## Current Position
 
-Phase: 04 (tools-tier-1) — COMPLETE
-Phase: 05 (tools-tier-2) — NEXT
-Plan: Phase 4 complete (7/7), Phase 5 not started
+Phase: 05 (tools-tier-2-image-upload-tools) — EXECUTING
+Plan: 4 of 7
 
 ## Performance Metrics
 
@@ -67,6 +66,9 @@ Plan: Phase 4 complete (7/7), Phase 5 not started
 | Phase 04-tools-tier-1 P02 | 16 | 2 tasks | 5 files |
 | Phase 04-tools-tier-1 P05 | 25 | 2 tasks | 7 files |
 | Phase 04-tools-tier-1 P07 | 10 | 2 tasks (1 auto + 1 human-verify) | 0 files |
+| Phase 05-tools-tier-2-image-upload-tools P04 | 6 | 2 tasks | 3 files |
+| Phase 05-tools-tier-2-image-upload-tools P06 | 15 | 2 tasks | 2 files |
+| Phase 05-tools-tier-2-image-upload-tools P01 | 7 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -133,6 +135,11 @@ Recent decisions affecting current work:
 - [Phase 04-tools-tier-1]: All 8 tool pages confirmed to have SubscriptionGuard wrapping — audit passed with no missing guards
 - [Phase 04-tools-tier-1]: tsc --noEmit exits code 0 — zero TypeScript errors across all Phase 4 work
 - [Phase 04-tools-tier-1]: Phase 4 complete — all 8 tool pages approved by human reviewer (astrology, forecast, calendar, numerology, personality, daily-insights, tarot, dream)
+- [Phase 05-tools-tier-2-image-upload-tools]: invokeLLM<GraphologyResponse> generic + cast as GraphologyResponse for typed validationResult.data after success narrowing
+- [Phase 05-tools-tier-2-image-upload-tools]: maxTokens:8000 for graphology — 9 components + insights + assessment needs more tokens (Pitfall 5)
+- [Phase 05-tools-tier-2-image-upload-tools]: Recharts exports imported individually via dynamic() — avoids SSR issues and keeps TypeScript types correct
+- [Phase 05-tools-tier-2-image-upload-tools]: tool_type='compatibility' (not 'numerology_compatibility') — ToolType union has no numerology_compatibility variant
+- [Phase 05-tools-tier-2-image-upload-tools]: No imageUrls in invokeLLM for compatibility route — text-only tool uses gpt-4o-mini
 
 ### Pending Todos
 
@@ -147,6 +154,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T07:20:00.000Z
-Stopped at: Completed 04-07-PLAN.md — Phase 4 integration verification complete, Phase 4 marked done
+Last session: 2026-03-23T13:30:49.220Z
+Stopped at: Completed 05-06-PLAN.md — compatibility tool: dual-person form + API route
 Resume file: None

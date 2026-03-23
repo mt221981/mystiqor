@@ -57,7 +57,7 @@
 ### Astrology
 
 - [x] **ASTR-01**: Natal chart calculation and SVG visualization from birth data
-- [ ] **ASTR-02**: AI interpretation of natal chart with explainable insights
+- [x] **ASTR-02**: AI interpretation of natal chart with explainable insights
 - [ ] **ASTR-03**: Transit calculations showing current planetary influences on natal chart
 - [ ] **ASTR-04**: Solar Return annual chart and forecast
 - [ ] **ASTR-05**: Synastry chart overlay for relationship compatibility
@@ -82,11 +82,11 @@
 
 ### Graphology
 
-- [ ] **GRPH-01**: Upload handwriting scan for psychological analysis
+- [x] **GRPH-01**: Upload handwriting scan for psychological analysis
 - [ ] **GRPH-02**: Graphology progress tracking across sessions (GraphologyTimeline)
 - [ ] **GRPH-03**: Graphology comparison between samples
 - [ ] **GRPH-04**: PDF export of graphology analysis
-- [ ] **GRPH-05**: Graphology quick stats and tooltips
+- [x] **GRPH-05**: Graphology quick stats and tooltips
 - [ ] **GRPH-06**: Graphology reminder system
 
 ### AI Coach
@@ -117,7 +117,7 @@
 - [ ] **TOOL-01**: Tarot card reading with AI interpretation
 - [ ] **TOOL-02**: Human Design chart (type, authority, profile, centers)
 - [ ] **TOOL-03**: Palmistry via palm photo upload + AI interpretation
-- [ ] **TOOL-04**: Compatibility analysis (romantic/friendship/professional)
+- [x] **TOOL-04**: Compatibility analysis (romantic/friendship/professional)
 - [ ] **TOOL-05**: Timing tools — find astrologically favorable days
 - [ ] **TOOL-06**: Dream analysis via text input + AI interpretation
 - [ ] **TOOL-07**: Personality analysis (Big Five) with radar chart
@@ -215,7 +215,7 @@
 | DASH-05 | Phase 3 | Complete |
 | DASH-06 | Phase 3 | Complete |
 | ASTR-01 | Phase 4 | Complete |
-| ASTR-02 | Phase 4 | Pending |
+| ASTR-02 | Phase 4 | Complete |
 | ASTR-03 | Phase 6 | Pending |
 | ASTR-04 | Phase 6 | Pending |
 | ASTR-05 | Phase 6 | Pending |
@@ -231,11 +231,11 @@
 | DRAW-04 | Phase 5 | Pending |
 | DRAW-05 | Phase 5 | Pending |
 | DRAW-06 | Phase 5 | Pending |
-| GRPH-01 | Phase 5 | Pending |
+| GRPH-01 | Phase 5 | Complete |
 | GRPH-02 | Phase 5 | Pending |
 | GRPH-03 | Phase 5 | Pending |
 | GRPH-04 | Phase 5 | Pending |
-| GRPH-05 | Phase 5 | Pending |
+| GRPH-05 | Phase 5 | Complete |
 | GRPH-06 | Phase 5 | Pending |
 | COCH-01 | Phase 7 | Pending |
 | COCH-02 | Phase 7 | Pending |
@@ -254,7 +254,7 @@
 | TOOL-01 | Phase 4 | Pending |
 | TOOL-02 | Phase 5 | Pending |
 | TOOL-03 | Phase 5 | Pending |
-| TOOL-04 | Phase 5 | Pending |
+| TOOL-04 | Phase 5 | Complete |
 | TOOL-05 | Phase 6 | Pending |
 | TOOL-06 | Phase 4 | Pending |
 | TOOL-07 | Phase 4 | Pending |
