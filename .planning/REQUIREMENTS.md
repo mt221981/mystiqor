@@ -60,7 +60,7 @@
 - [x] **ASTR-02**: AI interpretation of natal chart with explainable insights
 - [x] **ASTR-03**: Transit calculations showing current planetary influences on natal chart
 - [ ] **ASTR-04**: Solar Return annual chart and forecast
-- [ ] **ASTR-05**: Synastry chart overlay for relationship compatibility
+- [x] **ASTR-05**: Synastry chart overlay for relationship compatibility
 - [ ] **ASTR-06**: Daily forecast with current planetary positions
 - [ ] **ASTR-07**: Astro calendar with monthly astrological events
 - [ ] **ASTR-08**: Astrology readings history (curated saved readings)
@@ -118,7 +118,7 @@
 - [x] **TOOL-02**: Human Design chart (type, authority, profile, centers)
 - [x] **TOOL-03**: Palmistry via palm photo upload + AI interpretation
 - [x] **TOOL-04**: Compatibility analysis (romantic/friendship/professional)
-- [ ] **TOOL-05**: Timing tools — find astrologically favorable days
+- [x] **TOOL-05**: Timing tools — find astrologically favorable days
 - [ ] **TOOL-06**: Dream analysis via text input + AI interpretation
 - [ ] **TOOL-07**: Personality analysis (Big Five) with radar chart
 - [x] **TOOL-08**: Career guidance informed by birth data
@@ -218,7 +218,7 @@
 | ASTR-02 | Phase 4 | Complete |
 | ASTR-03 | Phase 6 | Complete |
 | ASTR-04 | Phase 6 | Pending |
-| ASTR-05 | Phase 6 | Pending |
+| ASTR-05 | Phase 6 | Complete — 06-03 |
 | ASTR-06 | Phase 4 | Pending |
 | ASTR-07 | Phase 4 | Pending |
 | ASTR-08 | Phase 9 | Pending |
@@ -255,7 +255,7 @@
 | TOOL-02 | Phase 5 | Complete |
 | TOOL-03 | Phase 5 | Complete |
 | TOOL-04 | Phase 5 | Complete |
-| TOOL-05 | Phase 6 | Pending |
+| TOOL-05 | Phase 6 | Complete — 06-03 |
 | TOOL-06 | Phase 4 | Pending |
 | TOOL-07 | Phase 4 | Pending |
 | TOOL-08 | Phase 6 | Complete |

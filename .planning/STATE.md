@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 06-01 Plan complete — ephemeris adapter installed, birth-chart route upgraded
-last_updated: "2026-03-23T17:08:26.626Z"
+stopped_at: Completed 06-03 Plan complete — synastry dual-chart + timing tools built (ASTR-05, TOOL-05)
+last_updated: "2026-03-23T17:35:00.000Z"
 progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 34
-  completed_plans: 30
+  completed_plans: 31
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 06 (tools-tier-3-advanced-astrology) — EXECUTING
-Plan: 3 of 5
+Plan: 4 of 5
 
 ## Performance Metrics
 
@@ -74,6 +74,7 @@ Plan: 3 of 5
 | Phase 05-tools-tier-2-image-upload-tools P07 | 15 | 2 tasks | 1 files |
 | Phase 06-tools-tier-3-advanced-astrology P01 | 9 | 2 tasks | 7 files |
 | Phase 06-tools-tier-3-advanced-astrology P04 | 15 | 2 tasks | 6 files |
+| Phase 06-tools-tier-3-advanced-astrology P03 | 25 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -160,6 +161,9 @@ Recent decisions affecting current work:
 - [Phase 06-tools-tier-3-advanced-astrology]: Natal chart context is optional in career route — try/catch wraps fetch, omits gracefully when no astrology analysis exists
 - [Phase 06-tools-tier-3-advanced-astrology]: Document route accepts FormData (multipart) not JSON — server-side Supabase Storage upload, imageUrls to LLM Vision
 - [Phase 06-tools-tier-3-advanced-astrology]: DocumentResults extracted as subcomponent in document/page.tsx to keep file under 300-line limit
+- [Phase 06-tools-tier-3-advanced-astrology]: ACTIVITY_TYPES/ACTIVITY_LABELS extracted to @/lib/constants/timing-activities.ts — timing.ts imports astronomy-engine (server-only), client page must not import from it
+- [Phase 06-tools-tier-3-advanced-astrology]: timing/route.ts falls back to getEphemerisPositions(profile.birth_date) if no prior astrology analysis — improves first-run UX
+- [Phase 06-tools-tier-3-advanced-astrology]: Synastry uses coordinate number inputs with Jerusalem defaults instead of LocationSearch — LocationSearch is not register()-compatible with RHF without adapter
 
 ### Pending Todos
 
@@ -167,13 +171,13 @@ None yet.
 
 ### Blockers/Concerns
 
-- [Phase 6]: Ephemeris library selection is unresolved — Swiss Ephemeris WASM vs `astronomia` npm vs external API. Must be decided before Phase 6 begins. Recommend research plan at Phase 6 planning time.
 - [Phase 6]: Human Design deterministic algorithm has no established npm library. May require custom implementation or external service.
 - [All phases]: Zod v4 API differs from v3 — all ported BASE44 validation code must be audited (`nonempty()` removed, error shape changed).
 - [All phases]: date-fns v4 import style differs from v3 — all ported astrology date code must be audited.
+- RESOLVED [Phase 6]: Ephemeris library selection — astronomy-engine v2.1.19 installed in Plan 06-01.
 
 ## Session Continuity
 
-Last session: 2026-03-23T17:06:53.477Z
-Stopped at: Completed 06-04 Plan complete — career, relationship, document tools built (TOOL-08, TOOL-09, TOOL-10)
+Last session: 2026-03-23T17:35:00.000Z
+Stopped at: Completed 06-03 Plan complete — synastry dual-chart + timing tools built (ASTR-05, TOOL-05)
 Resume file: None
