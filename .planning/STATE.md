@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 04-06-PLAN.md — Daily insights cache-or-generate API + hero card + history list + module toggles
-last_updated: "2026-03-22T20:35:00.000Z"
+stopped_at: Completed 04-05-PLAN.md — Astrology natal chart page with LLM planet approximation + 4 info panels
+last_updated: "2026-03-23T06:52:41.884Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 22
-  completed_plans: 18
+  completed_plans: 20
 ---
 
 # Project State
@@ -64,6 +64,7 @@ Plan: 7 of 7
 | Phase 04-tools-tier-1 P03 | 15 | 2 tasks | 7 files |
 | Phase 04-tools-tier-1 P06 | 20 | 2 tasks | 6 files |
 | Phase 04-tools-tier-1 P02 | 16 | 2 tasks | 5 files |
+| Phase 04-tools-tier-1 P05 | 25 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -124,6 +125,9 @@ Recent decisions affecting current work:
 - [Phase 04-tools-tier-1]: LLM call in compatibility route has inner try/catch — compatibility result returned even if AI interpretation fails
 - [Phase 04-tools-tier-1]: SubNumberBreakdown returns null when rawValue===finalValue and single digit — silent when no reduction needed
 - [Phase 04-tools-tier-1]: getRawLifePathSum computed client-side from birthDate form state — avoids modifying API response shape
+- [Phase 04-tools-tier-1]: LLM called with responseSchema+zodSchema to approximate 10 planet longitudes — validation falls back to evenly-spread positions on failure
+- [Phase 04-tools-tier-1]: isApproximate: true flag in API response drives UI disclaimer banner — transparent about Phase 4 limitation (no ephemeris)
+- [Phase 04-tools-tier-1]: table.tsx added as new shadcn UI component — required by PlanetTable and AspectList, was missing from ui/
 
 ### Pending Todos
 
@@ -138,6 +142,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T20:35:00.000Z
-Stopped at: Completed 04-06-PLAN.md — Daily insights cache-or-generate API + hero card + history list + module toggles
+Last session: 2026-03-23T06:52:41.882Z
+Stopped at: Completed 04-05-PLAN.md — Astrology natal chart page with LLM planet approximation + 4 info panels
 Resume file: None
