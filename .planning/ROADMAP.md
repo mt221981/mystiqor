@@ -17,7 +17,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 2: Auth + Onboarding** - Supabase Auth flows, multi-step onboarding, protected routes
 - [x] **Phase 3: UX Shell + Profile + Dashboard + Tracking** - App shell, profile editing, dashboard charts, mood/journal/goals (completed 2026-03-22)
 - [x] **Phase 4: Tools Tier 1 — Astrology Core + Numerology + Light Tools** - Natal chart, daily forecast, numerology, tarot, dream, personality
-- [ ] **Phase 5: Tools Tier 2 — Image Upload Tools** - Drawing analysis, graphology suite, palmistry, compatibility
+- [x] **Phase 5: Tools Tier 2 — Image Upload Tools** - Drawing analysis, graphology suite, palmistry, compatibility (completed 2026-03-23)
 - [ ] **Phase 6: Tools Tier 3 — Advanced Astrology (Ephemeris)** - Transits, Solar Return, synastry, timing tools, career, relationships, documents
 - [ ] **Phase 7: AI Coach + Mystic Synthesis** - Conversational coach, coaching journeys, cross-tool synthesis
 - [ ] **Phase 8: Growth + Monetization** - Stripe checkout, subscription management, referral, email flows, rate limiting
@@ -118,14 +118,14 @@ Plans:
   4. User can upload a handwriting sample and receive a graphology analysis with a PDF export option
   5. User can view graphology progress over multiple sessions on a timeline chart
   6. Compatibility analysis accepts birth data for two people and returns combined astrology + numerology compatibility scores
-**Plans:** 3/7 plans executed
+**Plans:** 7/7 plans complete
 
 Plans:
 - [x] 05-01-PLAN.md — Drawing analysis core (API route + KoppitzVisualization + FDMVisualization + AnnotatedDrawingViewer + page with upload)
-- [ ] 05-02-PLAN.md — Digital canvas (DigitalCanvas component + page integration as upload/canvas toggle)
+- [x] 05-02-PLAN.md — Digital canvas (DigitalCanvas component + page integration as upload/canvas toggle)
 - [x] 05-03-PLAN.md — Drawing comparison (DrawingCompare + DrawingConceptCards + page tabs)
 - [x] 05-04-PLAN.md — Graphology analysis core (API route + GraphologyQuickStats radar + page with upload)
-- [ ] 05-05-PLAN.md — Graphology extras (GraphologyTimeline + GraphologyCompare + GraphologyReminder + PDF print CSS + page tabs)
+- [x] 05-05-PLAN.md — Graphology extras (GraphologyTimeline + GraphologyCompare + GraphologyReminder + PDF print CSS + page tabs)
 - [x] 05-06-PLAN.md — Compatibility analysis (API route + dual-person form page)
 - [x] 05-07-PLAN.md — Integration verification (TypeScript build + TOOL-02/TOOL-03 audit + human-verify all Phase 5 pages)
 
@@ -237,7 +237,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 2. Auth + Onboarding | 3/3 | Complete   | 2026-03-22 |
 | 3. UX Shell + Profile + Dashboard + Tracking | 7/7 | Complete   | 2026-03-22 |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 7/7 | Complete   | 2026-03-23 |
-| 5. Tools Tier 2 — Image Upload Tools | 3/7 | In Progress|  |
+| 5. Tools Tier 2 — Image Upload Tools | 7/7 | Complete   | 2026-03-23 |
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 0/5 | Not started | - |
 | 7. AI Coach + Mystic Synthesis | 0/4 | Not started | - |
 | 8. Growth + Monetization | 0/8 | Not started | - |
