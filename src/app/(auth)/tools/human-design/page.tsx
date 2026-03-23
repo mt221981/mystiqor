@@ -22,6 +22,7 @@ import { Badge } from '@/components/ui/badge';
 import { PageHeader } from '@/components/layouts/PageHeader';
 import { LocationSearch } from '@/components/forms/LocationSearch';
 import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignCenters';
+import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 import { animations } from '@/lib/animations/presets';
 import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { GeocodingResult } from '@/components/forms/LocationSearch';
@@ -115,6 +116,7 @@ export default function HumanDesignPage() {
           <CardTitle>נתוני לידה</CardTitle>
         </CardHeader>
         <CardContent>
+          <SubscriptionGuard feature="analyses">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
@@ -155,6 +157,7 @@ export default function HumanDesignPage() {
               )}
             </Button>
           </form>
+          </SubscriptionGuard>
         </CardContent>
       </Card>
 
