@@ -123,7 +123,7 @@ Plans:
 Plans:
 - [x] 05-01-PLAN.md — Drawing analysis core (API route + KoppitzVisualization + FDMVisualization + AnnotatedDrawingViewer + page with upload)
 - [ ] 05-02-PLAN.md — Digital canvas (DigitalCanvas component + page integration as upload/canvas toggle)
-- [ ] 05-03-PLAN.md — Drawing comparison (DrawingCompare + DrawingConceptCards + page tabs)
+- [x] 05-03-PLAN.md — Drawing comparison (DrawingCompare + DrawingConceptCards + page tabs)
 - [x] 05-04-PLAN.md — Graphology analysis core (API route + GraphologyQuickStats radar + page with upload)
 - [ ] 05-05-PLAN.md — Graphology extras (GraphologyTimeline + GraphologyCompare + GraphologyReminder + PDF print CSS + page tabs)
 - [x] 05-06-PLAN.md — Compatibility analysis (API route + dual-person form page)

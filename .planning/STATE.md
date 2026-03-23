@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-01-PLAN.md — drawing analysis tool with API route, 3 components, page
-last_updated: "2026-03-23T13:31:42.819Z"
+stopped_at: Completed 05-03-PLAN.md — DrawingCompare, DrawingConceptCards, 3-tab drawing page
+last_updated: "2026-03-23T14:44:52.726Z"
 progress:
   total_phases: 10
   completed_phases: 3
   total_plans: 29
-  completed_plans: 24
+  completed_plans: 25
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 05 (tools-tier-2-image-upload-tools) — EXECUTING
-Plan: 4 of 7
+Plan: 5 of 7
 
 ## Performance Metrics
 
@@ -69,6 +69,7 @@ Plan: 4 of 7
 | Phase 05-tools-tier-2-image-upload-tools P04 | 6 | 2 tasks | 3 files |
 | Phase 05-tools-tier-2-image-upload-tools P06 | 15 | 2 tasks | 2 files |
 | Phase 05-tools-tier-2-image-upload-tools P01 | 7 | 2 tasks | 5 files |
+| Phase 05 P03 | 25 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -143,6 +144,8 @@ Recent decisions affecting current work:
 - [Phase 05-tools-tier-2-image-upload-tools]: invokeLLM<DrawingResponse> typed generic — validationResult.data cast to DrawingResponse for spread into DB row
 - [Phase 05-tools-tier-2-image-upload-tools]: imageUrl preserved in resultImageUrl state via useMutation onSuccess variables — DrawingResponse type has no imageUrl field
 - [Phase 05-tools-tier-2-image-upload-tools]: FDMVisualization is a new HTP-focused component — github-source FDMVisualization.jsx analyzes handwriting forgery, not drawing FDM categories
+- [Phase 05]: DrawingAnalysisForm extracted to keep page.tsx under 300 lines — SubscriptionGuard lives in form component
+- [Phase 05]: include_results query param added to /api/analysis for single-query results fetch (avoids N+1 in DrawingCompare)
 
 ### Pending Todos
 
@@ -157,6 +160,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T13:31:42.816Z
-Stopped at: Completed 05-01-PLAN.md — drawing analysis tool with API route, 3 components, page
+Last session: 2026-03-23T14:44:52.724Z
+Stopped at: Completed 05-03-PLAN.md — DrawingCompare, DrawingConceptCards, 3-tab drawing page
 Resume file: None

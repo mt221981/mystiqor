@@ -77,8 +77,8 @@
 - [ ] **DRAW-02**: In-browser digital canvas for real-time drawing (DigitalCanvas)
 - [ ] **DRAW-03**: Koppitz scoring and FDM visualization of drawing features
 - [ ] **DRAW-04**: Annotated drawing viewer with feature highlights
-- [ ] **DRAW-05**: Compare drawing analyses across sessions
-- [ ] **DRAW-06**: Drawing concept cards with educational content
+- [x] **DRAW-05**: Compare drawing analyses across sessions
+- [x] **DRAW-06**: Drawing concept cards with educational content
 
 ### Graphology
 
@@ -229,8 +229,8 @@
 | DRAW-02 | Phase 5 | Pending |
 | DRAW-03 | Phase 5 | Pending |
 | DRAW-04 | Phase 5 | Pending |
-| DRAW-05 | Phase 5 | Pending |
-| DRAW-06 | Phase 5 | Pending |
+| DRAW-05 | Phase 5 | Complete |
+| DRAW-06 | Phase 5 | Complete |
 | GRPH-01 | Phase 5 | Complete |
 | GRPH-02 | Phase 5 | Pending |
 | GRPH-03 | Phase 5 | Pending |
