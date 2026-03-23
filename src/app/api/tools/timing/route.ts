@@ -69,7 +69,7 @@ export async function POST(request: NextRequest) {
     // שלב 4: שליפת פרופיל משתמש לנתוני לידה
     const { data: profile } = await supabase
       .from('profiles')
-      .select('birth_date, birth_place_lat, birth_place_lon')
+      .select('birth_date, latitude, longitude')
       .eq('id', user.id)
       .maybeSingle()
 
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
 
     if (!natalPlanets) {
       // ניסיון ליצור גלגל נטאלי מנתוני הפרופיל אם קיימים
-      if (profile?.birth_date && profile.birth_place_lat && profile.birth_place_lon) {
+      if (profile?.birth_date && profile.latitude && profile.longitude) {
         const birthDatetime = new Date(`${profile.birth_date}T12:00:00`)
         natalPlanets = getEphemerisPositions(birthDatetime)
       } else {

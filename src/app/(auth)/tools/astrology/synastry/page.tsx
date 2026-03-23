@@ -27,8 +27,8 @@ const PersonFormSchema = z.object({
   name: z.string().min(1, 'שם חובה'),
   birthDate: z.string().min(1, 'תאריך לידה חובה'),
   birthTime: z.string().optional(),
-  latitude: z.number({ invalid_type_error: 'נדרש מיקום' }),
-  longitude: z.number({ invalid_type_error: 'נדרש מיקום' }),
+  latitude: z.number({ error: 'נדרש מיקום' }),
+  longitude: z.number({ error: 'נדרש מיקום' }),
   locationName: z.string().optional(),
 })
 
