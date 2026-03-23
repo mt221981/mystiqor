@@ -121,9 +121,9 @@
 - [ ] **TOOL-05**: Timing tools — find astrologically favorable days
 - [ ] **TOOL-06**: Dream analysis via text input + AI interpretation
 - [ ] **TOOL-07**: Personality analysis (Big Five) with radar chart
-- [ ] **TOOL-08**: Career guidance informed by birth data
-- [ ] **TOOL-09**: Relationship analysis beyond compatibility
-- [ ] **TOOL-10**: Document analyzer (upload any document for AI insights)
+- [x] **TOOL-08**: Career guidance informed by birth data
+- [x] **TOOL-09**: Relationship analysis beyond compatibility
+- [x] **TOOL-10**: Document analyzer (upload any document for AI insights)
 
 ### History & Comparison
 
@@ -258,9 +258,9 @@
 | TOOL-05 | Phase 6 | Pending |
 | TOOL-06 | Phase 4 | Pending |
 | TOOL-07 | Phase 4 | Pending |
-| TOOL-08 | Phase 6 | Pending |
-| TOOL-09 | Phase 6 | Pending |
-| TOOL-10 | Phase 6 | Pending |
+| TOOL-08 | Phase 6 | Complete |
+| TOOL-09 | Phase 6 | Complete |
+| TOOL-10 | Phase 6 | Complete |
 | HIST-01 | Phase 9 | Pending |
 | HIST-02 | Phase 9 | Pending |
 | HIST-03 | Phase 9 | Pending |

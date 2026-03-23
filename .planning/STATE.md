@@ -4,12 +4,12 @@ milestone: v1.0
 milestone_name: milestone
 status: unknown
 stopped_at: Completed 06-01 Plan complete — ephemeris adapter installed, birth-chart route upgraded
-last_updated: "2026-03-23T17:06:53.480Z"
+last_updated: "2026-03-23T17:08:26.626Z"
 progress:
   total_phases: 10
   completed_phases: 4
   total_plans: 34
-  completed_plans: 29
+  completed_plans: 30
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 06 (tools-tier-3-advanced-astrology) — EXECUTING
-Plan: 2 of 5
+Plan: 3 of 5
 
 ## Performance Metrics
 
@@ -73,6 +73,7 @@ Plan: 2 of 5
 | Phase 05 P07 | 10 | 1 tasks | 1 files |
 | Phase 05-tools-tier-2-image-upload-tools P07 | 15 | 2 tasks | 1 files |
 | Phase 06-tools-tier-3-advanced-astrology P01 | 9 | 2 tasks | 7 files |
+| Phase 06-tools-tier-3-advanced-astrology P04 | 15 | 2 tasks | 6 files |
 
 ## Accumulated Context
 
@@ -155,6 +156,10 @@ Recent decisions affecting current work:
 - [Phase 06-tools-tier-3-advanced-astrology]: astronomy-engine installed with --legacy-peer-deps due to openai peerOptional zod conflict — build unaffected
 - [Phase 06-tools-tier-3-advanced-astrology]: getEphemerisPositionsWithRetrograde uses T vs T+1 day comparison with normalize() wraparound — Sun and Moon always return false
 - [Phase 06-tools-tier-3-advanced-astrology]: calculateCrossAspects() internal helper shared by calculateTransitAspects and calculateInterChartAspects — avoids code duplication
+- [Phase 06-tools-tier-3-advanced-astrology]: Career route queries profiles.birth_date via .eq('id', user.id) — profile PK is id, not user_id
+- [Phase 06-tools-tier-3-advanced-astrology]: Natal chart context is optional in career route — try/catch wraps fetch, omits gracefully when no astrology analysis exists
+- [Phase 06-tools-tier-3-advanced-astrology]: Document route accepts FormData (multipart) not JSON — server-side Supabase Storage upload, imageUrls to LLM Vision
+- [Phase 06-tools-tier-3-advanced-astrology]: DocumentResults extracted as subcomponent in document/page.tsx to keep file under 300-line limit
 
 ### Pending Todos
 
@@ -170,5 +175,5 @@ None yet.
 ## Session Continuity
 
 Last session: 2026-03-23T17:06:53.477Z
-Stopped at: Completed 06-01 Plan complete — ephemeris adapter installed, birth-chart route upgraded
+Stopped at: Completed 06-04 Plan complete — career, relationship, document tools built (TOOL-08, TOOL-09, TOOL-10)
 Resume file: None

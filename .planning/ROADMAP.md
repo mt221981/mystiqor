@@ -145,7 +145,7 @@ Plans:
 - [x] 06-01-PLAN.md — Ephemeris adapter (astronomy-engine install + ephemeris.ts + transit/inter-chart aspect functions + birth-chart upgrade to real data)
 - [ ] 06-02-PLAN.md — Transits page + Solar Return page (API routes + UI pages with real ephemeris)
 - [ ] 06-03-PLAN.md — Synastry dual-chart + Timing tools (API routes + timing scoring service + UI pages)
-- [ ] 06-04-PLAN.md — LLM-only tools: Career guidance + Relationship analysis + Document analyzer (API routes + UI pages)
+- [x] 06-04-PLAN.md — LLM-only tools: Career guidance + Relationship analysis + Document analyzer (API routes + UI pages)
 - [ ] 06-05-PLAN.md — Integration verification (TypeScript build + SubscriptionGuard audit + human-verify all Phase 6 pages)
 
 ### Phase 7: AI Coach + Mystic Synthesis

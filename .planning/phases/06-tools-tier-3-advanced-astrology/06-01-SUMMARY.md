@@ -120,6 +120,15 @@ None - no external service configuration required.
 - birth-chart now returns real planet data — all downstream consumers benefit automatically
 - No blockers for 06-02 through 06-05
 
+## Self-Check: PASSED
+
+- FOUND: mystiqor-build/src/services/astrology/ephemeris.ts
+- FOUND: mystiqor-build/tests/services/ephemeris.test.ts
+- FOUND: .planning/phases/06-tools-tier-3-advanced-astrology/06-01-SUMMARY.md
+- FOUND commit d48dd6e: feat(06-01): install astronomy-engine + ephemeris adapter
+- FOUND commit b5ef4ea: feat(06-01): upgrade birth-chart route to real ephemeris
+- FOUND commit 862dd31: docs(06-01): complete ephemeris adapter plan
+
 ---
 *Phase: 06-tools-tier-3-advanced-astrology*
 *Completed: 2026-03-23*
