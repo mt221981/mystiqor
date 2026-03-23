@@ -139,10 +139,10 @@ Plans:
   3. Synastry chart overlays two natal charts and shows inter-chart aspects between two people
   4. Timing tools page returns a list of astrologically favorable days within a user-selected date range, with explanation of which transits make those days favorable
   5. Career guidance analysis returns actionable career insights informed by the user's birth chart
-**Plans:** 5 plans
+**Plans:** 1/5 plans executed
 
 Plans:
-- [ ] 06-01-PLAN.md — Ephemeris adapter (astronomy-engine install + ephemeris.ts + transit/inter-chart aspect functions + birth-chart upgrade to real data)
+- [x] 06-01-PLAN.md — Ephemeris adapter (astronomy-engine install + ephemeris.ts + transit/inter-chart aspect functions + birth-chart upgrade to real data)
 - [ ] 06-02-PLAN.md — Transits page + Solar Return page (API routes + UI pages with real ephemeris)
 - [ ] 06-03-PLAN.md — Synastry dual-chart + Timing tools (API routes + timing scoring service + UI pages)
 - [ ] 06-04-PLAN.md — LLM-only tools: Career guidance + Relationship analysis + Document analyzer (API routes + UI pages)
@@ -238,7 +238,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 3. UX Shell + Profile + Dashboard + Tracking | 7/7 | Complete   | 2026-03-22 |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 7/7 | Complete   | 2026-03-23 |
 | 5. Tools Tier 2 — Image Upload Tools | 7/7 | Complete   | 2026-03-23 |
-| 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 0/5 | Not started | - |
+| 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 1/5 | In Progress|  |
 | 7. AI Coach + Mystic Synthesis | 0/4 | Not started | - |
 | 8. Growth + Monetization | 0/8 | Not started | - |
 | 9. Learning + History + Analytics | 0/6 | Not started | - |

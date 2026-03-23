@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: unknown
-stopped_at: Completed 05-07 Plan complete — Phase 5 complete, all 7 plans done, human verification approved
-last_updated: "2026-03-23T15:36:31.998Z"
+stopped_at: Completed 06-01 Plan complete — ephemeris adapter installed, birth-chart route upgraded
+last_updated: "2026-03-23T17:06:53.480Z"
 progress:
   total_phases: 10
   completed_phases: 4
-  total_plans: 29
-  completed_plans: 28
+  total_plans: 34
+  completed_plans: 29
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 05 — tools-tier-2-image-upload-tools
+**Current focus:** Phase 06 — tools-tier-3-advanced-astrology
 
 ## Current Position
 
-Phase: 05 (tools-tier-2-image-upload-tools) — EXECUTING
-Plan: 7 of 7
+Phase: 06 (tools-tier-3-advanced-astrology) — EXECUTING
+Plan: 2 of 5
 
 ## Performance Metrics
 
@@ -72,6 +72,7 @@ Plan: 7 of 7
 | Phase 05 P03 | 25 | 2 tasks | 6 files |
 | Phase 05 P07 | 10 | 1 tasks | 1 files |
 | Phase 05-tools-tier-2-image-upload-tools P07 | 15 | 2 tasks | 1 files |
+| Phase 06-tools-tier-3-advanced-astrology P01 | 9 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -151,6 +152,9 @@ Recent decisions affecting current work:
 - [Phase 05]: Human Design (TOOL-02) was missing SubscriptionGuard — added to match palmistry/page.tsx pattern
 - [Phase 05-tools-tier-2-image-upload-tools]: Human verifier approved all 5 Phase 5 tool pages — Phase 5 complete
 - [Phase 05-tools-tier-2-image-upload-tools]: All 5 Phase 5 tool pages confirmed with SubscriptionGuard: drawing, graphology, compatibility, human-design, palmistry
+- [Phase 06-tools-tier-3-advanced-astrology]: astronomy-engine installed with --legacy-peer-deps due to openai peerOptional zod conflict — build unaffected
+- [Phase 06-tools-tier-3-advanced-astrology]: getEphemerisPositionsWithRetrograde uses T vs T+1 day comparison with normalize() wraparound — Sun and Moon always return false
+- [Phase 06-tools-tier-3-advanced-astrology]: calculateCrossAspects() internal helper shared by calculateTransitAspects and calculateInterChartAspects — avoids code duplication
 
 ### Pending Todos
 
@@ -165,6 +169,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-23T15:36:31.995Z
-Stopped at: Completed 05-07 Plan complete — Phase 5 complete, all 7 plans done, human verification approved
+Last session: 2026-03-23T17:06:53.477Z
+Stopped at: Completed 06-01 Plan complete — ephemeris adapter installed, birth-chart route upgraded
 Resume file: None
