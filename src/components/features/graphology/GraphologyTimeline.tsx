@@ -30,8 +30,8 @@ interface AnalysisListResponse {
 
 /** Props לציר הזמן הגרפולוגי */
 export interface GraphologyTimelineProps {
-  /** מזהה המשתמש (אינו בשימוש בקריאת API — auth מצד השרת) */
-  userId: string
+  /** מזהה המשתמש (אופציונלי — auth מצד השרת) */
+  userId?: string
 }
 
 // ===== פונקציות עזר =====

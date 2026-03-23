@@ -13,8 +13,11 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Paintbrush, Loader2 } from 'lucide-react'
+import { Paintbrush, Loader2, Upload, PenTool } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
+import dynamic from 'next/dynamic'
+
+const DigitalCanvas = dynamic(() => import('@/components/features/drawing/DigitalCanvas'), { ssr: false })
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -82,6 +85,7 @@ export default function DrawingPage() {
   const [result, setResult] = useState<DrawingResult | null>(null)
   const [resultImageUrl, setResultImageUrl] = useState<string>('')
   const [uploading, setUploading] = useState(false)
+  const [inputMode, setInputMode] = useState<'upload' | 'canvas'>('upload')
 
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -164,6 +168,59 @@ export default function DrawingPage() {
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
+              {/* בורר מצב קלט */}
+              <div className="flex gap-2 mb-4">
+                <button
+                  type="button"
+                  onClick={() => setInputMode('upload')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    inputMode === 'upload'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
+                  }`}
+                >
+                  <Upload className="h-4 w-4" />
+                  העלאת תמונה
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setInputMode('canvas')}
+                  className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                    inputMode === 'canvas'
+                      ? 'bg-purple-600 text-white'
+                      : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
+                  }`}
+                >
+                  <PenTool className="h-4 w-4" />
+                  ציור חופשי
+                </button>
+              </div>
+
+              {/* מצב קנבס */}
+              {inputMode === 'canvas' && (
+                <div className="mb-4">
+                  <DigitalCanvas
+                    onSave={async (file: File) => {
+                      setUploading(true)
+                      try {
+                        const formData = new FormData()
+                        formData.append('file', file)
+                        const uploadRes = await fetch('/api/upload', { method: 'POST', body: formData })
+                        if (!uploadRes.ok) throw new Error('שגיאה בהעלאה')
+                        const data = (await uploadRes.json()) as { url: string }
+                        setValue('imageUrl', data.url, { shouldValidate: true })
+                        toast.success('הציור הועלה בהצלחה')
+                      } catch {
+                        toast.error('שגיאה בהעלאת הציור')
+                      } finally {
+                        setUploading(false)
+                      }
+                    }}
+                    onCancel={() => setInputMode('upload')}
+                  />
+                </div>
+              )}
+
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* בחירת סוג ציור */}
                 <div className="space-y-2">

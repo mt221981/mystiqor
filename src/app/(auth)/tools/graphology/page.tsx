@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { PenTool, Printer } from 'lucide-react'
+import { PenTool, Printer, Clock, GitCompare, Bell } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -22,8 +22,12 @@ import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { GraphologyQuickStats } from '@/components/features/graphology/GraphologyQuickStats'
+import { GraphologyTimeline } from '@/components/features/graphology/GraphologyTimeline'
+import { GraphologyCompare } from '@/components/features/graphology/GraphologyCompare'
+import { GraphologyReminder } from '@/components/features/graphology/GraphologyReminder'
 import { animations } from '@/lib/animations/presets'
 import type { GraphologyResponse } from '@/services/analysis/response-schemas/graphology'
 
@@ -73,6 +77,7 @@ async function fetchGraphology(input: FormValues): Promise<GraphologyResult> {
 export default function GraphologyPage() {
   const [result, setResult] = useState<GraphologyResult | null>(null)
   const [uploading, setUploading] = useState(false)
+  const [activeTab, setActiveTab] = useState<string>('analysis')
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -127,6 +132,27 @@ export default function GraphologyPage() {
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
+      <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
+        <TabsList className="mb-4 bg-gray-800/50">
+          <TabsTrigger value="analysis" className="flex items-center gap-1"><PenTool className="h-3 w-3" /> ניתוח</TabsTrigger>
+          <TabsTrigger value="timeline" className="flex items-center gap-1"><Clock className="h-3 w-3" /> ציר זמן</TabsTrigger>
+          <TabsTrigger value="compare" className="flex items-center gap-1"><GitCompare className="h-3 w-3" /> השוואה</TabsTrigger>
+          <TabsTrigger value="reminder" className="flex items-center gap-1"><Bell className="h-3 w-3" /> תזכורת</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="timeline">
+          <GraphologyTimeline />
+        </TabsContent>
+
+        <TabsContent value="compare">
+          <GraphologyCompare />
+        </TabsContent>
+
+        <TabsContent value="reminder">
+          <GraphologyReminder />
+        </TabsContent>
+
+        <TabsContent value="analysis">
       <PageHeader
         title="גרפולוגיה"
         description="ניתוח כתב יד מתמונה — 9 מרכיבים גרפולוגיים עם ציונים, תרשים רדאר ותובנות אישיות"
@@ -294,6 +320,8 @@ export default function GraphologyPage() {
           </div>
         </motion.div>
       )}
+        </TabsContent>
+      </Tabs>
     </div>
   )
 }

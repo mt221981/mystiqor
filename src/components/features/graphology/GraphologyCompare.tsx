@@ -46,8 +46,8 @@ interface SingleAnalysisResponse {
 
 /** Props לרכיב ההשוואה */
 export interface GraphologyCompareProps {
-  /** מזהה המשתמש (auth מצד השרת) */
-  userId: string
+  /** מזהה המשתמש (אופציונלי — auth מצד השרת) */
+  userId?: string
 }
 
 // ===== פונקציות עזר =====
