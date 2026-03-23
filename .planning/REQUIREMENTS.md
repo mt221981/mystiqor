@@ -115,8 +115,8 @@
 ### Additional Tools
 
 - [ ] **TOOL-01**: Tarot card reading with AI interpretation
-- [ ] **TOOL-02**: Human Design chart (type, authority, profile, centers)
-- [ ] **TOOL-03**: Palmistry via palm photo upload + AI interpretation
+- [x] **TOOL-02**: Human Design chart (type, authority, profile, centers)
+- [x] **TOOL-03**: Palmistry via palm photo upload + AI interpretation
 - [x] **TOOL-04**: Compatibility analysis (romantic/friendship/professional)
 - [ ] **TOOL-05**: Timing tools — find astrologically favorable days
 - [ ] **TOOL-06**: Dream analysis via text input + AI interpretation
@@ -252,8 +252,8 @@
 | TRCK-05 | Phase 4 | Complete |
 | TRCK-06 | Phase 8 | Pending |
 | TOOL-01 | Phase 4 | Pending |
-| TOOL-02 | Phase 5 | Pending |
-| TOOL-03 | Phase 5 | Pending |
+| TOOL-02 | Phase 5 | Complete |
+| TOOL-03 | Phase 5 | Complete |
 | TOOL-04 | Phase 5 | Complete |
 | TOOL-05 | Phase 6 | Pending |
 | TOOL-06 | Phase 4 | Pending |
