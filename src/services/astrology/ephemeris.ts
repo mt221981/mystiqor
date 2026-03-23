@@ -66,6 +66,23 @@ function isRetrograde(body: Astronomy.Body, time: Astronomy.AstroTime): boolean 
 // ===== ייצוא ראשי =====
 
 /**
+ * מחשב אורך אקליפטי גאוצנטרי לכוכב נתון
+ * שמש: משתמש ב-SunPosition().elon (EclipticLongitude זורק עבור השמש — heliocentric בלבד)
+ * שאר הכוכבים: EclipticLongitude (geocentric)
+ *
+ * @param body - ה-body enum של astronomy-engine
+ * @param astroTime - זמן AstroTime לחישוב
+ * @returns אורך אקליפטי גאוצנטרי בטווח [0, 360)
+ */
+function getGeocentricLongitude(body: Astronomy.Body, astroTime: Astronomy.AstroTime): number {
+  if (body === Astronomy.Body.Sun) {
+    // EclipticLongitude זורק עבור השמש — משתמשים ב-SunPosition שמחזיר elon גאוצנטרי
+    return Astronomy.SunPosition(astroTime).elon
+  }
+  return Astronomy.EclipticLongitude(body, astroTime)
+}
+
+/**
  * מחשב מיקומי אורך אקליפטי לכל 10 כוכבי הלכת עבור תאריך נתון
  * משתמש ב-astronomy-engine לדיוק של ±1 arcminute (מאומת מול JPL Horizons)
  * מחליף את קירוב ה-LLM שהיה בשימוש עד פאזה 4
@@ -78,7 +95,7 @@ export function getEphemerisPositions(date: Date): PlanetPositions {
   const positions: PlanetPositions = {}
 
   for (const entry of EPHEMERIS_BODIES) {
-    const eclipticLon = Astronomy.EclipticLongitude(entry.body, astroTime)
+    const eclipticLon = getGeocentricLongitude(entry.body, astroTime)
     positions[entry.key] = { longitude: normalize(eclipticLon) }
   }
 
@@ -100,7 +117,7 @@ export function getEphemerisPositionsWithRetrograde(
   const positions: Record<string, { longitude: number; is_retrograde: boolean }> = {}
 
   for (const entry of EPHEMERIS_BODIES) {
-    const eclipticLon = Astronomy.EclipticLongitude(entry.body, astroTime)
+    const eclipticLon = getGeocentricLongitude(entry.body, astroTime)
     const retrograde = isRetrograde(entry.body, astroTime)
 
     positions[entry.key] = {
