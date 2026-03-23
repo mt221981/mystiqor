@@ -134,19 +134,19 @@ Plans:
 **Depends on**: Phase 4 (natal chart must exist)
 **Requirements**: ASTR-03, ASTR-04, ASTR-05, TOOL-05, TOOL-08, TOOL-09, TOOL-10
 **Success Criteria** (what must be TRUE):
-  1. Transit page shows current planetary positions overlaid on the user's natal chart with active aspect calculations — numbers match Swiss Ephemeris or an equivalent real ephemeris source
+  1. Transit page shows current planetary positions overlaid on the user's natal chart with active aspect calculations — numbers match astronomy-engine ephemeris source
   2. Solar Return chart generates an annual forecast for the user's next birthday from real planetary positions
   3. Synastry chart overlays two natal charts and shows inter-chart aspects between two people
   4. Timing tools page returns a list of astrologically favorable days within a user-selected date range, with explanation of which transits make those days favorable
   5. Career guidance analysis returns actionable career insights informed by the user's birth chart
-**Plans**: TBD
+**Plans:** 5 plans
 
 Plans:
-- [ ] 06-01: Ephemeris library integration (Swiss Ephemeris WASM or astronomia) + transit calculations
-- [ ] 06-02: Transits page (real planetary positions overlaid on natal chart)
-- [ ] 06-03: Solar Return annual chart + synastry dual chart
-- [ ] 06-04: Timing tools (favorable day finder) + astrology calendar
-- [ ] 06-05: Career guidance, relationship analysis, document analyzer
+- [ ] 06-01-PLAN.md — Ephemeris adapter (astronomy-engine install + ephemeris.ts + transit/inter-chart aspect functions + birth-chart upgrade to real data)
+- [ ] 06-02-PLAN.md — Transits page + Solar Return page (API routes + UI pages with real ephemeris)
+- [ ] 06-03-PLAN.md — Synastry dual-chart + Timing tools (API routes + timing scoring service + UI pages)
+- [ ] 06-04-PLAN.md — LLM-only tools: Career guidance + Relationship analysis + Document analyzer (API routes + UI pages)
+- [ ] 06-05-PLAN.md — Integration verification (TypeScript build + SubscriptionGuard audit + human-verify all Phase 6 pages)
 
 ### Phase 7: AI Coach + Mystic Synthesis
 **Goal**: Users can have an ongoing personalized coaching conversation with an AI that knows all their analyses, follow structured multi-session coaching journeys, and generate cross-tool synthesis reports that combine all their mystical and psychological data into a unified personal portrait.
