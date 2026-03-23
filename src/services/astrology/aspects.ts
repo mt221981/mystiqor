@@ -86,6 +86,110 @@ export function getModalityDistribution(planets: PlanetPositions): Record<string
   return distribution
 }
 
+/** הגדרות אספקט לטרנזיטים — orbs הדוקים יותר (דיוק נדרש בחישובי השפעה טרנזיטורית) */
+export const TRANSIT_ASPECT_DEFINITIONS: AspectDefinition[] = [
+  { name: 'Conjunction', angle: 0,   orb: 2   },
+  { name: 'Opposition',  angle: 180, orb: 2   },
+  { name: 'Trine',       angle: 120, orb: 2   },
+  { name: 'Square',      angle: 90,  orb: 2   },
+  { name: 'Sextile',     angle: 60,  orb: 1.5 },
+]
+
+/** הגדרות אספקט לסינסטרי — orbs מרחיבים (מחשב יחסים בין שני גלגלות) */
+export const SYNASTRY_ASPECT_DEFINITIONS: AspectDefinition[] = [
+  { name: 'Conjunction', angle: 0,   orb: 5 },
+  { name: 'Opposition',  angle: 180, orb: 5 },
+  { name: 'Trine',       angle: 120, orb: 5 },
+  { name: 'Square',      angle: 90,  orb: 4 },
+  { name: 'Sextile',     angle: 60,  orb: 4 },
+]
+
+/**
+ * פונקציה פנימית לחישוב אספקטים בין שתי קבוצות כוכבים שונות (cross-product)
+ * משמשת הן calculateTransitAspects והן calculateInterChartAspects
+ *
+ * @param groupA - קבוצת הכוכבים הראשונה עם prefix
+ * @param groupB - קבוצת הכוכבים השנייה עם prefix
+ * @param definitions - הגדרות האספקט לשימוש (transit/synastry orbs)
+ * @returns מערך אספקטים שנמצאו
+ */
+function calculateCrossAspects(
+  groupA: { prefix: string; planets: PlanetPositions },
+  groupB: { prefix: string; planets: PlanetPositions },
+  definitions: AspectDefinition[]
+): AspectResult[] {
+  const results: AspectResult[] = []
+
+  for (const [nameA, posA] of Object.entries(groupA.planets)) {
+    for (const [nameB, posB] of Object.entries(groupB.planets)) {
+      if (!posA || !posB) continue
+
+      // חישוב הזווית הקצרה ביותר בין שני הכוכבים (0-180)
+      let angle = Math.abs(posA.longitude - posB.longitude)
+      if (angle > 180) angle = 360 - angle
+
+      // חיפוש האספקט המתאים הראשון
+      for (const def of definitions) {
+        const orbValue = Math.abs(angle - def.angle)
+        if (orbValue <= def.orb) {
+          results.push({
+            planet1: `${groupA.prefix}${nameA}`,
+            planet2: `${groupB.prefix}${nameB}`,
+            type: def.name,
+            orb: Math.round(orbValue * 100) / 100,
+            strength: Math.round((1 - orbValue / def.orb) * 1000) / 1000,
+          })
+          break // אספקט אחד לכל זוג
+        }
+      }
+    }
+  }
+
+  return results
+}
+
+/**
+ * מחשב אספקטים בין כוכבי טרנזיט ובין מיקומי לידה (natal)
+ * כל כוכב טרנזיט נבדק מול כל כוכב נטאל — cross-product מלא
+ * כוכבי טרנזיט מסומנים בקידומת "t:", כוכבי נטאל בקידומת "n:"
+ * משתמש ב-TRANSIT_ASPECT_DEFINITIONS עם orbs הדוקים
+ *
+ * @param transiting - מיקומי כוכבי הטרנזיט (תאריך הנוכחי)
+ * @param natal - מיקומי כוכבי הלידה
+ * @returns מערך אספקטים בין הטרנזיט לנטאל
+ */
+export function calculateTransitAspects(
+  transiting: PlanetPositions,
+  natal: PlanetPositions
+): AspectResult[] {
+  return calculateCrossAspects(
+    { prefix: 't:', planets: transiting },
+    { prefix: 'n:', planets: natal },
+    TRANSIT_ASPECT_DEFINITIONS
+  )
+}
+
+/**
+ * מחשב אספקטים בין-גלגלות לסינסטרי (השוואת שני גלגלי לידה)
+ * כל כוכב מגלגל 1 נבדק מול כל כוכב מגלגל 2 — cross-product מלא
+ * כוכבי גלגל 1 מסומנים בקידומת "p1:", כוכבי גלגל 2 בקידומת "p2:"
+ * משתמש ב-SYNASTRY_ASPECT_DEFINITIONS עם orbs מרחיבים
+ *
+ * @param chart1 - מיקומי כוכבי הגלגל הראשון
+ * @param chart2 - מיקומי כוכבי הגלגל השני
+ * @returns מערך אספקטים בין שני הגלגלות
+ */
+export function calculateInterChartAspects(
+  chart1: PlanetPositions,
+  chart2: PlanetPositions
+): AspectResult[] {
+  return calculateCrossAspects(
+    { prefix: 'p1:', planets: chart1 },
+    { prefix: 'p2:', planets: chart2 },
+    SYNASTRY_ASPECT_DEFINITIONS
+  )
+}
+
 /**
  * מחשב את כל האספקטים בין כוכבי הלכת הנתונים
  * בודק כל זוג ייחודי (i < j) ומוצא את האספקט הראשון המתאים
