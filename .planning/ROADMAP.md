@@ -177,17 +177,15 @@ Plans:
   4. A free-tier user who has used 3 analyses sees an upgrade prompt instead of the tool form on the 4th attempt
   5. New user receives a welcome email within 60 seconds of completing onboarding
   6. Sensitive API endpoints (LLM calls, file uploads) reject requests beyond the rate limit with a 429 response
-**Plans**: TBD
+**Plans:** 6 plans
 
 Plans:
-- [ ] 08-01: Pricing page + Stripe checkout session creation
-- [ ] 08-02: Stripe webhook with idempotency (stripe_event_id deduplication)
-- [ ] 08-03: Subscription management page (view plan, cancel, success page)
-- [ ] 08-04: SubscriptionGuard enforcement across all tool forms
-- [ ] 08-05: Referral program (tracking, rewards, referral link generation)
-- [ ] 08-06: Email service (welcome, daily insights, usage limit, payment failed) via Resend
-- [ ] 08-07: Notifications + reminders system
-- [ ] 08-08: Rate limiting on sensitive endpoints (Upstash Redis)
+- [ ] 08-01-PLAN.md — Pricing page with 3 PlanCards + Stripe checkout session API + PLAN_CONFIG deprecation (SUBS-01, SUBS-02)
+- [ ] 08-02-PLAN.md — Stripe webhook with idempotency via processed_webhook_events + 4 event handlers (SUBS-03)
+- [ ] 08-03-PLAN.md — Upstash rate limiting library + wiring into usage route (INFRA-07)
+- [ ] 08-04-PLAN.md — Subscription management page + success page + Stripe billing portal route (SUBS-04, SUBS-05, SUBS-06)
+- [ ] 08-05-PLAN.md — Referral program (code generation + claim + rewards) + email wiring (welcome, usage-limit, referral-accepted) (GROW-01, INFRA-08)
+- [ ] 08-06-PLAN.md — Notifications/reminders CRUD + sidebar nav updates + integration verification (TRCK-06)
 
 ### Phase 9: Learning + History + Analytics
 **Goal**: Users can explore their complete analysis history across all tools, compare analyses side-by-side, learn astrology and drawing interpretation through structured tutorials, and see a self-analytics dashboard of their usage patterns.
@@ -240,6 +238,6 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 5. Tools Tier 2 — Image Upload Tools | 7/7 | Complete   | 2026-03-23 |
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 5/5 | Complete   | 2026-03-24 |
 | 7. AI Coach + Mystic Synthesis | 4/4 | Complete   | 2026-03-24 |
-| 8. Growth + Monetization | 0/8 | Not started | - |
+| 8. Growth + Monetization | 0/6 | Not started | - |
 | 9. Learning + History + Analytics | 0/6 | Not started | - |
 | 10. Polish + PWA + Export | 0/4 | Not started | - |
