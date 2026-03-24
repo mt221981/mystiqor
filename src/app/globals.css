@@ -23,7 +23,7 @@
     --border: 240 5.9% 90%;
     --input: 240 5.9% 90%;
     --ring: 262 83% 58%;
-    --radius: 0.625rem;
+    --radius: 0.75rem;
     --chart-1: 262 83% 58%;
     --chart-2: 280 65% 60%;
     --chart-3: 200 70% 50%;
@@ -40,38 +40,39 @@
   }
 
   .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 6%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 6%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 262 83% 58%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 262 83% 58%;
-    --chart-1: 262 83% 58%;
-    --chart-2: 280 65% 60%;
-    --chart-3: 200 70% 50%;
-    --chart-4: 340 75% 55%;
-    --chart-5: 160 60% 45%;
-    --sidebar-background: 260 20% 8%;
-    --sidebar-foreground: 0 0% 98%;
-    --sidebar-primary: 262 83% 58%;
-    --sidebar-primary-foreground: 0 0% 98%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 0 0% 98%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 262 83% 58%;
+    --background: 240 5% 7.5%;        /* #131315 */
+    --foreground: 270 3% 89%;         /* #e5e1e4 */
+    --card: 270 3% 13%;               /* #201f22 */
+    --card-foreground: 270 3% 89%;    /* #e5e1e4 */
+    --popover: 270 3% 13%;            /* #201f22 */
+    --popover-foreground: 270 3% 89%; /* #e5e1e4 */
+    --primary: 274 100% 86%;          /* #ddb8ff */
+    --primary-foreground: 274 100% 25%; /* #490080 */
+    --secondary: 243 100% 88%;        /* #c3c0ff */
+    --secondary-foreground: 243 100% 32%; /* #1d00a5 */
+    --muted: 270 3% 16%;              /* #2a2a2c */
+    --muted-foreground: 271 21% 81%;  /* #ccc3d8 */
+    --accent: 270 3% 16%;             /* #2a2a2c */
+    --accent-foreground: 270 3% 89%;  /* #e5e1e4 */
+    --destructive: 7 100% 84%;        /* #ffb4ab */
+    --destructive-foreground: 0 100% 21%; /* #690005 */
+    --border: 270 11% 30%;            /* #4a4455 */
+    --input: 270 11% 30%;             /* #4a4455 */
+    --ring: 274 100% 86%;             /* #ddb8ff */
+    --radius: 0.75rem;
+    --chart-1: 274 100% 86%;          /* #ddb8ff */
+    --chart-2: 265 100% 53%;          /* #8f2de6 */
+    --chart-3: 155 69% 59%;           /* #4edea3 */
+    --chart-4: 243 100% 48%;          /* #3626ce */
+    --chart-5: 7 100% 84%;            /* #ffb4ab */
+    --sidebar-background: 240 5% 7.5%;
+    --sidebar-foreground: 270 3% 89%;
+    --sidebar-primary: 274 100% 86%;
+    --sidebar-primary-foreground: 274 100% 25%;
+    --sidebar-accent: 270 3% 16%;
+    --sidebar-accent-foreground: 270 3% 89%;
+    --sidebar-border: 270 11% 30%;
+    --sidebar-ring: 274 100% 86%;
   }
 
   * {
@@ -82,6 +83,49 @@
     @apply bg-background text-foreground antialiased;
   }
 }
+
+/* ===== כלי עזר מותאמים — עיצוב קוסמי ===== */
+@layer utilities {
+  /* רקע גרדיאנט ראשי — סגול כהה לכחול */
+  .nebula-glow {
+    background: linear-gradient(135deg, #8f2de6 0%, #3626ce 100%);
+  }
+
+  /* ניווט זכוכיתי עם blur */
+  .glass-nav {
+    background: rgba(19, 19, 21, 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  /* פאנל זכוכיתי עם blur */
+  .glass-panel {
+    background: rgba(32, 31, 34, 0.6);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+  }
+
+  /* רקע כוכבים עדין */
+  .stars-bg {
+    background-image: radial-gradient(circle at 2px 2px, rgba(221, 184, 255, 0.15) 1px, transparent 0);
+    background-size: 40px 40px;
+  }
+
+  /* זוהר עדין — צל סגול רחב */
+  .glow-soft {
+    box-shadow: 0 20px 50px rgba(143, 45, 230, 0.08);
+  }
+
+  /* זוהר שמימי — צל סגול חזק יותר */
+  .celestial-glow {
+    box-shadow: 0 0 40px rgba(143, 45, 230, 0.15);
+  }
+}
+
+/* ===== סרגל גלילה מותאם ===== */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #4a4455; border-radius: 10px; }
 
 /* ===== Print styles for PDF export ===== */
 @media print {
