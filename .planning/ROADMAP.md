@@ -207,20 +207,19 @@ Plans:
 - [x] 09-05-PLAN.md — Integration verification (TypeScript build + TOOL_NAMES dedup + route audit + human-verify all pages)
 
 ### Phase 10: Polish + PWA + Export
-**Goal**: The platform is installable as a PWA, all analyses can be exported to PDF or shared via link, notifications are active, and the app is verified accessible with keyboard navigation and ARIA labels — production-ready at every surface.
+**Goal**: The platform is installable as a PWA, all analyses can be exported to PDF or shared via link — production-ready at every surface.
 **Depends on**: Phase 9
 **Requirements**: EXPO-01, EXPO-02, UX-04
 **Success Criteria** (what must be TRUE):
   1. User can install MystiQor from the browser on iOS or Android and launch it from the home screen like a native app
   2. User can export any analysis to a PDF that renders the Hebrew RTL content correctly
   3. User can share an analysis result via a link or social media button
-**Plans**: TBD
+**Plans:** 3 plans
 
 Plans:
-- [ ] 10-01: PDF export using pdf-lib (RTL Hebrew, all analysis types)
-- [ ] 10-02: Social sharing (link generation, share buttons)
-- [ ] 10-03: PWA manifest, service worker, install prompt
-- [ ] 10-04: Accessibility audit (ARIA, keyboard navigation, screen reader verification)
+- [ ] 10-01-PLAN.md — PDF export (@react-pdf/renderer + Heebo font + RTL) + social sharing infrastructure (DB migration, share API, public page, SharePanel) + next.config.ts updates (EXPO-01, EXPO-02)
+- [ ] 10-02-PLAN.md — PWA manifest + minimal service worker + icons + InstallPrompt component + SW registration (UX-04)
+- [ ] 10-03-PLAN.md — Integration verification (TypeScript build + component audit + human-verify PDF, sharing, PWA)
 
 ## Progress
 
@@ -239,4 +238,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 7. AI Coach + Mystic Synthesis | 4/4 | Complete   | 2026-03-24 |
 | 8. Growth + Monetization | 6/6 | Complete   | 2026-03-24 |
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
-| 10. Polish + PWA + Export | 0/4 | Not started | - |
+| 10. Polish + PWA + Export | 0/3 | Not started | - |
