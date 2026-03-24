@@ -59,7 +59,7 @@
 - [x] **ASTR-01**: Natal chart calculation and SVG visualization from birth data
 - [x] **ASTR-02**: AI interpretation of natal chart with explainable insights
 - [x] **ASTR-03**: Transit calculations showing current planetary influences on natal chart
-- [ ] **ASTR-04**: Solar Return annual chart and forecast
+- [x] **ASTR-04**: Solar Return annual chart and forecast
 - [x] **ASTR-05**: Synastry chart overlay for relationship compatibility
 - [ ] **ASTR-06**: Daily forecast with current planetary positions
 - [ ] **ASTR-07**: Astro calendar with monthly astrological events
@@ -217,7 +217,7 @@
 | ASTR-01 | Phase 4 | Complete |
 | ASTR-02 | Phase 4 | Complete |
 | ASTR-03 | Phase 6 | Complete |
-| ASTR-04 | Phase 6 | Pending |
+| ASTR-04 | Phase 6 | Complete — 06-02 |
 | ASTR-05 | Phase 6 | Complete — 06-03 |
 | ASTR-06 | Phase 4 | Pending |
 | ASTR-07 | Phase 4 | Pending |
