@@ -35,6 +35,9 @@ import {
   User,
   Settings,
   CreditCard,
+  Tag,
+  Gift,
+  Bell,
   ChevronDown,
   ChevronUp,
 } from 'lucide-react';
@@ -120,6 +123,9 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'פרופיל', href: '/profile', icon: User },
       { label: 'הגדרות', href: '/settings', icon: Settings },
       { label: 'מנוי', href: '/subscription', icon: CreditCard },
+      { label: 'תמחור', href: '/pricing', icon: Tag },
+      { label: 'הפניות', href: '/referrals', icon: Gift },
+      { label: 'תזכורות', href: '/notifications', icon: Bell },
     ],
   },
 ] as const;
