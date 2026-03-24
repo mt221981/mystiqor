@@ -141,8 +141,8 @@
 
 ### Export & Sharing
 
-- [ ] **EXPO-01**: Export analysis to PDF
-- [ ] **EXPO-02**: Share analysis results via link/social media
+- [x] **EXPO-01**: Export analysis to PDF
+- [x] **EXPO-02**: Share analysis results via link/social media
 
 ### UX & Infrastructure
 
@@ -269,8 +269,8 @@
 | GROW-03 | Phase 9 | Complete — 09-02 |
 | GROW-04 | Phase 9 | Complete |
 | GROW-05 | Phase 9 | Complete |
-| EXPO-01 | Phase 10 | Pending |
-| EXPO-02 | Phase 10 | Pending |
+| EXPO-01 | Phase 10 | Complete — 10-01 |
+| EXPO-02 | Phase 10 | Complete — 10-01 |
 | UX-01 | Phase 3 | Complete |
 | UX-02 | Phase 3 | Complete |
 | UX-03 | Phase 3 | Complete |
