@@ -79,8 +79,8 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
           className={cn(
             'absolute start-0 top-4 -translate-x-full rtl:translate-x-full',
             'inline-flex items-center justify-center rounded-full',
-            'h-8 w-8 bg-gray-800 text-gray-400',
-            'hover:bg-gray-700 hover:text-white',
+            'h-8 w-8 bg-surface-container-high text-on-surface-variant',
+            'hover:bg-surface-container-highest hover:text-on-surface',
             'transition-colors duration-200'
           )}
           aria-label="סגור תפריט"

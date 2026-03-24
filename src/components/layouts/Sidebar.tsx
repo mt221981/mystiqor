@@ -177,7 +177,7 @@ function CollapsibleSection({
         className={cn(
           'flex w-full items-center justify-between px-3 py-2',
           'text-xs font-semibold uppercase tracking-wider',
-          'text-purple-300/70 hover:text-purple-200',
+          'text-on-surface-variant/70 hover:text-on-surface-variant font-label',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
@@ -207,8 +207,8 @@ function CollapsibleSection({
                   'flex items-center gap-3 rounded-lg px-3 py-2',
                   'text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-purple-600/30 text-purple-100 shadow-sm shadow-purple-500/20'
-                    : 'text-gray-300 hover:bg-white/5 hover:text-white'
+                    ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20'
+                    : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
@@ -226,14 +226,14 @@ function CollapsibleSection({
 /** סרגל שימוש — מציג אחוזי שימוש במנוי */
 function UsageBar() {
   return (
-    <div className="border-t border-white/10 px-4 py-4">
-      <div className="mb-2 flex items-center justify-between text-xs text-gray-400">
+    <div className="border-t border-outline-variant/10 px-4 py-4">
+      <div className="mb-2 flex items-center justify-between text-xs text-on-surface-variant">
         <span>שימוש חודשי</span>
         <span>{PLACEHOLDER_USAGE_PERCENT}%</span>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/10">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
         <div
-          className="h-full rounded-full bg-gradient-to-l from-purple-500 to-indigo-500 transition-all duration-500"
+          className="h-full rounded-full bg-gradient-to-l from-primary-container to-secondary-container shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
           style={{ width: `${PLACEHOLDER_USAGE_PERCENT}%` }}
           role="progressbar"
           aria-valuenow={PLACEHOLDER_USAGE_PERCENT}
@@ -242,7 +242,7 @@ function UsageBar() {
           aria-label="שימוש חודשי במנוי"
         />
       </div>
-      <p className="mt-1.5 text-xs text-gray-500">
+      <p className="mt-1.5 text-xs text-on-surface-variant/60">
         שדרג לפרימיום לשימוש בלתי מוגבל
       </p>
     </div>
@@ -270,15 +270,15 @@ export function Sidebar() {
     <aside
       className={cn(
         'flex h-full w-64 flex-col',
-        'bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950',
-        'border-e border-white/5'
+        'bg-surface/95 glass-panel',
+        'border-e border-outline-variant/10'
       )}
       aria-label="ניווט ראשי"
     >
       {/* לוגו */}
-      <div className="flex items-center gap-2 border-b border-white/5 px-4 py-5">
-        <Sparkles className="h-6 w-6 text-purple-400" />
-        <span className="bg-gradient-to-l from-purple-400 to-indigo-400 bg-clip-text text-xl font-bold text-transparent">
+      <div className="flex items-center gap-2 border-b border-outline-variant/10 px-4 py-5">
+        <Sparkles className="h-6 w-6 text-primary" />
+        <span className="font-headline text-xl font-bold text-primary">
           MystiQor
         </span>
       </div>

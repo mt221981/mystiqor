@@ -58,9 +58,9 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
   return (
     <header
       className={cn(
-        'sticky top-0 z-40 flex h-16 items-center justify-between',
-        'border-b border-white/5 bg-gray-950/80 px-4',
-        'backdrop-blur-md md:px-6'
+        'fixed top-0 w-full z-50 flex h-16 items-center justify-between',
+        'px-4 md:px-6 glass-nav',
+        'shadow-[0_20px_50px_rgba(143,45,230,0.08)]'
       )}
       dir="rtl"
     >
@@ -72,7 +72,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
           onClick={onMobileMenuOpen}
           className={cn(
             'inline-flex items-center justify-center rounded-lg p-2 md:hidden',
-            'text-gray-400 hover:bg-white/5 hover:text-white',
+            'text-on-surface-variant hover:bg-surface-container hover:text-on-surface',
             'transition-colors duration-200'
           )}
           aria-label="פתח תפריט ניווט"
@@ -86,8 +86,8 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
           className="flex items-center gap-2 md:hidden"
           aria-label="מיסטיקור — דף הבית"
         >
-          <Sparkles className="h-5 w-5 text-purple-400" />
-          <span className="bg-gradient-to-l from-purple-400 to-indigo-400 bg-clip-text text-lg font-bold text-transparent">
+          <Sparkles className="h-5 w-5 text-primary" />
+          <span className="font-headline text-xl font-bold text-primary">
             MystiQor
           </span>
         </Link>
@@ -100,8 +100,8 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
           type="button"
           onClick={toggleTheme}
           className={cn(
-            'inline-flex items-center justify-center rounded-lg p-2',
-            'text-gray-400 hover:bg-white/5 hover:text-white',
+            'inline-flex items-center justify-center rounded-full',
+            'text-on-surface-variant hover:text-primary p-2 rounded-full active:scale-95',
             'transition-colors duration-200'
           )}
           aria-label={theme === 'dark' ? 'עבור למצב בהיר' : 'עבור למצב כהה'}
@@ -120,8 +120,8 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
             onClick={toggleUserMenu}
             className={cn(
               'inline-flex items-center justify-center rounded-full',
-              'h-9 w-9 bg-purple-600/20 text-purple-300',
-              'hover:bg-purple-600/30 hover:text-purple-200',
+              'h-9 w-9 bg-primary-container/20 text-primary',
+              'hover:bg-primary-container/30 hover:text-primary-fixed',
               'transition-colors duration-200'
             )}
             aria-label="תפריט משתמש"
@@ -136,7 +136,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
             <div
               className={cn(
                 'absolute start-0 top-full mt-2 w-48',
-                'rounded-xl border border-white/10 bg-gray-900 py-1',
+                'rounded-xl border border-outline-variant/10 bg-surface-container-high py-1',
                 'shadow-xl shadow-black/30',
                 'animate-in fade-in slide-in-from-top-2 duration-200'
               )}
@@ -147,7 +147,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
                 href="/profile"
                 className={cn(
                   'flex items-center gap-3 px-4 py-2.5 text-sm',
-                  'text-gray-300 hover:bg-white/5 hover:text-white',
+                  'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface',
                   'transition-colors duration-150'
                 )}
                 role="menuitem"
@@ -161,7 +161,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
                 href="/settings"
                 className={cn(
                   'flex items-center gap-3 px-4 py-2.5 text-sm',
-                  'text-gray-300 hover:bg-white/5 hover:text-white',
+                  'text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface',
                   'transition-colors duration-150'
                 )}
                 role="menuitem"
@@ -171,13 +171,13 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
                 <span>הגדרות</span>
               </Link>
 
-              <div className="my-1 border-t border-white/10" />
+              <div className="my-1 border-t border-outline-variant/10" />
 
               <button
                 type="button"
                 className={cn(
                   'flex w-full items-center gap-3 px-4 py-2.5 text-sm',
-                  'text-red-400 hover:bg-red-500/10 hover:text-red-300',
+                  'text-error hover:bg-error-container/10 hover:text-error',
                   'transition-colors duration-150'
                 )}
                 role="menuitem"
