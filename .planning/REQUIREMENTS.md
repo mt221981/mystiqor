@@ -40,7 +40,7 @@
 
 - [ ] **SUBS-01**: Pricing page with 3 tiers (Free 3/month, Basic ₪49 20/month, Premium ₪99 unlimited)
 - [ ] **SUBS-02**: Stripe checkout session creation and redirect
-- [ ] **SUBS-03**: Stripe webhook with idempotency (prevents duplicate subscriptions)
+- [x] **SUBS-03**: Stripe webhook with idempotency (prevents duplicate subscriptions)
 - [ ] **SUBS-04**: SubscriptionGuard enforces usage limits on paid features
 - [ ] **SUBS-05**: User can view and cancel subscription
 - [ ] **SUBS-06**: Success page after subscription purchase
@@ -204,7 +204,7 @@
 | PROF-03 | Phase 3 | Pending |
 | SUBS-01 | Phase 8 | Pending |
 | SUBS-02 | Phase 8 | Pending |
-| SUBS-03 | Phase 8 | Pending |
+| SUBS-03 | Phase 8 | Complete |
 | SUBS-04 | Phase 8 | Pending |
 | SUBS-05 | Phase 8 | Pending |
 | SUBS-06 | Phase 8 | Pending |

@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: active
-stopped_at: Completed 07-04 Integration Verification — Phase 7 AI Coach + Mystic Synthesis COMPLETE
-last_updated: "2026-03-24T10:00:00.000Z"
+status: Ready to execute
+stopped_at: Completed 08-03 Rate Limiting — Upstash sliding window limiter installed and wired into usage route
+last_updated: "2026-03-24T12:02:33.715Z"
 progress:
   total_phases: 10
-  completed_phases: 6
-  total_plans: 38
-  completed_plans: 38
+  completed_phases: 5
+  total_plans: 44
+  completed_plans: 39
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 07 — ai-coach-mystic-synthesis
+**Current focus:** Phase 08 — growth-monetization
 
 ## Current Position
 
-Phase: 07 (ai-coach-mystic-synthesis) — COMPLETE
-Plan: 4 of 4 — Phase 7 DONE. Next: Phase 08 (Growth + Monetization)
+Phase: 08 (growth-monetization) — EXECUTING
+Plan: 3 of 6
 
 ## Performance Metrics
 
@@ -79,6 +79,8 @@ Plan: 4 of 4 — Phase 7 DONE. Next: Phase 08 (Growth + Monetization)
 | Phase 07-ai-coach-mystic-synthesis P02 | 23 | 2 tasks | 6 files |
 | Phase 07-ai-coach-mystic-synthesis P03 | 6 | 2 tasks | 3 files |
 | Phase 07-ai-coach-mystic-synthesis P04 | 5 | 2 tasks (1 auto + 1 human-verify) | 2 files |
+| Phase 08-growth-monetization P02 | 5 | 1 tasks | 2 files |
+| Phase 08-growth-monetization P03 | 5 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -181,6 +183,11 @@ Recent decisions affecting current work:
 - [Phase 07-ai-coach-mystic-synthesis]: JourneysPanel used as extracted component in coach page — keeps page under 300 lines and reuses Panel from Plan 07-02
 - [Phase 07-ai-coach-mystic-synthesis]: ActiveTab type alias ('chat' | 'journeys') for tab switching — more readable and extensible than boolean toggle
 - [Phase 07-ai-coach-mystic-synthesis]: Phase 7 complete — all 4 plans executed, all 8 requirements met (COCH-01 through COCH-05, SYNT-01 through SYNT-03), human reviewer approved all features
+- [Phase 08-growth-monetization]: processed_webhook_events added to database.ts — table was in DB schema but missing from custom TS types, createAdminClient uses database.ts
+- [Phase 08-growth-monetization]: mapStripeStatusToSubscriptionStatus maps Stripe extended status enum (paused/incomplete/unpaid) to internal SubscriptionStatus — avoids type errors on subscription.updated events
+- [Phase 08-growth-monetization]: Webhook idempotency insert happens BEFORE event processing — prevents race condition where processing succeeds but insert fails
+- [Phase 08-growth-monetization]: Duration type imported from @upstash/ratelimit — required for type-safe slidingWindow calls (plain string rejected by TS)
+- [Phase 08-growth-monetization]: checkRateLimit returns true when limiter is null — ensures zero-friction dev environments without Upstash credentials (env guard pattern)
 
 ### Pending Todos
 
@@ -195,6 +202,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T10:00:00.000Z
-Stopped at: Completed 07-04 Integration Verification — Phase 7 AI Coach + Mystic Synthesis COMPLETE. Next: Phase 08 Growth + Monetization
+Last session: 2026-03-24T12:02:33.712Z
+Stopped at: Completed 08-03 Rate Limiting — Upstash sliding window limiter installed and wired into usage route
 Resume file: None
