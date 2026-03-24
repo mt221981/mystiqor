@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 09-03 Astrology + Drawing Tutor Pages — 2 tutor API routes, TutorChat + QuickConceptButtons components, /learn/astrology + /learn/drawing pages
-last_updated: "2026-03-24T13:52:34.063Z"
+stopped_at: Completed 09-05 Phase 9 Integration Verification — Phase 9 (Learning + History + Analytics) COMPLETE, all 5 plans done, all 9 requirements met, human reviewer approved
+last_updated: "2026-03-24T14:30:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 6
+  completed_phases: 8
   total_plans: 49
-  completed_plans: 43
+  completed_plans: 49
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 09 — learning-history-analytics
+**Current focus:** Phase 10 — polish-pwa-export
 
 ## Current Position
 
-Phase: 09 (learning-history-analytics) — EXECUTING
-Plan: 2 of 5
+Phase: 10 (polish-pwa-export) — NEXT
+Plan: 0 of 4
 
 ## Performance Metrics
 
@@ -85,7 +85,10 @@ Plan: 2 of 5
 | Phase 08-growth-monetization P04 | 8 | 2 tasks | 4 files |
 | Phase 08-growth-monetization P05 | 15 | 2 tasks | 6 files |
 | Phase 08-growth-monetization P06 | 5 | 2 tasks (1 auto + 1 human-verify) | 3 files |
+| Phase 09-learning-history-analytics P01 | 8 | 2 tasks | 9 files |
 | Phase 09-learning-history-analytics P03 | 6 | 2 tasks | 7 files |
+| Phase 09-learning-history-analytics P04 | 15 | 2 tasks | 6 files |
+| Phase 09-learning-history-analytics P05 | 5 | 2 tasks (1 auto + 1 human-verify) | 1 files |
 
 ## Accumulated Context
 
@@ -205,8 +208,16 @@ Recent decisions affecting current work:
 - [Phase 08-growth-monetization]: ReminderCard extracted as sub-component in notifications page — keeps page near 300-line limit
 - [Phase 08-growth-monetization]: DELETE route validates user_id match in addition to RLS — application-layer ownership enforcement consistent with other CRUD routes
 - [Phase 08-growth-monetization]: Phase 8 COMPLETE — all 6 plans done, all 10 requirements met (SUBS-01 through SUBS-06, TRCK-06, GROW-01, INFRA-07, INFRA-08), human reviewer approved full monetization system
+- [Phase 09-learning-history-analytics]: TOOL_NAMES extracted to @/lib/constants/tool-names — shared by AnalysisHistory, HistoryFilters, AnalysisCard, ComparePanel without duplication
+- [Phase 09-learning-history-analytics]: Compare page uses include_results=true with limit=200 and client-side find — no single-by-ID endpoint exists on /api/analysis
+- [Phase 09-learning-history-analytics]: Astrology filter (tool_type=astrology) fulfills ASTR-08 — no separate /history/astrology page needed, filter serves as readings history
 - [Phase 09-learning-history-analytics]: Stateless tutor (no conversation persistence) — simpler than coach, each request independent
 - [Phase 09-learning-history-analytics]: Page-owned state pattern: TutorChat and QuickConceptButtons are presentational, page manages messages[] and useMutation
+- [Phase 09-learning-history-analytics]: Custom Tooltip components used for Recharts v3 in analytics charts — ValueType|undefined incompatibility with function formatter (same as Phase 03)
+- [Phase 09-learning-history-analytics]: Local TOOL_NAMES in analytics/page.tsx — avoids cross-plan dependency on 09-01; 09-05 can replace with shared import from @/lib/constants/tool-names
+- [Phase 09-learning-history-analytics]: Server-side aggregation in /api/analytics — toolDistribution/activityByDate/moodTrend/stats all computed server-side; client receives pre-rendered data
+- [Phase 09-learning-history-analytics]: nullable mood_score/energy_level handled with type guard filter — database.generated.ts marks both as number|null
+- [Phase 09-learning-history-analytics]: Phase 9 COMPLETE — all 5 plans executed, all 9 requirements met (HIST-01 through HIST-03, ASTR-08, GROW-02 through GROW-05, UX-09), human reviewer approved all Learning + History + Analytics features
 
 ### Pending Todos
 
@@ -221,6 +232,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T13:52:34.060Z
-Stopped at: Completed 09-03 Astrology + Drawing Tutor Pages — 2 tutor API routes, TutorChat + QuickConceptButtons components, /learn/astrology + /learn/drawing pages
+Last session: 2026-03-24T14:30:00.000Z
+Stopped at: Completed 09-05 Integration Verification — Phase 9 COMPLETE, all 9 requirements verified and human-approved. Next: Phase 10 (polish-pwa-export)
 Resume file: None
