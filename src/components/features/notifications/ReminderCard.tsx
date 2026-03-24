@@ -39,11 +39,11 @@ export const REMINDER_TYPE_LABELS: Record<ReminderType, string> = {
 
 /** צבעי badge לפי סוג */
 const REMINDER_TYPE_COLORS: Record<ReminderType, string> = {
-  analysis: 'bg-purple-600/20 text-purple-300 border-purple-500/30',
-  mood: 'bg-yellow-600/20 text-yellow-300 border-yellow-500/30',
-  journal: 'bg-blue-600/20 text-blue-300 border-blue-500/30',
-  goal: 'bg-green-600/20 text-green-300 border-green-500/30',
-  custom: 'bg-gray-600/20 text-gray-300 border-gray-500/30',
+  analysis: 'bg-primary/10 text-primary border-primary/20',
+  mood: 'bg-tertiary/10 text-tertiary border-tertiary/20',
+  journal: 'bg-secondary/10 text-secondary border-secondary/20',
+  goal: 'bg-tertiary/10 text-tertiary border-tertiary/20',
+  custom: 'bg-on-surface-variant/10 text-on-surface-variant border-outline-variant/20',
 };
 
 // ===== עזרים =====
@@ -83,26 +83,26 @@ interface ReminderCardProps {
 /** כרטיס תזכורת בודד עם פרטים וכפתור מחיקה */
 export function ReminderCard({ reminder, onDelete, isDeleting }: ReminderCardProps) {
   return (
-    <Card className="border border-white/10 bg-white/5">
+    <Card className="bg-surface-container border border-outline-variant/5">
       <CardContent className="flex items-start justify-between gap-4 p-4">
         <div className="min-w-0 flex-1">
-          <p className="mb-2 break-words text-sm font-medium text-white">
+          <p className="font-headline mb-2 break-words text-sm font-semibold text-on-surface">
             {reminder.message}
           </p>
           <div className="flex flex-wrap items-center gap-2">
             <span
               className={cn(
-                'inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-medium',
+                'inline-flex items-center rounded-full border px-2 py-0.5 font-label text-xs',
                 getTypeColor(reminder.type)
               )}
             >
               {getTypeLabel(reminder.type)}
             </span>
-            <span className="text-xs text-gray-500">
+            <span className="font-label text-xs text-on-surface-variant">
               {formatDate(reminder.scheduled_date)}
             </span>
             {reminder.is_recurring && (
-              <span className="text-xs text-indigo-400">חוזר</span>
+              <span className="font-label text-xs text-secondary">חוזר</span>
             )}
           </div>
         </div>
@@ -112,7 +112,7 @@ export function ReminderCard({ reminder, onDelete, isDeleting }: ReminderCardPro
           disabled={isDeleting}
           className={cn(
             'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-            'text-gray-500 hover:bg-red-500/10 hover:text-red-400',
+            'text-error/60 hover:bg-error/10 hover:text-error',
             'disabled:cursor-not-allowed disabled:opacity-50'
           )}
           aria-label="מחק תזכורת"

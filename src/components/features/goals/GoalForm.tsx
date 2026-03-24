@@ -192,6 +192,7 @@ export function GoalForm({
           placeholder="לדוגמה: לשפר את הכושר הגופני"
           {...form.register('title')}
           aria-invalid={!!form.formState.errors.title}
+          className="bg-surface-container-lowest border-none text-on-surface placeholder:text-outline/40 focus-visible:ring-primary/40"
         />
         {form.formState.errors.title && (
           <p className="text-xs text-red-400">{form.formState.errors.title.message}</p>
@@ -207,6 +208,7 @@ export function GoalForm({
           rows={3}
           {...form.register('description')}
           aria-invalid={!!form.formState.errors.description}
+          className="bg-surface-container-lowest border-none text-on-surface placeholder:text-outline/40 focus-visible:ring-primary/40 resize-none"
         />
         {form.formState.errors.description && (
           <p className="text-xs text-red-400">{form.formState.errors.description.message}</p>
@@ -252,6 +254,7 @@ export function GoalForm({
           type="date"
           {...form.register('target_date')}
           aria-invalid={!!form.formState.errors.target_date}
+          className="bg-surface-container-lowest border-none text-on-surface focus-visible:ring-primary/40 [color-scheme:dark]"
         />
         {form.formState.errors.target_date && (
           <p className="text-xs text-red-400">
@@ -270,7 +273,7 @@ export function GoalForm({
             return (
               <label
                 key={tool.value}
-                className="flex cursor-pointer items-center gap-2 rounded-lg border border-white/10 p-2 hover:border-purple-500/40"
+                className="flex cursor-pointer items-center gap-2 rounded-lg border border-outline-variant/20 p-2 hover:border-primary/40 text-on-surface-variant hover:text-on-surface transition-colors"
               >
                 <Checkbox
                   checked={isChecked}
@@ -284,7 +287,7 @@ export function GoalForm({
                   }}
                   id={`tool-${tool.value}`}
                 />
-                <span className="text-sm text-gray-300">{tool.label}</span>
+                <span className="font-label text-sm text-on-surface-variant">{tool.label}</span>
               </label>
             );
           })}
@@ -345,21 +348,21 @@ export function GoalForm({
           {analysesData && analysesData.length > 0 && (
             <div className="space-y-2">
               <Label>קישור לניתוחים</Label>
-              <div className="max-h-40 space-y-1.5 overflow-y-auto rounded-lg border border-white/10 p-3">
+              <div className="max-h-40 space-y-1.5 overflow-y-auto rounded-lg border border-outline-variant/20 p-3 bg-surface-container">
                 {analysesData.map((analysis) => (
                   <label
                     key={analysis.id}
-                    className="flex cursor-pointer items-start gap-2 rounded p-1.5 hover:bg-white/5"
+                    className="flex cursor-pointer items-start gap-2 rounded p-1.5 hover:bg-surface-container-high"
                   >
                     <Checkbox
                       checked={linkedAnalyses.includes(analysis.id)}
                       onCheckedChange={(checked) => toggleAnalysis(analysis.id, !!checked)}
                       id={`analysis-${analysis.id}`}
                     />
-                    <span className="text-sm text-gray-300">
-                      <span className="font-medium text-purple-400">{analysis.tool_type}</span>
+                    <span className="text-sm text-on-surface-variant">
+                      <span className="font-label font-medium text-primary">{analysis.tool_type}</span>
                       {analysis.summary && (
-                        <span className="block truncate text-xs text-gray-500">
+                        <span className="block truncate text-xs text-on-surface-variant/60">
                           {analysis.summary.slice(0, 80)}...
                         </span>
                       )}
@@ -376,7 +379,7 @@ export function GoalForm({
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-purple-600 hover:bg-purple-500"
+        className="w-full bg-gradient-to-br from-primary-container to-secondary-container font-headline font-bold text-white shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
       >
         {isLoading ? 'שומר...' : isEdit ? 'עדכן מטרה' : 'צור מטרה'}
       </Button>

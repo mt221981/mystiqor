@@ -103,7 +103,7 @@ function GoalsSkeleton() {
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {[1, 2, 3].map((i) => (
-        <div key={i} className="rounded-xl border border-white/10 bg-gray-900/60 p-5 space-y-3">
+        <div key={i} className="rounded-xl border border-outline-variant/5 bg-surface-container p-5 space-y-3">
           <Skeleton className="h-5 w-3/4" />
           <Skeleton className="h-3 w-full" />
           <Skeleton className="h-3 w-1/2" />
@@ -184,12 +184,12 @@ function GoalsPageContent() {
       {/* כותרת ופעולה ראשית */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">המטרות שלי</h1>
-          <p className="text-sm text-gray-400">הגדר ועקוב אחר המטרות האישיות שלך</p>
+          <h1 className="font-headline text-2xl font-bold text-on-surface">המטרות שלי</h1>
+          <p className="text-sm text-on-surface-variant">הגדר ועקוב אחר המטרות האישיות שלך</p>
         </div>
         <Button
           onClick={() => setIsCreateOpen(true)}
-          className="bg-purple-600 hover:bg-purple-500"
+          className="bg-gradient-to-br from-primary-container to-secondary-container font-headline font-bold text-white shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
         >
           <Plus className="me-2 h-4 w-4" />
           מטרה חדשה
@@ -198,7 +198,7 @@ function GoalsPageContent() {
 
       {/* לשוניות סינון */}
       <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as StatusFilter)}>
-        <TabsList className="bg-gray-900/60">
+        <TabsList className="bg-surface-container-high">
           {STATUS_TABS.map((tab) => (
             <TabsTrigger key={tab.value} value={tab.value}>
               {tab.label}

@@ -8,7 +8,6 @@
 import { format } from 'date-fns';
 import { he } from 'date-fns/locale';
 import { Pencil, Trash2, Plus } from 'lucide-react';
-import { Progress } from '@/components/ui/progress';
 import { Button } from '@/components/ui/button';
 import { GOAL_CATEGORIES } from '@/lib/constants/categories';
 import { cn } from '@/lib/utils/cn';
@@ -39,9 +38,9 @@ interface GoalCardProps {
 
 /** צבעי badge לפי סטטוס */
 const STATUS_STYLES: Record<string, string> = {
-  active: 'bg-blue-500/20 text-blue-300 border border-blue-500/30',
-  in_progress: 'bg-amber-500/20 text-amber-300 border border-amber-500/30',
-  completed: 'bg-green-500/20 text-green-300 border border-green-500/30',
+  active: 'bg-tertiary/10 text-tertiary font-label text-xs',
+  in_progress: 'bg-primary/10 text-primary font-label text-xs',
+  completed: 'bg-primary/10 text-primary font-label text-xs',
 };
 
 /** תרגום סטטוסים לעברית */
@@ -79,8 +78,8 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
   return (
     <article
       className={cn(
-        'relative rounded-xl border border-white/10 bg-gray-900/60 p-5',
-        'transition-all duration-200 hover:border-white/20 hover:bg-gray-900/80',
+        'bg-surface-container rounded-xl p-5 border border-outline-variant/5',
+        'transition-all duration-200 hover:border-primary/10',
         goal.status === 'completed' && 'opacity-75'
       )}
       dir="rtl"
@@ -88,9 +87,9 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
       {/* כותרת ופעולות */}
       <div className="mb-3 flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-white leading-snug truncate">{goal.title}</h3>
+          <h3 className="font-headline font-semibold text-on-surface leading-snug truncate">{goal.title}</h3>
           {goal.description && (
-            <p className="mt-1 text-xs text-gray-400 line-clamp-2">{goal.description}</p>
+            <p className="mt-1 text-xs text-on-surface-variant line-clamp-2">{goal.description}</p>
           )}
         </div>
 
@@ -101,7 +100,7 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
             size="icon"
             variant="ghost"
             onClick={() => onEdit(goal)}
-            className="h-7 w-7 text-gray-400 hover:text-purple-400"
+            className="h-7 w-7 text-on-surface-variant hover:text-primary"
             aria-label="ערוך מטרה"
           >
             <Pencil className="h-3.5 w-3.5" />
@@ -111,7 +110,7 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
             size="icon"
             variant="ghost"
             onClick={() => onDelete(goal.id)}
-            className="h-7 w-7 text-gray-400 hover:text-red-400"
+            className="h-7 w-7 text-error/60 hover:text-error"
             aria-label="מחק מטרה"
           >
             <Trash2 className="h-3.5 w-3.5" />
@@ -124,9 +123,8 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
         {categoryInfo && (
           <span
             className={cn(
-              'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium',
-              'bg-gradient-to-r text-white',
-              categoryInfo.color
+              'inline-flex items-center gap-1 rounded-full px-2.5 py-0.5',
+              'bg-primary-container/10 text-primary font-label text-xs'
             )}
           >
             {categoryInfo.icon} {categoryInfo.label}
@@ -141,7 +139,7 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
           {STATUS_LABELS[goal.status] ?? goal.status}
         </span>
         {goal.target_date && (
-          <span className="text-xs text-gray-500">
+          <span className="font-label text-xs text-on-surface-variant">
             יעד: {formatTargetDate(goal.target_date)}
           </span>
         )}
@@ -150,9 +148,9 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
       {/* פס התקדמות */}
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <span className="text-xs text-gray-400">התקדמות</span>
+          <span className="font-label text-xs text-on-surface-variant">התקדמות</span>
           <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-white">{progress}%</span>
+            <span className="font-label text-xs font-medium text-on-surface-variant">{progress}%</span>
             {goal.status !== 'completed' && (
               <Button
                 type="button"
@@ -160,7 +158,7 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
                 variant="ghost"
                 onClick={handleProgressIncrement}
                 disabled={progress >= 100}
-                className="h-6 w-6 rounded-full bg-purple-600/20 text-purple-400 hover:bg-purple-600/40"
+                className="h-6 w-6 rounded-full bg-primary-container/20 text-primary hover:bg-primary-container/40"
                 aria-label="הוסף 10% התקדמות"
                 title="+ 10%"
               >
@@ -169,11 +167,12 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
             )}
           </div>
         </div>
-        <Progress
-          value={progress}
-          className="h-2"
-          aria-label={`התקדמות: ${progress}%`}
-        />
+        <div className="h-1.5 w-full bg-surface-container-high rounded-full overflow-hidden" aria-label={`התקדמות: ${progress}%`}>
+          <div
+            className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-300"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
       </div>
     </article>
   );

@@ -161,22 +161,22 @@ export default function NotificationsPage() {
       {/* כותרת */}
       <div className="mb-8">
         <div className="mb-3 flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-purple-500/30 bg-purple-600/20">
-            <Bell className="h-5 w-5 text-purple-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-primary/30 bg-primary-container/20">
+            <Bell className="h-5 w-5 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">תזכורות והתראות</h1>
+          <h1 className="font-headline text-3xl font-bold text-on-surface">תזכורות והתראות</h1>
         </div>
-        <p className="text-base text-muted-foreground">
+        <p className="font-body text-base text-on-surface-variant">
           נהל את התזכורות האישיות שלך לניתוחים, מצב רוח, יומן ויעדים
         </p>
       </div>
 
       {/* טופס הוספת תזכורת */}
-      <Card className="mb-8 border border-white/10 bg-white/5">
+      <Card className="mb-8 border border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl">
         <CardHeader className="pb-4">
           <div className="flex items-center gap-2">
-            <Plus className="h-4 w-4 text-purple-400" />
-            <h2 className="text-base font-semibold text-white">הוסף תזכורת חדשה</h2>
+            <Plus className="h-4 w-4 text-primary" />
+            <h2 className="font-headline text-base font-semibold text-on-surface">הוסף תזכורת חדשה</h2>
           </div>
         </CardHeader>
         <CardContent>
@@ -184,7 +184,7 @@ export default function NotificationsPage() {
             <div>
               <label
                 htmlFor="reminder-message"
-                className="mb-1.5 block text-sm font-medium text-gray-300"
+                className="font-label mb-1.5 block text-sm font-medium text-on-surface-variant"
               >
                 הודעת תזכורת
               </label>
@@ -195,7 +195,7 @@ export default function NotificationsPage() {
                 onChange={(e) => setMessage(e.target.value)}
                 placeholder="לדוגמה: לעשות ניתוח אסטרולוגי חדש"
                 maxLength={500}
-                className="border-white/10 bg-white/5 text-white placeholder:text-gray-600"
+                className="bg-surface-container-lowest border-none text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40"
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function NotificationsPage() {
               <div>
                 <label
                   htmlFor="reminder-date"
-                  className="mb-1.5 block text-sm font-medium text-gray-300"
+                  className="font-label mb-1.5 block text-sm font-medium text-on-surface-variant"
                 >
                   תאריך
                 </label>
@@ -213,9 +213,9 @@ export default function NotificationsPage() {
                   value={scheduledDate}
                   onChange={(e) => setScheduledDate(e.target.value)}
                   className={cn(
-                    'w-full rounded-md border border-white/10 bg-white/5 px-3 py-2',
-                    'text-sm text-white',
-                    'focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500',
+                    'w-full rounded-lg bg-surface-container-lowest border-none px-3 py-2',
+                    'text-sm text-on-surface',
+                    'focus:outline-none focus:ring-1 focus:ring-primary/40',
                     '[color-scheme:dark]'
                   )}
                 />
@@ -224,7 +224,7 @@ export default function NotificationsPage() {
               <div>
                 <label
                   htmlFor="reminder-type"
-                  className="mb-1.5 block text-sm font-medium text-gray-300"
+                  className="font-label mb-1.5 block text-sm font-medium text-on-surface-variant"
                 >
                   סוג
                 </label>
@@ -233,9 +233,9 @@ export default function NotificationsPage() {
                   value={type}
                   onChange={(e) => setType(e.target.value as ReminderType)}
                   className={cn(
-                    'w-full rounded-md border border-white/10 bg-gray-900 px-3 py-2',
-                    'text-sm text-white',
-                    'focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500'
+                    'w-full rounded-lg bg-surface-container-lowest border-none px-3 py-2',
+                    'text-sm text-on-surface',
+                    'focus:outline-none focus:ring-1 focus:ring-primary/40'
                   )}
                 >
                   {Object.entries(REMINDER_TYPE_LABELS).map(([value, label]) => (
@@ -253,8 +253,8 @@ export default function NotificationsPage() {
               type="submit"
               disabled={createMutation.isPending}
               className={cn(
-                'w-full bg-gradient-to-l from-purple-600 to-indigo-600',
-                'font-medium text-white hover:from-purple-700 hover:to-indigo-700'
+                'w-full bg-gradient-to-br from-primary-container to-secondary-container',
+                'font-headline font-bold text-white shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95'
               )}
             >
               {createMutation.isPending ? 'מוסיף...' : 'הוסף תזכורת'}
@@ -265,7 +265,7 @@ export default function NotificationsPage() {
 
       {/* רשימת תזכורות */}
       <section>
-        <h2 className="mb-4 text-lg font-semibold text-white">התזכורות שלי</h2>
+        <h2 className="font-headline mb-4 text-lg font-semibold text-on-surface">התזכורות שלי</h2>
 
         {isLoading && (
           <div className="flex items-center justify-center py-12">
@@ -278,9 +278,9 @@ export default function NotificationsPage() {
         )}
 
         {!isLoading && !isError && reminders.length === 0 && (
-          <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center">
-            <Bell className="mx-auto mb-3 h-10 w-10 text-gray-600" />
-            <p className="text-muted-foreground">
+          <div className="rounded-xl border border-outline-variant/10 bg-surface-container p-8 text-center">
+            <Bell className="mx-auto mb-3 h-10 w-10 text-on-surface-variant" />
+            <p className="font-body text-on-surface-variant">
               אין תזכורות עדיין — הוסף תזכורת חדשה
             </p>
           </div>
