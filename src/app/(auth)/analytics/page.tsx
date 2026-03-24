@@ -16,33 +16,7 @@ import { ToolUsageChart } from '@/components/features/analytics/ToolUsageChart';
 import { ActivityHeatmap } from '@/components/features/analytics/ActivityHeatmap';
 import { UsageStats } from '@/components/features/analytics/UsageStats';
 import type { AnalyticsStatsData } from '@/components/features/analytics/UsageStats';
-
-// ===== קבועים =====
-
-/**
- * שמות כלים בעברית — fallback מקומי עד שמודול tool-names יהיה זמין
- * TODO(09-05): החלף ב-import מ-@/lib/constants/tool-names
- */
-const TOOL_NAMES: Record<string, string> = {
-  numerology: 'נומרולוגיה',
-  astrology: 'אסטרולוגיה',
-  palmistry: 'קריאת כף יד',
-  graphology: 'גרפולוגיה',
-  tarot: 'טארוט',
-  drawing: 'ניתוח ציור',
-  dream: 'פירוש חלומות',
-  career: 'ניתוח קריירה',
-  compatibility: 'תאימות',
-  synastry: 'סינסטרי',
-  solar_return: 'חזרה סולרית',
-  transits: 'טרנזיטים',
-  human_design: 'עיצוב אנושי',
-  personality: 'אישיות',
-  document: 'ניתוח מסמכים',
-  question: 'שאלה',
-  relationship: 'מערכת יחסים',
-  synthesis: 'סינתזה',
-};
+import { TOOL_NAMES } from '@/lib/constants/tool-names';
 
 /** אפשרויות תקופה */
 type Period = '7d' | '30d' | '90d' | 'all';
