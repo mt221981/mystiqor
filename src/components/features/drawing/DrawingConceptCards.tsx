@@ -36,8 +36,8 @@ const CONCEPT_CARDS: ConceptCard[] = [
     description:
       'מבחן HTP (בית-עץ-אדם) פותח בשנת 1948 על ידי ג\'ון באק. המבחן מבקש מהמשתתף לצייר בית, עץ ואדם — שלושה נושאים שמייצגים את הסביבה, הזהות הנפשית והיחסים הבין-אישיים. הציורים מנותחים לפי גודל, מיקום, פרטים ולחץ העיפרון כדי לגלות תבניות רגשיות ופסיכולוגיות.',
     Icon: Home,
-    colorClass: 'text-blue-300',
-    borderClass: 'border-blue-500/20',
+    colorClass: 'text-secondary',
+    borderClass: 'border-outline-variant/5',
   },
   {
     title: 'מדדי Koppitz',
@@ -45,8 +45,8 @@ const CONCEPT_CARDS: ConceptCard[] = [
     description:
       'ד"ר אליזבת קופיץ (1968) פיתחה 30 מדדים רגשיים לניתוח ציורי דמות אדם. כל מדד (כמו השמטת אברי גוף, עיניים חריגות, לחץ חזק) מצביע על מצב רגשי ספציפי. ציון Koppitz גבוה (21-30) מרמז על לחץ רגשי משמעותי, בינוני (11-20) על קושי מסוים, ונמוך (0-10) על איזון רגשי.',
     Icon: User,
-    colorClass: 'text-purple-300',
-    borderClass: 'border-purple-500/20',
+    colorClass: 'text-primary',
+    borderClass: 'border-outline-variant/5',
   },
   {
     title: 'FDM — ציור משפחה דינמי',
@@ -54,8 +54,8 @@ const CONCEPT_CARDS: ConceptCard[] = [
     description:
       'שיטת ציור המשפחה הדינמי (FDM) פותחה על ידי ר\'ן ובירן (1972). מבקשים מהמשתתף לצייר את משפחתו כשכל אחד עושה משהו. ניתוח ה-FDM בוחן: מיקום הדמויות, מרחק ביניהן, פעולות, גדלים יחסיים, ומי צויר ראשון — כדי לחשוף דינמיקות משפחתיות ועמדות רגשיות.',
     Icon: TreePine,
-    colorClass: 'text-green-300',
-    borderClass: 'border-green-500/20',
+    colorClass: 'text-tertiary',
+    borderClass: 'border-outline-variant/5',
   },
   {
     title: 'כיצד לפרש תוצאות',
@@ -63,8 +63,8 @@ const CONCEPT_CARDS: ConceptCard[] = [
     description:
       'תוצאות ניתוח ציורים הן הצעות לחשיבה ולא אבחנות רפואיות. הניתוח מספק זווית ראייה נוספת על העולם הרגשי — לא תחליף לאבחון מקצועי. פרש את התוצאות בהקשר של חייך, רגשותיך ומצבך הנוכחי. אם תוצאות מעלות שאלות משמעותיות, מומלץ להתייעץ עם פסיכולוג מוסמך.',
     Icon: BookOpen,
-    colorClass: 'text-yellow-300',
-    borderClass: 'border-yellow-500/20',
+    colorClass: 'text-primary-fixed',
+    borderClass: 'border-outline-variant/5',
   },
 ]
 
@@ -79,8 +79,8 @@ export default function DrawingConceptCards() {
     <div className="space-y-4" dir="rtl">
       {/* כותרת */}
       <div>
-        <h3 className="text-base font-semibold text-purple-300">מושגי יסוד בניתוח ציורים</h3>
-        <p className="text-sm text-gray-400 mt-1">
+        <h3 className="text-base font-headline font-semibold text-on-surface">מושגי יסוד בניתוח ציורים</h3>
+        <p className="text-sm text-on-surface-variant font-body mt-1">
           הכר את המתודולוגיה הפסיכולוגית שעומדת בבסיס הניתוח
         </p>
       </div>
@@ -90,18 +90,18 @@ export default function DrawingConceptCards() {
         {CONCEPT_CARDS.map((card, idx) => {
           const { Icon } = card
           return (
-            <Card key={idx} className={`${card.borderClass} bg-gray-900/50`}>
+            <Card key={idx} className={`${card.borderClass} bg-surface-container rounded-xl hover:border-primary/20 transition-colors`}>
               <CardHeader className="pb-2">
                 <div className="flex items-center gap-2">
                   <Icon className={`h-5 w-5 ${card.colorClass}`} />
                   <div>
-                    <CardTitle className={`text-sm ${card.colorClass}`}>{card.title}</CardTitle>
-                    <p className="text-xs text-gray-500">{card.subtitle}</p>
+                    <CardTitle className={`text-sm font-headline font-semibold ${card.colorClass}`}>{card.title}</CardTitle>
+                    <p className="text-xs text-on-surface-variant/60 font-label">{card.subtitle}</p>
                   </div>
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-300 leading-relaxed">{card.description}</p>
+                <p className="text-sm text-on-surface leading-relaxed font-body">{card.description}</p>
               </CardContent>
             </Card>
           )
@@ -109,7 +109,7 @@ export default function DrawingConceptCards() {
       </div>
 
       {/* הערת בסיס */}
-      <p className="text-xs text-gray-500 text-center">
+      <p className="text-xs text-on-surface-variant/60 text-center font-body">
         * הניתוח מבוסס על מחקרים פסיכולוגיים מוכרים ואינו תחליף לאבחון מקצועי
       </p>
     </div>

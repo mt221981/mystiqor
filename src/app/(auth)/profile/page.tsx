@@ -140,7 +140,7 @@ async function deleteGuestProfile(id: string): Promise<void> {
 /** Skeleton לטעינת פרופיל */
 function ProfileSkeleton() {
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 bg-surface-container/60 rounded-xl p-6 border border-outline-variant/10">
       {Array.from({ length: 5 }).map((_, i) => (
         <div key={i} className="space-y-1.5">
           <Skeleton className="h-4 w-24" />
@@ -252,8 +252,8 @@ export default function ProfilePage() {
 
         {/* כותרת */}
         <div>
-          <h1 className="text-2xl font-bold text-white">הפרופיל שלי</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="font-headline font-bold text-2xl text-on-surface">הפרופיל שלי</h1>
+          <p className="font-body text-on-surface-variant text-sm mt-1">
             נהל את פרטיך האישיים ופרופילי האורחים שלך
           </p>
         </div>

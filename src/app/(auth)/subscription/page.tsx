@@ -12,8 +12,8 @@ export default function SubscriptionPage() {
   return (
     <div className="container mx-auto max-w-2xl px-4 py-8">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-foreground">ניהול מנוי</h1>
-        <p className="mt-2 text-muted-foreground">
+        <h1 className="font-headline font-bold text-3xl text-on-surface">ניהול מנוי</h1>
+        <p className="mt-2 font-body text-on-surface-variant">
           צפה ונהל את פרטי המנוי שלך
         </p>
       </div>

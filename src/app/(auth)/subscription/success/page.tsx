@@ -11,7 +11,6 @@ import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 
 // ===== קומפוננטה פנימית =====
 
@@ -23,45 +22,41 @@ function SuccessPageContent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
       <div className="w-full max-w-md">
-        <Card className="border-green-500/30 shadow-lg">
-          <CardHeader className="text-center space-y-4 pb-4">
-            <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-500/10">
-              <CheckCircle className="h-8 w-8 text-green-500" />
-            </div>
-            <CardTitle className="text-2xl text-foreground">
-              התשלום הושלם בהצלחה!
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6 text-center">
-            <p className="text-muted-foreground">
-              המנוי שלך שודרג. כל הכלים המיסטיים זמינים עבורך.
+        <div className="bg-surface-container/60 backdrop-blur-xl rounded-2xl p-8 text-center border border-outline-variant/10 celestial-glow">
+          <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-tertiary/10 mb-4">
+            <CheckCircle className="h-8 w-8 text-tertiary text-6xl" />
+          </div>
+          <h1 className="font-headline font-bold text-2xl text-on-surface mb-3">
+            התשלום הושלם בהצלחה!
+          </h1>
+          <p className="font-body text-on-surface-variant mb-6">
+            המנוי שלך שודרג. כל הכלים המיסטיים זמינים עבורך.
+          </p>
+
+          {/* מזהה סשן לאימות (מוסתר מהמשתמש אך נגיש ל-QA) */}
+          {sessionId && (
+            <p
+              className="text-xs text-on-surface-variant/30 mb-4"
+              data-testid="session-id"
+              aria-hidden="true"
+            >
+              {sessionId}
             </p>
+          )}
 
-            {/* מזהה סשן לאימות (מוסתר מהמשתמש אך נגיש ל-QA) */}
-            {sessionId && (
-              <p
-                className="text-xs text-muted-foreground/50"
-                data-testid="session-id"
-                aria-hidden="true"
-              >
-                {sessionId}
-              </p>
-            )}
-
-            <div className="flex flex-col gap-3">
-              <Link href="/tools">
-                <Button className="w-full">
-                  התחל לנתח
-                </Button>
-              </Link>
-              <Link href="/subscription">
-                <Button variant="outline" className="w-full">
-                  צפה בפרטי המנוי
-                </Button>
-              </Link>
-            </div>
-          </CardContent>
-        </Card>
+          <div className="flex flex-col gap-3">
+            <Link href="/tools">
+              <Button className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-3 rounded-xl hover:opacity-90 active:scale-95">
+                התחל לנתח
+              </Button>
+            </Link>
+            <Link href="/subscription">
+              <Button variant="outline" className="w-full border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high rounded-xl">
+                צפה בפרטי המנוי
+              </Button>
+            </Link>
+          </div>
+        </div>
       </div>
     </div>
   );

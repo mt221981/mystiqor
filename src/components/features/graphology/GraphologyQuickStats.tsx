@@ -25,9 +25,9 @@ interface RadarDataPoint {
 
 /** פורמט ציון לתצוגה */
 function scoreColor(score: number): string {
-  if (score >= 8) return 'bg-purple-600 text-white'
-  if (score >= 5) return 'bg-purple-400/20 text-purple-300'
-  return 'bg-gray-700 text-gray-400'
+  if (score >= 8) return 'bg-primary-container text-on-primary-container'
+  if (score >= 5) return 'bg-primary-container/20 text-primary'
+  return 'bg-surface-container-high text-on-surface-variant'
 }
 
 // טעינה דינמית — Recharts אינו תואם SSR
@@ -73,22 +73,22 @@ export function GraphologyQuickStats({ components }: GraphologyQuickStatsProps) 
       <div className="w-full h-72">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={data} margin={{ top: 10, right: 40, bottom: 10, left: 40 }}>
-            <PolarGrid stroke="#374151" />
+            <PolarGrid stroke="#4a4455" />
             <PolarAngleAxis
               dataKey="subject"
-              tick={{ fill: '#a1a1aa', fontSize: 11 }}
+              tick={{ fill: '#ccc3d8', fontSize: 11 }}
             />
             <PolarRadiusAxis
               angle={30}
               domain={[0, 10]}
-              tick={{ fill: '#6b7280', fontSize: 10 }}
+              tick={{ fill: '#958da1', fontSize: 10 }}
             />
             <Radar
               name="ציון"
               dataKey="score"
-              fill="#8b5cf6"
-              fillOpacity={0.4}
-              stroke="#8b5cf6"
+              fill="#ddb8ff"
+              fillOpacity={0.25}
+              stroke="#ddb8ff"
               strokeWidth={2}
             />
           </RadarChart>
@@ -101,17 +101,17 @@ export function GraphologyQuickStats({ components }: GraphologyQuickStatsProps) 
           <div
             key={component.name}
             title={component.description}
-            className="p-3 rounded-lg border border-purple-500/20 bg-gray-900/50 hover:border-purple-500/40 transition-colors cursor-help"
+            className="bg-surface-container rounded-xl p-4 border border-outline-variant/5 hover:border-primary/20 transition-colors cursor-help"
           >
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-sm font-medium text-gray-200">{component.name}</span>
+              <span className="text-sm font-medium text-on-surface">{component.name}</span>
               <Badge
-                className={`text-xs px-2 py-0.5 ${scoreColor(component.score_1_to_10)}`}
+                className={`font-label text-xs px-2 py-0.5 ${scoreColor(component.score_1_to_10)}`}
               >
                 {component.score_1_to_10}/10
               </Badge>
             </div>
-            <p className="text-xs text-gray-400 leading-relaxed line-clamp-2">
+            <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-2 font-body">
               {component.description}
             </p>
           </div>

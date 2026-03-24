@@ -22,11 +22,11 @@ const HD_CENTERS = [
   { id: 'root',         name: 'שורש',          x: 250, y: 430, width: 60, height: 50, shape: 'square' as const },
 ] as const;
 
-/** צבעי מרכזים: מוגדר = סגול, פתוח = אפור בהיר, לא מוגדר = צהוב */
+/** צבעי מרכזים: מוגדר = primary-container, פתוח = surface-container-high, לא מוגדר = primary-fixed-dim */
 const CENTER_COLORS: Record<'defined' | 'open' | 'undefined', string> = {
-  defined: '#7c3aed',
-  open: '#e2e8f0',
-  undefined: '#fef3c7',
+  defined: '#8f2de6',
+  open: '#2a2a2c',
+  undefined: '#4a4455',
 };
 
 // ===== טיפוסים =====
@@ -57,7 +57,7 @@ export function HumanDesignCenters({ definedCenters, openCenters, undefinedCente
             ? 'open'
             : 'undefined';
           const fill = CENTER_COLORS[state];
-          const stroke = state === 'open' ? '#94a3b8' : 'transparent';
+          const stroke = state === 'open' ? '#4a4455' : '#ddb8ff';
           const cx = center.x;
           const cy = center.y;
           const w = center.width;
@@ -103,7 +103,7 @@ export function HumanDesignCenters({ definedCenters, openCenters, undefinedCente
                 x={cx} y={cy + 5}
                 textAnchor="middle"
                 fontSize="9"
-                fill={state === 'defined' ? '#ffffff' : '#334155'}
+                fill={state === 'defined' ? '#f2dfff' : '#ccc3d8'}
                 fontFamily="sans-serif"
               >
                 {center.name}
@@ -114,13 +114,13 @@ export function HumanDesignCenters({ definedCenters, openCenters, undefinedCente
       </svg>
 
       {/* מקרא */}
-      <div className="flex gap-4 text-xs text-muted-foreground" dir="rtl">
+      <div className="flex gap-4 text-xs text-on-surface-variant font-label" dir="rtl">
         <span className="flex items-center gap-1">
           <span className="h-3 w-3 rounded-sm inline-block" style={{ backgroundColor: CENTER_COLORS.defined }} />
           מוגדר
         </span>
         <span className="flex items-center gap-1">
-          <span className="h-3 w-3 rounded-sm inline-block border" style={{ backgroundColor: CENTER_COLORS.open }} />
+          <span className="h-3 w-3 rounded-sm inline-block border border-outline-variant" style={{ backgroundColor: CENTER_COLORS.open }} />
           פתוח
         </span>
         <span className="flex items-center gap-1">

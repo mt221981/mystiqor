@@ -12,7 +12,6 @@ import { useMutation } from '@tanstack/react-query'
 import { Stars } from 'lucide-react'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/layouts/PageHeader'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { TutorChat, type ChatMessage } from '@/components/features/learn/TutorChat'
 import { QuickConceptButtons, type Concept } from '@/components/features/learn/QuickConceptButtons'
 
@@ -59,7 +58,6 @@ export default function AstrologyTutorPage() {
   const mutation = useMutation({
     mutationFn: sendTutorMessage,
     onSuccess: (reply, sentMessage) => {
-      // הוספת הודעת המשתמש + תגובת המורה
       setMessages((prev) => [
         ...prev,
         { role: 'user', content: sentMessage },
@@ -76,7 +74,6 @@ export default function AstrologyTutorPage() {
     (message: string) => {
       if (!message.trim() || mutation.isPending) return
       mutation.mutate(message)
-      // ניקוי הקלט החיצוני אחרי שליחה
       setExternalInput('')
     },
     [mutation]
@@ -96,34 +93,28 @@ export default function AstrologyTutorPage() {
       <PageHeader
         title="מורה אסטרולוגיה"
         description="שאל שאלות על אסטרולוגיה וקבל הסברים מותאמים אישית"
-        icon={<Stars className="h-6 w-6 text-purple-500" />}
+        icon={<Stars className="h-6 w-6 text-primary" />}
       />
 
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base">נושאים נפוצים</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <QuickConceptButtons
-            concepts={ASTROLOGY_CONCEPTS}
-            onSelect={handleConceptSelect}
-            disabled={mutation.isPending}
-          />
-        </CardContent>
-      </Card>
+      <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
+        <h2 className="font-headline font-semibold text-on-surface text-base mb-4">נושאים נפוצים</h2>
+        <QuickConceptButtons
+          concepts={ASTROLOGY_CONCEPTS}
+          onSelect={handleConceptSelect}
+          disabled={mutation.isPending}
+        />
+      </div>
 
-      <Card>
-        <CardContent className="pt-6">
-          <TutorChat
-            messages={messages}
-            isLoading={mutation.isPending}
-            onSend={handleSend}
-            placeholder="שאל שאלה על אסטרולוגיה..."
-            emptyMessage="שאל שאלה על אסטרולוגיה או בחר נושא מלמעלה"
-            externalInput={externalInput}
-          />
-        </CardContent>
-      </Card>
+      <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
+        <TutorChat
+          messages={messages}
+          isLoading={mutation.isPending}
+          onSend={handleSend}
+          placeholder="שאל שאלה על אסטרולוגיה..."
+          emptyMessage="שאל שאלה על אסטרולוגיה או בחר נושא מלמעלה"
+          externalInput={externalInput}
+        />
+      </div>
     </div>
   )
 }

@@ -20,7 +20,6 @@ import {
   DialogTitle,
   DialogFooter,
 } from '@/components/ui/dialog';
-import { Card, CardContent } from '@/components/ui/card';
 import { Loader2, Plus, Pencil, Trash2, User } from 'lucide-react';
 
 // ===== סכמת אימות =====
@@ -147,11 +146,11 @@ export function GuestProfileList({
       {/* כותרת + מונה + כפתור הוספה */}
       <div className="flex items-center justify-between">
         <div>
-          <h3 className="text-sm font-medium text-gray-300">
+          <h3 className="font-label text-sm font-medium text-on-surface-variant">
             {guestProfiles.length}/{limit} פרופילים אורחים
           </h3>
           {atLimit && (
-            <p className="text-xs text-amber-400 mt-0.5">
+            <p className="text-xs text-secondary mt-0.5 font-body">
               הגעת למגבלת הפרופילים בתוכנית שלך
             </p>
           )}
@@ -160,7 +159,7 @@ export function GuestProfileList({
           onClick={() => setAddOpen(true)}
           disabled={atLimit || isLoading}
           size="sm"
-          className="gap-1.5 bg-purple-600 hover:bg-purple-500 disabled:opacity-50"
+          className="gap-1.5 bg-primary-container text-on-primary-container hover:bg-primary-container/80 disabled:opacity-50"
           aria-label="הוסף פרופיל אורח"
         >
           <Plus className="h-4 w-4" />
@@ -170,49 +169,47 @@ export function GuestProfileList({
 
       {/* רשימת פרופילים */}
       {guestProfiles.length === 0 ? (
-        <div className="text-center py-12 text-gray-500">
-          <User className="h-12 w-12 mx-auto mb-3 opacity-40" />
-          <p>אין פרופילים אורחים עדיין</p>
-          <p className="text-sm mt-1">הוסף פרופיל כדי לנתח בני משפחה וחברים</p>
+        <div className="border border-dashed border-outline-variant/30 rounded-xl p-12 text-center hover:border-primary/40 transition-colors">
+          <User className="h-12 w-12 mx-auto mb-3 text-on-surface-variant opacity-40" />
+          <p className="text-on-surface-variant font-body">אין פרופילים אורחים עדיין</p>
+          <p className="font-body text-sm text-on-surface-variant/60 mt-1">הוסף פרופיל כדי לנתח בני משפחה וחברים</p>
         </div>
       ) : (
         <div className="space-y-3">
           {guestProfiles.map((profile) => (
-            <Card key={profile.id} className="bg-gray-900/50 border-white/10">
-              <CardContent className="flex items-center justify-between p-4">
-                <div className="space-y-0.5">
-                  <p className="font-medium text-white">{profile.full_name}</p>
-                  <p className="text-sm text-gray-400">
-                    {new Date(profile.birth_date).toLocaleDateString('he-IL')}
-                    {profile.birth_time && ` · ${profile.birth_time}`}
-                    {profile.birth_place && ` · ${profile.birth_place}`}
-                  </p>
-                  {profile.relationship && (
-                    <p className="text-xs text-gray-500">{profile.relationship}</p>
-                  )}
-                </div>
-                <div className="flex gap-2">
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => openEdit(profile)}
-                    aria-label={`ערוך את ${profile.full_name}`}
-                    className="h-8 w-8 text-gray-400 hover:text-white"
-                  >
-                    <Pencil className="h-4 w-4" />
-                  </Button>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    onClick={() => setDeleteTarget(profile.id)}
-                    aria-label={`מחק את ${profile.full_name}`}
-                    className="h-8 w-8 text-gray-400 hover:text-red-400"
-                  >
-                    <Trash2 className="h-4 w-4" />
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <div key={profile.id} className="bg-surface-container rounded-xl p-4 border border-outline-variant/5 flex items-center justify-between">
+              <div className="space-y-0.5">
+                <p className="font-headline font-semibold text-on-surface">{profile.full_name}</p>
+                <p className="font-body text-sm text-on-surface-variant">
+                  {new Date(profile.birth_date).toLocaleDateString('he-IL')}
+                  {profile.birth_time && ` · ${profile.birth_time}`}
+                  {profile.birth_place && ` · ${profile.birth_place}`}
+                </p>
+                {profile.relationship && (
+                  <p className="font-label text-xs text-on-surface-variant/60">{profile.relationship}</p>
+                )}
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => openEdit(profile)}
+                  aria-label={`ערוך את ${profile.full_name}`}
+                  className="h-8 w-8 text-on-surface-variant hover:text-on-surface"
+                >
+                  <Pencil className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setDeleteTarget(profile.id)}
+                  aria-label={`מחק את ${profile.full_name}`}
+                  className="h-8 w-8 text-on-surface-variant hover:text-error"
+                >
+                  <Trash2 className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
           ))}
         </div>
       )}
@@ -229,7 +226,7 @@ export function GuestProfileList({
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-purple-600 hover:bg-purple-500"
+                className="bg-primary-container text-on-primary-container hover:bg-primary-container/80"
               >
                 {isLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -240,6 +237,7 @@ export function GuestProfileList({
               <Button
                 type="button"
                 variant="outline"
+                className="border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high"
                 onClick={() => setAddOpen(false)}
               >
                 ביטול
@@ -261,7 +259,7 @@ export function GuestProfileList({
               <Button
                 type="submit"
                 disabled={isLoading}
-                className="bg-purple-600 hover:bg-purple-500"
+                className="bg-primary-container text-on-primary-container hover:bg-primary-container/80"
               >
                 {isLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
@@ -272,6 +270,7 @@ export function GuestProfileList({
               <Button
                 type="button"
                 variant="outline"
+                className="border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high"
                 onClick={() => setEditTarget(null)}
               >
                 ביטול
@@ -287,18 +286,19 @@ export function GuestProfileList({
           <DialogHeader>
             <DialogTitle>מחיקת פרופיל אורח</DialogTitle>
           </DialogHeader>
-          <p className="text-sm text-gray-400">
+          <p className="font-body text-sm text-on-surface-variant">
             האם אתה בטוח שברצונך למחוק פרופיל זה? פעולה זו אינה הפיכה.
           </p>
           <DialogFooter className="flex-row-reverse gap-2">
             <Button
               onClick={confirmDelete}
-              className="bg-red-600 hover:bg-red-500"
+              className="bg-error-container text-on-error-container hover:bg-error-container/80"
             >
               מחק
             </Button>
             <Button
               variant="outline"
+              className="border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high"
               onClick={() => setDeleteTarget(null)}
             >
               ביטול

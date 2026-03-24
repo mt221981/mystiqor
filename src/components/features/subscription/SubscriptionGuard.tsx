@@ -6,7 +6,6 @@
 
 import type { ReactNode } from 'react';
 import { useSubscription } from '@/hooks/useSubscription';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Lock, Sparkles } from 'lucide-react';
 import Link from 'next/link';
@@ -40,24 +39,20 @@ export function SubscriptionGuard({ feature, children, fallback }: SubscriptionG
   }
 
   return (
-    <Card className="border-primary/20 bg-gradient-to-br from-primary/5 to-primary/10">
-      <CardHeader className="text-center">
-        <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10">
-          <Lock className="h-6 w-6 text-primary" />
-        </div>
-        <CardTitle className="text-lg">תכונה פרימיום</CardTitle>
-      </CardHeader>
-      <CardContent className="text-center space-y-4">
-        <p className="text-sm text-muted-foreground">
-          תכונה זו דורשת מנוי {planInfo.name === 'חינם' ? 'בסיסי או פרימיום' : 'פרימיום'}.
-        </p>
-        <Link href="/pricing">
-          <Button className="gap-2">
-            <Sparkles className="h-4 w-4" />
-            שדרג עכשיו
-          </Button>
-        </Link>
-      </CardContent>
-    </Card>
+    <div className="bg-surface-container/60 backdrop-blur-xl rounded-xl p-6 border border-outline-variant/10 text-center">
+      <div className="mx-auto mb-3 flex h-12 w-12 items-center justify-center rounded-full bg-primary-container/20">
+        <Lock className="h-6 w-6 text-primary" />
+      </div>
+      <h3 className="font-headline font-semibold text-lg text-on-surface mb-2">תכונה פרימיום</h3>
+      <p className="font-body text-sm text-on-surface-variant mb-4">
+        תכונה זו דורשת מנוי {planInfo.name === 'חינם' ? 'בסיסי או פרימיום' : 'פרימיום'}.
+      </p>
+      <Link href="/pricing">
+        <Button className="gap-2 bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold rounded-xl py-2 hover:opacity-90 active:scale-95">
+          <Sparkles className="h-4 w-4" />
+          שדרג עכשיו
+        </Button>
+      </Link>
+    </div>
   );
 }

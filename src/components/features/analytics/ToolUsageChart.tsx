@@ -2,7 +2,7 @@
 
 /**
  * תרשים עוגה — התפלגות שימוש בכלים
- * מציג אחוז שימוש לפי סוג כלי עם צבעים בסגנון המערכת
+ * מציג אחוז שימוש לפי סוג כלי עם צבעי MD3
  * Dynamic import (SSR-incompatible) כנדרש ל-Recharts
  * Tooltip מותאם לפתרון בעיית Recharts v3 formatter types
  */
@@ -39,16 +39,16 @@ const ResponsiveContainer = dynamic(
 
 // ===== קבועים =====
 
-/** צבעים לפרוסות העוגה — סגולים */
+/** צבעי MD3 לפרוסות העוגה */
 const COLORS = [
-  '#8b5cf6',
-  '#6366f1',
-  '#a78bfa',
-  '#818cf8',
-  '#c4b5fd',
-  '#a5b4fc',
-  '#7c3aed',
-  '#4f46e5',
+  '#ddb8ff', // primary
+  '#c3c0ff', // secondary
+  '#4edea3', // tertiary
+  '#3626ce', // secondary-container
+  '#ffb4ab', // error
+  '#8f2de6', // primary-container
+  '#007650', // tertiary-container
+  '#f0dbff', // primary-fixed
 ];
 
 // ===== טיפוסים =====
@@ -76,7 +76,7 @@ interface CustomTooltipProps {
 }
 
 /**
- * Tooltip מותאם — פתרון לבעיית Recharts v3 formatter types
+ * Tooltip מותאם — עיצוב MD3
  * מציג שם כלי ומספר שימושים
  */
 function CustomTooltip({ active, payload }: CustomTooltipProps) {
@@ -85,11 +85,11 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!item) return null;
   return (
     <div
-      className="rounded-lg border border-border bg-card p-2.5 text-xs shadow-lg"
+      className="bg-surface-container border border-outline-variant/20 rounded-lg p-3 text-xs"
       dir="rtl"
     >
-      <p className="font-medium text-foreground">{item.payload.name}</p>
-      <p className="text-muted-foreground">{item.value} שימושים</p>
+      <p className="font-label font-medium text-on-surface">{item.payload.name}</p>
+      <p className="font-label text-on-surface-variant">{item.value} שימושים</p>
     </div>
   );
 }
@@ -108,11 +108,11 @@ export function ToolUsageChart({ data }: ToolUsageChartProps) {
       <div className="flex h-[300px] items-center justify-center" dir="rtl">
         <div className="text-center">
           <LucidePieChart
-            className="mx-auto mb-3 h-8 w-8 text-muted-foreground/30"
+            className="mx-auto mb-3 h-8 w-8 text-on-surface-variant/30"
             aria-hidden="true"
           />
-          <p className="text-sm text-muted-foreground">אין נתונים עדיין</p>
-          <p className="mt-1 text-xs text-muted-foreground/60">
+          <p className="font-body text-sm text-on-surface-variant">אין נתונים עדיין</p>
+          <p className="mt-1 font-body text-xs text-on-surface-variant/60">
             השתמש בכלים כדי לראות את ההתפלגות
           </p>
         </div>
@@ -121,7 +121,7 @@ export function ToolUsageChart({ data }: ToolUsageChartProps) {
   }
 
   return (
-    <div dir="rtl">
+    <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5" dir="rtl">
       <ResponsiveContainer width="100%" height={300}>
         <PieChart>
           <Pie
@@ -143,7 +143,7 @@ export function ToolUsageChart({ data }: ToolUsageChartProps) {
           <Tooltip content={<CustomTooltip />} />
           <Legend
             iconSize={10}
-            wrapperStyle={{ fontSize: '12px', direction: 'rtl' }}
+            wrapperStyle={{ fontSize: '12px', direction: 'rtl', color: '#ccc3d8', fontFamily: 'Manrope, sans-serif' }}
           />
         </PieChart>
       </ResponsiveContainer>

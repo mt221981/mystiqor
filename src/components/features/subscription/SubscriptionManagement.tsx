@@ -12,22 +12,11 @@ import { useSubscription } from '@/hooks/useSubscription';
 import { UsageBar } from './UsageBar';
 import { PlanCard } from './PlanCard';
 import { PLAN_INFO } from '@/lib/constants/plans';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, ExternalLink, Sparkles } from 'lucide-react';
 import type { PlanType } from '@/types/subscription';
 
 // ===== עזרים =====
-
-/** צבע Badge לפי סטטוס מנוי */
-const STATUS_BADGE_VARIANT: Record<string, 'default' | 'secondary' | 'destructive' | 'outline'> = {
-  active: 'default',
-  trial: 'secondary',
-  cancelled: 'destructive',
-  expired: 'destructive',
-  past_due: 'outline',
-};
 
 /** תרגום סטטוס מנוי לעברית */
 const STATUS_LABEL: Record<string, string> = {
@@ -38,13 +27,13 @@ const STATUS_LABEL: Record<string, string> = {
   past_due: 'חוב בתשלום',
 };
 
-/** צבע Badge לפי סטטוס (className נוסף) */
+/** צבע תגית MD3 לפי סטטוס */
 const STATUS_BADGE_CLASS: Record<string, string> = {
-  active: 'bg-green-600 hover:bg-green-700',
-  trial: 'bg-yellow-600 hover:bg-yellow-700',
-  cancelled: '',
-  expired: '',
-  past_due: 'border-orange-500 text-orange-500',
+  active: 'bg-tertiary/10 text-tertiary border-tertiary/30',
+  trial: 'bg-secondary/10 text-secondary border-secondary/30',
+  cancelled: 'bg-error/10 text-error border-error/30',
+  expired: 'bg-error/10 text-error border-error/30',
+  past_due: 'bg-secondary/10 text-secondary border-secondary/30',
 };
 
 // ===== קומפוננטה =====
@@ -90,8 +79,7 @@ export function SubscriptionManagement() {
   const planType = subscription.plan_type as PlanType;
   const currentPlanInfo = PLAN_INFO[planType] ?? PLAN_INFO.free;
   const status = subscription.status ?? 'active';
-  const statusVariant = STATUS_BADGE_VARIANT[status] ?? 'secondary';
-  const statusClass = STATUS_BADGE_CLASS[status] ?? '';
+  const statusClass = STATUS_BADGE_CLASS[status] ?? 'bg-surface-container-high text-on-surface-variant border-outline-variant/30';
   const statusLabel = STATUS_LABEL[status] ?? status;
   const isFree = planType === 'free';
 
@@ -100,7 +88,7 @@ export function SubscriptionManagement() {
 
       {/* כרטיס תוכנית נוכחית */}
       <div>
-        <h2 className="mb-3 text-lg font-semibold">התוכנית שלך</h2>
+        <h2 className="mb-3 font-headline font-semibold text-lg text-on-surface">התוכנית שלך</h2>
         <PlanCard
           planType={planType}
           planInfo={currentPlanInfo}
@@ -109,84 +97,75 @@ export function SubscriptionManagement() {
       </div>
 
       {/* כרטיס שימוש */}
-      <Card>
-        <CardHeader className="pb-3">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-base">שימוש חודשי</CardTitle>
-            <Badge
-              variant={statusVariant}
-              className={statusClass}
-            >
-              {statusLabel}
-            </Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-1">
-            <p className="text-sm text-muted-foreground">ניתוחים</p>
-            <UsageBar
-              used={subscription.analyses_used}
-              limit={subscription.analyses_limit}
-            />
-          </div>
+      <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+        <div className="flex items-center justify-between mb-4">
+          <h3 className="font-headline font-semibold text-base text-on-surface">שימוש חודשי</h3>
+          <span className={`font-label text-xs px-3 py-1 rounded-full border ${statusClass || 'bg-tertiary/10 text-tertiary border-tertiary/30'}`}>
+            {statusLabel}
+          </span>
+        </div>
+        <div className="space-y-1">
+          <p className="text-sm text-on-surface-variant font-body">ניתוחים</p>
+          <UsageBar
+            used={subscription.analyses_used}
+            limit={subscription.analyses_limit}
+          />
+        </div>
 
-          {/* אזהרת ביטול עתידי */}
-          {subscription.cancel_at_period_end && (
-            <div className="flex items-start gap-2 rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-3">
-              <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-yellow-500" />
-              <p className="text-sm text-yellow-700 dark:text-yellow-400">
-                המנוי יבוטל בסוף התקופה הנוכחית
-              </p>
-            </div>
-          )}
-        </CardContent>
-      </Card>
+        {/* אזהרת ביטול עתידי */}
+        {subscription.cancel_at_period_end && (
+          <div className="flex items-start gap-2 mt-4 rounded-lg border border-secondary/30 bg-secondary/10 p-3">
+            <AlertTriangle className="mt-0.5 h-4 w-4 flex-shrink-0 text-secondary" />
+            <p className="text-sm text-secondary font-body">
+              המנוי יבוטל בסוף התקופה הנוכחית
+            </p>
+          </div>
+        )}
+      </div>
 
       {/* כפתורי פעולה */}
-      <Card>
-        <CardContent className="pt-6">
-          {portalError && (
-            <div className="mb-4 rounded-lg bg-destructive/10 p-3 text-sm text-destructive">
-              {portalError}
-            </div>
-          )}
+      <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+        {portalError && (
+          <div className="mb-4 rounded-lg bg-error-container/20 p-3 text-sm text-error">
+            {portalError}
+          </div>
+        )}
 
-          {isFree ? (
-            /* משתמש חינמי — כפתור שדרוג */
-            <Link href="/pricing">
-              <Button className="w-full gap-2">
-                <Sparkles className="h-4 w-4" />
-                שדרג עכשיו
-              </Button>
-            </Link>
-          ) : (
-            /* משתמש בתשלום — כפתור ניהול חשבון ב-Stripe */
-            <Button
-              onClick={handleManageAccount}
-              disabled={isPortalLoading}
-              variant="outline"
-              className="w-full gap-2"
-            >
-              {isPortalLoading ? (
-                <>
-                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                  פותח ניהול חשבון...
-                </>
-              ) : (
-                <>
-                  <ExternalLink className="h-4 w-4" />
-                  ניהול חשבון
-                </>
-              )}
+        {isFree ? (
+          /* משתמש חינמי — כפתור שדרוג */
+          <Link href="/pricing">
+            <Button className="w-full gap-2 bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-3 rounded-xl hover:opacity-90 active:scale-95">
+              <Sparkles className="h-4 w-4" />
+              שדרג עכשיו
             </Button>
-          )}
-        </CardContent>
-      </Card>
+          </Link>
+        ) : (
+          /* משתמש בתשלום — כפתור ניהול חשבון ב-Stripe */
+          <Button
+            onClick={handleManageAccount}
+            disabled={isPortalLoading}
+            variant="outline"
+            className="w-full gap-2 border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high rounded-xl"
+          >
+            {isPortalLoading ? (
+              <>
+                <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                פותח ניהול חשבון...
+              </>
+            ) : (
+              <>
+                <ExternalLink className="h-4 w-4" />
+                ניהול חשבון
+              </>
+            )}
+          </Button>
+        )}
+      </div>
 
       {/* תוכניות זמינות — רק למשתמשים חינמיים */}
       {isFree && (
         <div>
-          <h2 className="mb-3 text-lg font-semibold">שדרג את החוויה שלך</h2>
+          <h2 className="mb-3 font-headline font-semibold text-lg text-on-surface">שדרג את החוויה שלך</h2>
           <div className="grid gap-4 sm:grid-cols-2">
             <PlanCard
               planType="basic"

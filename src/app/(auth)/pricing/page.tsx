@@ -56,8 +56,8 @@ export default function PricingPage() {
     <div className="container mx-auto px-4 py-12" dir="rtl">
       {/* כותרת */}
       <div className="text-center mb-12">
-        <h1 className="text-3xl font-bold mb-3">בחר את התוכנית שלך</h1>
-        <p className="text-muted-foreground text-lg">גישה לכל 13 הכלים המיסטיים</p>
+        <h1 className="font-headline font-bold text-3xl text-on-surface mb-3">בחר את התוכנית שלך</h1>
+        <p className="font-body text-on-surface-variant text-lg">גישה לכל 13 הכלים המיסטיים</p>
       </div>
 
       {/* כרטיסי תוכניות */}

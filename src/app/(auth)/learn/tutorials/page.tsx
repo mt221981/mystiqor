@@ -141,7 +141,7 @@ export default function TutorialsPage() {
       {/* כותרת */}
       <div className="flex items-center gap-3">
         <GraduationCap className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">מדריכים ומסלולי למידה</h1>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">מדריכים ומסלולי למידה</h1>
       </div>
 
       {/* פס התקדמות כללי */}
@@ -157,7 +157,7 @@ export default function TutorialsPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-64 rounded-lg" />
+            <Skeleton key={i} className="h-64 rounded-xl" />
           ))}
         </div>
       )}

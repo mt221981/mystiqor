@@ -8,9 +8,9 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Newspaper, Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils/cn';
 import { BlogPostCard, type BlogPost } from '@/components/features/blog/BlogPostCard';
 
 // ===== קבועים =====
@@ -65,18 +65,18 @@ export default function BlogPage() {
       {/* כותרת */}
       <div className="flex items-center gap-3">
         <Newspaper className="h-7 w-7 text-primary" />
-        <h1 className="text-2xl font-bold">בלוג</h1>
+        <h1 className="font-headline text-2xl font-bold text-on-surface">בלוג</h1>
       </div>
 
       {/* שדה חיפוש */}
       <div className="relative max-w-md">
-        <Search className="absolute end-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-        <Input
+        <Search className="absolute end-3 top-1/2 -translate-y-1/2 h-4 w-4 text-on-surface-variant" />
+        <input
           type="search"
           placeholder="חיפוש מאמרים..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="pe-9"
+          className="w-full bg-surface-container-lowest border-none rounded-lg px-4 py-2 pe-9 text-on-surface placeholder:text-outline/40 focus:outline-none focus:ring-1 focus:ring-primary/40 font-body text-sm"
           aria-label="חיפוש מאמרים"
         />
       </div>
@@ -86,15 +86,19 @@ export default function BlogPage() {
         {CATEGORIES.map((cat) => {
           const isActive = cat === 'הכל' ? selectedCategory === null : selectedCategory === cat;
           return (
-            <Button
+            <button
               key={cat}
-              variant={isActive ? 'default' : 'outline'}
-              size="sm"
+              type="button"
               onClick={() => setSelectedCategory(cat === 'הכל' ? null : cat)}
-              aria-pressed={isActive}
+              className={cn(
+                'font-label text-sm rounded-lg px-3 py-1.5 transition-colors',
+                isActive
+                  ? 'bg-primary-container/20 text-primary'
+                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+              )}
             >
               {cat}
-            </Button>
+            </button>
           );
         })}
       </div>
@@ -103,14 +107,14 @@ export default function BlogPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-48 rounded-lg" />
+            <Skeleton key={i} className="h-48 rounded-xl" />
           ))}
         </div>
       )}
 
       {/* מצב שגיאה */}
       {isError && (
-        <p className="text-destructive text-sm">שגיאה בטעינת המאמרים. נסה שוב מאוחר יותר.</p>
+        <p className="font-body text-sm text-error">שגיאה בטעינת המאמרים. נסה שוב מאוחר יותר.</p>
       )}
 
       {/* רשת מאמרים */}
@@ -129,9 +133,9 @@ export default function BlogPage() {
 
       {/* מצב ריק */}
       {!isLoading && !isError && posts.length === 0 && (
-        <div className="flex flex-col items-center gap-3 py-12 text-muted-foreground">
+        <div className="flex flex-col items-center gap-3 py-12 text-on-surface-variant">
           <Newspaper className="h-12 w-12 opacity-30" />
-          <p className="text-lg">אין מאמרים</p>
+          <p className="font-body text-lg text-on-surface-variant">אין מאמרים</p>
           {(selectedCategory || searchQuery) && (
             <Button
               variant="outline"

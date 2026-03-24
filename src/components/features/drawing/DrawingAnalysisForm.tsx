@@ -125,9 +125,9 @@ export function DrawingAnalysisForm() {
 
   return (
     <div className="space-y-6">
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-lg text-purple-300">הגדרות ניתוח</CardTitle>
+          <CardTitle className="text-lg text-primary font-headline">הגדרות ניתוח</CardTitle>
         </CardHeader>
         <CardContent>
           <SubscriptionGuard feature="analyses">
@@ -136,10 +136,10 @@ export function DrawingAnalysisForm() {
               <button
                 type="button"
                 onClick={() => setInputMode('upload')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-label font-medium transition-colors ${
                   inputMode === 'upload'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
+                    ? 'bg-primary-container text-on-primary-container'
+                    : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest border border-outline-variant/20'
                 }`}
               >
                 <Upload className="h-4 w-4" />
@@ -148,10 +148,10 @@ export function DrawingAnalysisForm() {
               <button
                 type="button"
                 onClick={() => setInputMode('canvas')}
-                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-label font-medium transition-colors ${
                   inputMode === 'canvas'
-                    ? 'bg-purple-600 text-white'
-                    : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
+                    ? 'bg-primary-container text-on-primary-container'
+                    : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest border border-outline-variant/20'
                 }`}
               >
                 <PenTool className="h-4 w-4" />
@@ -187,17 +187,17 @@ export function DrawingAnalysisForm() {
             <form onSubmit={handleSubmit(v => mutation.mutate(v))} className="space-y-4">
               {/* בחירת סוג ציור */}
               <div className="space-y-2">
-                <Label className="text-gray-300">סוג הציור</Label>
+                <Label className="text-on-surface-variant font-label">סוג הציור</Label>
                 <div className="flex flex-wrap gap-2">
                   {DRAWING_TYPES.map(({ value, label }) => (
                     <button
                       key={value}
                       type="button"
                       onClick={() => setValue('drawingType', value, { shouldValidate: true })}
-                      className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                      className={`px-4 py-2 rounded-md text-sm font-label font-medium transition-colors ${
                         selectedType === value
-                          ? 'bg-purple-600 text-white'
-                          : 'bg-gray-800 text-gray-300 hover:bg-gray-700 border border-gray-600'
+                          ? 'bg-primary-container text-on-primary-container'
+                          : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest border border-outline-variant/20'
                       }`}
                     >
                       {label}
@@ -205,23 +205,25 @@ export function DrawingAnalysisForm() {
                   ))}
                 </div>
                 {errors.drawingType && (
-                  <p className="text-xs text-red-400">{errors.drawingType.message}</p>
+                  <p className="text-xs text-error">{errors.drawingType.message}</p>
                 )}
               </div>
 
               {/* העלאת קובץ */}
               <div className="space-y-1">
-                <Label className="text-gray-300">העלאת תמונת הציור</Label>
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png,image/webp"
-                  onChange={handleFileUpload}
-                  disabled={uploading}
-                  className="block w-full text-sm text-gray-400 file:ml-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
-                  aria-label="בחר תמונת ציור"
-                />
+                <Label className="text-on-surface-variant font-label">העלאת תמונת הציור</Label>
+                <div className="border-2 border-dashed border-outline-variant/30 hover:border-primary/40 rounded-xl p-8 bg-surface-container-lowest transition-colors text-center">
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png,image/webp"
+                    onChange={handleFileUpload}
+                    disabled={uploading}
+                    className="block w-full text-sm text-on-surface-variant file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:opacity-80 cursor-pointer"
+                    aria-label="בחר תמונת ציור"
+                  />
+                </div>
                 {uploading && (
-                  <p className="text-xs text-purple-400 flex items-center gap-1">
+                  <p className="text-xs text-primary font-label flex items-center gap-1">
                     <Loader2 className="h-3 w-3 animate-spin" />
                     מעלה תמונה...
                   </p>
@@ -230,19 +232,19 @@ export function DrawingAnalysisForm() {
 
               {/* שדה URL */}
               <div className="space-y-1">
-                <Label htmlFor="imageUrl" className="text-gray-300">
+                <Label htmlFor="imageUrl" className="text-on-surface-variant font-label">
                   או הדבק קישור לתמונת הציור
                 </Label>
                 <Input id="imageUrl" type="url" placeholder="https://..." dir="ltr" {...register('imageUrl')} />
                 {errors.imageUrl && (
-                  <p className="text-xs text-red-400">{errors.imageUrl.message}</p>
+                  <p className="text-xs text-error">{errors.imageUrl.message}</p>
                 )}
               </div>
 
               <Button
                 type="submit"
                 disabled={mutation.isPending || uploading}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
               >
                 {mutation.isPending ? (
                   <span className="flex items-center gap-2">
@@ -270,15 +272,15 @@ export function DrawingAnalysisForm() {
           <KoppitzVisualization features={result.features} koppitzScore={result.koppitz_score} />
           <FDMVisualization categories={result.fdm_categories ?? []} emotionalIndicators={result.emotional_indicators} />
           {result.insights.length > 0 && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300">תובנות מהניתוח</CardTitle>
+                <CardTitle className="text-base text-primary font-headline">תובנות מהניתוח</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 {result.insights.map((insight, idx) => (
-                  <div key={idx} className="p-3 rounded-lg bg-gray-800/50 border border-gray-700/30">
-                    <p className="text-xs font-medium text-purple-400 mb-1">{insight.category}</p>
-                    <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+                  <div key={idx} className="p-3 rounded-lg bg-surface-container-high/50 border border-outline-variant/20">
+                    <p className="text-xs font-label font-medium text-primary mb-1">{insight.category}</p>
+                    <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                       <ReactMarkdown>{insight.text}</ReactMarkdown>
                     </div>
                   </div>

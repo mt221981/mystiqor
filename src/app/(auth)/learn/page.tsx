@@ -7,7 +7,6 @@
 
 import Link from 'next/link';
 import { BookOpen, GraduationCap, Newspaper, Stars, Pencil } from 'lucide-react';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import type { LucideIcon } from 'lucide-react';
 
 // ===== טיפוסים =====
@@ -62,8 +61,8 @@ export default function LearnPage() {
       <div className="flex items-center gap-3">
         <BookOpen className="h-7 w-7 text-primary" />
         <div>
-          <h1 className="text-2xl font-bold">מרכז למידה</h1>
-          <p className="text-muted-foreground text-sm">
+          <h1 className="font-headline text-2xl font-bold text-on-surface">מרכז למידה</h1>
+          <p className="font-body text-on-surface-variant text-sm">
             גלה, למד והעמיק את הידע שלך בעולם המיסטי
           </p>
         </div>
@@ -73,19 +72,15 @@ export default function LearnPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {LEARN_LINKS.map(({ href, icon: Icon, title, description }) => (
           <Link key={href} href={href} className="group">
-            <Card className="h-full transition-colors hover:border-primary/50 cursor-pointer">
-              <CardHeader className="pb-2">
-                <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 group-hover:bg-primary/20 transition-colors">
-                    <Icon className="h-5 w-5 text-primary" />
-                  </div>
-                  <h2 className="font-semibold text-lg">{title}</h2>
+            <div className="bg-surface-container rounded-xl border border-outline-variant/5 hover:border-primary/10 transition-colors cursor-pointer h-full p-5">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-container/10 group-hover:bg-primary-container/20 transition-colors">
+                  <Icon className="h-5 w-5 text-primary" />
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground">{description}</p>
-              </CardContent>
-            </Card>
+                <h2 className="font-headline font-semibold text-on-surface text-lg">{title}</h2>
+              </div>
+              <p className="font-body text-sm text-on-surface-variant">{description}</p>
+            </div>
           </Link>
         ))}
       </div>

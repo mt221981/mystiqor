@@ -5,9 +5,6 @@
 
 'use client';
 
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { formatDate } from '@/lib/utils/dates';
 import { Clock, User, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -40,18 +37,20 @@ interface BlogPostCardProps {
  */
 export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
   return (
-    <Card className="flex flex-col">
-      <CardHeader className="pb-3">
+    <div className="bg-surface-container rounded-xl overflow-hidden border border-outline-variant/5 hover:border-primary/10 transition-colors flex flex-col">
+      <div className="p-5 pb-3">
         {/* כותרת + קטגוריה */}
-        <div className="flex items-start justify-between gap-2">
-          <h3 className="text-lg font-semibold leading-tight line-clamp-2">{post.title}</h3>
-          <Badge variant="secondary" className="shrink-0">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="font-headline font-semibold text-on-surface text-lg leading-tight line-clamp-2">
+            {post.title}
+          </h3>
+          <span className="bg-primary-container/10 text-primary font-label text-xs px-2 py-0.5 rounded-full shrink-0">
             {post.category}
-          </Badge>
+          </span>
         </div>
 
         {/* מטא-נתונים */}
-        <div className="flex flex-wrap items-center gap-3 text-sm text-muted-foreground mt-1">
+        <div className="flex flex-wrap items-center gap-3 font-label text-xs text-on-surface-variant mt-1">
           <span className="flex items-center gap-1">
             <User className="h-3.5 w-3.5" />
             {post.author}
@@ -66,17 +65,17 @@ export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
             <span>{formatDate(post.published_at)}</span>
           )}
         </div>
-      </CardHeader>
+      </div>
 
-      <CardContent className="flex flex-col gap-3 flex-1">
+      <div className="px-5 pb-5 flex flex-col gap-3 flex-1">
         {/* תקציר */}
         {post.excerpt && (
-          <p className="text-sm text-muted-foreground">{post.excerpt}</p>
+          <p className="font-body text-sm text-on-surface-variant line-clamp-3">{post.excerpt}</p>
         )}
 
         {/* תוכן מורחב */}
         {expanded && (
-          <div className="text-sm leading-relaxed whitespace-pre-wrap border-t pt-3 mt-1">
+          <div className="font-body text-sm text-on-surface leading-relaxed whitespace-pre-wrap border-t border-outline-variant/10 pt-3 mt-1">
             {post.content}
           </div>
         )}
@@ -85,19 +84,18 @@ export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-auto pt-2">
             {post.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
+              <span key={tag} className="font-label text-xs bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full border border-outline-variant/10">
                 {tag}
-              </Badge>
+              </span>
             ))}
           </div>
         )}
 
         {/* כפתור הרחבה */}
-        <Button
-          variant="ghost"
-          size="sm"
+        <button
+          type="button"
           onClick={onToggle}
-          className="self-start gap-1 text-primary hover:text-primary"
+          className="self-start flex items-center gap-1 text-primary hover:text-primary-fixed font-label text-sm font-semibold transition-colors"
           aria-expanded={expanded}
         >
           {expanded ? (
@@ -109,8 +107,8 @@ export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
               קרא עוד <ChevronDown className="h-4 w-4" />
             </>
           )}
-        </Button>
-      </CardContent>
-    </Card>
+        </button>
+      </div>
+    </div>
   );
 }

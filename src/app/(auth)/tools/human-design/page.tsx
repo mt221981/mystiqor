@@ -53,11 +53,11 @@ interface HDResult {
 
 /** צבעי badge לפי טיפוס Human Design */
 const TYPE_COLORS: Record<string, string> = {
-  'Generator': 'bg-green-600',
-  'Manifesting Generator': 'bg-teal-600',
-  'Projector': 'bg-blue-600',
-  'Manifestor': 'bg-red-600',
-  'Reflector': 'bg-yellow-600',
+  'Generator': 'bg-tertiary/10 text-tertiary',
+  'Manifesting Generator': 'bg-tertiary-container/20 text-on-tertiary-container',
+  'Projector': 'bg-secondary-container/20 text-secondary',
+  'Manifestor': 'bg-error/10 text-error',
+  'Reflector': 'bg-primary-fixed/10 text-on-primary-fixed',
 };
 
 // ===== קומפוננטה ראשית =====
@@ -111,9 +111,9 @@ export default function HumanDesignPage() {
       />
 
       {/* טופס קלט */}
-      <Card>
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle>נתוני לידה</CardTitle>
+          <CardTitle className="text-primary font-headline">נתוני לידה</CardTitle>
         </CardHeader>
         <CardContent>
           <SubscriptionGuard feature="analyses">
@@ -165,8 +165,8 @@ export default function HumanDesignPage() {
       {result && (
         <motion.div {...animations.fadeInUp} transition={{ duration: 0.4 }} className="space-y-6">
           {/* ויזואליזציה */}
-          <Card>
-            <CardHeader><CardTitle>מפת המרכזים</CardTitle></CardHeader>
+          <Card className="border-outline-variant/5 bg-surface-container">
+            <CardHeader><CardTitle className="text-primary font-headline">מפת המרכזים</CardTitle></CardHeader>
             <CardContent>
               <HumanDesignCenters
                 definedCenters={result.definedCenters}
@@ -177,18 +177,18 @@ export default function HumanDesignPage() {
           </Card>
 
           {/* טיפוס ואוטוריטה */}
-          <Card>
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardContent className="space-y-3 pt-6">
               <div className="flex items-center gap-3 flex-wrap">
-                <Badge className={`${TYPE_COLORS[result.type] ?? 'bg-purple-600'} text-white text-base px-4 py-1`}>
+                <Badge className={`${TYPE_COLORS[result.type] ?? 'bg-tertiary/10 text-tertiary'} px-3 py-1 rounded-full font-label text-sm font-semibold`}>
                   {result.type}
                 </Badge>
-                <span className="text-sm text-muted-foreground">פרופיל: {result.profile}</span>
+                <span className="text-sm text-on-surface-variant font-label">פרופיל: {result.profile}</span>
               </div>
-              <p className="text-sm"><span className="font-medium">אוטוריטה:</span> {result.authority}</p>
-              <p className="text-sm"><span className="font-medium">אסטרטגיה:</span> {result.strategy}</p>
+              <p className="text-sm text-on-surface font-body"><span className="font-label font-medium">אוטוריטה:</span> {result.authority}</p>
+              <p className="text-sm text-on-surface font-body"><span className="font-label font-medium">אסטרטגיה:</span> {result.strategy}</p>
               {result.description && (
-                <div className="prose prose-sm dark:prose-invert max-w-none">
+                <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                   <ReactMarkdown>{result.description}</ReactMarkdown>
                 </div>
               )}
@@ -199,13 +199,13 @@ export default function HumanDesignPage() {
           {(result.strengths.length > 0 || result.challenges.length > 0) && (
             <div className="grid gap-4 sm:grid-cols-2">
               {result.strengths.length > 0 && (
-                <Card>
-                  <CardHeader><CardTitle className="text-base">חוזקות</CardTitle></CardHeader>
+                <Card className="border-outline-variant/5 bg-surface-container">
+                  <CardHeader><CardTitle className="text-base font-headline text-tertiary">חוזקות</CardTitle></CardHeader>
                   <CardContent>
                     <ul className="space-y-1">
                       {result.strengths.map((s, i) => (
-                        <li key={i} className="text-sm flex items-start gap-2">
-                          <span className="text-green-500 mt-0.5">✓</span>{s}
+                        <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
+                          <span className="text-tertiary mt-0.5">✓</span>{s}
                         </li>
                       ))}
                     </ul>
@@ -213,13 +213,13 @@ export default function HumanDesignPage() {
                 </Card>
               )}
               {result.challenges.length > 0 && (
-                <Card>
-                  <CardHeader><CardTitle className="text-base">אתגרים</CardTitle></CardHeader>
+                <Card className="border-outline-variant/5 bg-surface-container">
+                  <CardHeader><CardTitle className="text-base font-headline text-primary">אתגרים</CardTitle></CardHeader>
                   <CardContent>
                     <ul className="space-y-1">
                       {result.challenges.map((c, i) => (
-                        <li key={i} className="text-sm flex items-start gap-2">
-                          <span className="text-amber-500 mt-0.5">△</span>{c}
+                        <li key={i} className="text-sm font-body text-on-surface flex items-start gap-2">
+                          <span className="text-primary mt-0.5">△</span>{c}
                         </li>
                       ))}
                     </ul>
@@ -230,9 +230,9 @@ export default function HumanDesignPage() {
           )}
 
           {/* גילוי נאות — אזהרת AI */}
-          <div className="rounded-lg border border-yellow-500/30 bg-yellow-500/10 p-4 flex gap-3 items-start">
-            <Info className="h-5 w-5 text-yellow-500 flex-shrink-0 mt-0.5" aria-hidden="true" />
-            <p className="text-sm text-yellow-200">{result.disclosure}</p>
+          <div className="rounded-xl border border-primary/20 bg-primary-container/10 p-4 flex gap-3 items-start">
+            <Info className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" aria-hidden="true" />
+            <p className="text-sm text-on-surface-variant font-body">{result.disclosure}</p>
           </div>
         </motion.div>
       )}

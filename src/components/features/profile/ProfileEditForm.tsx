@@ -152,17 +152,18 @@ export function ProfileEditForm({
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="space-y-6"
+      className="space-y-6 bg-surface-container/60 backdrop-blur-xl rounded-xl p-6 border border-outline-variant/10"
       dir="rtl"
     >
       {/* שם מלא */}
       <div className="space-y-1.5">
-        <Label htmlFor="full_name">שם מלא</Label>
+        <Label htmlFor="full_name" className="font-label text-sm text-on-surface-variant font-medium">שם מלא</Label>
         <Input
           id="full_name"
           {...register('full_name')}
           placeholder="הכנס שם מלא"
           aria-invalid={!!errors.full_name}
+          className="bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40"
         />
         {errors.full_name && (
           <p className="text-sm text-red-400" role="alert">
@@ -173,12 +174,13 @@ export function ProfileEditForm({
 
       {/* תאריך לידה */}
       <div className="space-y-1.5">
-        <Label htmlFor="birth_date">תאריך לידה</Label>
+        <Label htmlFor="birth_date" className="font-label text-sm text-on-surface-variant font-medium">תאריך לידה</Label>
         <Input
           id="birth_date"
           type="date"
           {...register('birth_date')}
           aria-invalid={!!errors.birth_date}
+          className="bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface focus:ring-1 focus:ring-primary/40"
         />
         {errors.birth_date && (
           <p className="text-sm text-red-400" role="alert">
@@ -189,13 +191,14 @@ export function ProfileEditForm({
 
       {/* שעת לידה */}
       <div className="space-y-1.5">
-        <Label htmlFor="birth_time">שעת לידה (אופציונלי)</Label>
+        <Label htmlFor="birth_time" className="font-label text-sm text-on-surface-variant font-medium">שעת לידה (אופציונלי)</Label>
         <Input
           id="birth_time"
           type="time"
           {...register('birth_time')}
           placeholder="לדוגמה: 14:30"
           aria-invalid={!!errors.birth_time}
+          className="bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40"
         />
         {errors.birth_time && (
           <p className="text-sm text-red-400" role="alert">
@@ -206,12 +209,13 @@ export function ProfileEditForm({
 
       {/* מקום לידה */}
       <div className="space-y-1.5">
-        <Label htmlFor="birth_place">מקום לידה (אופציונלי)</Label>
+        <Label htmlFor="birth_place" className="font-label text-sm text-on-surface-variant font-medium">מקום לידה (אופציונלי)</Label>
         <Input
           id="birth_place"
           {...register('birth_place')}
           placeholder="עיר, מדינה"
           aria-invalid={!!errors.birth_place}
+          className="bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40"
         />
         {errors.birth_place && (
           <p className="text-sm text-red-400" role="alert">
@@ -222,7 +226,7 @@ export function ProfileEditForm({
 
       {/* מגדר */}
       <div className="space-y-1.5">
-        <Label>מגדר (אופציונלי)</Label>
+        <Label className="font-label text-sm text-on-surface-variant font-medium">מגדר (אופציונלי)</Label>
         <Controller
           name="gender"
           control={control}
@@ -250,18 +254,18 @@ export function ProfileEditForm({
 
       {/* דיסציפלינות */}
       <div className="space-y-1.5">
-        <Label>דיסציפלינות מועדפות</Label>
+        <Label className="font-label text-sm text-on-surface-variant font-medium">דיסציפלינות מועדפות</Label>
         <div className="flex flex-wrap gap-2 mb-2">
           {disciplines.map((d) => (
             <span
               key={d}
-              className="inline-flex items-center gap-1 rounded-full bg-purple-900/50 px-3 py-1 text-sm text-purple-200 border border-purple-700/50"
+              className="inline-flex items-center gap-1 rounded-full bg-primary-container/20 px-3 py-1 text-sm text-primary border border-primary/30"
             >
               {d}
               <button
                 type="button"
                 onClick={() => removeTag('disciplines', d, disciplines)}
-                className="text-purple-400 hover:text-purple-200"
+                className="text-primary/60 hover:text-primary"
                 aria-label={`הסר ${d}`}
               >
                 <X className="h-3 w-3" />
@@ -306,18 +310,18 @@ export function ProfileEditForm({
 
       {/* תחומי עניין */}
       <div className="space-y-1.5">
-        <Label>תחומי עניין</Label>
+        <Label className="font-label text-sm text-on-surface-variant font-medium">תחומי עניין</Label>
         <div className="flex flex-wrap gap-2 mb-2">
           {focusAreas.map((f) => (
             <span
               key={f}
-              className="inline-flex items-center gap-1 rounded-full bg-indigo-900/50 px-3 py-1 text-sm text-indigo-200 border border-indigo-700/50"
+              className="inline-flex items-center gap-1 rounded-full bg-secondary-container/20 px-3 py-1 text-sm text-secondary border border-secondary/30"
             >
               {f}
               <button
                 type="button"
                 onClick={() => removeTag('focus_areas', f, focusAreas)}
-                className="text-indigo-400 hover:text-indigo-200"
+                className="text-secondary/60 hover:text-secondary"
                 aria-label={`הסר ${f}`}
               >
                 <X className="h-3 w-3" />
@@ -362,18 +366,18 @@ export function ProfileEditForm({
 
       {/* יעדים אישיים */}
       <div className="space-y-1.5">
-        <Label>יעדים אישיים</Label>
+        <Label className="font-label text-sm text-on-surface-variant font-medium">יעדים אישיים</Label>
         <div className="flex flex-wrap gap-2 mb-2">
           {personalGoals.map((g) => (
             <span
               key={g}
-              className="inline-flex items-center gap-1 rounded-full bg-emerald-900/50 px-3 py-1 text-sm text-emerald-200 border border-emerald-700/50"
+              className="inline-flex items-center gap-1 rounded-full bg-tertiary/10 px-3 py-1 text-sm text-tertiary border border-tertiary/30"
             >
               {g}
               <button
                 type="button"
                 onClick={() => removeTag('personal_goals', g, personalGoals)}
-                className="text-emerald-400 hover:text-emerald-200"
+                className="text-tertiary/60 hover:text-tertiary"
                 aria-label={`הסר ${g}`}
               >
                 <X className="h-3 w-3" />
@@ -410,7 +414,7 @@ export function ProfileEditForm({
       <Button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-purple-600 hover:bg-purple-500"
+        className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-3 rounded-xl hover:opacity-90 active:scale-95 shadow-[0_10px_30px_rgba(143,45,230,0.3)]"
       >
         {isLoading ? (
           <span className="flex items-center gap-2">

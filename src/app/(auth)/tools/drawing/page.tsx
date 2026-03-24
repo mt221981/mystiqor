@@ -57,16 +57,16 @@ export default function DrawingPage() {
       />
 
       {/* לשוניות ניווט */}
-      <div className="flex gap-1 mb-6 border-b border-gray-700">
+      <div className="flex gap-1 mb-6 border-b border-outline-variant/30">
         {TABS.map(tab => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActiveTab(tab.id)}
-            className={`px-4 py-2 text-sm font-medium transition-colors rounded-t-md border-b-2 ${
+            className={`px-4 py-2 text-sm font-label font-medium transition-colors rounded-t-md border-b-2 ${
               activeTab === tab.id
-                ? 'border-purple-500 text-purple-300 bg-gray-800/50'
-                : 'border-transparent text-gray-400 hover:text-gray-200 hover:bg-gray-800/30'
+                ? 'border-primary text-primary bg-surface-container/60'
+                : 'border-transparent text-on-surface-variant hover:text-on-surface hover:bg-surface-container/30'
             }`}
           >
             {tab.label}

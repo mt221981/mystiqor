@@ -143,30 +143,32 @@ export default function PalmistryPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">הגדרות ניתוח</CardTitle>
+            <CardTitle className="text-lg text-primary font-headline">הגדרות ניתוח</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* העלאת קובץ */}
                 <div className="space-y-1">
-                  <Label className="text-gray-300">העלאת תמונה</Label>
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    onChange={handleFileUpload}
-                    disabled={uploading}
-                    className="block w-full text-sm text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
-                    aria-label="בחר תמונת כף יד"
-                  />
-                  {uploading && <p className="text-xs text-purple-400">מעלה תמונה...</p>}
+                  <Label className="text-on-surface-variant font-label">העלאת תמונה</Label>
+                  <div className="border-2 border-dashed border-outline-variant/30 hover:border-primary/40 rounded-xl p-8 bg-surface-container-lowest transition-colors text-center">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleFileUpload}
+                      disabled={uploading}
+                      className="block w-full text-sm text-on-surface-variant file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:opacity-80 cursor-pointer"
+                      aria-label="בחר תמונת כף יד"
+                    />
+                  </div>
+                  {uploading && <p className="text-xs text-primary font-label">מעלה תמונה...</p>}
                 </div>
 
                 {/* שדה URL */}
                 <div className="space-y-1">
-                  <Label htmlFor="imageUrl" className="text-gray-300">
+                  <Label htmlFor="imageUrl" className="text-on-surface-variant font-label">
                     או הדבק קישור לתמונת כף יד
                   </Label>
                   <Input
@@ -177,7 +179,7 @@ export default function PalmistryPage() {
                     {...register('imageUrl')}
                   />
                   {errors.imageUrl && (
-                    <p className="text-xs text-red-400">{errors.imageUrl.message}</p>
+                    <p className="text-xs text-error">{errors.imageUrl.message}</p>
                   )}
                 </div>
 
@@ -185,7 +187,7 @@ export default function PalmistryPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending || uploading}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
                   {mutation.isPending ? 'מנתח...' : 'נתח כף יד'}
                 </Button>
@@ -202,15 +204,15 @@ export default function PalmistryPage() {
           animate={animations.fadeInUp.animate}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
-              <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+              <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
                 <Hand className="h-4 w-4" />
                 קריאה כירומנטית
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+              <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{result.interpretation}</ReactMarkdown>
               </div>
             </CardContent>

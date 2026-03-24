@@ -63,16 +63,16 @@ export function GraphologyReminder() {
   // הימנעות מ-hydration mismatch
   if (!mounted) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
-        <CardContent className="py-8 text-center text-gray-400">...</CardContent>
+      <Card className="border-outline-variant/5 bg-surface-container">
+        <CardContent className="py-8 text-center text-on-surface-variant">...</CardContent>
       </Card>
     )
   }
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50 max-w-sm" dir="rtl">
+    <Card className="border-outline-variant/5 bg-surface-container max-w-sm" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+        <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
           <Bell className="h-4 w-4" />
           תזכורת לניתוח הבא
         </CardTitle>
@@ -81,20 +81,20 @@ export function GraphologyReminder() {
         {reminderDate ? (
           /* תצוגת תזכורת קיימת */
           <div className="space-y-3">
-            <div className="p-3 rounded-lg border border-purple-500/30 bg-purple-600/10 flex items-center justify-between">
+            <div className="bg-primary-container/10 border border-primary/20 rounded-xl p-4 flex items-center justify-between">
               <div>
-                <p className="text-xs text-purple-400 mb-0.5">תזכורת הבאה</p>
-                <p className="text-sm font-semibold text-purple-200">
+                <p className="text-xs text-primary font-label mb-0.5">תזכורת הבאה</p>
+                <p className="text-sm font-semibold text-on-surface font-headline">
                   {formatDateDisplay(reminderDate)}
                 </p>
               </div>
-              <Bell className="h-5 w-5 text-purple-400" />
+              <Bell className="h-5 w-5 text-primary" />
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={handleClearReminder}
-              className="w-full border-red-500/30 text-red-400 hover:bg-red-600/10"
+              className="w-full border-error/30 text-error hover:bg-error/10"
             >
               <X className="h-3.5 w-3.5 ms-1" />
               בטל תזכורת
@@ -104,7 +104,7 @@ export function GraphologyReminder() {
           /* טופס הגדרת תזכורת */
           <div className="space-y-3">
             <div className="space-y-1.5">
-              <Label htmlFor="reminder-date" className="text-sm text-gray-300">
+              <Label htmlFor="reminder-date" className="text-sm font-label text-on-surface-variant">
                 תאריך הניתוח הבא
               </Label>
               <Input
@@ -113,19 +113,19 @@ export function GraphologyReminder() {
                 value={inputDate}
                 onChange={(e) => setInputDate(e.target.value)}
                 min={new Date().toISOString().split('T')[0]}
-                className="border-purple-500/30 bg-gray-800 text-gray-200"
+                className="border-outline-variant/30 bg-surface-container-low text-on-surface"
                 dir="ltr"
               />
             </div>
             <Button
               onClick={handleSetReminder}
               disabled={!inputDate}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+              className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
             >
               <BellOff className="h-4 w-4 ms-2" />
               הגדר תזכורת
             </Button>
-            <p className="text-xs text-gray-500 text-center">
+            <p className="text-xs text-on-surface-variant/60 text-center font-body">
               התזכורת נשמרת במכשיר זה בלבד
             </p>
           </div>

@@ -34,11 +34,11 @@ function getKoppitzRiskLevel(score: number): {
   colorClass: string
 } {
   if (score <= 10) {
-    return { label: 'נורמלי', badgeVariant: 'default', colorClass: 'text-green-400' }
+    return { label: 'נורמלי', badgeVariant: 'default', colorClass: 'text-tertiary' }
   } else if (score <= 20) {
-    return { label: 'בינוני', badgeVariant: 'secondary', colorClass: 'text-yellow-400' }
+    return { label: 'בינוני', badgeVariant: 'secondary', colorClass: 'text-primary' }
   } else {
-    return { label: 'גבוה', badgeVariant: 'destructive', colorClass: 'text-red-400' }
+    return { label: 'גבוה', badgeVariant: 'destructive', colorClass: 'text-error' }
   }
 }
 
@@ -53,16 +53,16 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
   const riskInfo = koppitzScore !== undefined ? getKoppitzRiskLevel(koppitzScore) : null
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50" dir="rtl">
+    <Card className="border-outline-variant/5 bg-surface-container" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-purple-300 flex items-center justify-between">
+        <CardTitle className="text-base text-primary font-headline flex items-center justify-between">
           <span>מדדי Koppitz</span>
           {koppitzScore !== undefined && riskInfo && (
             <div className="flex items-center gap-2">
-              <span className={`text-lg font-bold ${riskInfo.colorClass}`}>
+              <span className={`text-lg font-bold font-headline ${riskInfo.colorClass}`}>
                 {koppitzScore}/30
               </span>
-              <Badge variant={riskInfo.badgeVariant}>
+              <Badge variant={riskInfo.badgeVariant} className="font-label">
                 רמת סיכון: {riskInfo.label}
               </Badge>
             </div>
@@ -71,13 +71,13 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
       </CardHeader>
       <CardContent className="space-y-3">
         {/* סיכום נוכח/נעדר */}
-        <div className="flex gap-4 text-sm text-gray-400 mb-2">
+        <div className="flex gap-4 text-sm text-on-surface-variant mb-2 font-label">
           <span className="flex items-center gap-1">
-            <CheckCircle className="h-4 w-4 text-green-500" />
+            <CheckCircle className="h-4 w-4 text-tertiary" />
             נוכח: {presentCount}
           </span>
           <span className="flex items-center gap-1">
-            <XCircle className="h-4 w-4 text-red-500" />
+            <XCircle className="h-4 w-4 text-error" />
             נעדר: {features.length - presentCount}
           </span>
         </div>
@@ -89,31 +89,31 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
               key={idx}
               className={`flex items-start gap-3 rounded-lg p-3 border ${
                 feature.present
-                  ? 'bg-green-900/20 border-green-700/30'
-                  : 'bg-red-900/20 border-red-700/30'
+                  ? 'bg-tertiary/10 border-tertiary/20'
+                  : 'bg-error/10 border-error/20'
               }`}
             >
               {/* תג נוכח/נעדר */}
               <div className="shrink-0 mt-0.5">
                 {feature.present ? (
-                  <CheckCircle className="h-5 w-5 text-green-500" />
+                  <CheckCircle className="h-5 w-5 text-tertiary" />
                 ) : (
-                  <XCircle className="h-5 w-5 text-red-500" />
+                  <XCircle className="h-5 w-5 text-error" />
                 )}
               </div>
 
               {/* שם ומשמעות */}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2 mb-1">
-                  <span className="font-medium text-gray-200 text-sm">{feature.name}</span>
+                  <span className="font-medium text-on-surface text-sm font-label">{feature.name}</span>
                   <Badge
                     variant={feature.present ? 'default' : 'destructive'}
-                    className="text-xs"
+                    className="font-label text-xs"
                   >
                     {feature.present ? 'נוכח' : 'נעדר'}
                   </Badge>
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-on-surface-variant leading-relaxed font-body">
                   {feature.significance}
                 </p>
               </div>
@@ -123,7 +123,7 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
 
         {/* הערת מחקר */}
         {features.length > 0 && (
-          <p className="text-xs text-gray-500 mt-2 text-center">
+          <p className="text-xs text-on-surface-variant/60 mt-2 text-center font-body">
             מבוסס על מחקר ד"ר אליזבת קופיץ (1968) — 30 מדדים רגשיים
           </p>
         )}

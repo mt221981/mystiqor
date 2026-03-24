@@ -99,22 +99,22 @@ export default function ReferralsPage() {
       {/* כותרת ראשית */}
       <div className="mb-8">
         <div className="flex items-center gap-3 mb-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-600/20 border border-purple-500/30">
-            <Users className="h-5 w-5 text-purple-400" />
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-container/20 border border-primary/30">
+            <Users className="h-5 w-5 text-primary" />
           </div>
-          <h1 className="text-3xl font-bold text-foreground">הפניית חברים</h1>
+          <h1 className="font-headline font-bold text-3xl text-on-surface">הפניית חברים</h1>
         </div>
-        <p className="text-muted-foreground text-base">
+        <p className="font-body text-on-surface-variant text-base">
           הזמן חברים וקבל 5 ניתוחים בונוס לכל חבר שמצטרף
         </p>
       </div>
 
       {/* הסבר אופן הפעולה */}
-      <div className="mb-6 rounded-xl border border-purple-500/20 bg-purple-600/5 p-4">
+      <div className="mb-6 rounded-xl border border-outline-variant/10 bg-surface-container p-4">
         <div className="flex items-start gap-3">
-          <Gift className="h-5 w-5 text-purple-400 mt-0.5 shrink-0" />
-          <div className="text-sm text-muted-foreground">
-            <p className="font-medium text-foreground mb-1">איך זה עובד?</p>
+          <Gift className="h-5 w-5 text-primary mt-0.5 shrink-0" />
+          <div className="text-sm text-on-surface-variant font-body">
+            <p className="font-label font-medium text-on-surface mb-1">איך זה עובד?</p>
             <ol className="list-decimal list-inside space-y-1 pr-1">
               <li>צור קוד הפניה אישי</li>
               <li>שתף את הקישור עם חברים</li>
@@ -126,7 +126,7 @@ export default function ReferralsPage() {
 
       {/* הצגת שגיאה */}
       {errorMessage && (
-        <div className="mb-4 rounded-lg border border-red-500/30 bg-red-500/10 px-4 py-3 text-sm text-red-400">
+        <div className="mb-4 rounded-lg border border-error/30 bg-error/10 px-4 py-3 text-sm text-error font-body">
           {errorMessage}
         </div>
       )}
@@ -134,18 +134,18 @@ export default function ReferralsPage() {
       {/* מצב טעינה */}
       {loadState === 'loading' && (
         <div className="flex items-center justify-center py-12">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-purple-500 border-t-transparent" />
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-primary border-t-transparent" />
         </div>
       )}
 
       {/* מצב שגיאה */}
       {loadState === 'error' && (
-        <div className="rounded-xl border border-red-500/30 bg-red-500/10 p-6 text-center">
-          <p className="text-red-400 mb-4">שגיאה בטעינת קוד ההפניה</p>
+        <div className="rounded-xl border border-error/30 bg-error/10 p-6 text-center">
+          <p className="text-error font-body mb-4">שגיאה בטעינת קוד ההפניה</p>
           <button
             type="button"
             onClick={() => void fetchReferralCode()}
-            className="rounded-lg bg-purple-600 px-4 py-2 text-sm font-medium text-white hover:bg-purple-700 transition-colors"
+            className="rounded-lg bg-primary-container text-on-primary-container px-4 py-2 font-label text-sm font-medium transition-colors hover:bg-primary-container/80"
           >
             נסה שנית
           </button>
@@ -154,16 +154,16 @@ export default function ReferralsPage() {
 
       {/* מצב: אין קוד — הצגת כפתור יצירה */}
       {loadState === 'loaded' && !referralCode && (
-        <div className="rounded-xl border border-white/10 bg-white/5 p-8 text-center">
+        <div className="rounded-xl border border-outline-variant/10 bg-surface-container p-8 text-center">
           <div className="flex justify-center mb-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-purple-600/20 border border-purple-500/30">
-              <Gift className="h-8 w-8 text-purple-400" />
+            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary-container/20 border border-primary/30">
+              <Gift className="h-8 w-8 text-primary" />
             </div>
           </div>
-          <h2 className="text-xl font-semibold text-foreground mb-2">
+          <h2 className="font-headline font-semibold text-xl text-on-surface mb-2">
             אין לך עדיין קוד הפניה
           </h2>
-          <p className="text-muted-foreground text-sm mb-6">
+          <p className="font-body text-on-surface-variant text-sm mb-6">
             צור קוד הפניה אישי כדי להתחיל להזמין חברים ולהרוויח בונוסים
           </p>
           <button
@@ -171,9 +171,9 @@ export default function ReferralsPage() {
             onClick={() => void handleGenerateCode()}
             disabled={isGenerating}
             className={cn(
-              'rounded-xl bg-gradient-to-l from-purple-600 to-indigo-600 px-6 py-3',
-              'font-medium text-white transition-all duration-200',
-              'hover:from-purple-700 hover:to-indigo-700',
+              'rounded-xl bg-gradient-to-br from-primary-container to-secondary-container px-6 py-3',
+              'font-headline font-bold text-white transition-all duration-200',
+              'hover:opacity-90 active:scale-95',
               'disabled:opacity-50 disabled:cursor-not-allowed'
             )}
           >
@@ -187,11 +187,11 @@ export default function ReferralsPage() {
         <div className="space-y-4">
 
           {/* קוד הפניה */}
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6">
-            <p className="text-sm text-muted-foreground mb-3">קוד ההפניה האישי שלך</p>
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+            <p className="text-sm text-on-surface-variant font-body mb-3">קוד ההפניה האישי שלך</p>
             <div className="flex items-center gap-3">
-              <div className="flex-1 rounded-lg border border-purple-500/30 bg-purple-600/10 px-5 py-4">
-                <span className="text-3xl font-bold tracking-[0.3em] text-purple-300 font-mono">
+              <div className="flex-1 bg-surface-container-lowest rounded-lg font-mono text-primary text-lg font-bold px-5 py-4">
+                <span className="text-3xl font-bold tracking-[0.3em]">
                   {referralCode}
                 </span>
               </div>
@@ -200,10 +200,10 @@ export default function ReferralsPage() {
                 onClick={() => void handleCopyCode()}
                 className={cn(
                   'flex items-center gap-2 rounded-lg px-4 py-4',
-                  'border font-medium text-sm transition-all duration-200',
+                  'border font-label text-sm transition-all duration-200',
                   copiedCode
-                    ? 'border-green-500/50 bg-green-500/10 text-green-400'
-                    : 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                    ? 'border-tertiary/50 bg-tertiary/10 text-tertiary'
+                    : 'border-outline-variant/20 bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
                 )}
                 aria-label="העתק קוד הפניה"
               >
@@ -218,14 +218,14 @@ export default function ReferralsPage() {
           </div>
 
           {/* קישור שיתוף */}
-          <div className="rounded-xl border border-white/10 bg-white/5 p-6">
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
             <div className="flex items-center gap-2 mb-3">
-              <Share2 className="h-4 w-4 text-purple-400" />
-              <p className="text-sm text-muted-foreground">קישור הזמנה</p>
+              <Share2 className="h-4 w-4 text-primary" />
+              <p className="text-sm text-on-surface-variant font-body">קישור הזמנה</p>
             </div>
             <div className="flex items-center gap-3">
-              <div className="flex-1 rounded-lg border border-white/10 bg-white/5 px-4 py-3 overflow-hidden">
-                <p className="text-sm text-gray-400 truncate font-mono">
+              <div className="flex-1 rounded-lg border border-outline-variant/10 bg-surface-container-lowest px-4 py-3 overflow-hidden">
+                <p className="text-sm text-on-surface-variant truncate font-mono">
                   {shareUrl}
                 </p>
               </div>
@@ -234,10 +234,10 @@ export default function ReferralsPage() {
                 onClick={() => void handleCopyLink()}
                 className={cn(
                   'flex items-center gap-2 rounded-lg px-4 py-3',
-                  'border font-medium text-sm transition-all duration-200 whitespace-nowrap',
+                  'border font-label text-sm transition-all duration-200 whitespace-nowrap',
                   copiedLink
-                    ? 'border-green-500/50 bg-green-500/10 text-green-400'
-                    : 'border-white/10 bg-white/5 text-gray-300 hover:bg-white/10 hover:text-white'
+                    ? 'border-tertiary/50 bg-tertiary/10 text-tertiary'
+                    : 'border-outline-variant/20 bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest hover:text-on-surface'
                 )}
                 aria-label="העתק קישור הזמנה"
               >
@@ -257,7 +257,7 @@ export default function ReferralsPage() {
               type="button"
               onClick={() => void handleGenerateCode()}
               disabled={isGenerating}
-              className="text-sm text-muted-foreground hover:text-foreground underline underline-offset-4 transition-colors disabled:opacity-50"
+              className="text-sm text-on-surface-variant hover:text-on-surface font-body underline underline-offset-4 transition-colors disabled:opacity-50"
             >
               {isGenerating ? 'יוצר קוד חדש...' : 'צור קוד הפניה חדש'}
             </button>

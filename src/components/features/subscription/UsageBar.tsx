@@ -3,7 +3,6 @@
  */
 'use client';
 
-import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils/cn';
 
 /** Props של פס שימוש */
@@ -13,7 +12,7 @@ export interface UsageBarProps {
   className?: string;
 }
 
-/** פס שימוש חזותי עם צבע דינמי לפי אחוז */
+/** פס שימוש חזותי עם צבע MD3 דינמי לפי אחוז */
 export function UsageBar({ used, limit, className }: UsageBarProps) {
   const isUnlimited = limit === -1;
   const percentage = isUnlimited ? 0 : Math.min(100, Math.round((used / limit) * 100));
@@ -22,19 +21,26 @@ export function UsageBar({ used, limit, className }: UsageBarProps) {
 
   return (
     <div className={cn('space-y-1', className)}>
-      <div className="flex justify-between text-xs text-muted-foreground">
+      <div className="flex justify-between text-on-surface-variant font-label text-xs">
         <span>{isUnlimited ? 'ללא הגבלה' : `${used} / ${limit}`}</span>
         {!isUnlimited && <span>{percentage}%</span>}
       </div>
       {!isUnlimited && (
-        <Progress
-          value={percentage}
-          className={cn(
-            'h-2',
-            isAtLimit && '[&>div]:bg-destructive',
-            isNearLimit && !isAtLimit && '[&>div]:bg-yellow-500'
-          )}
-        />
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
+          <div
+            className={cn(
+              'h-full rounded-full transition-all duration-500',
+              isAtLimit
+                ? 'bg-error'
+                : isNearLimit
+                  ? 'bg-secondary'
+                  : 'bg-gradient-to-l from-primary-container to-secondary-container'
+            )}
+            style={{ width: `${percentage.toString()}%` }}
+            role="progressbar"
+            aria-label={`${percentage.toString()}% ניצול`}
+          />
+        </div>
       )}
     </div>
   );

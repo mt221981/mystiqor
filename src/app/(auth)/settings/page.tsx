@@ -9,7 +9,6 @@
 import { useThemeStore } from '@/stores/theme';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Button } from '@/components/ui/button';
@@ -91,27 +90,25 @@ export default function SettingsPage() {
 
         {/* כותרת */}
         <div>
-          <h1 className="text-2xl font-bold text-white">הגדרות</h1>
-          <p className="text-gray-400 text-sm mt-1">
+          <h1 className="font-headline font-bold text-2xl text-on-surface">הגדרות</h1>
+          <p className="font-body text-on-surface-variant text-sm mt-1">
             נהל את העדפות המערכת שלך
           </p>
         </div>
 
         {/* ===== ערכת נושא ===== */}
-        <Card className="bg-gray-900/50 border-white/10">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              {theme === 'dark' ? (
-                <Moon className="h-4 w-4 text-indigo-400" />
-              ) : (
-                <Sun className="h-4 w-4 text-yellow-400" />
-              )}
-              ערכת נושא
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-gray-400">
-              מצב נוכחי: <span className="text-white font-medium">{theme === 'dark' ? 'כהה' : 'בהיר'}</span>
+        <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <h2 className="font-label text-sm text-on-surface font-medium flex items-center gap-2 mb-4">
+            {theme === 'dark' ? (
+              <Moon className="h-4 w-4 text-primary" />
+            ) : (
+              <Sun className="h-4 w-4 text-secondary" />
+            )}
+            ערכת נושא
+          </h2>
+          <div className="space-y-4">
+            <p className="font-body text-sm text-on-surface-variant">
+              מצב נוכחי: <span className="text-on-surface font-medium">{theme === 'dark' ? 'כהה' : 'בהיר'}</span>
             </p>
 
             {/* כפתורי בחירה */}
@@ -122,8 +119,8 @@ export default function SettingsPage() {
                 onClick={() => setTheme('dark')}
                 className={
                   theme === 'dark'
-                    ? 'bg-indigo-600 hover:bg-indigo-500'
-                    : ''
+                    ? 'bg-primary-container text-on-primary-container hover:bg-primary-container/80'
+                    : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high'
                 }
               >
                 <Moon className="h-4 w-4 ml-1.5" />
@@ -135,8 +132,8 @@ export default function SettingsPage() {
                 onClick={() => setTheme('light')}
                 className={
                   theme === 'light'
-                    ? 'bg-yellow-500 hover:bg-yellow-400 text-gray-900'
-                    : ''
+                    ? 'bg-secondary-container text-on-secondary-container hover:bg-secondary-container/80'
+                    : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high'
                 }
               >
                 <Sun className="h-4 w-4 ml-1.5" />
@@ -146,27 +143,25 @@ export default function SettingsPage() {
                 variant="ghost"
                 size="sm"
                 onClick={toggleTheme}
-                className="text-gray-400 hover:text-white"
+                className="text-on-surface-variant hover:text-on-surface"
               >
                 החלף
               </Button>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* ===== הגדרות התראות (placeholder) ===== */}
-        <Card className="bg-gray-900/50 border-white/10 opacity-60">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Bell className="h-4 w-4 text-gray-500" />
-              הגדרות התראות
-              <span className="text-xs font-normal text-gray-600 mr-auto">
-                בקרוב
-              </span>
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <p className="text-sm text-gray-500">
+        <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 opacity-60">
+          <h2 className="font-label text-sm text-on-surface font-medium flex items-center gap-2 mb-4">
+            <Bell className="h-4 w-4 text-on-surface-variant" />
+            הגדרות התראות
+            <span className="font-label text-xs font-normal text-on-surface-variant mr-auto">
+              בקרוב
+            </span>
+          </h2>
+          <div className="space-y-4">
+            <p className="font-body text-sm text-on-surface-variant/60">
               הגדרות התראות יהיו זמינות בקרוב
             </p>
 
@@ -174,53 +169,49 @@ export default function SettingsPage() {
             <div className="space-y-3">
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label className="text-gray-500">התראות אימייל</Label>
-                  <p className="text-xs text-gray-600">קבל עדכונים לאימייל</p>
+                  <Label className="font-label text-sm text-on-surface font-medium">התראות אימייל</Label>
+                  <p className="font-body text-xs text-on-surface-variant">קבל עדכונים לאימייל</p>
                 </div>
                 <Switch disabled checked={false} />
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="space-y-0.5">
-                  <Label className="text-gray-500 flex items-center gap-1.5">
+                  <Label className="font-label text-sm text-on-surface font-medium flex items-center gap-1.5">
                     <BellOff className="h-3.5 w-3.5" />
                     תזכורות
                   </Label>
-                  <p className="text-xs text-gray-600">תזכורות לפעילויות יומיות</p>
+                  <p className="font-body text-xs text-on-surface-variant">תזכורות לפעילויות יומיות</p>
                 </div>
                 <Switch disabled checked={false} />
               </div>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
 
         {/* ===== העדפות AI ===== */}
-        <Card className="bg-gray-900/50 border-white/10">
-          <CardHeader>
-            <CardTitle className="text-base flex items-center gap-2">
-              <Brain className="h-4 w-4 text-purple-400" />
-              העדפות AI
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center justify-between">
-              <div className="space-y-0.5">
-                <Label htmlFor="ai-toggle">הצעות AI</Label>
-                <p className="text-xs text-gray-400">
-                  אפשר ל-AI להציע תובנות ופעולות מותאמות אישית
-                </p>
-              </div>
-              <Switch
-                id="ai-toggle"
-                checked={aiEnabled}
-                disabled={aiMutation.isPending}
-                onCheckedChange={(checked) =>
-                  aiMutation.mutate(checked)
-                }
-              />
+        <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <h2 className="font-label text-sm text-on-surface font-medium flex items-center gap-2 mb-4">
+            <Brain className="h-4 w-4 text-primary" />
+            העדפות AI
+          </h2>
+          <div className="flex items-center justify-between">
+            <div className="space-y-0.5">
+              <Label htmlFor="ai-toggle" className="font-label text-sm text-on-surface font-medium">הצעות AI</Label>
+              <p className="font-body text-xs text-on-surface-variant">
+                אפשר ל-AI להציע תובנות ופעולות מותאמות אישית
+              </p>
             </div>
-          </CardContent>
-        </Card>
+            <Switch
+              id="ai-toggle"
+              checked={aiEnabled}
+              disabled={aiMutation.isPending}
+              onCheckedChange={(checked) =>
+                aiMutation.mutate(checked)
+              }
+            />
+          </div>
+        </div>
       </div>
     </ErrorBoundary>
   );

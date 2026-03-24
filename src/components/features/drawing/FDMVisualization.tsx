@@ -29,16 +29,16 @@ interface FDMVisualizationProps {
  */
 function getIndicatorColor(index: number): string {
   const colors: string[] = [
-    'bg-purple-400',
-    'bg-blue-400',
-    'bg-teal-400',
-    'bg-indigo-400',
-    'bg-violet-400',
-    'bg-cyan-400',
-    'bg-sky-400',
-    'bg-pink-400',
+    'bg-primary',
+    'bg-secondary',
+    'bg-tertiary',
+    'bg-primary-container',
+    'bg-secondary-container',
+    'bg-tertiary-container',
+    'bg-primary-fixed',
+    'bg-secondary-fixed',
   ]
-  return colors[index % colors.length] ?? 'bg-purple-400'
+  return colors[index % colors.length] ?? 'bg-primary'
 }
 
 // ===== קומפוננטה ראשית =====
@@ -51,15 +51,15 @@ export function FDMVisualization({ categories, emotionalIndicators }: FDMVisuali
   if (categories.length === 0 && emotionalIndicators.length === 0) return null
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50" dir="rtl">
+    <Card className="border-outline-variant/5 bg-surface-container" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-purple-300">ממצאים רגשיים ו-FDM</CardTitle>
+        <CardTitle className="text-base text-primary font-headline">ממצאים רגשיים ו-FDM</CardTitle>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* קטגוריות FDM */}
         {categories.length > 0 && (
           <div>
-            <p className="text-xs font-medium text-gray-400 mb-2">קטגוריות FDM שזוהו:</p>
+            <p className="text-xs font-label font-medium text-on-surface-variant mb-2">קטגוריות FDM שזוהו:</p>
             <div className="flex flex-wrap gap-2">
               {categories.map((category, idx) => (
                 <motion.div
@@ -70,7 +70,7 @@ export function FDMVisualization({ categories, emotionalIndicators }: FDMVisuali
                 >
                   <Badge
                     variant="secondary"
-                    className="bg-purple-900/50 text-purple-300 border border-purple-700/30 text-xs"
+                    className="bg-surface-container-high text-on-surface border border-outline-variant/20 font-label text-xs"
                   >
                     {category}
                   </Badge>
@@ -83,7 +83,7 @@ export function FDMVisualization({ categories, emotionalIndicators }: FDMVisuali
         {/* מדדים רגשיים */}
         {emotionalIndicators.length > 0 && (
           <div>
-            <p className="text-xs font-medium text-gray-400 mb-2">מדדים רגשיים:</p>
+            <p className="text-xs font-label font-medium text-on-surface-variant mb-2">מדדים רגשיים:</p>
             <div className="space-y-2">
               {emotionalIndicators.map((indicator, idx) => (
                 <motion.div
@@ -94,7 +94,7 @@ export function FDMVisualization({ categories, emotionalIndicators }: FDMVisuali
                   className="flex items-center gap-3"
                 >
                   <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${getIndicatorColor(idx)}`} />
-                  <span className="text-sm text-gray-300 leading-relaxed">{indicator}</span>
+                  <span className="text-sm text-on-surface leading-relaxed font-body">{indicator}</span>
                 </motion.div>
               ))}
             </div>

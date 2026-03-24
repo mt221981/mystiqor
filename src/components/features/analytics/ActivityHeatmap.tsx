@@ -86,7 +86,7 @@ interface CustomTooltipProps {
 }
 
 /**
- * Tooltip מותאם — פתרון לבעיית Recharts v3 formatter types
+ * Tooltip מותאם — עיצוב MD3
  * מציג תאריך ומספר ניתוחים
  */
 function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
@@ -95,11 +95,11 @@ function CustomTooltip({ active, payload, label }: CustomTooltipProps) {
   if (!item) return null;
   return (
     <div
-      className="rounded-lg border border-border bg-card p-2.5 text-xs shadow-lg"
+      className="bg-surface-container border border-outline-variant/20 rounded-lg p-3 text-xs"
       dir="rtl"
     >
-      <p className="font-medium text-foreground">תאריך: {label}</p>
-      <p className="text-muted-foreground">{item.value} ניתוחים</p>
+      <p className="font-label font-medium text-on-surface">תאריך: {label}</p>
+      <p className="font-label text-on-surface-variant">{item.value} ניתוחים</p>
     </div>
   );
 }
@@ -118,11 +118,11 @@ export function ActivityHeatmap({ data }: ActivityHeatmapProps) {
       <div className="flex h-[250px] items-center justify-center" dir="rtl">
         <div className="text-center">
           <Activity
-            className="mx-auto mb-3 h-8 w-8 text-muted-foreground/30"
+            className="mx-auto mb-3 h-8 w-8 text-on-surface-variant/30"
             aria-hidden="true"
           />
-          <p className="text-sm text-muted-foreground">אין פעילות בתקופה הנבחרת</p>
-          <p className="mt-1 text-xs text-muted-foreground/60">
+          <p className="font-body text-sm text-on-surface-variant">אין פעילות בתקופה הנבחרת</p>
+          <p className="mt-1 font-body text-xs text-on-surface-variant/60">
             בצע ניתוחים כדי לראות את דפוסי הפעילות שלך
           </p>
         </div>
@@ -140,16 +140,16 @@ export function ActivityHeatmap({ data }: ActivityHeatmapProps) {
     <div dir="rtl">
       <ResponsiveContainer width="100%" height={250}>
         <LineChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#4a4455" opacity={0.3} />
           <XAxis
             dataKey="dateLabel"
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             allowDecimals={false}
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
             width={25}
@@ -158,10 +158,10 @@ export function ActivityHeatmap({ data }: ActivityHeatmapProps) {
           <Line
             type="monotone"
             dataKey="count"
-            stroke="#8b5cf6"
+            stroke="#ddb8ff"
             strokeWidth={2}
-            dot={{ fill: '#8b5cf6', r: 3 }}
-            activeDot={{ r: 5, fill: '#8b5cf6' }}
+            dot={{ fill: '#ddb8ff', r: 3 }}
+            activeDot={{ r: 5, fill: '#ddb8ff' }}
             name="ניתוחים"
           />
         </LineChart>

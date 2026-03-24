@@ -41,10 +41,10 @@ export interface GraphologyTimelineProps {
  * לכן נשתמש ב-confidence_score כציון ייצוגי
  */
 function scoreColor(score: number | null): string {
-  if (score === null) return 'bg-gray-700 text-gray-400'
-  if (score >= 0.8) return 'bg-purple-600 text-white'
-  if (score >= 0.5) return 'bg-purple-400/20 text-purple-300'
-  return 'bg-gray-700 text-gray-400'
+  if (score === null) return 'bg-surface-container-high text-on-surface-variant'
+  if (score >= 0.8) return 'bg-primary-container text-on-primary-container'
+  if (score >= 0.5) return 'bg-primary-container/20 text-primary'
+  return 'bg-surface-container-high text-on-surface-variant'
 }
 
 /**
@@ -81,8 +81,8 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
 
   if (isLoading) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
-        <CardContent className="py-8 text-center text-gray-400">
+      <Card className="border-outline-variant/5 bg-surface-container">
+        <CardContent className="py-8 text-center text-on-surface-variant">
           טוען ניתוחים...
         </CardContent>
       </Card>
@@ -91,8 +91,8 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
 
   if (isError) {
     return (
-      <Card className="border-red-500/20 bg-gray-900/50">
-        <CardContent className="py-8 text-center text-red-400">
+      <Card className="border-error/20 bg-surface-container">
+        <CardContent className="py-8 text-center text-error">
           שגיאה בטעינת הניתוחים
         </CardContent>
       </Card>
@@ -101,19 +101,19 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
 
   if (!analyses || analyses.length === 0) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="py-12 text-center">
-          <TrendingUp className="h-10 w-10 text-purple-400/40 mx-auto mb-3" />
-          <p className="text-gray-400">אין ניתוחים קודמים. בצע ניתוח ראשון!</p>
+          <TrendingUp className="h-10 w-10 text-primary/40 mx-auto mb-3" />
+          <p className="text-on-surface-variant">אין ניתוחים קודמים. בצע ניתוח ראשון!</p>
         </CardContent>
       </Card>
     )
   }
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50" dir="rtl">
+    <Card className="border-outline-variant/5 bg-surface-container" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+        <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
           <Clock className="h-4 w-4" />
           ציר זמן ניתוחי כתב יד
         </CardTitle>
@@ -121,7 +121,7 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
       <CardContent>
         <div className="relative">
           {/* קו אנכי */}
-          <div className="absolute top-0 bottom-0 end-5 w-px bg-purple-500/20" />
+          <div className="absolute top-0 bottom-0 end-5 w-px bg-primary-container/30" />
 
           <div className="space-y-6">
             {analyses.map((analysis, idx) => {
@@ -136,26 +136,26 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
               return (
                 <div key={analysis.id} className="relative flex items-start gap-4 pe-14">
                   {/* נקודה בציר הזמן */}
-                  <div className="absolute end-3 top-1.5 w-5 h-5 rounded-full bg-purple-600 border-2 border-purple-400 flex-shrink-0 z-10" />
+                  <div className="absolute end-3 top-1.5 w-5 h-5 rounded-full bg-primary border-2 border-primary-container flex-shrink-0 z-10" />
 
                   {/* תוכן הכרטיס */}
-                  <div className="flex-1 p-3 rounded-lg border border-purple-500/20 bg-gray-800/50 hover:border-purple-500/40 transition-colors">
+                  <div className="flex-1 bg-surface-container rounded-xl p-4 border border-outline-variant/5 hover:border-primary/20 transition-colors">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-200">
+                      <span className="text-sm font-medium text-on-surface">
                         ניתוח #{analyses.length - idx}
                       </span>
                       <div className="flex items-center gap-2">
                         {scoreDisplay && (
-                          <Badge className={`text-xs px-2 py-0.5 ${scoreColor(analysis.confidence_score)}`}>
+                          <Badge className={`font-label text-xs px-2 py-0.5 ${scoreColor(analysis.confidence_score)}`}>
                             {scoreDisplay}
                           </Badge>
                         )}
-                        <span className="text-xs text-gray-500">
+                        <span className="font-label text-xs text-on-surface-variant">
                           {formatDate(analysis.created_at)}
                         </span>
                       </div>
                     </div>
-                    <p className="text-xs text-gray-400 leading-relaxed">
+                    <p className="text-xs text-on-surface-variant leading-relaxed font-body">
                       {summaryText}
                     </p>
                   </div>

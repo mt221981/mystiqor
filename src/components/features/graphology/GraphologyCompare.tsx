@@ -89,7 +89,7 @@ async function fetchFullAnalysis(id: string): Promise<FullAnalysis> {
 function DeltaIcon({ delta }: { delta: number }) {
   if (delta > 0) return <ArrowUp className="h-3 w-3 text-green-400" />
   if (delta < 0) return <ArrowDown className="h-3 w-3 text-red-400" />
-  return <Minus className="h-3 w-3 text-gray-500" />
+  return <Minus className="h-3 w-3 text-on-surface-variant/60" />
 }
 
 /** תיבת בחירת ניתוח */
@@ -108,11 +108,11 @@ function AnalysisSelect({
 }) {
   return (
     <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-300">{label}</label>
+      <label className="text-sm font-label font-medium text-on-surface-variant">{label}</label>
       <select
         value={selectedId}
         onChange={(e) => onSelect(e.target.value)}
-        className="w-full rounded-md border border-purple-500/30 bg-gray-800 text-gray-200 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-purple-500"
+        className="w-full rounded-md border border-outline-variant/30 bg-surface-container-low text-on-surface px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-primary/40"
         dir="rtl"
       >
         <option value="">— בחר ניתוח —</option>
@@ -159,17 +159,17 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
 
   if (listLoading) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
-        <CardContent className="py-8 text-center text-gray-400">טוען ניתוחים...</CardContent>
+      <Card className="border-outline-variant/5 bg-surface-container">
+        <CardContent className="py-8 text-center text-on-surface-variant">טוען ניתוחים...</CardContent>
       </Card>
     )
   }
 
   if (analyses.length < 2) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="py-12 text-center">
-          <p className="text-gray-400">נדרשים לפחות 2 ניתוחים להשוואה. בצע ניתוח נוסף!</p>
+          <p className="text-on-surface-variant">נדרשים לפחות 2 ניתוחים להשוואה. בצע ניתוח נוסף!</p>
         </CardContent>
       </Card>
     )
@@ -187,9 +187,9 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
   const traitsBoth = [...traitsA].filter((t) => traitsB.has(t))
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50" dir="rtl">
+    <Card className="border-outline-variant/5 bg-surface-container" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-purple-300">השוואת ניתוחים</CardTitle>
+        <CardTitle className="text-base text-primary font-headline">השוואת ניתוחים</CardTitle>
       </CardHeader>
       <CardContent className="space-y-6">
         {/* בחירת ניתוחים */}
@@ -213,7 +213,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
         {/* טבלת השוואת מרכיבים */}
         {analysisA && analysisB && componentsA.length > 0 && (
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-purple-300">השוואת מרכיבים</h3>
+            <h3 className="text-sm font-headline font-semibold text-primary">השוואת מרכיבים</h3>
             <div className="space-y-2">
               {componentsA.map((compA) => {
                 const compB = componentsB.find((c) => c.name === compA.name)
@@ -223,13 +223,13 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                 return (
                   <div
                     key={compA.name}
-                    className="flex items-center gap-3 p-2 rounded-lg border border-gray-700/50 bg-gray-800/30"
+                    className="flex items-center gap-3 p-2 rounded-lg border border-outline-variant/20 bg-surface-container-high/30"
                   >
                     {/* שם המרכיב */}
-                    <span className="flex-1 text-xs text-gray-300">{compA.name}</span>
+                    <span className="flex-1 text-xs text-on-surface">{compA.name}</span>
 
                     {/* ציון A */}
-                    <Badge className="bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs min-w-[3rem] justify-center">
+                    <Badge className="bg-primary-container/20 text-primary border-outline-variant/20 font-label text-xs min-w-[3rem] justify-center">
                       {compA.score_1_to_10}/10
                     </Badge>
 
@@ -238,7 +238,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                       <div className="flex items-center gap-1">
                         <DeltaIcon delta={delta} />
                         <span className={`text-xs font-medium ${
-                          delta > 0 ? 'text-green-400' : delta < 0 ? 'text-red-400' : 'text-gray-500'
+                          delta > 0 ? 'text-tertiary' : delta < 0 ? 'text-error' : 'text-on-surface-variant/60'
                         }`}>
                           {delta > 0 ? `+${delta}` : delta}
                         </span>
@@ -246,14 +246,14 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                     )}
 
                     {/* ציון B */}
-                    <Badge className={`text-xs min-w-[3rem] justify-center ${
+                    <Badge className={`font-label text-xs min-w-[3rem] justify-center ${
                       delta === null
-                        ? 'bg-gray-700 text-gray-400'
+                        ? 'bg-surface-container-high text-on-surface-variant'
                         : delta > 0
-                        ? 'bg-green-600/20 text-green-300 border-green-500/30'
+                        ? 'bg-tertiary/10 text-tertiary border-tertiary/20'
                         : delta < 0
-                        ? 'bg-red-600/20 text-red-300 border-red-500/30'
-                        : 'bg-gray-700/20 text-gray-400'
+                        ? 'bg-error/10 text-error border-error/20'
+                        : 'bg-surface-container-high/20 text-on-surface-variant'
                     }`}>
                       {scoreB !== null ? `${scoreB}/10` : '—'}
                     </Badge>
@@ -267,53 +267,53 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
         {/* השוואת תכונות אישיות */}
         {analysisA && analysisB && (
           <div className="space-y-3">
-            <h3 className="text-sm font-semibold text-purple-300">תכונות אישיות</h3>
+            <h3 className="text-sm font-headline font-semibold text-primary">תכונות אישיות</h3>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {/* תכונות בדגימה A בלבד */}
               <div className="space-y-1.5">
-                <p className="text-xs font-medium text-purple-400">דגימה A בלבד</p>
+                <p className="text-xs font-label font-medium text-primary">דגימה A בלבד</p>
                 {traitsOnlyA.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
                     {traitsOnlyA.map((t) => (
-                      <Badge key={t} className="bg-purple-600/20 text-purple-300 border-purple-500/30 text-xs">
+                      <Badge key={t} className="bg-primary-container/20 text-primary border-outline-variant/20 font-label text-xs">
                         {t}
                       </Badge>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-500">—</p>
+                  <p className="text-xs text-on-surface-variant/60">—</p>
                 )}
               </div>
 
               {/* תכונות משותפות */}
               <div className="space-y-1.5">
-                <p className="text-xs font-medium text-gray-400">משותפות</p>
+                <p className="text-xs font-label font-medium text-on-surface-variant">משותפות</p>
                 {traitsBoth.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
                     {traitsBoth.map((t) => (
-                      <Badge key={t} className="bg-gray-700/50 text-gray-300 border-gray-600/30 text-xs">
+                      <Badge key={t} className="bg-surface-container-high text-on-surface-variant border-outline-variant/20 font-label text-xs">
                         {t}
                       </Badge>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-500">—</p>
+                  <p className="text-xs text-on-surface-variant/60">—</p>
                 )}
               </div>
 
               {/* תכונות בדגימה B בלבד */}
               <div className="space-y-1.5">
-                <p className="text-xs font-medium text-blue-400">דגימה B בלבד</p>
+                <p className="text-xs font-label font-medium text-secondary">דגימה B בלבד</p>
                 {traitsOnlyB.length > 0 ? (
                   <div className="flex flex-wrap gap-1.5">
                     {traitsOnlyB.map((t) => (
-                      <Badge key={t} className="bg-blue-600/20 text-blue-300 border-blue-500/30 text-xs">
+                      <Badge key={t} className="bg-secondary-container/20 text-secondary border-outline-variant/20 font-label text-xs">
                         {t}
                       </Badge>
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-gray-500">—</p>
+                  <p className="text-xs text-on-surface-variant/60">—</p>
                 )}
               </div>
             </div>
@@ -322,7 +322,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
 
         {/* הוראות אם לא נבחרו */}
         {(!analysisA || !analysisB) && (
-          <p className="text-xs text-gray-500 text-center py-4">
+          <p className="text-xs text-on-surface-variant/60 text-center py-4">
             בחר שני ניתוחים להשוואה
           </p>
         )}

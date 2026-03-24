@@ -9,9 +9,8 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BarChart3 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils/cn';
 import { ToolUsageChart } from '@/components/features/analytics/ToolUsageChart';
 import { ActivityHeatmap } from '@/components/features/analytics/ActivityHeatmap';
 import { UsageStats } from '@/components/features/analytics/UsageStats';
@@ -78,15 +77,15 @@ const EMPTY_STATS: AnalyticsStatsData = {
 function AnalyticsSkeleton() {
   return (
     <div className="space-y-6" dir="rtl">
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <div key={i} className="rounded-xl border border-border bg-card p-5">
+          <div key={i} className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
             <Skeleton className="mb-2 h-4 w-24" />
             <Skeleton className="h-8 w-16" />
           </div>
         ))}
       </div>
-      <div className="grid gap-6 md:grid-cols-2">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Skeleton className="h-[350px] rounded-xl" />
         <Skeleton className="h-[350px] rounded-xl" />
       </div>
@@ -121,12 +120,12 @@ export default function AnalyticsPage() {
     <div className="container mx-auto max-w-6xl space-y-8 p-6" dir="rtl">
       {/* כותרת */}
       <div className="flex items-center gap-3">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-purple-500/20">
-          <BarChart3 className="h-5 w-5 text-purple-400" aria-hidden="true" />
+        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-container/10">
+          <BarChart3 className="h-5 w-5 text-primary" aria-hidden="true" />
         </div>
         <div>
-          <h1 className="text-2xl font-bold text-foreground">אנליטיקה אישית</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1 className="font-headline text-2xl font-bold text-on-surface">אנליטיקה אישית</h1>
+          <p className="font-body text-sm text-on-surface-variant">
             עקוב אחר דפוסי השימוש והמגמות שלך
           </p>
         </div>
@@ -135,15 +134,19 @@ export default function AnalyticsPage() {
       {/* בוחר תקופה */}
       <div className="flex gap-2" role="group" aria-label="בחר תקופת זמן">
         {(Object.entries(PERIOD_LABELS) as [Period, string][]).map(([value, label]) => (
-          <Button
+          <button
             key={value}
-            variant={period === value ? 'default' : 'outline'}
-            size="sm"
+            type="button"
             onClick={() => setPeriod(value)}
-            aria-pressed={period === value}
+            className={cn(
+              'font-label text-sm rounded-lg px-3 py-1.5 transition-colors',
+              period === value
+                ? 'bg-primary-container/20 text-primary'
+                : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+            )}
           >
             {label}
-          </Button>
+          </button>
         ))}
       </div>
 
@@ -152,22 +155,22 @@ export default function AnalyticsPage() {
 
       {/* מצב שגיאה */}
       {isError && (
-        <div className="rounded-xl border border-destructive/30 bg-destructive/10 p-6 text-center">
-          <p className="text-destructive">שגיאה בטעינת נתוני האנליטיקה. נסה שנית.</p>
+        <div className="rounded-xl border border-error/30 bg-error/10 p-6 text-center">
+          <p className="font-body text-error">שגיאה בטעינת נתוני האנליטיקה. נסה שנית.</p>
         </div>
       )}
 
       {/* מצב ריק */}
       {!isLoading && !isError && !hasData && (
-        <div className="rounded-xl border border-border bg-card p-12 text-center">
+        <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-12 text-center">
           <BarChart3
-            className="mx-auto mb-4 h-12 w-12 text-muted-foreground/30"
+            className="mx-auto mb-4 h-12 w-12 text-on-surface-variant/30"
             aria-hidden="true"
           />
-          <h2 className="mb-2 text-lg font-semibold text-foreground">
+          <h2 className="font-headline mb-2 text-lg font-semibold text-on-surface">
             עדיין אין מספיק נתונים
           </h2>
-          <p className="text-muted-foreground">
+          <p className="font-body text-on-surface-variant">
             התחל להשתמש בכלים כדי לראות סטטיסטיקות ומגמות אישיות
           </p>
         </div>
@@ -176,49 +179,37 @@ export default function AnalyticsPage() {
       {/* תוכן עיקרי */}
       {!isLoading && !isError && analyticsData && (
         <div className="space-y-6">
-          {/* כרטיסי סטטיסטיקות */}
+          {/* כרטיסי סטטיסטיקות — bento grid */}
           <UsageStats stats={analyticsData.stats ?? EMPTY_STATS} />
 
           {/* תרשימים — שני עמודות */}
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* תרשים התפלגות כלים */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">התפלגות שימוש בכלים</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ToolUsageChart
-                  data={mapToolDistribution(analyticsData.toolDistribution ?? {})}
-                />
-              </CardContent>
-            </Card>
+            <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
+              <h2 className="font-headline font-semibold text-on-surface text-base mb-4">התפלגות שימוש בכלים</h2>
+              <ToolUsageChart
+                data={mapToolDistribution(analyticsData.toolDistribution ?? {})}
+              />
+            </div>
 
             {/* תרשים פעילות לפי זמן */}
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">פעילות לאורך זמן</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ActivityHeatmap data={analyticsData.activityByDate ?? []} />
-              </CardContent>
-            </Card>
+            <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
+              <h2 className="font-headline font-semibold text-on-surface text-base mb-4">פעילות לאורך זמן</h2>
+              <ActivityHeatmap data={analyticsData.activityByDate ?? []} />
+            </div>
           </div>
 
           {/* מגמת מצב רוח */}
           {analyticsData.moodTrend && analyticsData.moodTrend.length > 0 && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="text-base">מגמת מצב רוח</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ActivityHeatmap
-                  data={analyticsData.moodTrend.map((point) => ({
-                    date: point.date,
-                    count: point.mood,
-                  }))}
-                />
-              </CardContent>
-            </Card>
+            <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
+              <h2 className="font-headline font-semibold text-on-surface text-base mb-4">מגמת מצב רוח</h2>
+              <ActivityHeatmap
+                data={analyticsData.moodTrend.map((point) => ({
+                  date: point.date,
+                  count: point.mood,
+                }))}
+              />
+            </div>
           )}
         </div>
       )}

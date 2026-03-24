@@ -133,7 +133,7 @@ export default function GraphologyPage() {
   return (
     <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
       <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
-        <TabsList className="mb-4 bg-gray-800/50">
+        <TabsList className="mb-4 bg-surface-container/60">
           <TabsTrigger value="analysis" className="flex items-center gap-1"><PenTool className="h-3 w-3" /> ניתוח</TabsTrigger>
           <TabsTrigger value="timeline" className="flex items-center gap-1"><Clock className="h-3 w-3" /> ציר זמן</TabsTrigger>
           <TabsTrigger value="compare" className="flex items-center gap-1"><GitCompare className="h-3 w-3" /> השוואה</TabsTrigger>
@@ -171,30 +171,32 @@ export default function GraphologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">העלאת דגימת כתב יד</CardTitle>
+            <CardTitle className="text-lg text-primary font-headline">העלאת דגימת כתב יד</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* העלאת קובץ */}
                 <div className="space-y-1">
-                  <Label className="text-gray-300">העלאת תמונה</Label>
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png,image/webp"
-                    onChange={handleFileUpload}
-                    disabled={uploading}
-                    className="block w-full text-sm text-gray-400 file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-purple-600 file:text-white hover:file:bg-purple-700 cursor-pointer"
-                    aria-label="בחר תמונת כתב יד לניתוח"
-                  />
-                  {uploading && <p className="text-xs text-purple-400">מעלה תמונה...</p>}
+                  <Label className="text-on-surface-variant font-label">העלאת תמונה</Label>
+                  <div className="border-2 border-dashed border-outline-variant/30 hover:border-primary/40 rounded-xl p-8 bg-surface-container-lowest transition-colors text-center">
+                    <input
+                      type="file"
+                      accept="image/jpeg,image/png,image/webp"
+                      onChange={handleFileUpload}
+                      disabled={uploading}
+                      className="block w-full text-sm text-on-surface-variant file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:opacity-80 cursor-pointer"
+                      aria-label="בחר תמונת כתב יד לניתוח"
+                    />
+                  </div>
+                  {uploading && <p className="text-xs text-primary font-label">מעלה תמונה...</p>}
                 </div>
 
                 {/* שדה URL */}
                 <div className="space-y-1">
-                  <Label htmlFor="imageUrl" className="text-gray-300">
+                  <Label htmlFor="imageUrl" className="text-on-surface-variant font-label">
                     או הדבק קישור לתמונת כתב יד
                   </Label>
                   <Input
@@ -205,7 +207,7 @@ export default function GraphologyPage() {
                     {...register('imageUrl')}
                   />
                   {errors.imageUrl && (
-                    <p className="text-xs text-red-400">{errors.imageUrl.message}</p>
+                    <p className="text-xs text-error">{errors.imageUrl.message}</p>
                   )}
                 </div>
 
@@ -213,7 +215,7 @@ export default function GraphologyPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending || uploading}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
                   {mutation.isPending ? 'מנתח כתב יד...' : 'נתח כתב יד'}
                 </Button>
@@ -232,21 +234,21 @@ export default function GraphologyPage() {
           className="space-y-6"
         >
           {/* סיכום כללי + הערכה */}
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
-              <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+              <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
                 <PenTool className="h-4 w-4" />
                 ניתוח גרפולוגי
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+              <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{result.summary}</ReactMarkdown>
               </div>
               {result.overall_assessment && (
-                <div className="border-t border-purple-500/20 pt-4">
-                  <h3 className="text-sm font-semibold text-purple-300 mb-2">הערכה כוללת</h3>
-                  <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+                <div className="border-t border-outline-variant/20 pt-4">
+                  <h3 className="text-sm font-semibold text-primary font-headline mb-2">הערכה כוללת</h3>
+                  <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                     <ReactMarkdown>{result.overall_assessment}</ReactMarkdown>
                   </div>
                 </div>
@@ -255,9 +257,9 @@ export default function GraphologyPage() {
           </Card>
 
           {/* תרשים רדאר — 9 מרכיבים */}
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
-              <CardTitle className="text-base text-purple-300">9 מרכיבים גרפולוגיים</CardTitle>
+              <CardTitle className="text-base text-primary font-headline">9 מרכיבים גרפולוגיים</CardTitle>
             </CardHeader>
             <CardContent>
               <GraphologyQuickStats components={result.components} />
@@ -266,9 +268,9 @@ export default function GraphologyPage() {
 
           {/* תכונות אישיות */}
           {result.personality_traits && result.personality_traits.length > 0 && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300">תכונות אישיות</CardTitle>
+                <CardTitle className="text-base text-primary font-headline">תכונות אישיות</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex flex-wrap gap-2">
@@ -276,7 +278,7 @@ export default function GraphologyPage() {
                     <Badge
                       key={trait}
                       variant="secondary"
-                      className="bg-purple-600/20 text-purple-300 border-purple-500/30"
+                      className="bg-primary-container/20 text-primary border-outline-variant/20 font-label"
                     >
                       {trait}
                     </Badge>
@@ -288,17 +290,17 @@ export default function GraphologyPage() {
 
           {/* תובנות */}
           {result.insights && result.insights.length > 0 && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300">תובנות</CardTitle>
+                <CardTitle className="text-base text-primary font-headline">תובנות</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 {result.insights.map((insight, i) => (
                   <div key={i} className="space-y-1">
-                    <p className="text-xs font-semibold text-purple-400 uppercase tracking-wide">
+                    <p className="text-xs font-semibold text-primary font-label uppercase tracking-wide">
                       {insight.category}
                     </p>
-                    <div className="prose prose-invert prose-sm max-w-none text-gray-300">
+                    <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                       <ReactMarkdown>{insight.text}</ReactMarkdown>
                     </div>
                   </div>
@@ -312,7 +314,7 @@ export default function GraphologyPage() {
             <Button
               variant="outline"
               onClick={() => window.print()}
-              className="border-purple-500/30 text-purple-300 hover:bg-purple-600/10"
+              className="border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high"
             >
               <Printer className="h-4 w-4 ms-2" />
               ייצא PDF

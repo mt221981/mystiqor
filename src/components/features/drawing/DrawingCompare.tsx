@@ -75,12 +75,12 @@ function formatDate(isoDate: string): string {
  */
 function KoppitzDelta({ scoreA, scoreB }: { scoreA?: number; scoreB?: number }) {
   if (scoreA === undefined || scoreB === undefined) {
-    return <span className="text-gray-500">—</span>
+    return <span className="text-on-surface-variant/60">—</span>
   }
   const delta = scoreB - scoreA
   if (delta === 0) {
     return (
-      <span className="flex items-center gap-1 text-gray-400">
+      <span className="flex items-center gap-1 text-on-surface-variant">
         <Minus className="h-4 w-4" />
         {delta}
       </span>
@@ -88,13 +88,13 @@ function KoppitzDelta({ scoreA, scoreB }: { scoreA?: number; scoreB?: number }) 
   }
   if (delta > 0) {
     return (
-      <span className="flex items-center gap-1 text-red-400">
+      <span className="flex items-center gap-1 text-error">
         <ArrowUp className="h-4 w-4" />+{delta}
       </span>
     )
   }
   return (
-    <span className="flex items-center gap-1 text-green-400">
+    <span className="flex items-center gap-1 text-tertiary">
       <ArrowDown className="h-4 w-4" />{delta}
     </span>
   )
@@ -128,31 +128,31 @@ function AnalysisCard({
   isAdd: boolean
 }) {
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50 flex-1">
+    <Card className="border-outline-variant/5 bg-surface-container rounded-xl p-6 flex-1">
       <CardHeader className="pb-2">
-        <CardTitle className="text-sm text-purple-300">
+        <CardTitle className="text-sm text-primary font-headline">
           {label} — {formatDate(analysis.created_at)}
         </CardTitle>
-        <p className="text-xs text-gray-400">
+        <p className="text-xs text-on-surface-variant font-label">
           סוג: {drawingTypeLabel(response.analysis_type)}
         </p>
       </CardHeader>
       <CardContent className="space-y-3">
         {/* סיכום */}
-        <p className="text-sm text-gray-300 leading-relaxed line-clamp-3">{response.summary}</p>
+        <p className="text-sm text-on-surface leading-relaxed line-clamp-3 font-body">{response.summary}</p>
 
         {/* ציון Koppitz */}
         {response.koppitz_score !== undefined && (
           <div>
-            <p className="text-xs font-medium text-gray-400 mb-1">ציון Koppitz</p>
-            <span className="text-lg font-bold text-purple-300">{response.koppitz_score}/30</span>
+            <p className="text-xs font-label font-medium text-on-surface-variant mb-1">ציון Koppitz</p>
+            <span className="text-lg font-bold font-headline text-primary">{response.koppitz_score}/30</span>
           </div>
         )}
 
         {/* מדדים רגשיים */}
         {response.emotional_indicators.length > 0 && (
           <div>
-            <p className="text-xs font-medium text-gray-400 mb-2">מדדים רגשיים</p>
+            <p className="text-xs font-label font-medium text-on-surface-variant mb-2">מדדים רגשיים</p>
             <div className="flex flex-wrap gap-1">
               {response.emotional_indicators.map((indicator, idx) => {
                 const isHighlighted = highlightIndicators.has(indicator)
@@ -160,7 +160,7 @@ function AnalysisCard({
                   <Badge
                     key={idx}
                     variant={isHighlighted ? (isAdd ? 'default' : 'destructive') : 'outline'}
-                    className={`text-xs ${isHighlighted ? '' : 'text-gray-400 border-gray-600'}`}
+                    className={`font-label text-xs ${isHighlighted ? '' : 'text-on-surface-variant border-outline-variant/30'}`}
                   >
                     {indicator}
                   </Badge>
@@ -191,7 +191,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
 
   if (isLoading) {
     return (
-      <div className="text-center py-8 text-gray-400">
+      <div className="text-center py-8 text-on-surface-variant">
         <p>טוען ניתוחים...</p>
       </div>
     )
@@ -199,7 +199,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
 
   if (isError) {
     return (
-      <div className="text-center py-8 text-red-400">
+      <div className="text-center py-8 text-error">
         <p>שגיאה בטעינת ניתוחים. נסה שוב.</p>
       </div>
     )
@@ -207,10 +207,10 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
 
   if (!analyses || analyses.length < 2) {
     return (
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="py-8 text-center">
-          <p className="text-gray-400">נדרשים לפחות 2 ניתוחים להשוואה</p>
-          <p className="text-sm text-gray-500 mt-2">
+          <p className="text-on-surface-variant">נדרשים לפחות 2 ניתוחים להשוואה</p>
+          <p className="text-sm text-on-surface-variant/60 mt-2 font-body">
             בצע ניתוחי ציורים נוספים כדי להשוות בין תוצאות
           </p>
         </CardContent>
@@ -235,11 +235,11 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* ניתוח A */}
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-300">ניתוח A</label>
+          <label className="text-sm font-label font-medium text-on-surface-variant">ניתוח A</label>
           <select
             value={selectedA}
             onChange={e => setSelectedA(e.target.value)}
-            className="w-full rounded-md border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full rounded-md border border-outline-variant/30 bg-surface-container-low px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
             <option value="">בחר ניתוח</option>
             {analyses.map(a => (
@@ -252,11 +252,11 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
 
         {/* ניתוח B */}
         <div className="space-y-1">
-          <label className="text-sm font-medium text-gray-300">ניתוח B</label>
+          <label className="text-sm font-label font-medium text-on-surface-variant">ניתוח B</label>
           <select
             value={selectedB}
             onChange={e => setSelectedB(e.target.value)}
-            className="w-full rounded-md border border-gray-600 bg-gray-800 px-3 py-2 text-sm text-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="w-full rounded-md border border-outline-variant/30 bg-surface-container-low px-3 py-2 text-sm text-on-surface focus:outline-none focus:ring-2 focus:ring-primary/40"
           >
             <option value="">בחר ניתוח</option>
             {analyses.map(a => (
@@ -290,20 +290,20 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
           </div>
 
           {/* סיכום הבדלים */}
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-purple-300">השוואה</CardTitle>
+              <CardTitle className="text-sm text-primary font-headline">השוואה</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {/* Koppitz delta */}
               <div className="flex items-center gap-3">
-                <span className="text-sm text-gray-400 w-32">שינוי ציון Koppitz:</span>
+                <span className="text-sm text-on-surface-variant font-label w-32">שינוי ציון Koppitz:</span>
                 <KoppitzDelta
                   scoreA={responseA.koppitz_score}
                   scoreB={responseB.koppitz_score}
                 />
                 {responseA.koppitz_score !== undefined && responseB.koppitz_score !== undefined && (
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-on-surface-variant/60 font-body">
                     ({responseA.koppitz_score} → {responseB.koppitz_score})
                   </span>
                 )}
@@ -312,12 +312,12 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
               {/* מדדים שנוספו */}
               {addedInB.size > 0 && (
                 <div>
-                  <p className="text-xs font-medium text-green-400 mb-1">
+                  <p className="text-xs font-label font-medium text-tertiary mb-1">
                     מדדים רגשיים חדשים בניתוח B:
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {[...addedInB].map((ind, idx) => (
-                      <Badge key={idx} variant="default" className="text-xs bg-green-700 text-white">
+                      <Badge key={idx} variant="default" className="font-label text-xs bg-tertiary/20 text-tertiary border-tertiary/30">
                         + {ind}
                       </Badge>
                     ))}
@@ -328,12 +328,12 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
               {/* מדדים שהוסרו */}
               {removedFromA.size > 0 && (
                 <div>
-                  <p className="text-xs font-medium text-red-400 mb-1">
+                  <p className="text-xs font-label font-medium text-error mb-1">
                     מדדים רגשיים שנעלמו בניתוח B:
                   </p>
                   <div className="flex flex-wrap gap-1">
                     {[...removedFromA].map((ind, idx) => (
-                      <Badge key={idx} variant="destructive" className="text-xs">
+                      <Badge key={idx} variant="destructive" className="font-label text-xs">
                         - {ind}
                       </Badge>
                     ))}
@@ -342,7 +342,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
               )}
 
               {addedInB.size === 0 && removedFromA.size === 0 && (
-                <p className="text-sm text-gray-400">המדדים הרגשיים זהים בשני הניתוחים</p>
+                <p className="text-sm text-on-surface-variant font-body">המדדים הרגשיים זהים בשני הניתוחים</p>
               )}
             </CardContent>
           </Card>

@@ -196,34 +196,39 @@ export default function DigitalCanvas({ onSave, onCancel }: CanvasProps) {
   return (
     <div className="space-y-4" dir="rtl">
       {/* סרגל כלים */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/10 bg-surface-container">
         <CardContent className="p-3">
           <div className="flex flex-wrap items-center gap-3">
             {(['pen', 'eraser'] as const).map(t => (
               <Button key={t} type="button" size="sm"
                 variant={tool === t ? 'default' : 'outline'}
                 onClick={() => setTool(t)}
-                className={tool === t ? 'bg-purple-600 hover:bg-purple-700' : ''}
+                className={tool === t
+                  ? 'bg-primary-container/20 text-primary font-label'
+                  : 'bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label'
+                }
                 aria-pressed={tool === t}
               >
                 {t === 'pen' ? <Pencil className="h-4 w-4 ms-1" /> : <Eraser className="h-4 w-4 ms-1" />}
                 {t === 'pen' ? 'עט' : 'מחק'}
               </Button>
             ))}
-            <div className="h-6 w-px bg-gray-600" />
-            <Button type="button" variant="outline" size="sm" onClick={handleUndo} disabled={!canUndo} aria-label="בטל">
+            <div className="h-6 w-px bg-outline-variant/30" />
+            <Button type="button" variant="outline" size="sm" onClick={handleUndo} disabled={!canUndo}
+              className="bg-surface-container hover:bg-surface-container-high text-on-surface-variant font-label" aria-label="בטל">
               <RotateCcw className="h-4 w-4 ms-1" />בטל
             </Button>
-            <Button type="button" variant="outline" size="sm" onClick={handleClear} className="text-red-400 hover:text-red-300" aria-label="נקה">
+            <Button type="button" variant="outline" size="sm" onClick={handleClear}
+              className="text-error hover:bg-error/10 font-label" aria-label="נקה">
               <Trash2 className="h-4 w-4 ms-1" />נקה
             </Button>
-            {strokeCount > 0 && <span className="text-xs text-gray-400 me-auto">{strokeCount} קווים</span>}
+            {strokeCount > 0 && <span className="text-xs text-on-surface-variant font-label me-auto">{strokeCount} קווים</span>}
           </div>
         </CardContent>
       </Card>
 
       {/* הקנבס */}
-      <Card className="border-purple-500/20 bg-white overflow-hidden">
+      <Card className="bg-surface-container-lowest rounded-xl border border-outline-variant/10 overflow-hidden">
         <CardContent className="p-0">
           <canvas ref={canvasRef}
             onMouseDown={onMouseDown} onMouseMove={onMouseMove}
@@ -237,11 +242,12 @@ export default function DigitalCanvas({ onSave, onCancel }: CanvasProps) {
 
       {/* כפתורי שמירה/ביטול */}
       <div className="flex gap-3">
-        <Button type="button" variant="outline" onClick={onCancel} className="flex-1">
+        <Button type="button" variant="outline" onClick={onCancel}
+          className="flex-1 border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high font-label">
           <X className="h-4 w-4 ms-1" />ביטול
         </Button>
         <Button type="button" onClick={handleSave} disabled={strokeCount === 0}
-          className="flex-1 bg-purple-600 hover:bg-purple-700 text-white" aria-label="שמור ונתח">
+          className="flex-1 bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold rounded-xl active:scale-95" aria-label="שמור ונתח">
           <Check className="h-4 w-4 ms-1" />שמור ונתח
         </Button>
       </div>

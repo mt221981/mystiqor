@@ -40,8 +40,6 @@ const STAT_CARDS = [
     label: 'סה"כ ניתוחים',
     description: 'ניתוחים שבוצעו',
     Icon: BarChart3,
-    gradient: 'from-purple-500/20 to-violet-500/20',
-    iconColor: 'text-purple-400',
     format: (stats: AnalyticsStatsData) => String(stats.totalAnalyses),
   },
   {
@@ -49,8 +47,6 @@ const STAT_CARDS = [
     label: 'ממוצע מצב רוח',
     description: 'ציון ממוצע 1-10',
     Icon: Smile,
-    gradient: 'from-amber-500/20 to-orange-500/20',
-    iconColor: 'text-amber-400',
     format: (stats: AnalyticsStatsData) =>
       stats.avgMood > 0 ? `${stats.avgMood.toFixed(1)}/10` : '—',
   },
@@ -59,8 +55,6 @@ const STAT_CARDS = [
     label: 'יעדים שהושלמו',
     description: 'מתוך סה"כ היעדים',
     Icon: Target,
-    gradient: 'from-emerald-500/20 to-teal-500/20',
-    iconColor: 'text-emerald-400',
     format: (stats: AnalyticsStatsData) =>
       `${stats.completedGoals}/${stats.totalGoals}`,
   },
@@ -69,8 +63,6 @@ const STAT_CARDS = [
     label: 'שיעור השלמת יעדים',
     description: 'אחוז יעדים שהסתיימו',
     Icon: TrendingUp,
-    gradient: 'from-blue-500/20 to-cyan-500/20',
-    iconColor: 'text-blue-400',
     format: (stats: AnalyticsStatsData) =>
       stats.totalGoals > 0 ? `${stats.goalCompletionRate.toFixed(0)}%` : '—',
   },
@@ -85,29 +77,32 @@ const STAT_CARDS = [
  */
 export function UsageStats({ stats }: UsageStatsProps) {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" dir="rtl">
-      {STAT_CARDS.map(({ key, label, description, Icon, gradient, iconColor, format }) => (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4" dir="rtl">
+      {STAT_CARDS.map(({ key, label, description, Icon, format }) => (
         <div
           key={key}
-          className="rounded-xl border border-border bg-card p-5"
+          className="bg-surface-container rounded-xl p-4 h-32 relative overflow-hidden border border-outline-variant/5"
           role="status"
           aria-label={`${label}: ${format(stats)}`}
         >
+          {/* גלו רקע */}
+          <div className="absolute -bottom-4 -start-4 w-12 h-12 bg-primary/5 rounded-full blur-xl" aria-hidden="true" />
+
           <div className="flex items-start justify-between">
             <div>
-              <p className="text-sm text-muted-foreground">{label}</p>
-              <p className="mt-1 text-3xl font-bold text-foreground">
+              <p className="font-label text-xs text-on-surface-variant">{label}</p>
+              <p className="mt-1 text-3xl font-headline font-black text-on-surface">
                 {format(stats)}
               </p>
             </div>
             <div
-              className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${gradient}`}
+              className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary-container/10"
               aria-hidden="true"
             >
-              <Icon className={`h-5 w-5 ${iconColor}`} aria-hidden="true" />
+              <Icon className="h-5 w-5 text-primary" aria-hidden="true" />
             </div>
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">{description}</p>
+          <p className="mt-3 font-label text-xs text-on-surface-variant">{description}</p>
         </div>
       ))}
     </div>

@@ -5,8 +5,6 @@
 
 'use client'
 
-import { Button } from '@/components/ui/button'
-
 /** מושג עם תווית לתצוגה ופרומפט לשליחה */
 export interface Concept {
   /** תווית קצרה להצגה בכפתור */
@@ -37,15 +35,15 @@ export function QuickConceptButtons({ concepts, onSelect, disabled }: QuickConce
   return (
     <div className="flex flex-wrap gap-2">
       {concepts.map((concept) => (
-        <Button
+        <button
           key={concept.label}
-          variant="outline"
-          size="sm"
+          type="button"
           disabled={disabled}
           onClick={() => onSelect(concept.prompt)}
+          className="bg-surface-container border border-outline-variant/20 rounded-full px-4 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label text-sm transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
         >
           {concept.label}
-        </Button>
+        </button>
       ))}
     </div>
   )

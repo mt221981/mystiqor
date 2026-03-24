@@ -8,8 +8,6 @@
 
 import { useState, useRef, useEffect, type KeyboardEvent } from 'react'
 import { SendHorizontal } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 
 /** הודעה בצ'אט */
 export interface ChatMessage {
@@ -86,9 +84,9 @@ export function TutorChat({
   return (
     <div className="flex flex-col gap-4">
       {/* אזור הודעות */}
-      <div className="max-h-[500px] overflow-y-auto rounded-lg border bg-background p-4 flex flex-col gap-3">
+      <div className="max-h-[500px] overflow-y-auto bg-surface-container-lowest rounded-xl p-4 flex flex-col gap-3">
         {messages.length === 0 ? (
-          <p className="text-muted-foreground text-center text-sm py-8">{emptyMessage}</p>
+          <p className="font-body text-on-surface-variant text-center text-sm py-8">{emptyMessage}</p>
         ) : (
           messages.map((msg, i) => (
             <div
@@ -96,10 +94,10 @@ export function TutorChat({
               className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 text-sm whitespace-pre-wrap ${
+                className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm whitespace-pre-wrap font-body ${
                   msg.role === 'user'
-                    ? 'bg-purple-600/20 text-end'
-                    : 'bg-muted text-start'
+                    ? 'bg-gradient-to-br from-primary-container to-secondary-container text-white rounded-bl-sm text-end'
+                    : 'bg-surface-container border border-outline-variant/10 text-on-surface rounded-br-sm text-start'
                 }`}
               >
                 {msg.content}
@@ -111,10 +109,10 @@ export function TutorChat({
         {/* אינדיקטור טעינה */}
         {isLoading && (
           <div className="flex justify-start">
-            <div className="bg-muted rounded-lg px-4 py-3 flex gap-1 items-center">
-              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce [animation-delay:-0.3s]" />
-              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce [animation-delay:-0.15s]" />
-              <span className="w-2 h-2 rounded-full bg-muted-foreground animate-bounce" />
+            <div className="bg-surface-container border border-outline-variant/10 rounded-2xl rounded-br-sm px-4 py-3 flex gap-1 items-center">
+              <span className="w-2 h-2 rounded-full bg-on-surface-variant animate-bounce [animation-delay:-0.3s]" />
+              <span className="w-2 h-2 rounded-full bg-on-surface-variant animate-bounce [animation-delay:-0.15s]" />
+              <span className="w-2 h-2 rounded-full bg-on-surface-variant animate-bounce" />
             </div>
           </div>
         )}
@@ -124,23 +122,25 @@ export function TutorChat({
 
       {/* שדה קלט + כפתור שליחה */}
       <div className="flex gap-2">
-        <Input
+        <input
+          type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           disabled={isLoading}
-          className="flex-1"
+          className="flex-1 bg-surface-container-lowest rounded-xl px-4 py-3 text-on-surface placeholder:text-outline/40 font-body text-sm focus:outline-none focus:ring-1 focus:ring-primary/40 disabled:opacity-50"
           dir="rtl"
         />
-        <Button
+        <button
+          type="button"
           onClick={handleSend}
           disabled={isLoading || !input.trim()}
-          size="icon"
+          className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary-container text-on-primary-container hover:opacity-90 transition-opacity disabled:opacity-40"
           aria-label="שלח הודעה"
         >
           <SendHorizontal className="h-4 w-4" />
-        </Button>
+        </button>
       </div>
     </div>
   )
