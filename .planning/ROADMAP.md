@@ -23,6 +23,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 8: Growth + Monetization** - Stripe checkout, subscription management, referral, email flows, rate limiting
 - [x] **Phase 9: Learning + History + Analytics** - Analysis history, tutorials, astrology tutor, drawing tutor, self-analytics
 - [x] **Phase 10: Polish + PWA + Export** - PDF export, social sharing, PWA manifest + service worker, notifications
+- [ ] **Phase 11: UI Overhaul — Design System Reskin** - MD3 color tokens, new fonts, glassmorphism, nebula gradients, bento layouts, reskin all pages
 
 ## Phase Details
 
@@ -221,10 +222,36 @@ Plans:
 - [x] 10-02-PLAN.md — PWA manifest + minimal service worker + icons + InstallPrompt component + SW registration (UX-04)
 - [x] 10-03-PLAN.md — Integration verification (TypeScript build + component audit + human-verify PDF, sharing, PWA)
 
+### Phase 11: UI Overhaul — Design System Reskin
+**Goal**: Reskin the entire application to match the Stitch design system: dark cosmic theme (#131315), Material Design 3 color tokens, Plus Jakarta Sans + Inter + Manrope typography, glassmorphism panels, nebula gradients, bento grid layouts, Material Symbols Outlined icons — applied to every page and component.
+**Depends on**: Phase 10
+**Requirements**: UI-10, UI-11, UI-12, UI-13, UI-14
+**Success Criteria** (what must be TRUE):
+  1. Every page uses the new color palette (#131315 background, #ddb8ff primary, #8f2de6 container, #4edea3 tertiary, #3626ce secondary)
+  2. Typography uses Plus Jakarta Sans for headlines, Inter for body, Manrope for labels — no Assistant font remnants
+  3. All cards use glassmorphism (backdrop-blur, semi-transparent backgrounds) matching the Stitch designs
+  4. Header is fixed with glass-nav effect, nebula glow shadow, and Material Symbols icons
+  5. Dashboard shows bento grid layout with personalized greeting, daily insight widget with nebula gradient, and stat cards matching the design
+  6. Tool pages (numerology, graphology, palmistry, human design) match their respective Stitch screen designs
+  7. AI chat interface matches the cosmic chat bubble design with history navigation
+**Plans:** 10 plans
+
+Plans:
+- [ ] 11-01-PLAN.md — Design system foundation: Tailwind MD3 color palette + font families + custom CSS utilities + 4 shared UI primitives (UI-10, UI-11)
+- [ ] 11-02-PLAN.md — App shell reskin: Header glass-nav + Sidebar glass-panel + MobileNav + PageHeader + auth layout stars-bg (UI-12)
+- [ ] 11-03-PLAN.md — Dashboard bento grid + DailyInsightCard nebula gradient + StatCards + charts + onboarding reskin (UI-13)
+- [ ] 11-04-PLAN.md — Tier 1 tool pages reskin: numerology, astrology, tarot, dream, personality, daily insights (UI-13)
+- [ ] 11-05-PLAN.md — Tier 2 tool pages reskin: graphology, drawing, palmistry, human design, compatibility (UI-13)
+- [ ] 11-06-PLAN.md — Tier 3 tool pages reskin: transits, synastry, solar return, timing, career, relationships, document, forecast, calendar (UI-13)
+- [ ] 11-07-PLAN.md — Tracking pages reskin: mood, journal, goals, notifications (UI-13)
+- [ ] 11-08-PLAN.md — AI + Growth pages reskin: coach chat, synthesis, pricing, subscription, referrals, settings, profile, guards (UI-14)
+- [ ] 11-09-PLAN.md — Learning + Analytics reskin: history, compare, tutorials, blog, analytics, tutors, shared components (UI-13)
+- [ ] 11-10-PLAN.md — Integration verification: remaining components + codebase-wide color audit + visual QA checkpoint (UI-10, UI-11, UI-12, UI-13, UI-14)
+
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
+Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10 -> 11
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
@@ -239,34 +266,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 8. Growth + Monetization | 6/6 | Complete   | 2026-03-24 |
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
 | 10. Polish + PWA + Export | 3/3 | Complete   | 2026-03-24 |
-
-### Phase 11: UI Overhaul — Design System Reskin
-**Goal**: Reskin the entire application to match the Stitch design system: dark cosmic theme (#131315), Material Design 3 color tokens, Plus Jakarta Sans + Inter + Manrope typography, glassmorphism panels, nebula gradients, bento grid layouts, Material Symbols Outlined icons — applied to every page and component.
-**Depends on**: Phase 10
-**Requirements**: UI-10, UI-11, UI-12, UI-13, UI-14
-**Success Criteria** (what must be TRUE):
-  1. Every page uses the new color palette (#131315 background, #ddb8ff primary, #8f2de6 container, #4edea3 tertiary, #3626ce secondary)
-  2. Typography uses Plus Jakarta Sans for headlines, Inter for body, Manrope for labels — no Assistant font remnants
-  3. All cards use glassmorphism (backdrop-blur, semi-transparent backgrounds) matching the Stitch designs
-  4. Header is fixed with glass-nav effect, nebula glow shadow, and Material Symbols icons
-  5. Dashboard shows bento grid layout with personalized greeting, daily insight widget with nebula gradient, and stat cards matching the design
-  6. Tool pages (numerology, graphology, palmistry, human design) match their respective Stitch screen designs
-  7. AI chat interface matches the cosmic chat bubble design with history navigation
-**Plans**: TBD
-
-Plans:
-- [ ] 11-01: Design system foundation (tailwind config, global CSS, fonts, shared UI primitives)
-- [ ] 11-02: App shell reskin (header, sidebar, navigation, layout wrappers)
-- [ ] 11-03: Dashboard + onboarding reskin (bento grid, daily insight widget, stat cards, onboarding steps)
-- [ ] 11-04: Tool pages reskin — Tier 1 (numerology, astrology, tarot, dream, personality, daily insights)
-- [ ] 11-05: Tool pages reskin — Tier 2 (graphology, drawing, palmistry, human design, compatibility)
-- [ ] 11-06: Tool pages reskin — Tier 3 (transits, synastry, solar return, timing, career, relationships, document)
-- [ ] 11-07: Tracking pages reskin (mood, journal, goals, notifications)
-- [ ] 11-08: AI + Growth pages reskin (coach chat, synthesis, pricing, subscription, referrals, settings)
-- [ ] 11-09: Learning + Analytics reskin (history, compare, tutorials, blog, analytics, tutors)
-- [ ] 11-10: Integration verification + visual QA
-**Depends on:** Phase 10
-**Plans:** 0 plans
-
-Plans:
-- [ ] TBD (run /gsd:plan-phase 11 to break down)
+| 11. UI Overhaul — Design System Reskin | 0/10 | In Progress |  |
