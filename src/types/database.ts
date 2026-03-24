@@ -945,6 +945,29 @@ export interface Database {
         Relationships: never[];
       };
 
+      /** אירועי webhook מעובדים - מניעת עיבוד כפול (idempotency) */
+      processed_webhook_events: {
+        Row: {
+          id: string;
+          stripe_event_id: string;
+          event_type: string;
+          processed_at: string | null;
+        };
+        Insert: {
+          id?: string;
+          stripe_event_id: string;
+          event_type: string;
+          processed_at?: string | null;
+        };
+        Update: {
+          id?: string;
+          stripe_event_id?: string;
+          event_type?: string;
+          processed_at?: string | null;
+        };
+        Relationships: never[];
+      };
+
       /** אירועי אנליטיקס - מעקב שימוש ואירועים במערכת */
       analytics_events: {
         Row: {
