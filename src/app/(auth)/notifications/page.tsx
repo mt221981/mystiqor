@@ -239,7 +239,7 @@ export default function NotificationsPage() {
                   )}
                 >
                   {Object.entries(REMINDER_TYPE_LABELS).map(([value, label]) => (
-                    <option key={value} value={value} className="bg-gray-900 text-white">
+                    <option key={value} value={value} className="bg-surface-container text-on-surface">
                       {label}
                     </option>
                   ))}

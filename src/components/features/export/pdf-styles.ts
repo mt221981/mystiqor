@@ -13,7 +13,7 @@ Font.register({
 export const pdfStyles = StyleSheet.create({
   page: {
     fontFamily: 'Heebo',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#201f22', // surface-container (MD3)
     padding: 40,
     direction: 'rtl',
   },
@@ -21,33 +21,33 @@ export const pdfStyles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'right',
     marginBottom: 20,
-    color: '#1a1025',
+    color: '#ddb8ff', // primary (MD3)
     borderBottomWidth: 2,
-    borderBottomColor: '#7c3aed',
+    borderBottomColor: '#8f2de6', // primary-container (MD3)
     paddingBottom: 10,
   },
   subtitle: {
     fontSize: 14,
     textAlign: 'right',
     marginBottom: 12,
-    color: '#6b21a8',
+    color: '#ddb8ff', // primary (MD3)
   },
   body: {
     fontSize: 11,
     textAlign: 'right',
     lineHeight: 1.6,
-    color: '#333333',
+    color: '#e5e1e4', // on-surface (MD3)
   },
   section: {
     marginBottom: 16,
     paddingBottom: 8,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: '#4a4455', // outline-variant (MD3)
   },
   label: {
     fontSize: 10,
     textAlign: 'right',
-    color: '#6b7280',
+    color: '#ccc3d8', // on-surface-variant (MD3)
     marginBottom: 4,
   },
   footer: {
@@ -57,7 +57,7 @@ export const pdfStyles = StyleSheet.create({
     right: 40,
     fontSize: 8,
     textAlign: 'center',
-    color: '#9ca3af',
+    color: '#9ca3af', // muted (neutral — acceptable in print context)
   },
 })
 

@@ -175,8 +175,8 @@ export class ErrorBoundary extends Component<
         <div
           className={cn(
             'w-full max-w-md rounded-2xl',
-            'border border-red-500/20 bg-gray-900 p-8',
-            'text-center shadow-xl shadow-red-500/5'
+            'border border-error/20 bg-surface-container p-8',
+            'text-center shadow-xl shadow-error/5'
           )}
           role="alert"
         >
@@ -191,20 +191,20 @@ export class ErrorBoundary extends Component<
           </div>
 
           {/* כותרת */}
-          <h2 className="mb-2 text-xl font-bold text-white">
+          <h2 className="mb-2 text-xl font-bold text-on-surface">
             משהו השתבש
           </h2>
 
           {/* תיאור */}
-          <p className="mb-6 text-sm text-gray-400">
+          <p className="mb-6 text-sm text-on-surface-variant">
             אירעה שגיאה בלתי צפויה. ניתן לנסות שוב או לחזור לדף הבית.
           </p>
 
           {/* פרטי שגיאה */}
           <div
             className={cn(
-              'mb-6 rounded-lg bg-gray-950 p-3',
-              'border border-white/5 text-start'
+              'mb-6 rounded-lg bg-surface-container-lowest p-3',
+              'border border-outline-variant/10 text-start'
             )}
           >
             <p className="text-xs font-mono text-red-300 break-all">
@@ -219,10 +219,10 @@ export class ErrorBoundary extends Component<
               onClick={this.handleRetry}
               className={cn(
                 'inline-flex items-center justify-center gap-2 rounded-lg',
-                'bg-purple-600 px-4 py-2.5 text-sm font-medium text-white',
-                'hover:bg-purple-500 active:bg-purple-700',
-                'transition-colors duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-900'
+                'bg-primary-container text-on-primary-container px-4 py-2.5 text-sm font-medium',
+                'hover:opacity-90 active:scale-95',
+                'transition-all duration-200',
+                'focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2 focus:ring-offset-surface-container'
               )}
             >
               <RotateCcw className="h-4 w-4" />
@@ -234,11 +234,11 @@ export class ErrorBoundary extends Component<
               onClick={this.handleGoHome}
               className={cn(
                 'inline-flex items-center justify-center gap-2 rounded-lg',
-                'border border-white/10 bg-transparent px-4 py-2.5',
-                'text-sm font-medium text-gray-300',
-                'hover:bg-white/5 hover:text-white',
+                'border border-outline-variant/20 bg-transparent px-4 py-2.5',
+                'text-sm font-medium text-on-surface-variant',
+                'hover:bg-surface-container-high hover:text-on-surface',
                 'transition-colors duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-gray-900'
+                'focus:outline-none focus:ring-2 focus:ring-outline-variant/40 focus:ring-offset-2 focus:ring-offset-surface-container'
               )}
             >
               <Home className="h-4 w-4" />
@@ -250,11 +250,11 @@ export class ErrorBoundary extends Component<
               onClick={this.handleCopyError}
               className={cn(
                 'inline-flex items-center justify-center gap-2 rounded-lg',
-                'border border-white/10 bg-transparent px-4 py-2.5',
-                'text-sm font-medium text-gray-300',
-                'hover:bg-white/5 hover:text-white',
+                'border border-outline-variant/20 bg-transparent px-4 py-2.5',
+                'text-sm font-medium text-on-surface-variant',
+                'hover:bg-surface-container-high hover:text-on-surface',
                 'transition-colors duration-200',
-                'focus:outline-none focus:ring-2 focus:ring-white/20 focus:ring-offset-2 focus:ring-offset-gray-900'
+                'focus:outline-none focus:ring-2 focus:ring-outline-variant/40 focus:ring-offset-2 focus:ring-offset-surface-container'
               )}
               aria-label="העתק פרטי שגיאה"
             >

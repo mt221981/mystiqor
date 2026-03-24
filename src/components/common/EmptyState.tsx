@@ -63,18 +63,18 @@ export function EmptyState({
       <div
         className={cn(
           'mb-4 flex items-center justify-center rounded-2xl',
-          'h-16 w-16 bg-purple-600/10 text-purple-400'
+          'h-16 w-16 bg-primary-container/20 text-primary'
         )}
       >
         {icon ?? <Inbox className="h-8 w-8" />}
       </div>
 
       {/* כותרת */}
-      <h3 className="mb-2 text-lg font-semibold text-white">{title}</h3>
+      <h3 className="mb-2 text-lg font-semibold text-on-surface">{title}</h3>
 
       {/* תיאור */}
       {description && (
-        <p className="mb-6 max-w-sm text-sm text-gray-400">{description}</p>
+        <p className="mb-6 max-w-sm text-sm text-on-surface-variant">{description}</p>
       )}
 
       {/* כפתור פעולה */}
@@ -84,10 +84,10 @@ export function EmptyState({
           onClick={action.onClick}
           className={cn(
             'inline-flex items-center justify-center rounded-lg',
-            'bg-purple-600 px-5 py-2.5 text-sm font-medium text-white',
-            'hover:bg-purple-500 active:bg-purple-700',
-            'transition-colors duration-200',
-            'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 focus:ring-offset-gray-950'
+            'bg-primary-container text-on-primary-container px-5 py-2.5 text-sm font-medium',
+            'hover:opacity-90 active:scale-95',
+            'transition-all duration-200',
+            'focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-2 focus:ring-offset-surface'
           )}
         >
           {action.label}

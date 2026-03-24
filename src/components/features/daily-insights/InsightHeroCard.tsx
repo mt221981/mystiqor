@@ -80,7 +80,7 @@ function InsightHeroSkeleton() {
         <Skeleton className="h-4 w-4/6" />
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-3/4" />
-        <div className="mt-4 rounded-lg border border-white/10 bg-white/5 p-3">
+        <div className="mt-4 rounded-lg border border-outline-variant/10 bg-surface-container-high/20 p-3">
           <Skeleton className="h-4 w-1/3" />
           <Skeleton className="mt-2 h-4 w-5/6" />
         </div>

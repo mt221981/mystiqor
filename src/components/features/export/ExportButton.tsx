@@ -27,9 +27,13 @@ export function ExportButton({ toolType, summary, results, createdAt }: ExportBu
 
   if (!showPDF) {
     return (
-      <Button variant="outline" size="sm" onClick={() => setShowPDF(true)}>
+      <button
+        type="button"
+        onClick={() => setShowPDF(true)}
+        className="bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg px-3 py-2 font-label text-sm transition-colors"
+      >
         ייצוא PDF
-      </Button>
+      </button>
     )
   }
 
@@ -48,9 +52,20 @@ export function ExportButton({ toolType, summary, results, createdAt }: ExportBu
       fileName={fileName}
     >
       {({ loading }) => (
-        <Button variant="outline" size="sm" disabled={loading}>
-          {loading ? 'מכין PDF...' : 'הורד PDF'}
-        </Button>
+        <button
+          type="button"
+          disabled={loading}
+          className="bg-surface-container hover:bg-surface-container-high text-on-surface-variant hover:text-on-surface rounded-lg px-3 py-2 font-label text-sm transition-colors disabled:opacity-50"
+        >
+          {loading ? (
+            <span className="inline-flex items-center gap-2">
+              <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary border-t-transparent" />
+              מכין PDF...
+            </span>
+          ) : (
+            'הורד PDF'
+          )}
+        </button>
       )}
     </PDFDownloadLink>
   )

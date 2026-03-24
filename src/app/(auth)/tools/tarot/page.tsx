@@ -198,11 +198,11 @@ export default function TarotPage() {
 
                   {/* תגיות */}
                   <div className="flex flex-wrap gap-1 justify-center">
-                    <Badge variant="outline" className="text-xs font-label border-white/30 text-white/80">
+                    <Badge variant="outline" className="text-xs font-label border-outline-variant/30 text-on-surface">
                       {ARCANA_HE[card.arcana] ?? card.arcana}
                     </Badge>
                     {card.suit && (
-                      <Badge variant="outline" className="text-xs font-label border-white/20 text-white/60">
+                      <Badge variant="outline" className="text-xs font-label border-outline-variant/20 text-on-surface-variant">
                         {SUIT_HE[card.suit] ?? card.suit}
                       </Badge>
                     )}

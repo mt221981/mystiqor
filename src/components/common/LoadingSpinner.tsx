@@ -51,7 +51,7 @@ export function LoadingSpinner({
       <Loader2
         className={cn(
           SIZE_CLASSES[size],
-          'animate-spin text-purple-400'
+          'animate-spin text-primary'
         )}
         aria-hidden="true"
       />
@@ -59,7 +59,7 @@ export function LoadingSpinner({
         <p
           className={cn(
             TEXT_SIZE_CLASSES[size],
-            'text-gray-400'
+            'text-on-surface-variant'
           )}
         >
           {message}

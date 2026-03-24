@@ -60,32 +60,37 @@ export function InstallPrompt() {
   if (!deferredPrompt && !isIOS) return null
 
   return (
-    <div className="fixed bottom-4 start-4 end-4 md:start-auto md:end-4 md:w-80 bg-card border border-border rounded-lg p-4 shadow-lg z-50">
+    <div className="fixed bottom-4 start-4 end-4 md:start-auto md:end-4 md:w-80 bg-surface-container/60 backdrop-blur-xl rounded-xl p-6 border border-outline-variant/10 shadow-xl z-50">
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
-          <p className="font-semibold text-sm">התקינו את MystiQor</p>
+          <p className="font-headline font-semibold text-sm text-on-surface">התקינו את MystiQor</p>
           {isIOS ? (
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-on-surface-variant mt-1">
               לחצו על כפתור השיתוף ואז &quot;הוסף למסך הבית&quot;
             </p>
           ) : (
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="text-xs text-on-surface-variant mt-1">
               התקינו את האפליקציה לגישה מהירה ממסך הבית
             </p>
           )}
         </div>
         <button
+          type="button"
           onClick={() => setDismissed(true)}
-          className="text-muted-foreground hover:text-foreground text-lg leading-none"
+          className="text-on-surface-variant hover:text-on-surface font-label text-sm transition-colors text-lg leading-none"
           aria-label="סגור"
         >
           &times;
         </button>
       </div>
       {!isIOS && deferredPrompt && (
-        <Button size="sm" className="mt-3 w-full" onClick={handleInstall}>
+        <button
+          type="button"
+          onClick={handleInstall}
+          className="mt-3 w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold rounded-lg px-4 py-2.5 text-sm shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95 transition-transform"
+        >
           התקנה
-        </Button>
+        </button>
       )}
     </div>
   )

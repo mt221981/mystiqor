@@ -35,8 +35,8 @@ export function ExplainableInsight({ insight, showProvenance = true }: Explainab
   } = insight;
 
   const colorClass = insight_type
-    ? INSIGHT_TYPE_COLORS[insight_type] ?? 'bg-gray-100 text-gray-800 border-gray-300'
-    : 'bg-gray-100 text-gray-800 border-gray-300';
+    ? INSIGHT_TYPE_COLORS[insight_type] ?? 'bg-surface-container text-on-surface-variant border-outline-variant/30'
+    : 'bg-surface-container text-on-surface-variant border-outline-variant/30';
 
   return (
     <motion.div

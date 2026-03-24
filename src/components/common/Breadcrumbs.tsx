@@ -40,7 +40,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               {/* מפריד — לא מוצג לפני הפריט הראשון */}
               {index > 0 && (
                 <ChevronLeft
-                  className="h-3.5 w-3.5 text-gray-500"
+                  className="h-3.5 w-3.5 text-outline"
                   aria-hidden="true"
                 />
               )}
@@ -50,7 +50,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
                 <Link
                   href={item.href}
                   className={cn(
-                    'text-gray-400 hover:text-purple-400',
+                    'text-on-surface-variant hover:text-primary font-label',
                     'transition-colors duration-150'
                   )}
                 >
@@ -59,7 +59,7 @@ export function Breadcrumbs({ items }: BreadcrumbsProps) {
               ) : (
                 <span
                   className={cn(
-                    isLast ? 'font-medium text-white' : 'text-gray-400'
+                    isLast ? 'font-medium text-on-surface font-label' : 'text-on-surface-variant font-label'
                   )}
                   aria-current={isLast ? 'page' : undefined}
                 >
