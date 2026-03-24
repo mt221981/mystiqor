@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: "Completed 11-02-PLAN.md — App shell reskin: Header/Sidebar/MobileNav/PageHeader/auth layout with MD3 tokens and glass effects"
-last_updated: "2026-03-24T18:34:48.193Z"
+stopped_at: "Completed 11-03-PLAN.md — Dashboard + onboarding reskin: bento grid, nebula DailyInsightCard, MD3 stat cards, chart colors, glass onboarding wizard"
+last_updated: "2026-03-24T18:47:24.920Z"
 progress:
   total_phases: 11
   completed_phases: 8
   total_plans: 62
-  completed_plans: 52
+  completed_plans: 53
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 11 (ui-overhaul-design-system-reskin) — EXECUTING
-Plan: 3 of 10
+Plan: 4 of 10
 
 ## Performance Metrics
 
@@ -94,6 +94,7 @@ Plan: 3 of 10
 | Phase 10-polish-pwa-export P03 | 5 | 2 tasks (1 auto + 1 human-verify) | 0 files |
 | Phase 11 P01 | 6 | 2 tasks | 7 files |
 | Phase 11 P02 | 4 | 2 tasks | 5 files |
+| Phase 11 P03 | 8 | 2 tasks | 10 files |
 
 ## Accumulated Context
 
@@ -236,6 +237,9 @@ Recent decisions affecting current work:
 - [Phase 11]: font-body class on body tag via Tailwind fontFamily config — replaces font-[family-name:var()] pattern from old layout
 - [Phase 11]: Header changed from sticky to fixed positioning — content area compensated with pt-16 on main element
 - [Phase 11]: stars-bg + floating glow orbs added at layout-client level — affects all auth pages globally
+- [Phase 11]: Chart card wrappers live in dashboard/page.tsx (not inside chart components) — surface-container applied at page level, chart components remain pure presentational
+- [Phase 11]: StatCards drops per-card gradient/iconColor config — unified tertiary icon color for MD3 consistency
+- [Phase 11]: Recharts tick fill and contentStyle use hardcoded MD3 hex values (#ccc3d8, #4a4455, #201f22) — Tailwind class names cannot be used inside Recharts configuration objects
 
 ### Pending Todos
 
@@ -250,6 +254,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T18:34:48.189Z
-Stopped at: Completed 11-02-PLAN.md — App shell reskin: Header/Sidebar/MobileNav/PageHeader/auth layout with MD3 tokens and glass effects
+Last session: 2026-03-24T18:47:24.916Z
+Stopped at: Completed 11-03-PLAN.md — Dashboard + onboarding reskin: bento grid, nebula DailyInsightCard, MD3 stat cards, chart colors, glass onboarding wizard
 Resume file: None
