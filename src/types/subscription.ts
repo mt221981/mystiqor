@@ -65,7 +65,11 @@ export interface SubscriptionData {
   updatedAt: string;
 }
 
-/** מפת תוכניות - הגדרות עבור כל סוג תוכנית */
+/**
+ * @deprecated השתמש ב-PLAN_INFO מתוך @/lib/constants/plans במקום זאת —
+ * הערכים כאן מיושנים (basic מציג 15 אבל אמור להיות 20).
+ * PLAN_INFO הוא מקור האמת היחיד לנתוני תוכניות.
+ */
 export const PLAN_CONFIG: Record<PlanType, PlanInfo> = {
   free: {
     name: 'חינמי',
