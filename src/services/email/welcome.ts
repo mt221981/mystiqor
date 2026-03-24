@@ -5,7 +5,14 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+/** יצירת Resend client רק כשנקרא — מונע קריסה כש-API key חסר */
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY not set — email will not be sent');
+    return null;
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 /** כתובת השולח — ה-domain חייב להיות מאומת ב-Resend */
 const FROM_ADDRESS = 'MystiQor <noreply@masapnima.co.il>';
@@ -89,6 +96,8 @@ function buildWelcomeHtml(name: string): string {
  * @throws Error אם שליחת האימייל נכשלה
  */
 export async function sendWelcomeEmail(email: string, name: string): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
   const { error } = await resend.emails.send({
     from: FROM_ADDRESS,
     to: email,

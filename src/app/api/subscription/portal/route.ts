@@ -13,8 +13,10 @@ import { NextResponse } from 'next/server';
 import Stripe from 'stripe';
 import { createClient } from '@/lib/supabase/server';
 
-/** אתחול Stripe עם secret key — צד שרת בלבד */
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+/** אתחול Stripe עם secret key — lazy init למניעת קריסה בזמן build */
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 /**
  * POST /api/subscription/portal
@@ -54,7 +56,7 @@ export async function POST(): Promise<NextResponse> {
     }
 
     // --- שלב ג: יצירת סשן פורטל ב-Stripe ---
-    const portalSession = await stripe.billingPortal.sessions.create({
+    const portalSession = await getStripe().billingPortal.sessions.create({
       customer: subscription.stripe_customer_id,
       return_url: `${process.env.NEXT_PUBLIC_SITE_URL}/subscription`,
     });

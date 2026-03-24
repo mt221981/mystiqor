@@ -9,8 +9,10 @@ import Stripe from 'stripe';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 
-/** אתחול Stripe SDK עם מפתח סודי */
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+/** אתחול Stripe SDK — lazy init למניעת קריסה בזמן build */
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 /** מזהי מחירים ב-Stripe לפי תוכנית */
 const PRICE_IDS: Record<'basic' | 'premium', string> = {
@@ -49,7 +51,7 @@ export async function POST(req: NextRequest) {
     const { planId } = parsed.data;
 
     // יצירת Stripe Checkout session
-    const session = await stripe.checkout.sessions.create({
+    const session = await getStripe().checkout.sessions.create({
       mode: 'subscription',
       line_items: [
         {

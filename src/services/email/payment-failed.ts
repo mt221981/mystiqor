@@ -5,7 +5,13 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY not set — email will not be sent');
+    return null;
+  }
+  return new Resend(process.env.RESEND_API_KEY);
+}
 
 /** כתובת השולח */
 const FROM_ADDRESS = 'MystiQor <noreply@masapnima.co.il>';
@@ -102,6 +108,8 @@ export async function sendPaymentFailedEmail(
   name: string,
   amount: number
 ): Promise<void> {
+  const resend = getResend();
+  if (!resend) return;
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://mystiqor.com';
   const subscriptionUrl = `${siteUrl}/subscription`;
 

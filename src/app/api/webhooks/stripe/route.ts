@@ -27,8 +27,10 @@ type AdminClient = ReturnType<typeof createAdminClient>;
 /** מיפוי סטטוס Stripe לסטטוס מנוי פנימי */
 type SubscriptionStatus = Database['public']['Tables']['subscriptions']['Row']['status'];
 
-/** אתחול Stripe עם secret key — צד שרת בלבד */
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+/** אתחול Stripe — lazy init למניעת קריסה בזמן build */
+function getStripe() {
+  return new Stripe(process.env.STRIPE_SECRET_KEY!);
+}
 
 /**
  * POST /api/webhooks/stripe
@@ -44,7 +46,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
     let event: Stripe.Event;
     try {
-      event = stripe.webhooks.constructEvent(
+      event = getStripe().webhooks.constructEvent(
         body,
         sig,
         process.env.STRIPE_WEBHOOK_SECRET!
