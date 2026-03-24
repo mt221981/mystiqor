@@ -36,7 +36,7 @@ const PERIOD_OPTIONS: Array<{ readonly value: Period; readonly label: string }> 
 export function PeriodSelector({ value, onChange }: PeriodSelectorProps) {
   return (
     <div
-      className="inline-flex rounded-lg border border-border bg-muted/30 p-0.5"
+      className="inline-flex bg-surface-container rounded-lg p-1"
       role="group"
       aria-label="בחר תקופה"
       dir="rtl"
@@ -51,8 +51,8 @@ export function PeriodSelector({ value, onChange }: PeriodSelectorProps) {
             onClick={() => onChange(option.value)}
             className={
               isActive
-                ? 'rounded-md px-4 py-1.5 text-sm font-medium transition-all bg-primary text-primary-foreground shadow-sm'
-                : 'rounded-md px-4 py-1.5 text-sm font-medium transition-all text-muted-foreground hover:text-foreground hover:bg-background/50'
+                ? 'rounded-md px-4 py-1.5 font-label text-sm transition-all bg-primary-container/20 text-primary shadow-sm'
+                : 'rounded-md px-4 py-1.5 font-label text-sm transition-all text-on-surface-variant hover:text-on-surface hover:bg-surface-container'
             }
             aria-pressed={isActive}
             aria-label={option.label}

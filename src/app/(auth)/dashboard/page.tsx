@@ -284,34 +284,34 @@ export default function DashboardPage() {
 
         {/* כותרת */}
         <div>
-          <h1 className="text-2xl font-bold text-foreground">לוח הבקרה</h1>
-          <p className="mt-1 text-muted-foreground">סיכום הפעילות שלך</p>
+          <h1 className="text-2xl font-bold font-headline text-on-surface">לוח הבקרה</h1>
+          <p className="mt-1 text-on-surface-variant font-body">סיכום הפעילות שלך</p>
         </div>
 
         {/* D-01: כרטיס תובנה יומית */}
         <DailyInsightCard birthDate={profile?.birth_date ?? null} />
 
-        {/* D-04: 4 כרטיסי סטטיסטיקות */}
+        {/* D-04: 4 כרטיסי סטטיסטיקות — bento grid */}
         <StatCards stats={stats} isLoading={isStatsLoading} />
 
         {/* D-03/DASH-06: בוחר תקופה */}
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold text-foreground">גרפים ומגמות</h2>
+          <h2 className="text-base font-semibold font-headline text-on-surface">גרפים ומגמות</h2>
           <PeriodSelector value={period} onChange={setPeriod} />
         </div>
 
-        {/* רשת תרשימים — 2 עמודות בדסקטופ */}
-        <div className="grid gap-6 lg:grid-cols-2">
+        {/* רשת תרשימים — אסימטרית בדסקטופ */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-          {/* D-02/DASH-01: ביוריתם */}
-          <div className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-4 text-sm font-semibold text-foreground">ביוריתם אישי</h2>
+          {/* D-02/DASH-01: ביוריתם — רחב */}
+          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ביוריתם אישי</h2>
             <BiorhythmChart birthDate={profile?.birth_date ?? null} />
           </div>
 
           {/* D-02/DASH-03: מגמת מצב רוח */}
-          <div className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-4 text-sm font-semibold text-foreground">מגמת מצב רוח</h2>
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">מגמת מצב רוח</h2>
             {isMoodLoading ? (
               <Skeleton className="h-[200px] w-full" />
             ) : (
@@ -320,8 +320,8 @@ export default function DashboardPage() {
           </div>
 
           {/* D-02/DASH-04: התקדמות יעדים */}
-          <div className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-4 text-sm font-semibold text-foreground">התקדמות יעדים</h2>
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">התקדמות יעדים</h2>
             {isGoalsLoading ? (
               <Skeleton className="h-[200px] w-full" />
             ) : (
@@ -329,9 +329,9 @@ export default function DashboardPage() {
             )}
           </div>
 
-          {/* DASH-05: ניתוחים לפי כלי */}
-          <div className="rounded-xl border border-border bg-card p-5">
-            <h2 className="mb-4 text-sm font-semibold text-foreground">ניתוחים לפי כלי</h2>
+          {/* DASH-05: ניתוחים לפי כלי — רחב */}
+          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ניתוחים לפי כלי</h2>
             {isAnalysesLoading ? (
               <Skeleton className="h-[200px] w-full" />
             ) : (

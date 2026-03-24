@@ -32,15 +32,13 @@ export interface StatCardsProps {
 
 // ===== קבועים =====
 
-/** הגדרות כרטיסי סטטיסטיקות — לפי D-04 */
+/** הגדרות כרטיסי סטטיסטיקות — לפי D-04, עם MD3 tokens */
 const STAT_CARD_DEFINITIONS = [
   {
     key: 'activeGoals' as const,
     label: 'יעדים פעילים',
     description: 'יעדים בעבודה',
     Icon: Target,
-    gradient: 'from-emerald-500/20 to-teal-500/20',
-    iconColor: 'text-emerald-400',
     format: (v: number) => String(v),
   },
   {
@@ -48,8 +46,6 @@ const STAT_CARD_DEFINITIONS = [
     label: 'ציון מצב רוח',
     description: 'ממוצע 7 ימים',
     Icon: SmilePlus,
-    gradient: 'from-amber-500/20 to-orange-500/20',
-    iconColor: 'text-amber-400',
     format: (v: number) => (v > 0 ? `${v.toFixed(1)}/10` : '—'),
   },
   {
@@ -57,8 +53,6 @@ const STAT_CARD_DEFINITIONS = [
     label: 'יעדים שהושלמו',
     description: 'סה״כ שהושלמו',
     Icon: CheckCircle,
-    gradient: 'from-purple-500/20 to-violet-500/20',
-    iconColor: 'text-purple-400',
     format: (v: number) => String(v),
   },
   {
@@ -66,8 +60,6 @@ const STAT_CARD_DEFINITIONS = [
     label: 'תזכורות ממתינות',
     description: 'לא נענו',
     Icon: Bell,
-    gradient: 'from-blue-500/20 to-cyan-500/20',
-    iconColor: 'text-blue-400',
     format: (v: number) => String(v),
   },
 ] as const;
@@ -77,7 +69,7 @@ const STAT_CARD_DEFINITIONS = [
 /** כרטיס Skeleton לזמן טעינה */
 function StatCardSkeleton() {
   return (
-    <div className="rounded-xl border border-border bg-card p-5">
+    <div className="bg-surface-container rounded-xl p-4 h-32 relative overflow-hidden">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <Skeleton className="h-4 w-20" />
@@ -93,13 +85,13 @@ function StatCardSkeleton() {
 // ===== קומפוננטה =====
 
 /**
- * 4 כרטיסי סטטיסטיקות — לפי D-04
+ * 4 כרטיסי סטטיסטיקות — לפי D-04, עיצוב MD3 עם surface-container
  * מציג Skeleton בזמן טעינה
  */
 export function StatCards({ stats, isLoading }: StatCardsProps) {
   if (isLoading) {
     return (
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" dir="rtl">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4" dir="rtl">
         {Array.from({ length: 4 }).map((_, i) => (
           <StatCardSkeleton key={i} />
         ))}
@@ -108,30 +100,33 @@ export function StatCards({ stats, isLoading }: StatCardsProps) {
   }
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4" dir="rtl">
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-4" dir="rtl">
       {STAT_CARD_DEFINITIONS.map(
-        ({ key, label, description, Icon, gradient, iconColor, format }) => (
+        ({ key, label, description, Icon, format }) => (
           <div
             key={key}
-            className="rounded-xl border border-border bg-card p-5"
+            className="bg-surface-container rounded-xl p-4 h-32 relative overflow-hidden"
             role="status"
             aria-label={`${label}: ${format(stats[key])}`}
           >
+            {/* ambient glow */}
+            <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-tertiary/5 rounded-full blur-xl" aria-hidden="true" />
+
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-sm text-muted-foreground">{label}</p>
-                <p className="mt-1 text-3xl font-bold text-foreground">
+                <p className="font-label text-xs text-on-surface-variant">{label}</p>
+                <p className="mt-1 text-3xl font-headline font-black text-on-surface">
                   {format(stats[key])}
                 </p>
               </div>
               <div
-                className={`flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br ${gradient}`}
+                className="flex h-10 w-10 items-center justify-center rounded-lg bg-tertiary/10"
                 aria-hidden="true"
               >
-                <Icon className={`h-5 w-5 ${iconColor}`} aria-hidden="true" />
+                <Icon className="h-5 w-5 text-tertiary" aria-hidden="true" />
               </div>
             </div>
-            <p className="mt-3 text-xs text-muted-foreground">{description}</p>
+            <p className="mt-1 font-label text-[10px] text-on-surface-variant">{description}</p>
           </div>
         )
       )}

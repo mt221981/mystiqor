@@ -139,58 +139,48 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
 
   return (
     <div
-      className="relative overflow-hidden rounded-2xl p-6 dark:bg-gradient-to-br dark:from-purple-900/60 dark:via-indigo-900/60 dark:to-violet-900/60 bg-gradient-to-br from-purple-100 via-indigo-100 to-violet-100 border border-purple-500/20"
+      className="nebula-glow rounded-xl p-8 relative overflow-hidden"
       dir="rtl"
       role="region"
       aria-label="תובנה יומית"
     >
-      {/* עיטורי רקע */}
-      <div
-        className="absolute top-0 end-0 h-48 w-48 rounded-full bg-purple-500/10 blur-3xl"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute bottom-0 start-0 h-32 w-32 rounded-full bg-indigo-500/10 blur-2xl"
-        aria-hidden="true"
-      />
+      {/* שכבת glow עדינה */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" aria-hidden="true" />
 
       <div className="relative flex items-start justify-between gap-4">
         {/* תוכן */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-medium uppercase tracking-wider text-purple-400/80 mb-1">
+          <p className="text-xs font-label font-medium uppercase tracking-wider text-white/70 mb-1">
             תובנה יומית
           </p>
-          <h2 className="text-lg font-bold text-foreground mb-1">{todayFormatted}</h2>
+          <h2 className="text-lg font-headline font-bold text-white mb-1">{todayFormatted}</h2>
 
           <div className="flex items-center gap-4 mb-3">
             {/* מזל */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs text-muted-foreground">מזל:</span>
-              <span className="text-sm font-semibold text-purple-400">{zodiacSign}</span>
+            <div className="bg-white/10 rounded-lg px-3 py-1.5 backdrop-blur-sm">
+              <span className="text-xs text-white/70">מזל:</span>
+              <span className="text-sm font-headline font-semibold text-white ms-1">{zodiacSign}</span>
             </div>
 
-            {/* מפריד */}
-            <span className="text-muted-foreground/30" aria-hidden="true">|</span>
-
             {/* מספר יומי */}
-            <div className="flex items-center gap-1.5">
-              <span className="text-xs text-muted-foreground">מספר יומי:</span>
-              <span className="text-sm font-semibold text-indigo-400">{numerologyNumber}</span>
+            <div className="bg-white/10 rounded-lg px-3 py-1.5 backdrop-blur-sm">
+              <span className="text-xs text-white/70">מספר יומי:</span>
+              <span className="text-sm font-headline font-semibold text-white ms-1">{numerologyNumber}</span>
             </div>
           </div>
 
           {/* תובנה */}
-          <p className="text-sm text-muted-foreground leading-relaxed max-w-prose">
+          <p className="text-sm text-white/80 font-body leading-relaxed max-w-prose">
             {insightText}
           </p>
         </div>
 
         {/* אייקון */}
         <div
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500/30 to-indigo-500/30 ring-1 ring-purple-500/20"
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20"
           aria-hidden="true"
         >
-          <Stars className="h-7 w-7 text-purple-400" />
+          <Stars className="h-7 w-7 text-white/90" />
         </div>
       </div>
     </div>
