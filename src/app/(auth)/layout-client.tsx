@@ -36,7 +36,11 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <div className="flex min-h-screen bg-background" dir="rtl">
+      <div className="flex min-h-screen bg-surface stars-bg relative" dir="rtl">
+        {/* רקע — גלואות צפות */}
+        <div className="fixed top-1/4 -left-20 w-96 h-96 bg-primary-container/5 rounded-full blur-[100px] -z-10 pointer-events-none" aria-hidden="true" />
+        <div className="fixed bottom-1/4 -right-20 w-96 h-96 bg-secondary-container/5 rounded-full blur-[100px] -z-10 pointer-events-none" aria-hidden="true" />
+
         {/* סרגל צד לדסקטופ — מוסתר במובייל */}
         <div className="hidden md:flex md:w-64 md:shrink-0">
           <Sidebar />
@@ -45,8 +49,8 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
         {/* אזור תוכן ראשי */}
         <div className="flex flex-1 flex-col">
           <Header onMobileMenuOpen={() => setIsMobileNavOpen(true)} />
-          <main className="flex-1 overflow-auto">
-            <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+          <main className="flex-1 overflow-auto pt-16">
+            <div className="mx-auto max-w-7xl px-6 py-8 space-y-8">
               {children}
             </div>
           </main>

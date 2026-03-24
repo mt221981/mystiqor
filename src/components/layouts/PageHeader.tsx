@@ -69,7 +69,7 @@ export function PageHeader({
           <div
             className={cn(
               'flex items-center justify-center rounded-xl',
-              'h-10 w-10 bg-purple-600/20 text-purple-400'
+              'h-10 w-10 bg-primary-container/20 text-primary'
             )}
           >
             {icon}
@@ -77,11 +77,11 @@ export function PageHeader({
         )}
 
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white">
+          <h1 className="text-2xl font-headline font-bold tracking-tight text-on-surface">
             {title}
           </h1>
           {description && (
-            <p className="mt-1 text-sm text-gray-400">{description}</p>
+            <p className="mt-1 text-sm font-body text-on-surface-variant">{description}</p>
           )}
         </div>
       </div>
