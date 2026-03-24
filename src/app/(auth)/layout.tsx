@@ -12,6 +12,7 @@ import { redirect } from 'next/navigation';
 import { createClient } from '@/lib/supabase/server';
 
 import AuthLayoutClient from './layout-client';
+import { InstallPrompt } from '@/components/features/pwa/InstallPrompt';
 
 import type { ReactNode } from 'react';
 
@@ -57,5 +58,10 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
     }
   }
 
-  return <AuthLayoutClient>{children}</AuthLayoutClient>;
+  return (
+    <>
+      <AuthLayoutClient>{children}</AuthLayoutClient>
+      <InstallPrompt />
+    </>
+  );
 }
