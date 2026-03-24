@@ -197,15 +197,14 @@ Plans:
   3. Tutorials page displays educational content for astrology and drawing interpretation that can be navigated without running an analysis
   4. Astrology tutor presents concept cards and allows AI-driven Q&A about astrological concepts
   5. Self-analytics dashboard shows which tools the user uses most, mood score trends over time, and goal completion rate
-**Plans**: TBD
+**Plans:** 5 plans
 
 Plans:
-- [ ] 09-01: Analysis history page (filterable list, timeline visualization, pagination)
-- [ ] 09-02: Analysis comparison view (side-by-side diff)
-- [ ] 09-03: Blog with educational content (astrology, numerology guides)
-- [ ] 09-04: Tutorials page + astrology tutor (concept cards, AI teaching)
-- [ ] 09-05: Drawing tutor (concept cards, AI teaching)
-- [ ] 09-06: Self-analytics dashboard (usage patterns, tool distribution, mood trends)
+- [ ] 09-01-PLAN.md — Shared infrastructure (TOOL_NAMES constant, PROTECTED_PATHS, Sidebar) + History page (filterable list, timeline, pagination) + Compare page (side-by-side diff) (HIST-01, HIST-02, HIST-03, ASTR-08)
+- [ ] 09-02-PLAN.md — Blog page with seeded articles + Tutorials hub with learning paths + Learning progress API (GROW-02, GROW-03)
+- [ ] 09-03-PLAN.md — Astrology tutor + Drawing tutor (AI chat pages with concept buttons, tutor API routes) (GROW-04, GROW-05)
+- [ ] 09-04-PLAN.md — Self-analytics dashboard (tool usage pie chart, activity timeline, mood trend, stat cards) (UX-09)
+- [ ] 09-05-PLAN.md — Integration verification (TypeScript build + TOOL_NAMES dedup + route audit + human-verify all pages)
 
 ### Phase 10: Polish + PWA + Export
 **Goal**: The platform is installable as a PWA, all analyses can be exported to PDF or shared via link, notifications are active, and the app is verified accessible with keyboard navigation and ARIA labels — production-ready at every surface.
@@ -239,5 +238,5 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 5/5 | Complete   | 2026-03-24 |
 | 7. AI Coach + Mystic Synthesis | 4/4 | Complete   | 2026-03-24 |
 | 8. Growth + Monetization | 6/6 | Complete   | 2026-03-24 |
-| 9. Learning + History + Analytics | 0/6 | Not started | - |
+| 9. Learning + History + Analytics | 0/5 | Not started | - |
 | 10. Polish + PWA + Export | 0/4 | Not started | - |
