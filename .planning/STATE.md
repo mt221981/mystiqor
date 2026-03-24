@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 08-03 Rate Limiting — Upstash sliding window limiter installed and wired into usage route
-last_updated: "2026-03-24T12:02:33.715Z"
+stopped_at: Completed 08-06 Notifications + Sidebar — Phase 8 Growth + Monetization COMPLETE (6/6 plans, all 10 requirements met)
+last_updated: "2026-03-24T12:35:00.000Z"
 progress:
   total_phases: 10
-  completed_phases: 5
+  completed_phases: 7
   total_plans: 44
-  completed_plans: 39
+  completed_plans: 42
 ---
 
 # Project State
@@ -23,8 +23,10 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 
 ## Current Position
 
-Phase: 08 (growth-monetization) — EXECUTING
-Plan: 3 of 6
+Phase: 08 (growth-monetization) — COMPLETE
+Plan: 6 of 6 — ALL PLANS DONE
+
+Next: Phase 09 (learning-history-analytics) — Ready to start
 
 ## Performance Metrics
 
@@ -79,8 +81,12 @@ Plan: 3 of 6
 | Phase 07-ai-coach-mystic-synthesis P02 | 23 | 2 tasks | 6 files |
 | Phase 07-ai-coach-mystic-synthesis P03 | 6 | 2 tasks | 3 files |
 | Phase 07-ai-coach-mystic-synthesis P04 | 5 | 2 tasks (1 auto + 1 human-verify) | 2 files |
+| Phase 08-growth-monetization P01 | 5 | 2 tasks | 3 files |
 | Phase 08-growth-monetization P02 | 5 | 1 tasks | 2 files |
 | Phase 08-growth-monetization P03 | 5 | 2 tasks | 3 files |
+| Phase 08-growth-monetization P04 | 8 | 2 tasks | 4 files |
+| Phase 08-growth-monetization P05 | 15 | 2 tasks | 6 files |
+| Phase 08-growth-monetization P06 | 5 | 2 tasks (1 auto + 1 human-verify) | 3 files |
 
 ## Accumulated Context
 
@@ -183,11 +189,23 @@ Recent decisions affecting current work:
 - [Phase 07-ai-coach-mystic-synthesis]: JourneysPanel used as extracted component in coach page — keeps page under 300 lines and reuses Panel from Plan 07-02
 - [Phase 07-ai-coach-mystic-synthesis]: ActiveTab type alias ('chat' | 'journeys') for tab switching — more readable and extensible than boolean toggle
 - [Phase 07-ai-coach-mystic-synthesis]: Phase 7 complete — all 4 plans executed, all 8 requirements met (COCH-01 through COCH-05, SYNT-01 through SYNT-03), human reviewer approved all features
+- [Phase 08-growth-monetization]: PLAN_CONFIG marked @deprecated pointing to PLAN_INFO — not removed to avoid breaking remaining importers, PLAN_INFO is sole source of truth
+- [Phase 08-growth-monetization]: Stripe checkout planId enum is basic|premium only — free has no checkout, enterprise is not user-facing per SUBS-01
+- [Phase 08-growth-monetization]: customer_email pre-filled from auth user email in checkout session — improves Stripe Checkout UX
 - [Phase 08-growth-monetization]: processed_webhook_events added to database.ts — table was in DB schema but missing from custom TS types, createAdminClient uses database.ts
 - [Phase 08-growth-monetization]: mapStripeStatusToSubscriptionStatus maps Stripe extended status enum (paused/incomplete/unpaid) to internal SubscriptionStatus — avoids type errors on subscription.updated events
 - [Phase 08-growth-monetization]: Webhook idempotency insert happens BEFORE event processing — prevents race condition where processing succeeds but insert fails
 - [Phase 08-growth-monetization]: Duration type imported from @upstash/ratelimit — required for type-safe slidingWindow calls (plain string rejected by TS)
 - [Phase 08-growth-monetization]: checkRateLimit returns true when limiter is null — ensures zero-friction dev environments without Upstash credentials (env guard pattern)
+- [Phase 08-growth-monetization]: maybeSingle() in portal route avoids Supabase throwing when no subscription row exists for user
+- [Phase 08-growth-monetization]: session_id shown as aria-hidden data-testid text on success page — available to QA automation but not UI noise for users
+- [Phase 08-growth-monetization]: createAdminClient used in claim route to fetch referrer email via auth.admin.getUserById — standard SSR client cannot read auth.users emails for other users
+- [Phase 08-growth-monetization]: reward_analyses ?? DEFAULT_REWARD_ANALYSES(5) pattern — DB row can override bonus count per referral record
+- [Phase 08-growth-monetization]: Welcome email placed after profile save but before subscription creation — non-fatal try/catch, fires only on successful upsert
+- [Phase 08-growth-monetization]: Usage-limit email fires before 429 response inside existing error.message.includes guard — consistent non-fatal pattern
+- [Phase 08-growth-monetization]: ReminderCard extracted as sub-component in notifications page — keeps page near 300-line limit
+- [Phase 08-growth-monetization]: DELETE route validates user_id match in addition to RLS — application-layer ownership enforcement consistent with other CRUD routes
+- [Phase 08-growth-monetization]: Phase 8 COMPLETE — all 6 plans done, all 10 requirements met (SUBS-01 through SUBS-06, TRCK-06, GROW-01, INFRA-07, INFRA-08), human reviewer approved full monetization system
 
 ### Pending Todos
 
@@ -202,6 +220,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T12:02:33.712Z
-Stopped at: Completed 08-03 Rate Limiting — Upstash sliding window limiter installed and wired into usage route
+Last session: 2026-03-24T12:35:00.000Z
+Stopped at: Completed 08-06 Notifications/Reminders CRUD + Sidebar updates — Phase 8 Growth + Monetization COMPLETE. Human reviewer approved all 10 Phase 8 requirements. Next: Phase 09 Learning + History + Analytics.
 Resume file: None

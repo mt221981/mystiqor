@@ -14,7 +14,7 @@
 - [ ] **INFRA-05**: Supabase DB schema provisioned with generated TypeScript types (replace manual database.ts)
 - [x] **INFRA-06**: Geocoding service for birth place → coordinates + timezone
 - [x] **INFRA-07**: Rate limiting on sensitive endpoints (Upstash Redis)
-- [ ] **INFRA-08**: Email service (welcome, daily insights, usage limit, payment failed)
+- [x] **INFRA-08**: Email service (welcome, daily insights, usage limit, payment failed)
 
 ### Authentication
 
@@ -38,12 +38,12 @@
 
 ### Subscription
 
-- [ ] **SUBS-01**: Pricing page with 3 tiers (Free 3/month, Basic ₪49 20/month, Premium ₪99 unlimited)
-- [ ] **SUBS-02**: Stripe checkout session creation and redirect
+- [x] **SUBS-01**: Pricing page with 3 tiers (Free 3/month, Basic ₪49 20/month, Premium ₪99 unlimited)
+- [x] **SUBS-02**: Stripe checkout session creation and redirect
 - [x] **SUBS-03**: Stripe webhook with idempotency (prevents duplicate subscriptions)
-- [ ] **SUBS-04**: SubscriptionGuard enforces usage limits on paid features
-- [ ] **SUBS-05**: User can view and cancel subscription
-- [ ] **SUBS-06**: Success page after subscription purchase
+- [x] **SUBS-04**: SubscriptionGuard enforces usage limits on paid features
+- [x] **SUBS-05**: User can view and cancel subscription
+- [x] **SUBS-06**: Success page after subscription purchase
 
 ### Dashboard
 
@@ -110,7 +110,7 @@
 - [x] **TRCK-03**: Goals with progress tracking and AI recommendations
 - [x] **TRCK-04**: Goal linker connecting goals to specific analyses
 - [x] **TRCK-05**: Daily insights combining tarot + numerology + astrology
-- [ ] **TRCK-06**: Notifications and reminders system
+- [x] **TRCK-06**: Notifications and reminders system
 
 ### Additional Tools
 
@@ -133,7 +133,7 @@
 
 ### Growth & Content
 
-- [ ] **GROW-01**: Referral program with tracking and rewards
+- [x] **GROW-01**: Referral program with tracking and rewards
 - [ ] **GROW-02**: Blog with educational content (astrology, numerology guides)
 - [ ] **GROW-03**: Tutorials page with interactive content
 - [ ] **GROW-04**: Astrology tutor (concept cards, AI teaching)
@@ -190,7 +190,7 @@
 | INFRA-05 | Phase 1 | Pending |
 | INFRA-06 | Phase 1 | Complete |
 | INFRA-07 | Phase 8 | Complete |
-| INFRA-08 | Phase 8 | Pending |
+| INFRA-08 | Phase 8 | Complete |
 | AUTH-01 | Phase 2 | Complete |
 | AUTH-02 | Phase 2 | Complete |
 | AUTH-03 | Phase 2 | Complete |
@@ -202,8 +202,8 @@
 | PROF-01 | Phase 3 | Pending |
 | PROF-02 | Phase 3 | Pending |
 | PROF-03 | Phase 3 | Pending |
-| SUBS-01 | Phase 8 | Pending |
-| SUBS-02 | Phase 8 | Pending |
+| SUBS-01 | Phase 8 | Complete |
+| SUBS-02 | Phase 8 | Complete |
 | SUBS-03 | Phase 8 | Complete |
 | SUBS-04 | Phase 8 | Pending |
 | SUBS-05 | Phase 8 | Pending |
@@ -250,7 +250,7 @@
 | TRCK-03 | Phase 3 | Complete |
 | TRCK-04 | Phase 3 | Complete |
 | TRCK-05 | Phase 4 | Complete |
-| TRCK-06 | Phase 8 | Pending |
+| TRCK-06 | Phase 8 | Complete |
 | TOOL-01 | Phase 4 | Pending |
 | TOOL-02 | Phase 5 | Complete |
 | TOOL-03 | Phase 5 | Complete |
@@ -264,7 +264,7 @@
 | HIST-01 | Phase 9 | Pending |
 | HIST-02 | Phase 9 | Pending |
 | HIST-03 | Phase 9 | Pending |
-| GROW-01 | Phase 8 | Pending |
+| GROW-01 | Phase 8 | Complete |
 | GROW-02 | Phase 9 | Pending |
 | GROW-03 | Phase 9 | Pending |
 | GROW-04 | Phase 9 | Pending |
