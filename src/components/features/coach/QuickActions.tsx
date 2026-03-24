@@ -6,7 +6,6 @@
  */
 
 import { memo } from 'react'
-import { Button } from '@/components/ui/button'
 import { Hash, Stars, Heart, Briefcase, TrendingUp, HelpCircle } from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 
@@ -79,16 +78,16 @@ export const QuickActions = memo(function QuickActionsComponent({
       {QUICK_ACTIONS.map((action) => {
         const Icon = action.icon
         return (
-          <Button
+          <button
             key={action.id}
+            type="button"
             onClick={() => onAction(action.prompt)}
             disabled={disabled}
-            variant="outline"
-            className="border-purple-700/30 bg-purple-900/20 hover:bg-purple-800/30 text-white h-auto py-4 flex flex-col items-center gap-2"
+            className="bg-surface-container border border-outline-variant/20 rounded-full px-4 py-2 text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface font-label text-sm transition-colors flex items-center gap-2 justify-center disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <Icon className="w-5 h-5 text-purple-400" />
-            <span className="text-sm">{action.label}</span>
-          </Button>
+            <Icon className="w-4 h-4 shrink-0" />
+            <span>{action.label}</span>
+          </button>
         )
       })}
     </div>

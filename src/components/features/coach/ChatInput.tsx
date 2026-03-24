@@ -7,7 +7,6 @@
  */
 
 import { useState, useRef } from 'react'
-import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Send, Loader2 } from 'lucide-react'
 
@@ -77,29 +76,32 @@ export function ChatInput({
 
   return (
     <form onSubmit={handleSubmit} className="relative">
-      <Textarea
-        ref={textareaRef}
-        value={message}
-        onChange={handleChange}
-        onKeyDown={handleKeyDown}
-        placeholder={placeholder}
-        disabled={disabled}
-        className="pe-16 resize-none text-lg min-h-[80px] bg-gray-800 text-white border-purple-700 rounded-2xl"
-        rows={2}
-      />
+      {/* מיכל קלט עם MD3 surface-container-lowest */}
+      <div className="bg-surface-container-lowest rounded-xl px-4 py-3 border border-outline-variant/10 focus-within:ring-1 focus-within:ring-primary/40">
+        <Textarea
+          ref={textareaRef}
+          value={message}
+          onChange={handleChange}
+          onKeyDown={handleKeyDown}
+          placeholder={placeholder}
+          disabled={disabled}
+          className="bg-transparent text-on-surface placeholder:text-outline/40 font-body resize-none border-0 p-0 focus-visible:ring-0 focus-visible:ring-offset-0 pe-14 min-h-[60px]"
+          rows={2}
+        />
+      </div>
       {/* כפתור שליחה — מיקום RTL-aware (start-3 = ימין ב-RTL) */}
-      <Button
+      <button
         type="submit"
         disabled={!message.trim() || disabled || isLoading}
-        size="lg"
-        className="absolute start-3 bottom-3 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+        className="absolute start-3 bottom-3 bg-primary-container text-on-primary-container rounded-full p-2 hover:bg-primary-container/80 active:scale-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+        aria-label="שלח הודעה"
       >
         {isLoading ? (
           <Loader2 className="w-5 h-5 animate-spin" />
         ) : (
           <Send className="w-5 h-5" />
         )}
-      </Button>
+      </button>
     </form>
   )
 }

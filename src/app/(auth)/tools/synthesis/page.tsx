@@ -11,7 +11,6 @@ import { Sparkles, Brain, Calendar, Loader2, Database } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { SynthesisResult } from '@/components/features/synthesis/SynthesisResult'
 import { createClient } from '@/lib/supabase/client'
@@ -137,13 +136,13 @@ export default function SynthesisPage() {
           initial={animations.fadeInUp.initial}
           animate={animations.fadeInUp.animate}
           transition={{ duration: 0.3 }}
-          className="mb-6 flex items-center gap-2 text-sm text-gray-400"
+          className="mb-6 flex items-center gap-2 text-sm text-on-surface-variant font-body"
         >
           <Database className="h-4 w-4" />
           <span>
             {analysisCount ?? 0} ניתוחים זמינים לסינתזה
             {!hasEnoughAnalyses && (
-              <span className="text-amber-400 me-2"> — נדרשים לפחות 2 ניתוחים</span>
+              <span className="text-tertiary me-2"> — נדרשים לפחות 2 ניתוחים</span>
             )}
           </span>
         </motion.div>
@@ -156,56 +155,52 @@ export default function SynthesisPage() {
           className="grid md:grid-cols-2 gap-6 mb-8"
         >
           {/* סינתזה הוליסטית */}
-          <Card className="bg-gradient-to-br from-indigo-900/40 via-purple-900/40 to-gray-900/40 border-indigo-500/30">
-            <CardContent className="p-8 text-center flex flex-col h-full justify-between">
-              <div>
-                <div className="w-14 h-14 mx-auto bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-purple-500/20">
-                  <Brain className="w-7 h-7 text-white" />
-                </div>
-                <h2 className="text-xl font-bold text-white mb-2">סינתזה הוליסטית</h2>
-                <p className="text-indigo-200 text-sm mb-6 leading-relaxed">
-                  שילוב כל הכלים לפרופיל אישיות מאוחד ותחזית עתידית מקיפה.
-                </p>
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 flex flex-col h-full justify-between gap-6">
+            <div className="text-center">
+              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-primary-container to-secondary-container rounded-full flex items-center justify-center mb-4 celestial-glow">
+                <Brain className="w-7 h-7 text-white" />
               </div>
-              <Button
-                size="lg"
-                onClick={() => generateMutation.mutate('on_demand')}
-                disabled={generateMutation.isPending || !hasEnoughAnalyses}
-                className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white"
-              >
-                {generateMutation.isPending && generateMutation.variables === 'on_demand' ? (
-                  <Loader2 className="w-4 h-4 animate-spin me-2" />
-                ) : null}
-                {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור סינתזה'}
-              </Button>
-            </CardContent>
-          </Card>
+              <h2 className="font-headline font-bold text-on-surface text-xl mb-2">סינתזה הוליסטית</h2>
+              <p className="text-on-surface-variant font-body text-sm leading-relaxed">
+                שילוב כל הכלים לפרופיל אישיות מאוחד ותחזית עתידית מקיפה.
+              </p>
+            </div>
+            <Button
+              size="lg"
+              onClick={() => generateMutation.mutate('on_demand')}
+              disabled={generateMutation.isPending || !hasEnoughAnalyses}
+              className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95 hover:opacity-90"
+            >
+              {generateMutation.isPending && generateMutation.variables === 'on_demand' ? (
+                <Loader2 className="w-4 h-4 animate-spin me-2" />
+              ) : null}
+              {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור סינתזה'}
+            </Button>
+          </div>
 
           {/* דוח שבועי */}
-          <Card className="bg-gradient-to-br from-blue-900/40 via-cyan-900/40 to-gray-900/40 border-cyan-500/30">
-            <CardContent className="p-8 text-center flex flex-col h-full justify-between">
-              <div>
-                <div className="w-14 h-14 mx-auto bg-gradient-to-br from-cyan-500 to-blue-600 rounded-full flex items-center justify-center mb-4 shadow-xl shadow-blue-500/20">
-                  <Calendar className="w-7 h-7 text-white" />
-                </div>
-                <h2 className="text-xl font-bold text-white mb-2">דוח שבועי</h2>
-                <p className="text-cyan-200 text-sm mb-6 leading-relaxed">
-                  ניתוח דפוסי שימוש, המלצות לשילוב רוחני וסיכום 7 הימים האחרונים.
-                </p>
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 flex flex-col h-full justify-between gap-6">
+            <div className="text-center">
+              <div className="w-14 h-14 mx-auto bg-gradient-to-br from-secondary-container to-primary-container rounded-full flex items-center justify-center mb-4 celestial-glow">
+                <Calendar className="w-7 h-7 text-white" />
               </div>
-              <Button
-                size="lg"
-                onClick={() => generateMutation.mutate('weekly')}
-                disabled={generateMutation.isPending || !hasEnoughAnalyses}
-                className="w-full bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white"
-              >
-                {generateMutation.isPending && generateMutation.variables === 'weekly' ? (
-                  <Loader2 className="w-4 h-4 animate-spin me-2" />
-                ) : null}
-                {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור דוח שבועי'}
-              </Button>
-            </CardContent>
-          </Card>
+              <h2 className="font-headline font-bold text-on-surface text-xl mb-2">דוח שבועי</h2>
+              <p className="text-on-surface-variant font-body text-sm leading-relaxed">
+                ניתוח דפוסי שימוש, המלצות לשילוב רוחני וסיכום 7 הימים האחרונים.
+              </p>
+            </div>
+            <Button
+              size="lg"
+              onClick={() => generateMutation.mutate('weekly')}
+              disabled={generateMutation.isPending || !hasEnoughAnalyses}
+              className="w-full bg-gradient-to-br from-secondary-container to-primary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95 hover:opacity-90"
+            >
+              {generateMutation.isPending && generateMutation.variables === 'weekly' ? (
+                <Loader2 className="w-4 h-4 animate-spin me-2" />
+              ) : null}
+              {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור דוח שבועי'}
+            </Button>
+          </div>
         </motion.div>
 
         {/* מצב טעינה */}
@@ -215,8 +210,8 @@ export default function SynthesisPage() {
             animate={animations.fadeIn.animate}
             className="mb-8 flex flex-col items-center gap-4 py-12"
           >
-            <Loader2 className="h-10 w-10 animate-spin text-purple-400" />
-            <p className="text-gray-400 text-sm">יוצר סינתזה מיסטית... עשוי לקחת מספר שניות</p>
+            <Loader2 className="h-10 w-10 animate-spin text-primary" />
+            <p className="text-on-surface-variant font-body text-sm">יוצר סינתזה מיסטית... עשוי לקחת מספר שניות</p>
           </motion.div>
         )}
 
@@ -224,7 +219,7 @@ export default function SynthesisPage() {
         {isLoading && !generateMutation.isPending && (
           <div className="space-y-4">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="animate-pulse h-32 bg-gray-800/50 rounded-lg" />
+              <div key={i} className="animate-pulse h-32 bg-surface-container rounded-lg" />
             ))}
           </div>
         )}
@@ -236,12 +231,12 @@ export default function SynthesisPage() {
             animate={animations.fadeInUp.animate}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
-            <div className="flex items-center justify-between mb-4 pb-4 border-b border-gray-700/50">
-              <p className="text-sm text-gray-400">
+            <div className="flex items-center justify-between mb-4 pb-4 border-b border-outline-variant/20">
+              <p className="text-sm text-on-surface-variant font-body">
                 נוצר: {new Date(latestSynthesis.created_at).toLocaleDateString('he-IL')}
               </p>
               {latestSynthesis.input_data?.sources?.length > 0 && (
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-on-surface-variant/60 font-label">
                   מבוסס על: {latestSynthesis.input_data.sources.join(', ')}
                 </p>
               )}

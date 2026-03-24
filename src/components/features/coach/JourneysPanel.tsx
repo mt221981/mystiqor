@@ -136,19 +136,19 @@ export function JourneysPanel() {
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-16">
-        <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     )
   }
 
   return (
-    <div className="space-y-4">
+    <div className="bg-surface-container rounded-xl p-4 space-y-4">
       {/* כפתור יצירת מסע חדש */}
       <div className="flex justify-start">
         <Button
           onClick={() => setShowFocusSelector((prev) => !prev)}
           disabled={createJourneyMutation.isPending}
-          className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+          className="bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold hover:opacity-90 active:scale-95"
         >
           {createJourneyMutation.isPending ? (
             <Loader2 className="w-4 h-4 animate-spin ml-2" />
@@ -161,19 +161,18 @@ export function JourneysPanel() {
 
       {/* בוחר תחום מיקוד */}
       {showFocusSelector && !createJourneyMutation.isPending && (
-        <div className="rounded-xl border border-purple-500/20 bg-gray-900/50 p-4">
-          <p className="mb-3 text-sm font-medium text-purple-300">בחר תחום מיקוד למסע שלך:</p>
+        <div className="rounded-xl border border-outline-variant/10 bg-surface-container-high p-4">
+          <p className="mb-3 text-sm font-medium text-on-surface-variant">בחר תחום מיקוד למסע שלך:</p>
           <div className="flex flex-wrap gap-2">
             {FOCUS_AREAS.map(({ value, label }) => (
-              <Button
+              <button
                 key={value}
-                variant="outline"
-                size="sm"
+                type="button"
                 onClick={() => createJourneyMutation.mutate(value)}
-                className="border-purple-500/40 text-gray-300 hover:border-purple-400 hover:bg-purple-900/30 hover:text-white"
+                className="bg-surface-container border border-outline-variant/20 rounded-full px-4 py-1.5 text-on-surface-variant hover:bg-primary-container/20 hover:text-primary font-label text-sm transition-colors"
               >
                 {label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>
@@ -181,31 +180,30 @@ export function JourneysPanel() {
 
       {/* מצב יצירה */}
       {createJourneyMutation.isPending && (
-        <div className="flex items-center gap-3 rounded-xl border border-purple-500/20 bg-gray-900/50 p-4 text-purple-300">
+        <div className="flex items-center gap-3 rounded-xl border border-outline-variant/10 bg-surface-container-high p-4 text-primary">
           <Loader2 className="w-5 h-5 animate-spin" />
-          <span className="text-sm">המאמן יוצר עבורך מסע אימון אישי...</span>
+          <span className="text-sm font-body">המאמן יוצר עבורך מסע אימון אישי...</span>
         </div>
       )}
 
       {/* רשימת מסעות / מצב ריק */}
       {journeys.length === 0 && !showFocusSelector ? (
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-purple-500/20 bg-gray-900/50 py-12 text-center">
-          <p className="text-gray-400">עדיין לא התחלת מסע.</p>
-          <p className="text-sm text-gray-500">
+        <div className="flex flex-col items-center gap-4 rounded-xl border border-outline-variant/10 bg-surface-container-high py-12 text-center">
+          <p className="text-on-surface-variant">עדיין לא התחלת מסע.</p>
+          <p className="text-sm text-on-surface-variant/60 font-body">
             בחר נושא ליצירת מסע אימון אישי!
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-2">
             {FOCUS_AREAS.map(({ value, label }) => (
-              <Button
+              <button
                 key={value}
-                variant="outline"
-                size="sm"
+                type="button"
                 onClick={() => createJourneyMutation.mutate(value)}
                 disabled={createJourneyMutation.isPending}
-                className="border-purple-500/40 text-gray-300 hover:border-purple-400 hover:bg-purple-900/30 hover:text-white"
+                className="bg-surface-container border border-outline-variant/20 rounded-full px-4 py-1.5 text-on-surface-variant hover:bg-primary-container/20 hover:text-primary font-label text-sm transition-colors disabled:opacity-50"
               >
                 {label}
-              </Button>
+              </button>
             ))}
           </div>
         </div>

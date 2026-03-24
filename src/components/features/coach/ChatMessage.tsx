@@ -2,14 +2,13 @@
 
 /**
  * קומפוננטת בועת צ'אט — מציגה הודעת משתמש או מאמן ב-RTL
- * הודעות משתמש מצד שמאל (flex-row-reverse ב-RTL), מאמן מצד ימין
- * הודעות מאמן מוצגות עם react-markdown לטיפול בעיצוב
+ * הודעות משתמש: בועה עם גרדיאנט קוסמי (primary → secondary)
+ * הודעות מאמן: בועה כהה surface-container עם react-markdown
  */
 
 import { memo } from 'react'
 import { motion } from 'framer-motion'
 import { User, Sparkles } from 'lucide-react'
-import { Card } from '@/components/ui/card'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -22,7 +21,7 @@ interface ChatMessageProps {
 }
 
 /**
- * קומפוננטת בועת צ'אט — RTL עם אנימציה
+ * קומפוננטת בועת צ'אט — RTL עם אנימציה וצבעי MD3
  * ממומגנת עם memo למניעת רינדורים מיותרים
  */
 export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatMessageProps) {
@@ -36,65 +35,61 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
     >
       {/* אווטאר — עיגול עם אייקון לפי תפקיד */}
       <div
-        className={`w-12 h-12 rounded-full flex items-center justify-center shrink-0 ${
+        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
           isUser
-            ? 'bg-gradient-to-br from-blue-600 to-cyan-600'
-            : 'bg-gradient-to-br from-purple-600 to-pink-600'
+            ? 'bg-gradient-to-br from-primary-container to-secondary-container'
+            : 'bg-primary-container/20 text-primary'
         }`}
       >
         {isUser ? (
-          <User className="w-6 h-6 text-white" />
+          <User className="w-5 h-5 text-white" />
         ) : (
-          <Sparkles className="w-6 h-6 text-white" />
+          <Sparkles className="w-5 h-5 text-primary" />
         )}
       </div>
 
-      {/* כרטיס הודעה */}
-      <Card
-        className={`max-w-[85%] backdrop-blur-xl ${
-          isUser
-            ? 'bg-blue-900/40 border-blue-700/40'
-            : 'bg-purple-900/40 border-purple-700/40'
-        }`}
-      >
-        <div className="p-5">
-          {isUser ? (
-            /* הודעת משתמש — טקסט רגיל */
-            <p className="text-white text-lg leading-relaxed">{message.content}</p>
-          ) : (
-            /* הודעת מאמן — markdown עם RTL, עטוף ב-div לעיצוב */
-            <div
-              className="text-white prose prose-invert prose-lg max-w-none
-                [&>p]:my-3 [&>p]:leading-relaxed [&>p]:text-lg
-                [&>ul]:my-3 [&>ul]:mr-4 [&>ul]:list-disc [&>ul]:text-lg
-                [&>ol]:my-3 [&>ol]:mr-4 [&>ol]:list-decimal [&>ol]:text-lg
-                [&>li]:my-2 [&>li]:leading-relaxed
-                [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:mt-4 [&>h3]:mb-3 [&>h3]:text-purple-200
-                [&>h4]:text-xl [&>h4]:font-bold [&>h4]:mt-3 [&>h4]:mb-2 [&>h4]:text-purple-300
-                [&>strong]:text-purple-200 [&>strong]:font-bold
-                [&>blockquote]:border-r-4 [&>blockquote]:border-purple-500 [&>blockquote]:pr-4 [&>blockquote]:italic [&>blockquote]:text-purple-200"
-            >
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                {message.content}
-              </ReactMarkdown>
-            </div>
-          )}
-
-          {/* זמן שליחה — מוצג רק אם קיים */}
+      {/* בועת הודעה */}
+      {isUser ? (
+        /* הודעת משתמש — גרדיאנט קוסמי, זנב בפינה שמאל תחתון (RTL) */
+        <div className="bg-gradient-to-br from-primary-container to-secondary-container rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%]">
+          <p className="text-white font-body text-sm leading-relaxed">{message.content}</p>
           {message.created_at && (
-            <div
-              className={`text-xs mt-3 ${
-                isUser ? 'text-blue-300' : 'text-purple-300'
-              }`}
-            >
+            <p className="text-white/50 font-label text-xs mt-1">
               {new Date(message.created_at).toLocaleTimeString('he-IL', {
                 hour: '2-digit',
                 minute: '2-digit',
               })}
-            </div>
+            </p>
           )}
         </div>
-      </Card>
+      ) : (
+        /* הודעת מאמן — surface-container עם markdown, זנב בפינה ימין תחתון */
+        <div className="bg-surface-container rounded-2xl rounded-br-sm px-4 py-3 max-w-[80%] border border-outline-variant/10">
+          <div
+            className="text-on-surface font-body text-sm prose prose-invert max-w-none
+              [&>p]:my-2 [&>p]:leading-relaxed
+              [&>ul]:my-2 [&>ul]:mr-4 [&>ul]:list-disc
+              [&>ol]:my-2 [&>ol]:mr-4 [&>ol]:list-decimal
+              [&>li]:my-1 [&>li]:leading-relaxed
+              [&>h3]:text-base [&>h3]:font-bold [&>h3]:mt-3 [&>h3]:mb-2 [&>h3]:text-primary
+              [&>h4]:text-sm [&>h4]:font-bold [&>h4]:mt-2 [&>h4]:mb-1 [&>h4]:text-primary
+              [&>strong]:text-on-surface [&>strong]:font-bold
+              [&>blockquote]:border-r-4 [&>blockquote]:border-primary/40 [&>blockquote]:pr-4 [&>blockquote]:italic [&>blockquote]:text-on-surface-variant"
+          >
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {message.content}
+            </ReactMarkdown>
+          </div>
+          {message.created_at && (
+            <p className="text-on-surface-variant/50 font-label text-xs mt-1">
+              {new Date(message.created_at).toLocaleTimeString('he-IL', {
+                hour: '2-digit',
+                minute: '2-digit',
+              })}
+            </p>
+          )}
+        </div>
+      )}
     </motion.div>
   )
 })
