@@ -136,8 +136,8 @@
 - [x] **GROW-01**: Referral program with tracking and rewards
 - [ ] **GROW-02**: Blog with educational content (astrology, numerology guides)
 - [ ] **GROW-03**: Tutorials page with interactive content
-- [ ] **GROW-04**: Astrology tutor (concept cards, AI teaching)
-- [ ] **GROW-05**: Drawing tutor (concept cards, AI teaching)
+- [x] **GROW-04**: Astrology tutor (concept cards, AI teaching)
+- [x] **GROW-05**: Drawing tutor (concept cards, AI teaching)
 
 ### Export & Sharing
 
@@ -267,8 +267,8 @@
 | GROW-01 | Phase 8 | Complete |
 | GROW-02 | Phase 9 | Pending |
 | GROW-03 | Phase 9 | Pending |
-| GROW-04 | Phase 9 | Pending |
-| GROW-05 | Phase 9 | Pending |
+| GROW-04 | Phase 9 | Complete |
+| GROW-05 | Phase 9 | Complete |
 | EXPO-01 | Phase 10 | Pending |
 | EXPO-02 | Phase 10 | Pending |
 | UX-01 | Phase 3 | Complete |
