@@ -144,60 +144,60 @@ function TransitResults({ result }: { result: TransitsResult }) {
     <div className="space-y-6" dir="rtl">
       {/* כרטיסי סטטיסטיקה */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardContent className="pt-4 text-center">
-            <p className="text-2xl font-bold text-purple-300">{result.metadata.total_transits}</p>
-            <p className="text-xs text-gray-400 mt-1">אספקטים פעילים</p>
+            <p className="text-2xl font-headline font-bold text-primary">{result.metadata.total_transits}</p>
+            <p className="font-label text-xs text-on-surface-variant mt-1">אספקטים פעילים</p>
           </CardContent>
         </Card>
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardContent className="pt-4 text-center">
-            <p className="text-2xl font-bold text-yellow-300">{result.metadata.strong_transits_count}</p>
-            <p className="text-xs text-gray-400 mt-1">אספקטים חזקים</p>
+            <p className="text-2xl font-headline font-bold text-tertiary">{result.metadata.strong_transits_count}</p>
+            <p className="font-label text-xs text-on-surface-variant mt-1">אספקטים חזקים</p>
           </CardContent>
         </Card>
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardContent className="pt-4 text-center">
             {result.special_conditions.void_of_course_moon ? (
-              <Badge variant="outline" className="border-yellow-500 text-yellow-400">ירח void</Badge>
+              <Badge variant="outline" className="border-tertiary/50 text-tertiary font-label">ירח void</Badge>
             ) : (
-              <Badge variant="outline" className="border-green-500 text-green-400">ירח פעיל</Badge>
+              <Badge variant="outline" className="border-tertiary/50 text-tertiary font-label">ירח פעיל</Badge>
             )}
-            <p className="text-xs text-gray-400 mt-1">מצב ירח</p>
+            <p className="font-label text-xs text-on-surface-variant mt-1">מצב ירח</p>
           </CardContent>
         </Card>
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardContent className="pt-4 text-center">
             {result.special_conditions.mercury_retrograde ? (
-              <Badge variant="outline" className="border-orange-500 text-orange-400">מרקורי ℞</Badge>
+              <Badge variant="outline" className="border-error/50 text-error font-label">מרקורי ℞</Badge>
             ) : (
-              <Badge variant="outline" className="border-blue-500 text-blue-400">מרקורי ישיר</Badge>
+              <Badge variant="outline" className="border-secondary/50 text-secondary font-label">מרקורי ישיר</Badge>
             )}
-            <p className="text-xs text-gray-400 mt-1">מרקורי</p>
+            <p className="font-label text-xs text-on-surface-variant mt-1">מרקורי</p>
           </CardContent>
         </Card>
       </div>
 
       {/* גריד מיקומי כוכבים טרנזיטים */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-base text-purple-300">מיקומי כוכבים נוכחיים</CardTitle>
+          <CardTitle className="text-base font-headline text-primary">מיקומי כוכבים נוכחיים</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
             {result.transiting_planets.map((planet) => (
               <div
                 key={planet.name}
-                className="bg-gray-800/60 rounded-lg p-3 text-center border border-purple-500/10"
+                className="bg-surface-container rounded-xl p-3 text-center border border-outline-variant/5"
               >
                 <div className="text-xl mb-1">{PLANET_SYMBOLS[planet.name] ?? ''}</div>
-                <div className="text-xs font-medium text-gray-300">
+                <div className="font-label text-xs font-medium text-on-surface-variant">
                   {PLANET_NAMES_HE[planet.name] ?? planet.name}
                 </div>
-                <div className="text-xs text-purple-300 mt-1">{planet.sign}</div>
-                <div className="text-xs text-gray-500">{planet.degree_in_sign.toFixed(1)}°</div>
+                <div className="font-label text-xs text-primary mt-1">{planet.sign}</div>
+                <div className="font-label text-xs text-on-surface-variant/60">{planet.degree_in_sign.toFixed(1)}°</div>
                 {planet.is_retrograde && (
-                  <div className="text-xs text-orange-400 mt-1">℞ נסיגה</div>
+                  <div className="font-label text-xs text-error mt-1">℞ נסיגה</div>
                 )}
               </div>
             ))}
@@ -207,9 +207,9 @@ function TransitResults({ result }: { result: TransitsResult }) {
 
       {/* רשימת אספקטים */}
       {result.transits.length > 0 && (
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-base text-purple-300">אספקטים פעילים</CardTitle>
+            <CardTitle className="text-base font-headline text-primary">אספקטים פעילים</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-2">
@@ -221,26 +221,26 @@ function TransitResults({ result }: { result: TransitsResult }) {
                 return (
                   <div
                     key={idx}
-                    className="flex items-center justify-between bg-gray-800/40 rounded-lg px-3 py-2 border border-purple-500/10"
+                    className="flex items-center justify-between bg-surface-container rounded-lg px-3 py-2 border border-outline-variant/5"
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-sm">{PLANET_SYMBOLS[p1Clean] ?? ''}</span>
-                      <span className="text-xs text-gray-300">
+                      <span className="font-label text-xs text-on-surface-variant">
                         {PLANET_NAMES_HE[p1Clean] ?? p1Clean}
                       </span>
-                      <span className="text-xs text-purple-400 font-medium">
+                      <span className="font-label text-xs text-primary font-medium">
                         {ASPECT_NAMES_HE[aspect.type] ?? aspect.type}
                       </span>
                       <span className="text-sm">{PLANET_SYMBOLS[p2Clean] ?? ''}</span>
-                      <span className="text-xs text-gray-400">
+                      <span className="font-label text-xs text-on-surface-variant">
                         נטאל {PLANET_NAMES_HE[p2Clean] ?? p2Clean}
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-gray-500">{aspect.orb.toFixed(1)}°</span>
-                      <div className="w-16 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                      <span className="font-label text-xs text-on-surface-variant/60">{aspect.orb.toFixed(1)}°</span>
+                      <div className="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-purple-500 rounded-full"
+                          className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full"
                           style={{ width: `${strengthPercent}%` }}
                         />
                       </div>
@@ -254,12 +254,12 @@ function TransitResults({ result }: { result: TransitsResult }) {
       )}
 
       {/* פרשנות AI */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-base text-purple-300">פרשנות AI</CardTitle>
+          <CardTitle className="text-base font-headline text-primary">פרשנות AI</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-gray-300 leading-relaxed whitespace-pre-wrap">
+          <div className="text-sm text-on-surface-variant leading-relaxed whitespace-pre-wrap font-body">
             {result.interpretation}
           </div>
         </CardContent>
@@ -315,16 +315,16 @@ export default function TransitsPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">חישוב מעברים</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">חישוב מעברים</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" dir="rtl">
                 {/* תאריך יעד אופציונלי */}
                 <div className="space-y-1">
-                  <Label htmlFor="targetDate" className="text-gray-300">
+                  <Label htmlFor="targetDate" className="text-on-surface-variant font-label">
                     תאריך חישוב (אופציונלי — ריק = עכשיו)
                   </Label>
                   <Input
@@ -333,15 +333,15 @@ export default function TransitsPage() {
                     {...register('targetDate')}
                     className="max-w-xs"
                   />
-                  <p className="text-xs text-gray-500">השאר ריק לחישוב על פי תאריך היום</p>
+                  <p className="font-label text-xs text-on-surface-variant/60">השאר ריק לחישוב על פי תאריך היום</p>
                 </div>
 
                 {/* אזהרה אם אין מפת לידה */}
-                <div className="flex items-start gap-2 p-3 bg-yellow-900/20 border border-yellow-500/20 rounded-lg">
-                  <AlertTriangle className="h-4 w-4 text-yellow-400 mt-0.5 shrink-0" />
-                  <p className="text-xs text-yellow-300">
+                <div className="flex items-start gap-2 p-3 bg-surface-container-high border border-outline-variant/20 rounded-lg">
+                  <AlertTriangle className="h-4 w-4 text-tertiary mt-0.5 shrink-0" />
+                  <p className="font-label text-xs text-on-surface-variant">
                     נדרשת מפת לידה קיימת. אם עדיין לא יצרת מפת לידה,{' '}
-                    <a href="/tools/astrology" className="underline">
+                    <a href="/tools/astrology" className="underline text-primary">
                       לחץ כאן
                     </a>{' '}
                     ליצור אחת תחילה.
@@ -351,7 +351,7 @@ export default function TransitsPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? (
                     <span className="flex items-center gap-2">

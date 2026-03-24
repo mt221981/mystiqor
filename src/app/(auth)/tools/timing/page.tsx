@@ -83,16 +83,16 @@ function getTodayDate(): string {
 
 /** צבע ציון */
 function scoreColor(score: number): string {
-  if (score >= 70) return 'text-green-400'
-  if (score >= 50) return 'text-yellow-400'
-  return 'text-red-400'
+  if (score >= 70) return 'text-tertiary'
+  if (score >= 50) return 'text-secondary'
+  return 'text-error'
 }
 
 /** רוחב ציון */
 function scoreBgColor(score: number): string {
-  if (score >= 70) return 'bg-green-500'
-  if (score >= 50) return 'bg-yellow-500'
-  return 'bg-red-500'
+  if (score >= 70) return 'bg-tertiary'
+  if (score >= 50) return 'bg-secondary'
+  return 'bg-error'
 }
 
 /** עיצוב תאריך לעברית */
@@ -124,30 +124,30 @@ function TimingResults({ result }: TimingResultsProps) {
     >
       {/* המלצה ראשית */}
       {topDay && (
-        <Card className="border-green-500/30 bg-gray-900/60">
+        <Card className="border-tertiary/20 bg-tertiary/5">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-green-400 flex items-center gap-2">
-              <Star className="h-5 w-5 fill-green-400" />
+            <CardTitle className="text-base font-headline text-tertiary flex items-center gap-2">
+              <Star className="h-5 w-5 fill-current" />
               יום מומלץ ביותר
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex items-center gap-4">
-              <span className="text-2xl font-bold text-green-400">{formatDate(topDay.date)}</span>
-              <span className={`text-xl font-bold ${scoreColor(topDay.score)}`}>{topDay.score}/100</span>
-              <span className="text-gray-400 text-sm">ירח ב{topDay.moonSign}</span>
+              <span className="text-2xl font-headline font-bold text-tertiary">{formatDate(topDay.date)}</span>
+              <span className={`text-xl font-headline font-bold ${scoreColor(topDay.score)}`}>{topDay.score}/100</span>
+              <span className="text-on-surface-variant text-sm font-label">ירח ב{topDay.moonSign}</span>
             </div>
             {result.interpretation && (
-              <p className="text-gray-300 text-sm leading-relaxed">{result.interpretation}</p>
+              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{result.interpretation}</p>
             )}
           </CardContent>
         </Card>
       )}
 
       {/* ימים מומלצים */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+          <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
             <Calendar className="h-4 w-4" />
             ימים מומלצים
           </CardTitle>
@@ -156,29 +156,29 @@ function TimingResults({ result }: TimingResultsProps) {
           {result.bestDays.map((day, i) => (
             <div key={day.date} className="space-y-1">
               <div className="flex items-center gap-3">
-                <span className="text-gray-400 text-xs w-4 shrink-0">{i + 1}.</span>
-                <span className="text-gray-200 text-sm font-medium w-24 shrink-0">{formatDate(day.date)}</span>
-                <div className="flex-1 bg-gray-700 rounded-full h-2">
+                <span className="text-on-surface-variant/60 text-xs w-4 shrink-0 font-label">{i + 1}.</span>
+                <span className="text-on-surface text-sm font-medium w-24 shrink-0 font-label">{formatDate(day.date)}</span>
+                <div className="flex-1 bg-surface-container-high rounded-full h-2">
                   {/* inline style for dynamic score width */}
                   <div className={`h-2 rounded-full ${scoreBgColor(day.score)}`} style={{ width: `${day.score}%` }} />
                 </div>
-                <span className={`text-sm font-medium w-10 text-end shrink-0 ${scoreColor(day.score)}`}>
+                <span className={`text-sm font-medium w-10 text-end shrink-0 font-headline ${scoreColor(day.score)}`}>
                   {day.score}
                 </span>
               </div>
               <div className="flex flex-wrap gap-1 pr-7">
-                <span className="text-xs text-gray-400 ml-1">ירח ב{day.moonSign}</span>
+                <span className="font-label text-xs text-on-surface-variant ml-1">ירח ב{day.moonSign}</span>
                 {day.mercury_retrograde && (
-                  <span className="text-xs bg-orange-900/40 text-orange-400 px-2 py-0.5 rounded-full">מרקורי ℞</span>
+                  <span className="font-label text-xs bg-primary-container/10 text-primary px-2 py-0.5 rounded-full">מרקורי ℞</span>
                 )}
                 {day.near_void_moon && (
-                  <span className="text-xs bg-gray-800 text-gray-400 px-2 py-0.5 rounded-full">ירח חסר חלקיות</span>
+                  <span className="font-label text-xs bg-surface-container-high text-on-surface-variant px-2 py-0.5 rounded-full">ירח חסר חלקיות</span>
                 )}
                 {day.favorable.slice(0, 2).map((f, j) => (
-                  <span key={j} className="text-xs bg-green-900/30 text-green-400 px-2 py-0.5 rounded-full">{f}</span>
+                  <span key={j} className="font-label text-xs bg-tertiary/10 text-tertiary px-2 py-0.5 rounded-full">{f}</span>
                 ))}
                 {day.unfavorable.slice(0, 1).map((u, j) => (
-                  <span key={j} className="text-xs bg-amber-900/30 text-amber-400 px-2 py-0.5 rounded-full">{u}</span>
+                  <span key={j} className="font-label text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">{u}</span>
                 ))}
               </div>
             </div>
@@ -187,11 +187,11 @@ function TimingResults({ result }: TimingResultsProps) {
       </Card>
 
       {/* ימים פחות מומלצים — מכווץ כברירת מחדל */}
-      <Card className="border-red-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
           <button
             onClick={() => setShowWorstDays(!showWorstDays)}
-            className="w-full flex items-center justify-between text-base text-red-400 font-semibold"
+            className="w-full flex items-center justify-between text-base font-headline text-error font-semibold"
           >
             <span className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
@@ -205,18 +205,18 @@ function TimingResults({ result }: TimingResultsProps) {
             {result.worstDays.map((day, i) => (
               <div key={day.date} className="space-y-1">
                 <div className="flex items-center gap-3">
-                  <span className="text-gray-200 text-sm font-medium w-24 shrink-0">{formatDate(day.date)}</span>
-                  <div className="flex-1 bg-gray-700 rounded-full h-2">
+                  <span className="text-on-surface text-sm font-medium w-24 shrink-0 font-label">{formatDate(day.date)}</span>
+                  <div className="flex-1 bg-surface-container-high rounded-full h-2">
                     <div className={`h-2 rounded-full ${scoreBgColor(day.score)}`} style={{ width: `${day.score}%` }} />
                   </div>
-                  <span className={`text-sm font-medium w-10 text-end shrink-0 ${scoreColor(day.score)}`}>
+                  <span className={`text-sm font-medium w-10 text-end shrink-0 font-headline ${scoreColor(day.score)}`}>
                     {day.score}
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  <span className="text-xs text-gray-400 ml-1">ירח ב{day.moonSign}</span>
+                  <span className="font-label text-xs text-on-surface-variant ml-1">ירח ב{day.moonSign}</span>
                   {day.unfavorable.slice(0, 2).map((u, j) => (
-                    <span key={j} className="text-xs bg-amber-900/30 text-amber-400 px-2 py-0.5 rounded-full">{u}</span>
+                    <span key={j} className="font-label text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">{u}</span>
                   ))}
                 </div>
               </div>
@@ -269,53 +269,53 @@ export default function TimingPage() {
         transition={{ duration: 0.4 }}
         className="mb-6"
       >
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">הגדרות תזמון</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">הגדרות תזמון</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit((v) => mutation.mutate(v))} className="space-y-5">
                 {/* סוג פעילות */}
                 <div className="space-y-2">
-                  <Label className="text-gray-300">סוג פעילות</Label>
+                  <Label className="text-on-surface-variant font-label">סוג פעילות</Label>
                   <div className="flex flex-wrap gap-2">
                     {ACTIVITY_TYPES.map((type) => (
                       <button
                         key={type}
                         type="button"
                         onClick={() => setValue('activityType', type as ActivityType)}
-                        className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
+                        className={`bg-primary-container/10 text-primary font-label text-xs px-2 py-1 rounded-full transition-colors ${
                           selectedActivity === type
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                            ? 'bg-primary-container text-on-primary-container font-semibold'
+                            : 'hover:bg-surface-container-high'
                         }`}
                       >
                         {ACTIVITY_LABELS[type as ActivityType]}
                       </button>
                     ))}
                   </div>
-                  {errors.activityType && <p className="text-xs text-red-400">{errors.activityType.message}</p>}
+                  {errors.activityType && <p className="font-label text-xs text-error">{errors.activityType.message}</p>}
                 </div>
 
                 {/* טווח תאריכים */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-1">
-                    <Label className="text-gray-300 text-sm">תאריך התחלה</Label>
+                    <Label className="text-on-surface-variant text-sm font-label">תאריך התחלה</Label>
                     <Input type="date" dir="ltr" {...register('startDate')} />
-                    {errors.startDate && <p className="text-xs text-red-400">{errors.startDate.message}</p>}
+                    {errors.startDate && <p className="font-label text-xs text-error">{errors.startDate.message}</p>}
                   </div>
                   <div className="space-y-1">
-                    <Label className="text-gray-300 text-sm">תאריך סיום (מקסימום 31 יום)</Label>
+                    <Label className="text-on-surface-variant text-sm font-label">תאריך סיום (מקסימום 31 יום)</Label>
                     <Input type="date" dir="ltr" {...register('endDate')} />
-                    {errors.endDate && <p className="text-xs text-red-400">{errors.endDate.message}</p>}
+                    {errors.endDate && <p className="font-label text-xs text-error">{errors.endDate.message}</p>}
                   </div>
                 </div>
 
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? 'מחשב תזמון...' : 'חשב ימים מועדפים'}
                 </Button>

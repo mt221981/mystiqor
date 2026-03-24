@@ -81,9 +81,9 @@ async function fetchSynastry(input: FormValues): Promise<SynastryResult> {
 
 /** טיפוס צבע לפי ציון */
 function scoreColor(score: number): string {
-  if (score >= 75) return 'text-green-400'
-  if (score >= 50) return 'text-yellow-400'
-  return 'text-red-400'
+  if (score >= 75) return 'text-tertiary'
+  if (score >= 50) return 'text-secondary'
+  return 'text-error'
 }
 
 // ===== קומפוננטת תוצאות =====
@@ -106,13 +106,13 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       className="space-y-4"
     >
       {/* ציון תאימות */}
-      <Card className="border-purple-500/20 bg-gray-900/50 text-center">
+      <Card className="border-outline-variant/5 bg-surface-container text-center">
         <CardContent className="pt-6">
-          <div className={`text-7xl font-bold ${scoreColor(interpretation.compatibility_score)}`}>
+          <div className={`text-7xl font-headline font-bold ${scoreColor(interpretation.compatibility_score)}`}>
             {interpretation.compatibility_score}%
           </div>
-          <p className="text-gray-400 text-sm mt-1">ציון תאימות — {person1Name} & {person2Name}</p>
-          <p className="text-gray-300 text-sm mt-3 leading-relaxed max-w-lg mx-auto">{interpretation.summary}</p>
+          <p className="text-on-surface-variant text-sm mt-1 font-label">ציון תאימות — {person1Name} & {person2Name}</p>
+          <p className="text-on-surface-variant text-sm mt-3 leading-relaxed max-w-lg mx-auto font-body">{interpretation.summary}</p>
         </CardContent>
       </Card>
 
@@ -123,14 +123,14 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
           { title: 'דינמיקת ירח-ירח', content: interpretation.moon_moon_dynamic, icon: '🌙' },
           { title: 'כימיה נוגה-מאדים', content: interpretation.venus_mars_chemistry, icon: '♀' },
         ].map((card) => (
-          <Card key={card.title} className="border-purple-500/20 bg-gray-900/50">
+          <Card key={card.title} className="border-outline-variant/5 bg-surface-container">
             <CardHeader className="pb-2">
-              <CardTitle className="text-sm text-purple-300 flex items-center gap-2">
+              <CardTitle className="text-sm font-headline text-primary flex items-center gap-2">
                 <span>{card.icon}</span>{card.title}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-gray-300 text-sm leading-relaxed">{card.content}</p>
+              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{card.content}</p>
             </CardContent>
           </Card>
         ))}
@@ -138,33 +138,33 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
 
       {/* חוזקות ואתגרים */}
       <div className="flex flex-col md:flex-row gap-4">
-        <Card className="border-green-500/20 bg-gray-900/50 flex-1">
+        <Card className="border-outline-variant/5 bg-surface-container flex-1">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-green-400 flex items-center gap-2">
+            <CardTitle className="text-base font-headline text-tertiary flex items-center gap-2">
               <CheckCircle className="h-4 w-4" />חוזקות
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
               {interpretation.strengths.map((s, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <CheckCircle className="h-3 w-3 text-green-400 mt-1 shrink-0" />{s}
+                <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                  <CheckCircle className="h-3 w-3 text-tertiary mt-1 shrink-0" />{s}
                 </li>
               ))}
             </ul>
           </CardContent>
         </Card>
-        <Card className="border-amber-500/20 bg-gray-900/50 flex-1">
+        <Card className="border-outline-variant/5 bg-surface-container flex-1">
           <CardHeader className="pb-2">
-            <CardTitle className="text-base text-amber-400 flex items-center gap-2">
+            <CardTitle className="text-base font-headline text-secondary flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />אתגרים
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
               {interpretation.challenges.map((c, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <AlertTriangle className="h-3 w-3 text-amber-400 mt-1 shrink-0" />{c}
+                <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                  <AlertTriangle className="h-3 w-3 text-secondary mt-1 shrink-0" />{c}
                 </li>
               ))}
             </ul>
@@ -173,17 +173,17 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       </div>
 
       {/* המלצות */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
-          <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+          <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
             <Star className="h-4 w-4" />המלצות
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
             {interpretation.recommendations.map((r, i) => (
-              <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                <Star className="h-3 w-3 text-purple-400 mt-1 shrink-0" />{r}
+              <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                <Star className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
               </li>
             ))}
           </ul>
@@ -191,11 +191,11 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       </Card>
 
       {/* טבלת אספקטים בין-גלגלות */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
           <button
             onClick={() => setShowAspects(!showAspects)}
-            className="w-full flex items-center justify-between text-base text-purple-300 font-semibold"
+            className="w-full flex items-center justify-between text-base font-headline text-primary font-semibold"
           >
             <span>אספקטים בין-גלגלות ({inter_aspects.length})</span>
             <ChevronDown className={`h-4 w-4 transition-transform ${showAspects ? 'rotate-180' : ''}`} />
@@ -204,25 +204,25 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
         {showAspects && (
           <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full text-xs text-gray-300">
+              <table className="w-full text-xs text-on-surface-variant">
                 <thead>
-                  <tr className="border-b border-gray-700 text-gray-400">
-                    <th className="pb-2 text-start">כוכב 1</th>
-                    <th className="pb-2 text-center">אספקט</th>
-                    <th className="pb-2 text-start">כוכב 2</th>
-                    <th className="pb-2 text-end">orb</th>
-                    <th className="pb-2 text-end">עוצמה</th>
+                  <tr className="border-b border-outline-variant/20 text-on-surface-variant/60">
+                    <th className="pb-2 text-start font-label">כוכב 1</th>
+                    <th className="pb-2 text-center font-label">אספקט</th>
+                    <th className="pb-2 text-start font-label">כוכב 2</th>
+                    <th className="pb-2 text-end font-label">orb</th>
+                    <th className="pb-2 text-end font-label">עוצמה</th>
                   </tr>
                 </thead>
                 <tbody>
                   {inter_aspects.slice(0, 20).map((asp, i) => (
-                    <tr key={i} className="border-b border-gray-800/50 hover:bg-gray-800/30">
-                      <td className="py-1 text-purple-300">{asp.planet1.replace('p1:', '')}</td>
-                      <td className="py-1 text-center text-yellow-400">{asp.type}</td>
-                      <td className="py-1 text-blue-300">{asp.planet2.replace('p2:', '')}</td>
-                      <td className="py-1 text-end text-gray-400">{asp.orb}°</td>
-                      <td className="py-1 text-end">
-                        <span className={asp.strength > 0.7 ? 'text-green-400' : asp.strength > 0.4 ? 'text-yellow-400' : 'text-gray-400'}>
+                    <tr key={i} className="border-b border-outline-variant/10 hover:bg-surface-container-high/30">
+                      <td className="py-1 text-primary font-label">{asp.planet1.replace('p1:', '')}</td>
+                      <td className="py-1 text-center text-secondary font-label">{asp.type}</td>
+                      <td className="py-1 text-on-surface-variant font-label">{asp.planet2.replace('p2:', '')}</td>
+                      <td className="py-1 text-end text-on-surface-variant/60 font-label">{asp.orb}°</td>
+                      <td className="py-1 text-end font-label">
+                        <span className={asp.strength > 0.7 ? 'text-tertiary' : asp.strength > 0.4 ? 'text-secondary' : 'text-on-surface-variant/60'}>
                           {Math.round(asp.strength * 100)}%
                         </span>
                       </td>
@@ -258,30 +258,30 @@ export default function SynastryPage() {
   })
 
   const renderPersonSection = (prefix: 'person1' | 'person2', title: string) => (
-    <Card className="border-purple-500/20 bg-gray-900/50 flex-1">
+    <Card className="border-outline-variant/5 bg-surface-container flex-1">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+        <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
           <Heart className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="space-y-1">
-          <Label className="text-gray-300 text-sm">שם</Label>
+          <Label className="text-on-surface-variant text-sm font-label">שם</Label>
           <Input placeholder="שם מלא" {...register(`${prefix}.name`)} />
-          {errors[prefix]?.name && <p className="text-xs text-red-400">{errors[prefix]?.name?.message}</p>}
+          {errors[prefix]?.name && <p className="text-xs text-error font-label">{errors[prefix]?.name?.message}</p>}
         </div>
         <div className="space-y-1">
-          <Label className="text-gray-300 text-sm">תאריך לידה</Label>
+          <Label className="text-on-surface-variant text-sm font-label">תאריך לידה</Label>
           <Input type="date" dir="ltr" {...register(`${prefix}.birthDate`)} />
-          {errors[prefix]?.birthDate && <p className="text-xs text-red-400">{errors[prefix]?.birthDate?.message}</p>}
+          {errors[prefix]?.birthDate && <p className="text-xs text-error font-label">{errors[prefix]?.birthDate?.message}</p>}
         </div>
         <div className="space-y-1">
-          <Label className="text-gray-300 text-sm">שעת לידה (אופציונלי)</Label>
+          <Label className="text-on-surface-variant text-sm font-label">שעת לידה (אופציונלי)</Label>
           <Input type="time" dir="ltr" {...register(`${prefix}.birthTime`)} />
         </div>
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1">
-            <Label className="text-gray-300 text-sm">קו רוחב</Label>
+            <Label className="text-on-surface-variant text-sm font-label">קו רוחב</Label>
             <Input
               type="number"
               step="0.0001"
@@ -289,10 +289,10 @@ export default function SynastryPage() {
               dir="ltr"
               {...register(`${prefix}.latitude`, { valueAsNumber: true })}
             />
-            {errors[prefix]?.latitude && <p className="text-xs text-red-400">{errors[prefix]?.latitude?.message}</p>}
+            {errors[prefix]?.latitude && <p className="text-xs text-error font-label">{errors[prefix]?.latitude?.message}</p>}
           </div>
           <div className="space-y-1">
-            <Label className="text-gray-300 text-sm">קו אורך</Label>
+            <Label className="text-on-surface-variant text-sm font-label">קו אורך</Label>
             <Input
               type="number"
               step="0.0001"
@@ -300,7 +300,7 @@ export default function SynastryPage() {
               dir="ltr"
               {...register(`${prefix}.longitude`, { valueAsNumber: true })}
             />
-            {errors[prefix]?.longitude && <p className="text-xs text-red-400">{errors[prefix]?.longitude?.message}</p>}
+            {errors[prefix]?.longitude && <p className="text-xs text-error font-label">{errors[prefix]?.longitude?.message}</p>}
           </div>
         </div>
       </CardContent>
@@ -327,9 +327,9 @@ export default function SynastryPage() {
         transition={{ duration: 0.4 }}
         className="mb-6"
       >
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">הזן נתוני לידה לשני אנשים</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">הזן נתוני לידה לשני אנשים</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
@@ -341,7 +341,7 @@ export default function SynastryPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? 'מחשב סינסטרי...' : 'חשב סינסטרי'}
                 </Button>

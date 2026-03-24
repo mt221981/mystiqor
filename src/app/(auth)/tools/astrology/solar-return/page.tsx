@@ -104,10 +104,10 @@ const ELEMENT_NAMES_HE: Record<string, string> = {
 }
 
 const ELEMENT_COLORS: Record<string, string> = {
-  fire: 'bg-red-500',
-  earth: 'bg-yellow-600',
-  air: 'bg-blue-400',
-  water: 'bg-cyan-500',
+  fire: 'bg-error',
+  earth: 'bg-tertiary',
+  air: 'bg-secondary',
+  water: 'bg-primary',
 }
 
 // ===== פונקציות קריאת API =====
@@ -153,14 +153,14 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
   return (
     <div className="space-y-6" dir="rtl">
       {/* רגע המהפכה + תג דיוק */}
-      <Card className="border-yellow-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="pt-4">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-400">רגע המהפכה השמשית לשנת {targetYear}</p>
-              <p className="text-lg font-bold text-yellow-300 mt-1">{srDateFormatted}</p>
+              <p className="font-label text-sm text-on-surface-variant">רגע המהפכה השמשית לשנת {targetYear}</p>
+              <p className="text-lg font-headline font-bold text-primary mt-1">{srDateFormatted}</p>
             </div>
-            <Badge variant="outline" className="border-green-500 text-green-400">
+            <Badge variant="outline" className="border-tertiary/50 text-tertiary font-label">
               דיוק ±0.01°
             </Badge>
           </div>
@@ -168,9 +168,9 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
       </Card>
 
       {/* מפת הגלגל ברגע המהפכה */}
-      <Card className="border-purple-500/20 bg-gray-900/50 p-4">
+      <Card className="border-outline-variant/5 bg-surface-container p-4">
         <CardHeader>
-          <CardTitle className="text-base text-purple-300">מפת גלגל — רגע המהפכה</CardTitle>
+          <CardTitle className="text-base font-headline text-primary">מפת גלגל — רגע המהפכה</CardTitle>
         </CardHeader>
         <CardContent>
           <BirthChart planets={planetsForChart} chartData={result.sr_chart} />
@@ -178,9 +178,9 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
       </Card>
 
       {/* התפלגות יסודות */}
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-base text-purple-300">התפלגות יסודות</CardTitle>
+          <CardTitle className="text-base font-headline text-primary">התפלגות יסודות</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
@@ -189,12 +189,12 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
               return (
                 <div key={element} className="space-y-1">
                   <div className="flex justify-between text-xs">
-                    <span className="text-gray-300">{ELEMENT_NAMES_HE[element] ?? element}</span>
-                    <span className="text-gray-500">{count ?? 0} כוכבים ({pct}%)</span>
+                    <span className="text-on-surface-variant font-label">{ELEMENT_NAMES_HE[element] ?? element}</span>
+                    <span className="text-on-surface-variant/60 font-label">{count ?? 0} כוכבים ({pct}%)</span>
                   </div>
-                  <div className="h-2 bg-gray-700 rounded-full overflow-hidden">
+                  <div className="h-2 bg-surface-container-high rounded-full overflow-hidden">
                     <div
-                      className={`h-full rounded-full ${ELEMENT_COLORS[element] ?? 'bg-purple-500'}`}
+                      className={`h-full rounded-full ${ELEMENT_COLORS[element] ?? 'bg-primary-container'}`}
                       style={{ width: `${pct}%` }}
                     />
                   </div>
@@ -270,16 +270,16 @@ export default function SolarReturnPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">בחירת שנה</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">בחירת שנה</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" dir="rtl">
                 {/* כפתורי שנה מהירה */}
                 <div className="space-y-2">
-                  <p className="text-sm text-gray-400">בחר שנה לחישוב:</p>
+                  <p className="font-label text-sm text-on-surface-variant">בחר שנה לחישוב:</p>
                   <div className="flex gap-2">
                     <Button
                       type="button"
@@ -288,8 +288,8 @@ export default function SolarReturnPage() {
                       onClick={() => setValue('targetYear', currentYear)}
                       className={
                         Number(targetYearValue) === currentYear
-                          ? 'border-purple-500 text-purple-300 bg-purple-900/20'
-                          : 'border-gray-600 text-gray-400'
+                          ? 'border-primary text-primary bg-primary/10 font-label'
+                          : 'border-outline-variant text-on-surface-variant font-label'
                       }
                     >
                       שנה נוכחית ({currentYear})
@@ -301,8 +301,8 @@ export default function SolarReturnPage() {
                       onClick={() => setValue('targetYear', currentYear + 1)}
                       className={
                         Number(targetYearValue) === currentYear + 1
-                          ? 'border-purple-500 text-purple-300 bg-purple-900/20'
-                          : 'border-gray-600 text-gray-400'
+                          ? 'border-primary text-primary bg-primary/10 font-label'
+                          : 'border-outline-variant text-on-surface-variant font-label'
                       }
                     >
                       שנה הבאה ({currentYear + 1})
@@ -312,11 +312,11 @@ export default function SolarReturnPage() {
 
                 {/* קלט שנה מותאם אישית */}
                 <div className="space-y-1">
-                  <p className="text-xs text-gray-500">או הזן שנה ספציפית (1900-2100):</p>
+                  <p className="font-label text-xs text-on-surface-variant/60">או הזן שנה ספציפית (1900-2100):</p>
                   <input
                     type="number"
                     {...register('targetYear')}
-                    className="w-32 px-3 py-1.5 rounded-md bg-gray-800 border border-gray-600 text-gray-300 text-sm focus:outline-none focus:border-purple-500"
+                    className="w-32 px-3 py-1.5 rounded-md bg-surface-container-lowest border border-outline-variant text-on-surface text-sm focus:outline-none focus:border-primary/40 font-label"
                     min={1900}
                     max={2100}
                   />
@@ -325,7 +325,7 @@ export default function SolarReturnPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? (
                     <span className="flex items-center gap-2">
