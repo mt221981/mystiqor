@@ -6,6 +6,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { onboardingCompleteSchema } from '@/lib/validations/profile';
+import { sendWelcomeEmail } from '@/services/email/welcome';
 
 import type { NextRequest } from 'next/server';
 
@@ -72,6 +73,13 @@ export async function POST(request: NextRequest) {
         { error: 'שגיאה בשמירת הפרופיל' },
         { status: 500 }
       );
+    }
+
+    // שליחת אימייל ברוכים הבאים — כישלון לא מונע הצלחת onboarding
+    try {
+      await sendWelcomeEmail(user.email!, parsed.data.full_name);
+    } catch (emailError) {
+      console.error('[onboarding/complete] Welcome email failed:', emailError);
     }
 
     // 2. Create free subscription row (if not exists)

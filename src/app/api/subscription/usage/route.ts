@@ -7,6 +7,10 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
 import { llmRateLimit, checkRateLimit } from '@/lib/rate-limit';
+import { sendUsageLimitEmail } from '@/services/email/usage-limit';
+import { PLAN_INFO } from '@/lib/constants/plans';
+
+import type { PlanType } from '@/types/subscription';
 
 /** סכמת תוצאת RPC — מחליפה type assertion לא בטוח */
 const UsageRPCResultSchema = z.object({
@@ -38,6 +42,25 @@ export async function POST() {
 
     if (error) {
       if (error.message.includes('Usage limit reached')) {
+        // שליחת אימייל מגבלת שימוש — כישלון לא מונע תשובת 429
+        try {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('full_name')
+            .eq('id', user.id)
+            .single();
+          const { data: sub } = await supabase
+            .from('subscriptions')
+            .select('plan_type')
+            .eq('user_id', user.id)
+            .single();
+          if (profile && user.email) {
+            const planName = PLAN_INFO[(sub?.plan_type as PlanType) ?? 'free']?.name ?? 'חינמי';
+            await sendUsageLimitEmail(user.email, profile.full_name, planName);
+          }
+        } catch (emailError) {
+          console.error('[subscription/usage] Usage limit email failed:', emailError);
+        }
         return NextResponse.json({ error: 'הגעת למגבלת השימוש' }, { status: 429 });
       }
       return NextResponse.json({ error: 'שגיאה בעדכון שימוש' }, { status: 500 });
