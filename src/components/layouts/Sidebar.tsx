@@ -40,6 +40,9 @@ import {
   Bell,
   ChevronDown,
   ChevronUp,
+  History,
+  BarChart3,
+  GitCompare,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
@@ -113,8 +116,18 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'למידה',
     items: [
-      { label: 'מדריכים', href: '/tutorials', icon: GraduationCap },
-      { label: 'בלוג', href: '/blog', icon: Newspaper },
+      { label: 'מדריכים', href: '/learn/tutorials', icon: GraduationCap },
+      { label: 'בלוג', href: '/learn/blog', icon: Newspaper },
+      { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: Stars },
+      { label: 'מורה ציור', href: '/learn/drawing', icon: Palette },
+    ],
+  },
+  {
+    title: 'היסטוריה ואנליטיקה',
+    items: [
+      { label: 'היסטוריית ניתוחים', href: '/history', icon: History },
+      { label: 'השוואת ניתוחים', href: '/history/compare', icon: GitCompare },
+      { label: 'אנליטיקה אישית', href: '/analytics', icon: BarChart3 },
     ],
   },
   {

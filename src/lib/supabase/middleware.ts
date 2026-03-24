@@ -21,6 +21,11 @@ const PROTECTED_PATHS = [
   '/goals',
   '/mood',
   '/journal',
+  // Phase 9 — Learning + History + Analytics
+  '/history',
+  '/learn',
+  '/analytics',
+  '/blog',
 ];
 
 /**

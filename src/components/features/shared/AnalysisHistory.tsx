@@ -12,6 +12,7 @@ import { formatRelativeDate } from '@/lib/utils/dates';
 import { History, ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import type { ToolType } from '@/types/analysis';
+import { TOOL_NAMES } from '@/lib/constants/tool-names';
 
 /** ניתוח בודד */
 interface AnalysisItem {
@@ -21,28 +22,6 @@ interface AnalysisItem {
   confidence_score: number | null;
   created_at: string;
 }
-
-/** שמות כלים בעברית */
-const TOOL_NAMES: Record<string, string> = {
-  numerology: 'נומרולוגיה',
-  astrology: 'אסטרולוגיה',
-  palmistry: 'כירומנטיה',
-  graphology: 'גרפולוגיה',
-  tarot: 'טארוט',
-  drawing: 'ניתוח ציורים',
-  dream: 'חלומות',
-  career: 'קריירה',
-  compatibility: 'תאימות',
-  synastry: 'סינסטרי',
-  solar_return: 'Solar Return',
-  transits: 'טרנזיטים',
-  human_design: 'Human Design',
-  personality: 'אישיות',
-  document: 'מסמכים',
-  question: 'שאלה',
-  relationship: 'יחסים',
-  synthesis: 'סינתזה',
-};
 
 /** Props */
 export interface AnalysisHistoryProps {
