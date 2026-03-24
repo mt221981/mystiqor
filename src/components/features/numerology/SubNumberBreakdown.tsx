@@ -57,24 +57,24 @@ export function SubNumberBreakdown({ label, rawValue, finalValue }: SubNumberBre
   }
 
   return (
-    <Card className="border-purple-500/10 bg-gray-900/30 mt-1">
+    <Card className="border-outline-variant/10 bg-surface-container-low mt-1">
       <CardContent className="py-2 px-3">
         <div className="flex items-center gap-2 flex-wrap" dir="rtl">
           {/* תווית המספר */}
-          <span className="text-xs text-gray-400 font-medium shrink-0">{label}:</span>
+          <span className="text-xs font-label text-on-surface-variant font-medium shrink-0">{label}:</span>
 
           {/* שלבי הצמצום */}
           {steps.map((step, idx) => (
             <span key={idx} className="flex items-center gap-1">
               {idx > 0 && (
-                <span className="text-gray-500 text-xs">←</span>
+                <span className="text-on-surface-variant/60 text-xs">←</span>
               )}
               <Badge
                 variant="outline"
                 className={
                   MASTER_NUMBERS.has(step)
                     ? 'border-yellow-500/60 text-yellow-400 bg-yellow-500/10 text-xs px-1.5 py-0'
-                    : 'border-purple-500/30 text-purple-300 bg-purple-500/5 text-xs px-1.5 py-0'
+                    : 'border-primary/30 text-primary bg-primary/5 text-xs px-1.5 py-0'
                 }
               >
                 {step}

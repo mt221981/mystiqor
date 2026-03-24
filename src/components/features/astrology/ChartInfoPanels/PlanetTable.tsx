@@ -46,19 +46,19 @@ export interface PlanetTableProps {
  */
 export function PlanetTable({ planets }: PlanetTableProps) {
   return (
-    <Card className="border-indigo-500/20 bg-gray-900/50">
+    <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-indigo-300">טבלת כוכבים</CardTitle>
+        <CardTitle className="text-base font-headline text-secondary">טבלת כוכבים</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-gray-700">
-                <TableHead className="text-gray-400 text-end">כוכב</TableHead>
-                <TableHead className="text-gray-400 text-end">מזל</TableHead>
-                <TableHead className="text-gray-400 text-end">מעלה</TableHead>
-                <TableHead className="text-gray-400 text-end">בית</TableHead>
+              <TableRow className="border-outline-variant">
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">כוכב</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">מזל</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">מעלה</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">בית</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -69,7 +69,7 @@ export function PlanetTable({ planets }: PlanetTableProps) {
                 const signInfo = ZODIAC_SIGNS[signKey]
 
                 return (
-                  <TableRow key={planet.name} className="border-gray-800">
+                  <TableRow key={planet.name} className="border-outline-variant/20">
                     {/* עמודת כוכב — סמל + שם עברי */}
                     <TableCell className="text-end">
                       <span className="flex items-center justify-end gap-1.5">
@@ -81,7 +81,7 @@ export function PlanetTable({ planets }: PlanetTableProps) {
                             {planetInfo.symbol}
                           </span>
                         )}
-                        <span className="text-gray-200 text-sm">
+                        <span className="font-body text-on-surface text-sm">
                           {planetInfo?.name ?? planet.name}
                         </span>
                       </span>
@@ -93,19 +93,19 @@ export function PlanetTable({ planets }: PlanetTableProps) {
                         {signInfo && (
                           <span aria-hidden="true">{signInfo.emoji}</span>
                         )}
-                        <span className="text-gray-300 text-sm">
+                        <span className="font-body text-on-surface text-sm">
                           {signInfo?.name ?? planet.sign}
                         </span>
                       </span>
                     </TableCell>
 
                     {/* עמודת מעלה */}
-                    <TableCell className="text-end text-gray-300 text-sm">
+                    <TableCell className="text-end font-body text-on-surface text-sm">
                       {planet.degree_in_sign.toFixed(1)}°
                     </TableCell>
 
                     {/* עמודת בית */}
-                    <TableCell className="text-end text-gray-300 text-sm">
+                    <TableCell className="text-end font-body text-on-surface text-sm">
                       {planet.house}
                     </TableCell>
                   </TableRow>

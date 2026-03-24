@@ -197,16 +197,16 @@ export default function AstrologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/10 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">נתוני לידה</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">נתוני לידה</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" dir="rtl">
                 {/* שם מלא */}
                 <div className="space-y-1">
-                  <Label htmlFor="fullName" className="text-gray-300">שם מלא</Label>
+                  <Label htmlFor="fullName" className="font-label text-on-surface-variant">שם מלא</Label>
                   <Input
                     id="fullName"
                     type="text"
@@ -222,14 +222,14 @@ export default function AstrologyPage() {
                 {/* תאריך ושעת לידה */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <Label htmlFor="birthDate" className="text-gray-300">תאריך לידה</Label>
+                    <Label htmlFor="birthDate" className="font-label text-on-surface-variant">תאריך לידה</Label>
                     <Input id="birthDate" type="date" {...register('birthDate')} />
                     {errors.birthDate && (
                       <p className="text-xs text-red-400">{errors.birthDate.message}</p>
                     )}
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="birthTime" className="text-gray-300">שעת לידה</Label>
+                    <Label htmlFor="birthTime" className="font-label text-on-surface-variant">שעת לידה</Label>
                     <Input id="birthTime" type="time" {...register('birthTime')} />
                     {errors.birthTime && (
                       <p className="text-xs text-red-400">{errors.birthTime.message}</p>
@@ -240,7 +240,7 @@ export default function AstrologyPage() {
                 {/* קואורדינטות */}
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <Label htmlFor="latitude" className="text-gray-300">קו רוחב</Label>
+                    <Label htmlFor="latitude" className="font-label text-on-surface-variant">קו רוחב</Label>
                     <Input
                       id="latitude"
                       type="number"
@@ -253,7 +253,7 @@ export default function AstrologyPage() {
                     )}
                   </div>
                   <div className="space-y-1">
-                    <Label htmlFor="longitude" className="text-gray-300">קו אורך</Label>
+                    <Label htmlFor="longitude" className="font-label text-on-surface-variant">קו אורך</Label>
                     <Input
                       id="longitude"
                       type="number"
@@ -270,7 +270,7 @@ export default function AstrologyPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
                   {mutation.isPending ? 'מחשב מפת לידה...' : 'חשב מפת לידה'}
                 </Button>
@@ -289,7 +289,7 @@ export default function AstrologyPage() {
           className="space-y-6"
         >
           {/* SVG מפת הגלגל */}
-          <Card className="border-purple-500/20 bg-gray-900/50 p-4">
+          <Card className="border-outline-variant/5 bg-surface-container p-4 rounded-xl">
             <BirthChart planets={result.planets} chartData={result.chartData} />
           </Card>
 
@@ -304,7 +304,7 @@ export default function AstrologyPage() {
 
           {/* פאנלים ב-Tabs */}
           <Tabs defaultValue="interpretation" dir="rtl">
-            <TabsList className="w-full grid grid-cols-3 bg-gray-800">
+            <TabsList className="w-full grid grid-cols-3 bg-surface-container-high">
               <TabsTrigger value="interpretation">פירוש AI</TabsTrigger>
               <TabsTrigger value="planets">טבלת כוכבים</TabsTrigger>
               <TabsTrigger value="aspects">אספקטים</TabsTrigger>

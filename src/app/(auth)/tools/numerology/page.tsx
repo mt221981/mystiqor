@@ -74,11 +74,11 @@ interface CompatibilityApiResponse {
 
 /** הגדרות 5 כרטיסי הנומרולוגיה */
 const NUMBER_CARD_DEFS = [
-  { key: 'life_path' as const, label: 'נתיב חיים', color: 'bg-purple-900/20' },
-  { key: 'destiny' as const, label: 'גורל', color: 'bg-blue-900/20' },
-  { key: 'soul' as const, label: 'נשמה', color: 'bg-indigo-900/20' },
-  { key: 'personality' as const, label: 'אישיות', color: 'bg-violet-900/20' },
-  { key: 'personal_year' as const, label: 'שנה אישית', color: 'bg-fuchsia-900/20' },
+  { key: 'life_path' as const, label: 'נתיב חיים', color: 'bg-surface-container' },
+  { key: 'destiny' as const, label: 'גורל', color: 'bg-surface-container' },
+  { key: 'soul' as const, label: 'נשמה', color: 'bg-surface-container' },
+  { key: 'personality' as const, label: 'אישיות', color: 'bg-surface-container' },
+  { key: 'personal_year' as const, label: 'שנה אישית', color: 'bg-surface-container' },
 ] as const
 
 // ===== פונקציות עזר =====
@@ -221,16 +221,16 @@ export default function NumerologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/10 bg-surface-container mb-6">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">הזן פרטים</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">הזן פרטים</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 {/* שדה שם מלא */}
                 <div className="space-y-1">
-                  <Label htmlFor="fullName" className="text-gray-300">
+                  <Label htmlFor="fullName" className="font-label text-on-surface-variant">
                     שם מלא
                   </Label>
                   <Input
@@ -247,7 +247,7 @@ export default function NumerologyPage() {
 
                 {/* שדה תאריך לידה */}
                 <div className="space-y-1">
-                  <Label htmlFor="birthDate" className="text-gray-300">
+                  <Label htmlFor="birthDate" className="font-label text-on-surface-variant">
                     תאריך לידה
                   </Label>
                   <Input
@@ -264,7 +264,7 @@ export default function NumerologyPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
                   {mutation.isPending ? 'מחשב...' : 'חשב מספרים נומרולוגיים'}
                 </Button>
@@ -324,15 +324,15 @@ export default function NumerologyPage() {
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
                   פרשנות AI מותאמת אישית
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                   <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                 </div>
               </CardContent>
@@ -341,7 +341,7 @@ export default function NumerologyPage() {
 
           {/* סקציית תאימות נומרולוגית — פרימיום */}
           <SubscriptionGuard feature="analyses">
-            <Card className="border-pink-500/20 bg-gray-900/50">
+            <Card className="bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl border border-outline-variant/10">
               <CardHeader>
                 {/* כותרת עם toggle */}
                 <button
@@ -349,21 +349,21 @@ export default function NumerologyPage() {
                   onClick={() => setShowCompatibility((prev) => !prev)}
                   className="flex items-center justify-between w-full text-start"
                 >
-                  <CardTitle className="text-base text-pink-300 flex items-center gap-2">
-                    <Heart className="h-4 w-4 text-pink-400" />
+                  <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
+                    <Heart className="h-4 w-4 text-primary" />
                     תאימות נומרולוגית
                   </CardTitle>
                   {showCompatibility ? (
-                    <ChevronUp className="h-4 w-4 text-gray-400" />
+                    <ChevronUp className="h-4 w-4 text-on-surface-variant" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 text-gray-400" />
+                    <ChevronDown className="h-4 w-4 text-on-surface-variant" />
                   )}
                 </button>
               </CardHeader>
 
               {showCompatibility && (
                 <CardContent className="space-y-4">
-                  <p className="text-sm text-gray-400" dir="rtl">
+                  <p className="text-sm font-body text-on-surface-variant" dir="rtl">
                     הזן פרטי אדם נוסף לחישוב התאימות הנומרולוגית בינכם
                   </p>
 
@@ -373,7 +373,7 @@ export default function NumerologyPage() {
                     className="space-y-3"
                   >
                     <div className="space-y-1">
-                      <Label htmlFor="compat-fullName" className="text-gray-300">
+                      <Label htmlFor="compat-fullName" className="font-label text-on-surface-variant">
                         שם מלא (האדם השני)
                       </Label>
                       <Input
@@ -391,7 +391,7 @@ export default function NumerologyPage() {
                     </div>
 
                     <div className="space-y-1">
-                      <Label htmlFor="compat-birthDate" className="text-gray-300">
+                      <Label htmlFor="compat-birthDate" className="font-label text-on-surface-variant">
                         תאריך לידה (האדם השני)
                       </Label>
                       <Input
@@ -409,7 +409,7 @@ export default function NumerologyPage() {
                     <Button
                       type="submit"
                       disabled={compatMutation.isPending}
-                      className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                      className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                     >
                       {compatMutation.isPending ? 'מחשב תאימות...' : 'חשב תאימות נומרולוגית'}
                     </Button>

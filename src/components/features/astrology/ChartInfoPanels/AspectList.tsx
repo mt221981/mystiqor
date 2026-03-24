@@ -49,12 +49,12 @@ function strengthToPercent(strength: number): number {
 export function AspectList({ aspects }: AspectListProps) {
   if (aspects.length === 0) {
     return (
-      <Card className="border-blue-500/20 bg-gray-900/50">
+      <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
         <CardHeader className="pb-3">
-          <CardTitle className="text-base text-blue-300">אספקטים</CardTitle>
+          <CardTitle className="text-base font-headline text-secondary">אספקטים</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-gray-500 text-sm text-center py-4" dir="rtl">
+          <p className="text-on-surface-variant/60 text-sm text-center py-4" dir="rtl">
             לא נמצאו אספקטים מרכזיים
           </p>
         </CardContent>
@@ -63,20 +63,20 @@ export function AspectList({ aspects }: AspectListProps) {
   }
 
   return (
-    <Card className="border-blue-500/20 bg-gray-900/50">
+    <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-blue-300">אספקטים</CardTitle>
+        <CardTitle className="text-base font-headline text-secondary">אספקטים</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="border-gray-700">
-                <TableHead className="text-gray-400 text-end">כוכב 1</TableHead>
-                <TableHead className="text-gray-400 text-end">אספקט</TableHead>
-                <TableHead className="text-gray-400 text-end">כוכב 2</TableHead>
-                <TableHead className="text-gray-400 text-end">סטיה</TableHead>
-                <TableHead className="text-gray-400 text-end">עוצמה</TableHead>
+              <TableRow className="border-outline-variant">
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">כוכב 1</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">אספקט</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">כוכב 2</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">סטיה</TableHead>
+                <TableHead className="text-on-surface-variant font-label text-xs uppercase text-end">עוצמה</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -86,9 +86,9 @@ export function AspectList({ aspects }: AspectListProps) {
                 const pct = strengthToPercent(aspect.strength)
 
                 return (
-                  <TableRow key={`${aspect.planet1}-${aspect.planet2}-${index}`} className="border-gray-800">
+                  <TableRow key={`${aspect.planet1}-${aspect.planet2}-${index}`} className="border-outline-variant/20">
                     {/* כוכב 1 */}
-                    <TableCell className="text-end text-gray-200 text-sm">
+                    <TableCell className="text-end font-body text-on-surface text-sm">
                       {getPlanetName(aspect.planet1)}
                     </TableCell>
 
@@ -100,26 +100,26 @@ export function AspectList({ aspects }: AspectListProps) {
                           borderColor: aspectInfo?.color ?? '#888888',
                           color: aspectInfo?.color ?? '#888888',
                         }}
-                        className="text-xs"
+                        className="text-xs font-label"
                       >
                         {aspectInfo?.name ?? aspect.type}
                       </Badge>
                     </TableCell>
 
                     {/* כוכב 2 */}
-                    <TableCell className="text-end text-gray-200 text-sm">
+                    <TableCell className="text-end font-body text-on-surface text-sm">
                       {getPlanetName(aspect.planet2)}
                     </TableCell>
 
                     {/* סטיה */}
-                    <TableCell className="text-end text-gray-400 text-sm">
+                    <TableCell className="text-end font-body text-on-surface-variant text-sm">
                       {aspect.orb.toFixed(2)}°
                     </TableCell>
 
                     {/* עוצמה — progress bar */}
                     <TableCell className="text-end">
                       <div className="flex items-center justify-end gap-2">
-                        <div className="w-16 h-1.5 bg-gray-700 rounded-full overflow-hidden">
+                        <div className="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
                           <div
                             className="h-full rounded-full transition-all"
                             style={{
@@ -133,7 +133,7 @@ export function AspectList({ aspects }: AspectListProps) {
                             aria-label={`עוצמה ${pct}%`}
                           />
                         </div>
-                        <span className="text-gray-400 text-xs w-8">{pct}%</span>
+                        <span className="text-on-surface-variant text-xs w-8">{pct}%</span>
                       </div>
                     </TableCell>
                   </TableRow>

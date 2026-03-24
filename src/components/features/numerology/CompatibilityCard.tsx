@@ -58,7 +58,7 @@ const DIMENSION_LABELS: Array<{ key: 'life_path' | 'destiny' | 'soul'; label: st
 export function CompatibilityCard({ result, isLoading = false }: CompatibilityCardProps) {
   if (isLoading) {
     return (
-      <Card className="border-pink-500/20 bg-gray-900/50">
+      <Card className="border-primary/20 bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl">
         <CardHeader>
           <Skeleton className="h-6 w-40" />
         </CardHeader>
@@ -76,30 +76,30 @@ export function CompatibilityCard({ result, isLoading = false }: CompatibilityCa
   const overallScore = result.scores.overall
 
   return (
-    <Card className="border-pink-500/20 bg-gray-900/50" dir="rtl">
+    <Card className="bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl border border-outline-variant/10" dir="rtl">
       <CardHeader>
-        <CardTitle className="text-base text-pink-300 flex items-center gap-2">
-          <Heart className="h-4 w-4 fill-pink-400 text-pink-400" />
+        <CardTitle className="text-base text-primary flex items-center gap-2">
+          <Heart className="h-4 w-4 fill-primary text-primary" />
           תאימות נומרולוגית
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-5">
         {/* שמות שני האנשים */}
-        <div className="text-center text-sm text-gray-400">
-          <span className="text-white font-medium">{result.person1}</span>
-          <span className="mx-2 text-pink-400">❤</span>
-          <span className="text-white font-medium">{result.person2}</span>
+        <div className="text-center text-sm text-on-surface-variant">
+          <span className="text-on-surface font-medium">{result.person1}</span>
+          <span className="mx-2 text-primary">❤</span>
+          <span className="text-on-surface font-medium">{result.person2}</span>
         </div>
 
         {/* ציון כולל — מוצג כאחוז גדול עם לב */}
         <div className="flex flex-col items-center gap-2 py-4">
           <Heart
-            className={`h-10 w-10 ${overallScore >= 80 ? 'fill-green-400 text-green-400' : overallScore >= 60 ? 'fill-yellow-400 text-yellow-400' : 'fill-red-400 text-red-400'}`}
+            className={`h-10 w-10 ${overallScore >= 80 ? 'fill-tertiary text-tertiary' : overallScore >= 60 ? 'fill-yellow-400 text-yellow-400' : 'fill-error text-error'}`}
           />
-          <div className={`text-4xl font-bold ${getScoreColor(overallScore)}`}>
+          <div className={`text-4xl font-headline font-bold ${getScoreColor(overallScore)}`}>
             {overallScore}%
           </div>
-          <div className="text-sm text-gray-400">ציון כולל</div>
+          <div className="text-sm font-label text-on-surface-variant">ציון כולל</div>
         </div>
 
         {/* פירוט לפי מימדים */}
@@ -109,10 +109,10 @@ export function CompatibilityCard({ result, isLoading = false }: CompatibilityCa
             return (
               <div key={key} className="space-y-1">
                 <div className="flex justify-between items-center text-sm">
-                  <span className="text-gray-400">{label}</span>
-                  <span className={`font-medium ${getScoreColor(score)}`}>{score}%</span>
+                  <span className="font-label text-on-surface-variant">{label}</span>
+                  <span className={`font-label font-medium ${getScoreColor(score)}`}>{score}%</span>
                 </div>
-                <div className="relative h-2 w-full overflow-hidden rounded-full bg-gray-700">
+                <div className="relative h-2 w-full overflow-hidden rounded-full bg-surface-container-high">
                   <div
                     className={`h-full transition-all duration-500 rounded-full ${getProgressColor(score)}`}
                     style={{ width: `${score}%` }}
@@ -125,8 +125,8 @@ export function CompatibilityCard({ result, isLoading = false }: CompatibilityCa
 
         {/* תיאור טקסטואלי */}
         {result.analysis && (
-          <div className="rounded-lg bg-pink-500/5 border border-pink-500/20 p-3">
-            <p className="text-sm text-gray-300 leading-relaxed">{result.analysis}</p>
+          <div className="rounded-lg bg-primary/5 border border-outline-variant/20 p-3">
+            <p className="text-sm font-body text-on-surface-variant leading-relaxed">{result.analysis}</p>
           </div>
         )}
       </CardContent>

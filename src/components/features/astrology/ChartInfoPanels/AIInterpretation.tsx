@@ -41,9 +41,9 @@ export function AIInterpretation({ interpretation, isLoading = false }: AIInterp
   const displayText = expanded || !isLong ? interpretation : interpretation.slice(0, PREVIEW_LENGTH) + '...'
 
   return (
-    <Card className="border-purple-500/20 bg-gray-900/50">
+    <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+        <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
           <Sparkles className="h-4 w-4" aria-hidden="true" />
           פירוש AI
         </CardTitle>
@@ -61,7 +61,7 @@ export function AIInterpretation({ interpretation, isLoading = false }: AIInterp
           <div>
             {/* תוכן Markdown עם RTL */}
             <div
-              className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed"
+              className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed"
               dir="rtl"
             >
               <ReactMarkdown>{displayText}</ReactMarkdown>
@@ -73,7 +73,7 @@ export function AIInterpretation({ interpretation, isLoading = false }: AIInterp
                 variant="ghost"
                 size="sm"
                 onClick={() => setExpanded(prev => !prev)}
-                className="mt-3 text-purple-400 hover:text-purple-300 p-0 h-auto"
+                className="mt-3 text-primary hover:text-primary-fixed p-0 h-auto"
                 aria-expanded={expanded}
               >
                 {expanded ? 'הצג פחות' : 'קרא עוד'}

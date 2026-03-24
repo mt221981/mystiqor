@@ -15,7 +15,7 @@ export interface NumberCardProps {
   readonly value: number
   /** תיאור קצר (אופציונלי) */
   readonly description?: string
-  /** מחלקת Tailwind לרקע — ברירת מחדל bg-purple-50 */
+  /** מחלקת Tailwind לרקע — ברירת מחדל bg-surface-container */
   readonly color?: string
 }
 
@@ -27,12 +27,12 @@ export function NumberCard({
   label,
   value,
   description,
-  color = 'bg-purple-50/10',
+  color = 'bg-surface-container',
 }: NumberCardProps) {
   return (
     <Card
       className={cn(
-        'text-center border border-purple-500/20 hover:border-purple-400/40 transition-all',
+        'text-center border border-outline-variant/10 hover:border-primary/40 transition-all',
         color
       )}
       role="article"
@@ -41,20 +41,20 @@ export function NumberCard({
       <CardContent className="pt-6 pb-4 px-3 flex flex-col items-center gap-2">
         {/* מספר גדול במרכז */}
         <span
-          className="text-5xl font-bold text-purple-300 leading-none"
+          className="text-5xl font-headline font-black text-primary leading-none"
           aria-hidden="true"
         >
           {value}
         </span>
 
         {/* תווית עברית */}
-        <span className="text-sm font-semibold text-gray-200 mt-1">
+        <span className="text-sm font-headline font-semibold text-on-surface mt-1">
           {label}
         </span>
 
         {/* תיאור אופציונלי */}
         {description && (
-          <p className="text-xs text-gray-400 leading-relaxed mt-1">
+          <p className="text-xs font-body text-on-surface-variant leading-relaxed mt-1">
             {description}
           </p>
         )}

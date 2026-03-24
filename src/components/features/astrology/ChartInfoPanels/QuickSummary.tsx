@@ -57,7 +57,7 @@ function SignCard({ label, signKey, borderColor, titleColor }: SignCardData) {
 
   return (
     <Card
-      className="bg-gray-900/50 flex-1 min-w-0"
+      className="bg-surface-container rounded-xl flex-1 min-w-0 border border-outline-variant/5"
       style={{ borderColor: signInfo?.color ? `${signInfo.color}33` : undefined }}
     >
       <CardContent className="pt-4 pb-4 px-3 text-center">
@@ -67,11 +67,11 @@ function SignCard({ label, signKey, borderColor, titleColor }: SignCardData) {
         </div>
 
         {/* כותרת + שם מזל */}
-        <p className="text-xs text-gray-400 mb-0.5" dir="rtl">
+        <p className="text-xs font-label text-on-surface-variant mb-0.5" dir="rtl">
           {label}
         </p>
         <p
-          className="text-sm font-semibold mb-1"
+          className="text-sm font-headline font-semibold mb-1"
           style={{ color: titleColor }}
           dir="rtl"
         >
@@ -79,7 +79,7 @@ function SignCard({ label, signKey, borderColor, titleColor }: SignCardData) {
         </p>
 
         {/* תיאור יסוד */}
-        <p className="text-xs text-gray-500" dir="rtl">
+        <p className="text-xs font-body text-on-surface-variant/60" dir="rtl">
           {description}
         </p>
       </CardContent>
