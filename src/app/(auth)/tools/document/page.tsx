@@ -37,12 +37,12 @@ interface DocumentResult {
 
 // ===== קבועים =====
 
-/** צבעי קטגוריות תובנה */
+/** צבעי קטגוריות תובנה — MD3 tokens */
 const CATEGORY_STYLES: Record<DocumentInsight['category'], { label: string; style: string }> = {
-  practical: { label: 'מעשי', style: 'bg-blue-500/20 text-blue-300 border-blue-500/30' },
-  spiritual: { label: 'רוחני', style: 'bg-purple-500/20 text-purple-300 border-purple-500/30' },
-  psychological: { label: 'פסיכולוגי', style: 'bg-pink-500/20 text-pink-300 border-pink-500/30' },
-  informational: { label: 'מידעי', style: 'bg-green-500/20 text-green-300 border-green-500/30' },
+  practical:     { label: 'מעשי',    style: 'bg-secondary/10 text-secondary border-secondary/30' },
+  spiritual:     { label: 'רוחני',   style: 'bg-primary/10 text-primary border-primary/30' },
+  psychological: { label: 'פסיכולוגי', style: 'bg-primary-container/10 text-on-primary-container border-primary-container/30' },
+  informational: { label: 'מידעי',   style: 'bg-tertiary/10 text-tertiary border-tertiary/30' },
 }
 
 const ACCEPTED_TYPES = 'image/jpeg,image/png,image/webp,image/gif,application/pdf'
@@ -57,43 +57,43 @@ function DocumentResults({ result }: { result: DocumentResult }) {
       transition={{ duration: 0.5, delay: 0.1 }}
       className="space-y-4"
     >
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="pt-6">
           <div className="flex items-start gap-4">
             {result.imageUrl && (
               <img src={result.imageUrl} alt="המסמך שנותח"
-                className="w-20 h-20 object-cover rounded-md border border-gray-700 shrink-0" />
+                className="w-20 h-20 object-cover rounded-md border border-outline-variant/20 shrink-0" />
             )}
             <div className="flex-1">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm font-medium mb-2">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-label font-medium mb-2">
                 <FileText className="h-3 w-3" />{result.document_type}
               </div>
-              <p className="text-gray-300 text-sm leading-relaxed">{result.summary}</p>
+              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{result.summary}</p>
             </div>
           </div>
         </CardContent>
       </Card>
 
-      <Card className="border-blue-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-base text-blue-400 flex items-center gap-2">
+          <CardTitle className="text-base font-headline text-secondary flex items-center gap-2">
             <BookOpen className="h-4 w-4" />נקודות מפתח
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ol className="space-y-2">
             {result.key_points.map((point, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
-                <span className="text-blue-400 font-bold shrink-0">{i + 1}.</span>{point}
+              <li key={i} className="flex items-start gap-3 text-sm text-on-surface-variant font-body">
+                <span className="text-secondary font-bold shrink-0 font-label">{i + 1}.</span>{point}
               </li>
             ))}
           </ol>
         </CardContent>
       </Card>
 
-      <Card className="border-purple-500/20 bg-gray-900/50">
+      <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader>
-          <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+          <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
             <Lightbulb className="h-4 w-4" />תובנות
           </CardTitle>
         </CardHeader>
@@ -101,12 +101,12 @@ function DocumentResults({ result }: { result: DocumentResult }) {
           {result.insights.map((insight, i) => {
             const cat = CATEGORY_STYLES[insight.category]
             return (
-              <div key={i} className="p-3 bg-gray-800/50 rounded-lg border border-gray-700/50">
+              <div key={i} className="p-3 bg-surface-container-high rounded-lg border border-outline-variant/5">
                 <div className="flex items-center gap-2 mb-2">
-                  <span className={`text-xs px-2 py-0.5 rounded-full border font-medium ${cat.style}`}>{cat.label}</span>
-                  <span className="text-sm text-gray-200 font-medium">{insight.title}</span>
+                  <span className={`font-label text-xs px-2 py-0.5 rounded-full border font-medium ${cat.style}`}>{cat.label}</span>
+                  <span className="text-sm text-on-surface font-medium font-label">{insight.title}</span>
                 </div>
-                <p className="text-xs text-gray-400 leading-relaxed">{insight.content}</p>
+                <p className="font-label text-xs text-on-surface-variant leading-relaxed">{insight.content}</p>
               </div>
             )
           })}
@@ -114,17 +114,17 @@ function DocumentResults({ result }: { result: DocumentResult }) {
       </Card>
 
       {result.action_items.length > 0 && (
-        <Card className="border-green-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-base text-green-400 flex items-center gap-2">
+            <CardTitle className="text-base font-headline text-tertiary flex items-center gap-2">
               <CheckSquare className="h-4 w-4" />פעולות מומלצות
             </CardTitle>
           </CardHeader>
           <CardContent>
             <ul className="space-y-2">
               {result.action_items.map((item, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                  <CheckSquare className="h-3 w-3 text-green-400 mt-1 shrink-0" />{item}
+                <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                  <CheckSquare className="h-3 w-3 text-tertiary mt-1 shrink-0" />{item}
                 </li>
               ))}
             </ul>
@@ -201,9 +201,9 @@ export default function DocumentPage() {
       />
 
       <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.4 }} className="mb-6">
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">העלה מסמך</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">העלה מסמך</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
@@ -214,7 +214,7 @@ export default function DocumentPage() {
                   onDragLeave={() => setIsDragging(false)}
                   onDrop={(e) => { e.preventDefault(); setIsDragging(false); const f = e.dataTransfer.files?.[0]; if (f) handleFileSelect(f) }}
                   onClick={() => !selectedFile && fileInputRef.current?.click()}
-                  className={`relative border-2 border-dashed rounded-lg p-6 text-center transition-colors ${isDragging ? 'border-purple-400 bg-purple-500/10' : selectedFile ? 'border-green-500/50 bg-green-500/5' : 'border-gray-600 hover:border-purple-500/50 hover:bg-purple-500/5 cursor-pointer'}`}
+                  className={`border-2 border-dashed border-outline-variant/30 hover:border-primary/40 rounded-xl p-8 bg-surface-container-lowest text-center transition-colors ${isDragging ? 'border-primary/40 bg-primary/5' : selectedFile ? 'border-tertiary/50 bg-tertiary/5' : 'cursor-pointer'}`}
                 >
                   <input ref={fileInputRef} type="file" accept={ACCEPTED_TYPES}
                     onChange={(e) => { const f = e.target.files?.[0]; if (f) handleFileSelect(f) }} className="hidden" />
@@ -222,30 +222,30 @@ export default function DocumentPage() {
                     <div className="space-y-3">
                       {previewUrl && <img src={previewUrl} alt="תצוגה מקדימה" className="mx-auto max-h-48 max-w-full rounded-md object-contain" />}
                       <div className="flex items-center justify-center gap-2">
-                        <FileText className="h-5 w-5 text-green-400" />
-                        <span className="text-sm text-green-400 font-medium">{selectedFile.name}</span>
-                        <button type="button" onClick={(e) => { e.stopPropagation(); handleRemoveFile() }} className="text-gray-400 hover:text-red-400">
+                        <FileText className="h-5 w-5 text-tertiary" />
+                        <span className="font-label text-sm text-tertiary font-medium">{selectedFile.name}</span>
+                        <button type="button" onClick={(e) => { e.stopPropagation(); handleRemoveFile() }} className="text-on-surface-variant hover:text-error">
                           <X className="h-4 w-4" />
                         </button>
                       </div>
-                      <p className="text-xs text-gray-500">{(selectedFile.size / 1024).toFixed(0)} KB</p>
+                      <p className="font-label text-xs text-on-surface-variant">{(selectedFile.size / 1024).toFixed(0)} KB</p>
                     </div>
                   ) : (
                     <div className="space-y-2">
-                      <Upload className="h-10 w-10 text-gray-500 mx-auto" />
-                      <p className="text-gray-300 font-medium">גרור קובץ לכאן או לחץ לבחירה</p>
-                      <p className="text-xs text-gray-500">תמונות (JPG, PNG, WebP) · PDF · עד 5MB</p>
+                      <Upload className="h-10 w-10 text-on-surface-variant/40 mx-auto" />
+                      <p className="text-on-surface font-medium font-label">גרור קובץ לכאן או לחץ לבחירה</p>
+                      <p className="font-label text-xs text-on-surface-variant">תמונות (JPG, PNG, WebP) · PDF · עד 5MB</p>
                     </div>
                   )}
                 </div>
 
                 <div className="space-y-1">
-                  <Label className="text-gray-300">הקשר (אופציונלי)</Label>
+                  <Label className="text-on-surface-variant font-label">הקשר (אופציונלי)</Label>
                   <Textarea placeholder="תאר את המסמך, שאלות ספציפיות, הקשר רלוונטי..." rows={2}
                     value={context} onChange={(e) => setContext(e.target.value)} maxLength={500} />
                 </div>
 
-                <Button type="submit" disabled={isLoading || !selectedFile} className="w-full bg-purple-600 hover:bg-purple-700 text-white">
+                <Button type="submit" disabled={isLoading || !selectedFile} className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold">
                   {isLoading ? <><Loader2 className="h-4 w-4 animate-spin ml-2" />מנתח מסמך...</> : 'נתח מסמך'}
                 </Button>
               </form>

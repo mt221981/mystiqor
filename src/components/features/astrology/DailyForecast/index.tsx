@@ -40,10 +40,10 @@ export interface DailyForecastProps {
 
 /** מפת אייקוני קטגוריה לתחומי החיים */
 const SECTION_ICONS = {
-  energyGeneral: { icon: Star,      label: 'אנרגיה כללית', color: 'text-yellow-400' },
-  love:          { icon: Heart,     label: 'אהבה ויחסים',  color: 'text-pink-400'   },
-  career:        { icon: Briefcase, label: 'קריירה וכסף',  color: 'text-blue-400'   },
-  health:        { icon: Activity,  label: 'בריאות',        color: 'text-green-400'  },
+  energyGeneral: { icon: Star,      label: 'אנרגיה כללית', color: 'text-tertiary'   },
+  love:          { icon: Heart,     label: 'אהבה ויחסים',  color: 'text-primary'    },
+  career:        { icon: Briefcase, label: 'קריירה וכסף',  color: 'text-secondary'  },
+  health:        { icon: Activity,  label: 'בריאות',        color: 'text-tertiary'   },
 } as const
 
 type SectionKey = keyof typeof SECTION_ICONS
@@ -91,17 +91,17 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
   return (
     <div className="space-y-4" dir="rtl">
       {/* כותרת מזל ותאריך */}
-      <Card className="bg-gradient-to-br from-indigo-950/80 to-purple-950/80 border-indigo-700/30 backdrop-blur-sm">
+      <Card className="bg-surface-container border-outline-variant/5 border">
         <CardHeader>
           <div className="flex items-center gap-3">
             <span className="text-4xl" role="img" aria-label={signInfo.name}>
               {signInfo.emoji}
             </span>
             <div>
-              <CardTitle className="text-2xl text-white">
+              <CardTitle className="text-2xl font-headline text-on-surface">
                 מזל {signInfo.name}
               </CardTitle>
-              <p className="text-indigo-300 text-sm mt-1">
+              <p className="text-on-surface-variant text-sm mt-1 font-label">
                 תחזית ליום {formatDate(date)} — יסוד {signInfo.element}
               </p>
             </div>
@@ -110,8 +110,8 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
         {/* סיכום כללי */}
         {content && (
           <CardContent>
-            <div className="bg-indigo-900/40 rounded-lg p-4">
-              <div className="prose prose-sm prose-invert max-w-none text-indigo-100 leading-relaxed">
+            <div className="bg-surface-container-high rounded-lg p-4">
+              <div className="prose prose-sm prose-invert max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{content}</ReactMarkdown>
               </div>
             </div>
@@ -129,16 +129,16 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
             return (
               <Card
                 key={key}
-                className="bg-indigo-950/60 border-indigo-800/30 hover:border-indigo-600/50 transition-colors"
+                className="bg-surface-container border-outline-variant/5 hover:bg-surface-container-high transition-colors"
               >
                 <CardHeader className="pb-2">
-                  <CardTitle className={`text-sm flex items-center gap-2 ${color}`}>
+                  <CardTitle className={`text-sm font-headline flex items-center gap-2 ${color}`}>
                     <Icon className="h-4 w-4" />
                     {label}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-indigo-100 text-sm leading-relaxed">{text}</p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed font-body">{text}</p>
                 </CardContent>
               </Card>
             )
@@ -148,15 +148,15 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
 
       {/* מספר מזל */}
       {forecast?.luckyNumber && (
-        <Card className="bg-gradient-to-r from-purple-950/60 to-indigo-950/60 border-purple-700/30">
+        <Card className="bg-surface-container border-outline-variant/5">
           <CardContent className="py-4">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-purple-300">
+              <div className="flex items-center gap-2 text-primary">
                 <Sparkles className="h-4 w-4" />
-                <span className="text-sm font-medium">מספר מזל להיום</span>
+                <span className="font-label text-sm font-medium">מספר מזל להיום</span>
               </div>
               <span
-                className="text-3xl font-bold text-purple-200"
+                className="text-3xl font-headline font-bold text-primary"
                 style={{ color: signInfo.color }}
               >
                 {forecast.luckyNumber}

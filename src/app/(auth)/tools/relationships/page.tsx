@@ -112,32 +112,32 @@ export default function RelationshipsPage() {
 
   /** רינדור כרטיס אדם */
   const renderPersonCard = (prefix: 'person1' | 'person2', title: string) => (
-    <Card className="border-purple-500/20 bg-gray-900/50 flex-1">
+    <Card className="border-outline-variant/5 bg-surface-container flex-1">
       <CardHeader className="pb-3">
-        <CardTitle className="text-base text-purple-300">{title}</CardTitle>
+        <CardTitle className="text-base font-headline text-primary">{title}</CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="space-y-1">
-          <Label className="text-gray-300 text-sm">שם</Label>
+          <Label className="text-on-surface-variant text-sm font-label">שם</Label>
           <Input
             placeholder="שם מלא"
             {...register(`${prefix}Name` as 'person1Name' | 'person2Name')}
           />
           {errors[`${prefix}Name` as keyof typeof errors] && (
-            <p className="text-xs text-red-400">
+            <p className="font-label text-xs text-error">
               {errors[`${prefix}Name` as keyof typeof errors]?.message as string}
             </p>
           )}
         </div>
         <div className="space-y-1">
-          <Label className="text-gray-300 text-sm">תאריך לידה</Label>
+          <Label className="text-on-surface-variant text-sm font-label">תאריך לידה</Label>
           <Input
             type="date"
             dir="ltr"
             {...register(`${prefix}BirthDate` as 'person1BirthDate' | 'person2BirthDate')}
           />
           {errors[`${prefix}BirthDate` as keyof typeof errors] && (
-            <p className="text-xs text-red-400">
+            <p className="font-label text-xs text-error">
               {errors[`${prefix}BirthDate` as keyof typeof errors]?.message as string}
             </p>
           )}
@@ -166,9 +166,9 @@ export default function RelationshipsPage() {
         transition={{ duration: 0.4 }}
         className="mb-6"
       >
-        <Card className="border-purple-500/20 bg-gray-900/50">
+        <Card className="border-outline-variant/5 bg-surface-container">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">פרטי הקשר</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">פרטי הקשר</CardTitle>
           </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
@@ -181,17 +181,17 @@ export default function RelationshipsPage() {
 
                 {/* סוג קשר */}
                 <div className="space-y-2">
-                  <Label className="text-gray-300">סוג הקשר</Label>
+                  <Label className="text-on-surface-variant font-label">סוג הקשר</Label>
                   <div className="flex flex-wrap gap-2">
                     {RELATIONSHIP_TYPES.map((t) => (
                       <button
                         key={t.value}
                         type="button"
                         onClick={() => setValue('relationshipType', t.value)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-colors ${
+                        className={`bg-primary-container/10 text-primary font-label text-xs px-2 py-1 rounded-full transition-colors ${
                           selectedType === t.value
-                            ? 'bg-purple-600 text-white'
-                            : 'bg-gray-800 text-gray-300 hover:bg-gray-700'
+                            ? 'bg-primary-container text-on-primary-container font-semibold'
+                            : 'hover:bg-surface-container-high'
                         }`}
                       >
                         {t.label}
@@ -202,7 +202,7 @@ export default function RelationshipsPage() {
 
                 {/* הקשר אופציונלי */}
                 <div className="space-y-1">
-                  <Label className="text-gray-300">הקשר נוסף (אופציונלי)</Label>
+                  <Label className="text-on-surface-variant font-label">הקשר נוסף (אופציונלי)</Label>
                   <Textarea
                     placeholder="תיאור נוסף על הקשר, מצב נוכחי, שאלות ספציפיות..."
                     rows={2}
@@ -213,7 +213,7 @@ export default function RelationshipsPage() {
                 <Button
                   type="submit"
                   disabled={mutation.isPending}
-                  className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? 'מנתח יחסים...' : 'נתח יחסים'}
                 </Button>
@@ -232,55 +232,55 @@ export default function RelationshipsPage() {
           className="space-y-4"
         >
           {/* ציון תאימות */}
-          <Card className="border-purple-500/20 bg-gray-900/50 text-center">
+          <Card className="border-outline-variant/5 bg-surface-container text-center">
             <CardContent className="pt-6">
               <div
-                className={`text-6xl font-bold ${
+                className={`text-6xl font-headline font-bold ${
                   result.compatibility_score >= 75
-                    ? 'text-green-400'
+                    ? 'text-tertiary'
                     : result.compatibility_score >= 50
-                      ? 'text-yellow-400'
-                      : 'text-red-400'
+                      ? 'text-secondary'
+                      : 'text-error'
                 }`}
               >
                 {result.compatibility_score}%
               </div>
-              <p className="text-gray-400 text-sm mt-1">ציון תאימות</p>
-              <p className="text-gray-300 text-sm mt-2">{result.summary}</p>
+              <p className="text-on-surface-variant text-sm mt-1 font-label">ציון תאימות</p>
+              <p className="text-on-surface-variant text-sm mt-2 font-body">{result.summary}</p>
             </CardContent>
           </Card>
 
           {/* סגנון תקשורת + דינמיקה רגשית */}
           <div className="flex flex-col md:flex-row gap-4">
-            <Card className="border-blue-500/20 bg-gray-900/50 flex-1">
+            <Card className="border-outline-variant/5 bg-surface-container flex-1">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base text-blue-400 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-secondary flex items-center gap-2">
                   <MessageCircle className="h-4 w-4" />
                   סגנון תקשורת
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-300">{result.communication_style}</p>
+                <p className="text-sm text-on-surface-variant font-body">{result.communication_style}</p>
               </CardContent>
             </Card>
-            <Card className="border-pink-500/20 bg-gray-900/50 flex-1">
+            <Card className="border-outline-variant/5 bg-surface-container flex-1">
               <CardHeader className="pb-3">
-                <CardTitle className="text-base text-pink-400 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
                   <Brain className="h-4 w-4" />
                   דינמיקה רגשית
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-300">{result.emotional_dynamics}</p>
+                <p className="text-sm text-on-surface-variant font-body">{result.emotional_dynamics}</p>
               </CardContent>
             </Card>
           </div>
 
           {/* חוזקות ואתגרים */}
           <div className="flex flex-col md:flex-row gap-4">
-            <Card className="border-green-500/20 bg-gray-900/50 flex-1">
+            <Card className="border-outline-variant/5 bg-surface-container flex-1">
               <CardHeader>
-                <CardTitle className="text-base text-green-400 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-tertiary flex items-center gap-2">
                   <CheckCircle className="h-4 w-4" />
                   נקודות חוזקה
                 </CardTitle>
@@ -288,17 +288,17 @@ export default function RelationshipsPage() {
               <CardContent>
                 <ul className="space-y-2">
                   {result.strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                      <CheckCircle className="h-3 w-3 text-green-400 mt-1 shrink-0" />
+                    <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                      <CheckCircle className="h-3 w-3 text-tertiary mt-1 shrink-0" />
                       {s}
                     </li>
                   ))}
                 </ul>
               </CardContent>
             </Card>
-            <Card className="border-amber-500/20 bg-gray-900/50 flex-1">
+            <Card className="border-outline-variant/5 bg-surface-container flex-1">
               <CardHeader>
-                <CardTitle className="text-base text-amber-400 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-secondary flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4" />
                   אתגרים
                 </CardTitle>
@@ -306,8 +306,8 @@ export default function RelationshipsPage() {
               <CardContent>
                 <ul className="space-y-2">
                   {result.challenges.map((c, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                      <AlertTriangle className="h-3 w-3 text-amber-400 mt-1 shrink-0" />
+                    <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                      <AlertTriangle className="h-3 w-3 text-secondary mt-1 shrink-0" />
                       {c}
                     </li>
                   ))}
@@ -317,15 +317,15 @@ export default function RelationshipsPage() {
           </div>
 
           {/* המלצות */}
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
-              <CardTitle className="text-base text-purple-300">המלצות לחיזוק הקשר</CardTitle>
+              <CardTitle className="text-base font-headline text-primary">המלצות לחיזוק הקשר</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2">
                 {result.recommendations.map((rec, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-gray-300">
-                    <span className="text-purple-400 font-bold shrink-0">{i + 1}.</span>
+                  <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
+                    <span className="text-primary font-bold shrink-0 font-label">{i + 1}.</span>
                     {rec}
                   </li>
                 ))}

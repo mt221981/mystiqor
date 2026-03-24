@@ -40,18 +40,18 @@ export interface AstroCalendarProps {
 
 // ===== צבעי קטגוריה =====
 
-/** מפת צבעים לפי סוג אירוע */
+/** מפת צבעים לפי סוג אירוע — MD3 tokens */
 const EVENT_TYPE_COLORS: Record<string, { dot: string; badge: string; label: string }> = {
-  'ירח מלא':            { dot: 'bg-yellow-300', badge: 'bg-yellow-900/50 text-yellow-200',    label: 'ירח מלא'            },
-  'ירח חדש':            { dot: 'bg-slate-500',  badge: 'bg-slate-800/50 text-slate-200',      label: 'ירח חדש'            },
-  'מרקורי רטרוגרד':    { dot: 'bg-orange-400', badge: 'bg-orange-900/50 text-orange-200',    label: 'מרקורי רטרוגרד'    },
-  'כניסת מזל':          { dot: 'bg-purple-400', badge: 'bg-purple-900/50 text-purple-200',    label: 'כניסת מזל'          },
-  'ליקוי':              { dot: 'bg-red-500',    badge: 'bg-red-900/50 text-red-200',          label: 'ליקוי'              },
+  'ירח מלא':            { dot: 'bg-tertiary',         badge: 'bg-tertiary/10 text-tertiary',         label: 'ירח מלא'            },
+  'ירח חדש':            { dot: 'bg-on-surface-variant', badge: 'bg-surface-container-high text-on-surface-variant', label: 'ירח חדש' },
+  'מרקורי רטרוגרד':    { dot: 'bg-error',             badge: 'bg-error/10 text-error',               label: 'מרקורי רטרוגרד'    },
+  'כניסת מזל':          { dot: 'bg-primary',           badge: 'bg-primary/10 text-primary',           label: 'כניסת מזל'          },
+  'ליקוי':              { dot: 'bg-error',             badge: 'bg-error/10 text-error',               label: 'ליקוי'              },
 }
 
 /** מחזיר הגדרות צבע לפי סוג אירוע עם ברירת מחדל */
 function getEventColors(type: string) {
-  return EVENT_TYPE_COLORS[type] ?? { dot: 'bg-indigo-400', badge: 'bg-indigo-900/50 text-indigo-200', label: type }
+  return EVENT_TYPE_COLORS[type] ?? { dot: 'bg-secondary', badge: 'bg-secondary/10 text-secondary', label: type }
 }
 
 /** שמות ימים בעברית — ראשון עד שבת */
@@ -127,11 +127,11 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
   return (
     <div className="space-y-4" dir="rtl">
       {/* כרטיס לוח השנה */}
-      <Card className="bg-indigo-950/60 border-indigo-700/30 backdrop-blur-sm">
+      <Card className="bg-surface-container rounded-xl border-outline-variant/5">
         {/* כותרת + ניווט */}
         <CardHeader>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-white text-xl">
+            <CardTitle className="text-on-surface font-headline text-xl">
               {format(currentMonthDate, 'MMMM yyyy', { locale: he })}
             </CardTitle>
             <div className="flex items-center gap-2">
@@ -139,7 +139,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                 variant="outline"
                 size="icon"
                 onClick={goToPrevMonth}
-                className="border-indigo-600 text-indigo-300 hover:bg-indigo-800/40"
+                className="border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-headline"
                 aria-label="חודש קודם"
               >
                 <ChevronRight className="h-4 w-4" />
@@ -148,7 +148,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                 variant="outline"
                 size="sm"
                 onClick={goToToday}
-                className="border-indigo-600 text-indigo-300 hover:bg-indigo-800/40"
+                className="border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-headline"
               >
                 היום
               </Button>
@@ -156,7 +156,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                 variant="outline"
                 size="icon"
                 onClick={goToNextMonth}
-                className="border-indigo-600 text-indigo-300 hover:bg-indigo-800/40"
+                className="border-outline-variant text-on-surface-variant hover:bg-surface-container-high font-headline"
                 aria-label="חודש הבא"
               >
                 <ChevronLeft className="h-4 w-4" />
@@ -171,7 +171,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
             {HEBREW_DAY_NAMES.map((name) => (
               <div
                 key={name}
-                className="text-center text-xs text-indigo-400 font-medium py-2"
+                className="text-center font-label text-xs text-on-surface-variant font-medium py-2"
               >
                 {name.slice(0, 1)}
               </div>
@@ -202,18 +202,18 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                   className={[
                     'min-h-[56px] p-1.5 rounded-lg border text-start transition-colors cursor-pointer',
                     isSelected
-                      ? 'bg-indigo-600/50 border-indigo-400'
+                      ? 'bg-primary-container/10 border-primary/20'
                       : isToday
-                      ? 'bg-indigo-800/50 border-indigo-500'
+                      ? 'bg-primary/10 border-primary/20'
                       : hasEvents
-                      ? 'bg-indigo-900/30 border-indigo-700/50 hover:bg-indigo-800/40'
-                      : 'bg-indigo-950/30 border-indigo-900/30 hover:bg-indigo-900/20',
+                      ? 'bg-surface-container-low border-outline-variant/20 hover:bg-surface-container-high'
+                      : 'bg-surface-container-low rounded-lg border-outline-variant/10 hover:bg-surface-container',
                     !isCurrentMonth ? 'opacity-40' : '',
                   ].join(' ')}
                   aria-label={`${format(day, 'dd/MM/yyyy')}${hasEvents ? ` — ${dayEvents.length} אירועים` : ''}`}
                   aria-pressed={isSelected}
                 >
-                  <span className={`text-xs font-bold ${isToday ? 'text-indigo-200' : 'text-white/80'}`}>
+                  <span className={`font-label text-sm ${isToday ? 'text-primary font-bold' : 'text-on-surface'}`}>
                     {format(day, 'd')}
                   </span>
                   {/* נקודות אירועים */}
@@ -221,7 +221,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                     {dayEvents.slice(0, 3).map((event, i) => (
                       <span
                         key={i}
-                        className={`w-1.5 h-1.5 rounded-full ${getEventColors(event.type).dot}`}
+                        className={`w-1.5 h-1.5 rounded-full bg-primary`}
                         title={event.title}
                       />
                     ))}
@@ -242,17 +242,17 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
             exit={{ opacity: 0, y: 8 }}
             transition={{ duration: 0.25 }}
           >
-            <Card className="bg-indigo-950/70 border-indigo-700/40 backdrop-blur-sm">
+            <Card className="bg-surface-container border-outline-variant/5">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white text-base">
+                  <CardTitle className="text-on-surface font-headline text-base">
                     {format(selectedDay, 'dd MMMM yyyy', { locale: he })}
                   </CardTitle>
                   <Button
                     variant="ghost"
                     size="icon"
                     onClick={() => setSelectedDay(null)}
-                    className="text-indigo-400 hover:text-white"
+                    className="text-on-surface-variant hover:text-on-surface"
                     aria-label="סגור"
                   >
                     <X className="h-4 w-4" />
@@ -263,13 +263,13 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                 {selectedEvents.map((event, i) => {
                   const colors = getEventColors(event.type)
                   return (
-                    <div key={i} className="bg-indigo-900/40 rounded-lg p-3 space-y-1.5">
+                    <div key={i} className="bg-surface-container-high rounded-lg p-3 space-y-1.5">
                       <div className="flex items-center gap-2">
                         <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${colors.dot}`} />
-                        <p className="text-white font-medium text-sm">{event.title}</p>
+                        <p className="text-on-surface font-medium font-label text-sm">{event.title}</p>
                       </div>
-                      <Badge className={`text-xs ${colors.badge}`}>{event.type}</Badge>
-                      <p className="text-indigo-300 text-xs leading-relaxed">{event.description}</p>
+                      <Badge className={`font-label text-xs ${colors.badge}`}>{event.type}</Badge>
+                      <p className="text-on-surface-variant font-label text-xs leading-relaxed">{event.description}</p>
                     </div>
                   )
                 })}
@@ -281,9 +281,9 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
 
       {/* רשימת כל אירועי החודש */}
       {events.length > 0 && (
-        <Card className="bg-indigo-950/40 border-indigo-800/30">
+        <Card className="bg-surface-container border-outline-variant/5">
           <CardHeader>
-            <CardTitle className="text-indigo-300 text-sm">אירועים החודש ({events.length})</CardTitle>
+            <CardTitle className="text-on-surface-variant font-headline text-sm">אירועים החודש ({events.length})</CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             {[...events]
@@ -294,17 +294,17 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                 return (
                   <div
                     key={i}
-                    className="flex items-start gap-3 py-2 border-b border-indigo-900/30 last:border-0"
+                    className="flex items-start gap-3 py-2 border-b border-outline-variant/10 last:border-0"
                   >
                     <div className="text-center min-w-[32px]">
-                      <span className="text-indigo-300 text-xs font-bold">
+                      <span className="text-on-surface-variant font-label text-xs font-bold">
                         {format(eventDate, 'dd')}
                       </span>
                     </div>
                     <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${colors.dot}`} />
                     <div className="flex-1">
-                      <p className="text-white text-xs font-medium">{event.title}</p>
-                      <p className="text-indigo-400 text-xs">{event.description}</p>
+                      <p className="text-on-surface font-label text-xs font-medium">{event.title}</p>
+                      <p className="text-on-surface-variant font-label text-xs">{event.description}</p>
                     </div>
                   </div>
                 )
