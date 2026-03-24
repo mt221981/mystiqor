@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: "Completed 11-01-PLAN.md — Design system foundation: MD3 tokens, fonts, glass utilities, 4 primitives"
-last_updated: "2026-03-24T18:26:46.276Z"
+stopped_at: "Completed 11-02-PLAN.md — App shell reskin: Header/Sidebar/MobileNav/PageHeader/auth layout with MD3 tokens and glass effects"
+last_updated: "2026-03-24T18:34:48.193Z"
 progress:
   total_phases: 11
   completed_phases: 8
   total_plans: 62
-  completed_plans: 51
+  completed_plans: 52
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 11 (ui-overhaul-design-system-reskin) — EXECUTING
-Plan: 2 of 10
+Plan: 3 of 10
 
 ## Performance Metrics
 
@@ -93,6 +93,7 @@ Plan: 2 of 10
 | Phase 10-polish-pwa-export P02 | 4 | 1 tasks | 7 files |
 | Phase 10-polish-pwa-export P03 | 5 | 2 tasks (1 auto + 1 human-verify) | 0 files |
 | Phase 11 P01 | 6 | 2 tasks | 7 files |
+| Phase 11 P02 | 4 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -233,6 +234,8 @@ Recent decisions affecting current work:
 - [Phase 11]: MD3 color tokens added alongside (not replacing) shadcn CSS-variable colors — zero existing component breakage
 - [Phase 11]: Safari -webkit-backdrop-filter added to glass-nav and glass-panel — cross-browser glass morphism
 - [Phase 11]: font-body class on body tag via Tailwind fontFamily config — replaces font-[family-name:var()] pattern from old layout
+- [Phase 11]: Header changed from sticky to fixed positioning — content area compensated with pt-16 on main element
+- [Phase 11]: stars-bg + floating glow orbs added at layout-client level — affects all auth pages globally
 
 ### Pending Todos
 
@@ -247,6 +250,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-24T18:26:46.273Z
-Stopped at: Completed 11-01-PLAN.md — Design system foundation: MD3 tokens, fonts, glass utilities, 4 primitives
+Last session: 2026-03-24T18:34:48.189Z
+Stopped at: Completed 11-02-PLAN.md — App shell reskin: Header/Sidebar/MobileNav/PageHeader/auth layout with MD3 tokens and glass effects
 Resume file: None
