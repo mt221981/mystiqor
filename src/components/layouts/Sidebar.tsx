@@ -93,14 +93,14 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'קריירה', href: '/career', icon: Briefcase },
       { label: 'מסמך', href: '/document', icon: FileText },
       { label: 'שאלה', href: '/question', icon: HelpCircle },
-      { label: 'סינתזה', href: '/synthesis', icon: Sparkles },
+      { label: 'סינתזה', href: '/tools/synthesis', icon: Sparkles },
       { label: 'אישיות', href: '/personality', icon: Brain },
     ],
   },
   {
     title: 'מסע אישי',
     items: [
-      { label: 'מאמן AI', href: '/ai-coach', icon: MessageCircle },
+      { label: 'מאמן AI', href: '/coach', icon: MessageCircle },
       { label: 'יעדים', href: '/goals', icon: Target },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
       { label: 'יומן', href: '/journal', icon: BookOpen },

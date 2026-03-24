@@ -1,18 +1,19 @@
 'use client'
 
 /**
- * דף מאמן AI — ממשק שיחה עם מאמן מיסטי אישי
- * כולל: רשימת שיחות בסרגל צד, אזור שיחה עם בועות RTL,
- * שדה קלט עם שינוי גודל אוטומטי ופעולות מהירות
+ * דף מאמן AI — ממשק שיחה עם מאמן מיסטי אישי + לוח מסעות אימון
  *
- * מדוע: הממשק הראשי של חווית האימון (COCH-01, COCH-02, COCH-05) —
- * המשתמש משוחח עם מאמן שמכיר את כל הניתוחים שלו.
+ * שני טאבים: שיחות (ממשק שיחה עם סרגל צד) ומסעות (JourneysPanel).
+ * מאמן מכיר את כל ניתוחי המשתמש ומספק הכוונה אישית.
+ *
+ * מדוע: ממשק ראשי של חווית האימון (COCH-01, COCH-02, COCH-03, COCH-04, COCH-05) —
+ * המשתמש משוחח עם מאמן שמכיר את כל הניתוחים שלו ועוקב אחר מסעות אימון.
  */
 
 import { useState, useRef, useEffect, useCallback } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { MessageCircle, Plus, Loader2, Menu, X } from 'lucide-react'
+import { MessageCircle, Plus, Loader2, Menu, X, Map } from 'lucide-react'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
@@ -20,8 +21,12 @@ import { SubscriptionGuard } from '@/components/features/subscription/Subscripti
 import { ChatMessage } from '@/components/features/coach/ChatMessage'
 import { ChatInput } from '@/components/features/coach/ChatInput'
 import { QuickActions } from '@/components/features/coach/QuickActions'
+import { JourneysPanel } from '@/components/features/coach/JourneysPanel'
 
 // ===== טיפוסים =====
+
+/** טאב פעיל בדף */
+type ActiveTab = 'chat' | 'journeys'
 
 /** שורת שיחה */
 interface Conversation {
@@ -102,9 +107,10 @@ function formatRelativeTime(dateStr: string | null): string {
 
 // ===== קומפוננטה =====
 
-/** דף מאמן AI — ממשק שיחה מלא */
+/** דף מאמן AI — ממשק שיחה + מסעות אימון */
 export default function CoachPage() {
   const queryClient = useQueryClient()
+  const [activeTab, setActiveTab] = useState<ActiveTab>('chat')
   const [activeConversationId, setActiveConversationId] = useState<string | null>(null)
   const [showSidebar, setShowSidebar] = useState(true)
   const [optimisticMessages, setOptimisticMessages] = useState<Message[]>([])
@@ -157,20 +163,17 @@ export default function CoachPage() {
   const sendMutation = useMutation({
     mutationFn: sendMessage,
     onMutate: (variables) => {
-      // עדכון אופטימיסטי — הוספת הודעת משתמש מיידית
       setOptimisticMessages((prev) => [
         ...prev,
         { role: 'user', content: variables.message, created_at: new Date().toISOString() },
       ])
     },
     onSuccess: (reply) => {
-      // הוספת תגובת המאמן ל-cache
       setOptimisticMessages((prev) => [...prev, reply])
       void queryClient.invalidateQueries({ queryKey: ['coach-messages', activeConversationId] })
       void queryClient.invalidateQueries({ queryKey: ['coach-conversations'] })
     },
     onError: () => {
-      // הסרת הודעה אופטימיסטית בשגיאה
       setOptimisticMessages([])
       toast.error('שגיאה בשליחת ההודעה')
     },
@@ -180,7 +183,6 @@ export default function CoachPage() {
   const handleSendMessage = useCallback(
     async (text: string) => {
       if (!activeConversationId) {
-        // יצירת שיחה חדשה ואז שליחת ההודעה
         try {
           const newConv = await createConversation()
           void queryClient.invalidateQueries({ queryKey: ['coach-conversations'] })
@@ -210,157 +212,181 @@ export default function CoachPage() {
       />
 
       <SubscriptionGuard feature="analyses">
-        <div className="flex gap-4 mt-4" style={{ minHeight: '600px' }}>
-
-          {/* ===== סרגל צד — רשימת שיחות ===== */}
-          <div
-            className={`
-              ${showSidebar ? 'flex' : 'hidden'} md:flex
-              flex-col w-full md:w-72 shrink-0
-              bg-gray-900/50 border border-purple-500/20 rounded-xl p-3
-            `}
+        {/* ===== בורר טאבים ===== */}
+        <div className="mt-4 flex gap-2 border-b border-purple-500/20 pb-0">
+          <button
+            type="button"
+            onClick={() => setActiveTab('chat')}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === 'chat'
+                ? 'border-purple-500 text-purple-300'
+                : 'border-transparent text-gray-400 hover:text-gray-300'
+            }`}
           >
-            {/* כפתור שיחה חדשה */}
-            <Button
-              onClick={() => createMutation.mutate()}
-              disabled={createMutation.isPending}
-              className="mb-3 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-            >
-              {createMutation.isPending ? (
-                <Loader2 className="w-4 h-4 animate-spin ml-2" />
-              ) : (
-                <Plus className="w-4 h-4 ml-2" />
-              )}
-              שיחה חדשה
-            </Button>
-
-            {/* רשימת שיחות */}
-            {isLoadingConversations ? (
-              <div className="flex items-center justify-center py-8">
-                <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
-              </div>
-            ) : conversations.length === 0 ? (
-              <p className="text-center text-gray-500 text-sm py-8">
-                עדיין אין שיחות — לחץ על &quot;שיחה חדשה&quot; להתחיל
-              </p>
-            ) : (
-              <div className="flex flex-col gap-1 overflow-y-auto">
-                {conversations.map((conv) => (
-                  <button
-                    key={conv.id}
-                    onClick={() => {
-                      setActiveConversationId(conv.id)
-                      setOptimisticMessages([])
-                      setShowSidebar(false)
-                    }}
-                    className={`
-                      w-full text-start p-3 rounded-lg transition-colors
-                      ${activeConversationId === conv.id
-                        ? 'border border-purple-500 bg-purple-900/30'
-                        : 'hover:bg-gray-800/50 border border-transparent'
-                      }
-                    `}
-                  >
-                    <p className="text-sm text-white font-medium truncate">
-                      {conv.title ?? 'שיחה חדשה'}
-                    </p>
-                    <p className="text-xs text-gray-500 mt-0.5">
-                      {formatRelativeTime(conv.last_message_at)}
-                      {conv.message_count ? ` · ${conv.message_count} הודעות` : ''}
-                    </p>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* ===== אזור שיחה ===== */}
-          <div className="flex flex-col flex-1 bg-gray-900/50 border border-purple-500/20 rounded-xl overflow-hidden">
-
-            {/* כותרת אזור שיחה + כפתור toggle למובייל */}
-            <div className="flex items-center justify-between p-3 border-b border-purple-500/20">
-              <Button
-                variant="ghost"
-                size="sm"
-                className="md:hidden"
-                onClick={() => setShowSidebar((prev) => !prev)}
-              >
-                {showSidebar ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
-              </Button>
-              <p className="text-sm text-gray-400">
-                {activeConversationId
-                  ? conversations.find((c) => c.id === activeConversationId)?.title ?? 'שיחה'
-                  : 'בחר שיחה או התחל חדשה'}
-              </p>
-            </div>
-
-            {/* רשימת הודעות */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: '450px' }}>
-              {!activeConversationId ? (
-                /* מצב ראשוני — בחר שיחה */
-                <div className="flex flex-col items-center justify-center h-full gap-6 py-12">
-                  <MessageCircle className="w-16 h-16 text-purple-400/40" />
-                  <p className="text-gray-500 text-center">
-                    בחר שיחה קיימת או לחץ על &quot;שיחה חדשה&quot; להתחיל
-                  </p>
-                  <QuickActions
-                    onAction={(prompt) => void handleSendMessage(prompt)}
-                    disabled={sendMutation.isPending}
-                  />
-                </div>
-              ) : isLoadingMessages ? (
-                /* טעינת הודעות */
-                <div className="flex items-center justify-center h-full">
-                  <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
-                </div>
-              ) : messages.length === 0 ? (
-                /* שיחה ריקה — הצגת פעולות מהירות */
-                <div className="flex flex-col items-center gap-6 py-8">
-                  <p className="text-gray-500 text-center text-sm">
-                    שלום! אני המאמן האישי שלך. שאל אותי כל שאלה או בחר נושא:
-                  </p>
-                  <QuickActions
-                    onAction={(prompt) => void handleSendMessage(prompt)}
-                    disabled={sendMutation.isPending}
-                  />
-                </div>
-              ) : (
-                /* הודעות שיחה */
-                <>
-                  {messages.map((msg, idx) => (
-                    <ChatMessage
-                      key={msg.id ?? `msg-${idx}`}
-                      message={msg}
-                      isLast={idx === messages.length - 1}
-                    />
-                  ))}
-                  {/* אינדיקטור הקלדה של המאמן */}
-                  {sendMutation.isPending && (
-                    <div className="flex gap-3 flex-row">
-                      <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-purple-600 to-pink-600">
-                        <Loader2 className="w-5 h-5 text-white animate-spin" />
-                      </div>
-                      <Card className="bg-purple-900/40 border-purple-700/40 backdrop-blur-xl p-4">
-                        <span className="text-purple-300 text-sm">המאמן מקליד...</span>
-                      </Card>
-                    </div>
-                  )}
-                </>
-              )}
-              <div ref={messagesEndRef} />
-            </div>
-
-            {/* שדה קלט */}
-            <div className="p-4 border-t border-purple-500/20">
-              <ChatInput
-                onSend={(text) => void handleSendMessage(text)}
-                disabled={sendMutation.isPending}
-                isLoading={sendMutation.isPending}
-                placeholder="שאל את המאמן שלך..."
-              />
-            </div>
-          </div>
+            <MessageCircle className="w-4 h-4" />
+            שיחות
+          </button>
+          <button
+            type="button"
+            onClick={() => setActiveTab('journeys')}
+            className={`flex items-center gap-2 px-4 py-2 text-sm font-medium transition-colors border-b-2 -mb-px ${
+              activeTab === 'journeys'
+                ? 'border-purple-500 text-purple-300'
+                : 'border-transparent text-gray-400 hover:text-gray-300'
+            }`}
+          >
+            <Map className="w-4 h-4" />
+            מסעות
+          </button>
         </div>
+
+        {/* ===== תוכן לפי טאב פעיל ===== */}
+        {activeTab === 'journeys' ? (
+          <div className="mt-4">
+            <JourneysPanel />
+          </div>
+        ) : (
+          <div className="flex gap-4 mt-4" style={{ minHeight: '600px' }}>
+            {/* ===== סרגל צד — רשימת שיחות ===== */}
+            <div
+              className={`
+                ${showSidebar ? 'flex' : 'hidden'} md:flex
+                flex-col w-full md:w-72 shrink-0
+                bg-gray-900/50 border border-purple-500/20 rounded-xl p-3
+              `}
+            >
+              <Button
+                onClick={() => createMutation.mutate()}
+                disabled={createMutation.isPending}
+                className="mb-3 w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              >
+                {createMutation.isPending ? (
+                  <Loader2 className="w-4 h-4 animate-spin ml-2" />
+                ) : (
+                  <Plus className="w-4 h-4 ml-2" />
+                )}
+                שיחה חדשה
+              </Button>
+
+              {isLoadingConversations ? (
+                <div className="flex items-center justify-center py-8">
+                  <Loader2 className="w-6 h-6 animate-spin text-purple-400" />
+                </div>
+              ) : conversations.length === 0 ? (
+                <p className="text-center text-gray-500 text-sm py-8">
+                  עדיין אין שיחות — לחץ על &quot;שיחה חדשה&quot; להתחיל
+                </p>
+              ) : (
+                <div className="flex flex-col gap-1 overflow-y-auto">
+                  {conversations.map((conv) => (
+                    <button
+                      type="button"
+                      key={conv.id}
+                      onClick={() => {
+                        setActiveConversationId(conv.id)
+                        setOptimisticMessages([])
+                        setShowSidebar(false)
+                      }}
+                      className={`
+                        w-full text-start p-3 rounded-lg transition-colors
+                        ${activeConversationId === conv.id
+                          ? 'border border-purple-500 bg-purple-900/30'
+                          : 'hover:bg-gray-800/50 border border-transparent'
+                        }
+                      `}
+                    >
+                      <p className="text-sm text-white font-medium truncate">
+                        {conv.title ?? 'שיחה חדשה'}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-0.5">
+                        {formatRelativeTime(conv.last_message_at)}
+                        {conv.message_count ? ` · ${conv.message_count} הודעות` : ''}
+                      </p>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+
+            {/* ===== אזור שיחה ===== */}
+            <div className="flex flex-col flex-1 bg-gray-900/50 border border-purple-500/20 rounded-xl overflow-hidden">
+              <div className="flex items-center justify-between p-3 border-b border-purple-500/20">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="md:hidden"
+                  onClick={() => setShowSidebar((prev) => !prev)}
+                >
+                  {showSidebar ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4" />}
+                </Button>
+                <p className="text-sm text-gray-400">
+                  {activeConversationId
+                    ? conversations.find((c) => c.id === activeConversationId)?.title ?? 'שיחה'
+                    : 'בחר שיחה או התחל חדשה'}
+                </p>
+              </div>
+
+              <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: '450px' }}>
+                {!activeConversationId ? (
+                  <div className="flex flex-col items-center justify-center h-full gap-6 py-12">
+                    <MessageCircle className="w-16 h-16 text-purple-400/40" />
+                    <p className="text-gray-500 text-center">
+                      בחר שיחה קיימת או לחץ על &quot;שיחה חדשה&quot; להתחיל
+                    </p>
+                    <QuickActions
+                      onAction={(prompt) => void handleSendMessage(prompt)}
+                      disabled={sendMutation.isPending}
+                    />
+                  </div>
+                ) : isLoadingMessages ? (
+                  <div className="flex items-center justify-center h-full">
+                    <Loader2 className="w-8 h-8 animate-spin text-purple-400" />
+                  </div>
+                ) : messages.length === 0 ? (
+                  <div className="flex flex-col items-center gap-6 py-8">
+                    <p className="text-gray-500 text-center text-sm">
+                      שלום! אני המאמן האישי שלך. שאל אותי כל שאלה או בחר נושא:
+                    </p>
+                    <QuickActions
+                      onAction={(prompt) => void handleSendMessage(prompt)}
+                      disabled={sendMutation.isPending}
+                    />
+                  </div>
+                ) : (
+                  <>
+                    {messages.map((msg, idx) => (
+                      <ChatMessage
+                        key={msg.id ?? `msg-${idx}`}
+                        message={msg}
+                        isLast={idx === messages.length - 1}
+                      />
+                    ))}
+                    {sendMutation.isPending && (
+                      <div className="flex gap-3 flex-row">
+                        <div className="w-12 h-12 rounded-full flex items-center justify-center shrink-0 bg-gradient-to-br from-purple-600 to-pink-600">
+                          <Loader2 className="w-5 h-5 text-white animate-spin" />
+                        </div>
+                        <Card className="bg-purple-900/40 border-purple-700/40 backdrop-blur-xl p-4">
+                          <span className="text-purple-300 text-sm">המאמן מקליד...</span>
+                        </Card>
+                      </div>
+                    )}
+                  </>
+                )}
+                <div ref={messagesEndRef} />
+              </div>
+
+              <div className="p-4 border-t border-purple-500/20">
+                <ChatInput
+                  onSend={(text) => void handleSendMessage(text)}
+                  disabled={sendMutation.isPending}
+                  isLoading={sendMutation.isPending}
+                  placeholder="שאל את המאמן שלך..."
+                />
+              </div>
+            </div>
+          </div>
+        )}
       </SubscriptionGuard>
     </div>
   )
