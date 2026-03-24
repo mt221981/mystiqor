@@ -158,13 +158,13 @@ Plans:
   3. User can start a coaching journey (e.g., "Life Purpose") and see structured sessions with progress tracking
   4. Mystic Synthesis button generates a unified reading that explicitly cross-references at least two different analysis types (e.g., "Your life path 7 aligns with your Saturn in Aquarius...")
   5. User can request a weekly synthesis report and receive a summary of all tool activity from the past 7 days
-**Plans**: TBD
+**Plans:** 4 plans
 
 Plans:
-- [ ] 07-01: AI Coach chat interface (input, messages, quick actions, Supabase Realtime streaming)
-- [ ] 07-02: Coach context loader (fetches all user analyses for personalized responses)
-- [ ] 07-03: Coaching journeys (structured sessions, journey dashboard, progress tracking)
-- [ ] 07-04: Mystic Synthesis (on-demand cross-tool synthesis, weekly report generation)
+- [ ] 07-01-PLAN.md — AI Coach core: context builder + conversations/messages API routes + chat UI components + coach page (COCH-01, COCH-02, COCH-05)
+- [ ] 07-02-PLAN.md — Coaching journeys: DB migration (004_schema_fixes.sql) + journeys API routes + JourneyCard component (COCH-03, COCH-04)
+- [ ] 07-03-PLAN.md — Mystic Synthesis: synthesis API route + SynthesisResult component + synthesis page (SYNT-01, SYNT-02, SYNT-03)
+- [ ] 07-04-PLAN.md — Integration: journeys tab in coach page + sidebar nav fixes + TypeScript check + human verification
 
 ### Phase 8: Growth + Monetization
 **Goal**: The business model is fully operational — users can subscribe to paid plans via Stripe, webhooks process without duplicates, free users see clear upgrade prompts, referrals are tracked and rewarded, and transactional emails are delivered reliably.
