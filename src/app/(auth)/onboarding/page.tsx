@@ -33,7 +33,7 @@ export default async function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-background">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-surface stars-bg">
       <OnboardingWizard />
     </div>
   );

@@ -65,8 +65,8 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
   return (
     <div className="space-y-5" dir="rtl">
       <div className="space-y-1">
-        <Label htmlFor="fullName" className="text-sm font-medium">
-          שם מלא <span className="text-destructive">*</span>
+        <Label htmlFor="fullName" className="text-on-surface-variant font-label text-sm font-medium">
+          שם מלא <span className="text-error">*</span>
         </Label>
         <input
           id="fullName"
@@ -75,15 +75,15 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
           onChange={(e) => updateData({ fullName: e.target.value })}
           placeholder="הכנס שם מלא"
           aria-label="שם מלא"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="w-full bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:outline-none focus:ring-1 focus:ring-primary/40 text-sm"
           dir="rtl"
         />
-        {errors.fullName && <p className="text-xs text-destructive">{errors.fullName}</p>}
+        {errors.fullName && <p className="text-xs text-error">{errors.fullName}</p>}
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="birthDate" className="text-sm font-medium">
-          תאריך לידה <span className="text-destructive">*</span>
+        <Label htmlFor="birthDate" className="text-on-surface-variant font-label text-sm font-medium">
+          תאריך לידה <span className="text-error">*</span>
         </Label>
         <input
           id="birthDate"
@@ -91,14 +91,14 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
           value={data.birthDate}
           onChange={(e) => updateData({ birthDate: e.target.value })}
           aria-label="תאריך לידה"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="w-full bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface focus:outline-none focus:ring-1 focus:ring-primary/40 text-sm"
         />
-        {errors.birthDate && <p className="text-xs text-destructive">{errors.birthDate}</p>}
+        {errors.birthDate && <p className="text-xs text-error">{errors.birthDate}</p>}
       </div>
 
       <div className="space-y-1">
-        <Label htmlFor="birthTime" className="text-sm font-medium">
-          שעת לידה <span className="text-muted-foreground text-xs">(אופציונלי)</span>
+        <Label htmlFor="birthTime" className="text-on-surface-variant font-label text-sm font-medium">
+          שעת לידה <span className="text-on-surface-variant text-xs font-label">(אופציונלי)</span>
         </Label>
         <input
           id="birthTime"
@@ -106,12 +106,12 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
           value={data.birthTime}
           onChange={(e) => updateData({ birthTime: e.target.value })}
           aria-label="שעת לידה"
-          className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="w-full bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface focus:outline-none focus:ring-1 focus:ring-primary/40 text-sm"
         />
       </div>
 
       <div className="space-y-2">
-        <Label className="text-sm font-medium">מגדר</Label>
+        <Label className="text-on-surface-variant font-label text-sm font-medium">מגדר</Label>
         <div className="flex flex-wrap gap-2" role="group" aria-label="בחר מגדר">
           {(
             [
@@ -127,10 +127,10 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
               aria-pressed={data.gender === option.value}
               onClick={() => updateData({ gender: option.value })}
               className={cn(
-                'rounded-full border px-4 py-1.5 text-sm transition-colors',
+                'rounded-full px-4 py-1.5 font-label text-sm transition-colors',
                 data.gender === option.value
-                  ? 'border-primary bg-primary text-primary-foreground'
-                  : 'border-border bg-background text-foreground hover:border-primary/50'
+                  ? 'bg-primary-container/20 text-primary border border-primary/30'
+                  : 'border border-outline-variant/20 text-on-surface-variant hover:bg-surface-container'
               )}
             >
               {option.label}
@@ -139,7 +139,7 @@ export function PersonalInfoStep({ onNext }: PersonalInfoStepProps) {
         </div>
       </div>
 
-      <Button onClick={handleNext} className="w-full mt-2">המשך</Button>
+      <Button onClick={handleNext} className="w-full mt-2 bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-3 rounded-xl">המשך</Button>
     </div>
   );
 }
@@ -189,8 +189,8 @@ export function LocationStep({ onNext, onBack }: LocationStepProps) {
   return (
     <div className="space-y-5" dir="rtl">
       <div className="relative space-y-2">
-        <Label htmlFor="birthPlace" className="text-sm font-medium">
-          מקום לידה <span className="text-destructive">*</span>
+        <Label htmlFor="birthPlace" className="text-on-surface-variant font-label text-sm font-medium">
+          מקום לידה <span className="text-error">*</span>
         </Label>
         <div className="relative">
           <input
@@ -202,20 +202,20 @@ export function LocationStep({ onNext, onBack }: LocationStepProps) {
             aria-label="מקום לידה"
             aria-autocomplete="list"
             aria-expanded={results.length > 0}
-            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="w-full bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:outline-none focus:ring-1 focus:ring-primary/40 text-sm"
             dir="rtl"
           />
           {isSearching && (
             <div className="absolute inset-y-0 end-3 flex items-center">
-              <Loader2 className="h-4 w-4 animate-spin text-muted-foreground" aria-hidden="true" />
+              <Loader2 className="h-4 w-4 animate-spin text-on-surface-variant" aria-hidden="true" />
             </div>
           )}
         </div>
         {results.length > 0 && (
-          <ul role="listbox" aria-label="תוצאות חיפוש" className="absolute z-50 w-full mt-1 bg-card border border-border rounded-md shadow-lg max-h-60 overflow-auto">
+          <ul role="listbox" aria-label="תוצאות חיפוש" className="absolute z-50 w-full mt-1 bg-surface-container border border-outline-variant/20 rounded-lg shadow-lg max-h-60 overflow-auto">
             {results.map((result, i) => (
               <li key={i} role="option" aria-selected={false}>
-                <button type="button" className="w-full text-start px-3 py-2 text-sm hover:bg-accent transition-colors" onClick={() => handleSelect(result)} dir="rtl">
+                <button type="button" className="w-full text-start px-4 py-3 font-label text-sm text-on-surface hover:bg-surface-container-high transition-colors" onClick={() => handleSelect(result)} dir="rtl">
                   {result.display_name}
                 </button>
               </li>
@@ -223,16 +223,16 @@ export function LocationStep({ onNext, onBack }: LocationStepProps) {
           </ul>
         )}
         {data.latitude && (
-          <p className="text-xs text-muted-foreground flex items-center gap-1">
-            <Check className="h-3 w-3 text-green-500" aria-hidden="true" />
+          <p className="text-xs text-tertiary font-label flex items-center gap-1">
+            <Check className="h-3 w-3 text-tertiary" aria-hidden="true" />
             מיקום נבחר בהצלחה
           </p>
         )}
-        {error && <p className="text-xs text-destructive" role="alert">{error}</p>}
+        {error && <p className="text-xs text-error font-label" role="alert">{error}</p>}
       </div>
       <div className="flex gap-3">
-        <Button variant="outline" onClick={onBack} className="flex-1">חזור</Button>
-        <Button onClick={handleNext} className="flex-1">המשך</Button>
+        <Button variant="outline" onClick={onBack} className="flex-1 border border-outline-variant/20 hover:bg-surface-container text-on-surface-variant font-headline rounded-lg py-2 px-4">חזור</Button>
+        <Button onClick={handleNext} className="flex-1 bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold rounded-xl">המשך</Button>
       </div>
     </div>
   );

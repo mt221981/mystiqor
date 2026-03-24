@@ -38,33 +38,46 @@ interface StepIndicatorProps {
 }
 
 /**
- * מחוון שלבים — פס התקדמות ותווית שלב נוכחי
+ * מחוון שלבים — פס התקדמות ותווית שלב נוכחי עם MD3 tokens
  */
 function StepIndicator({ currentStep, totalSteps, labels }: StepIndicatorProps) {
   return (
     <div className="mb-8" dir="rtl">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-sm text-muted-foreground">
+        <span className="font-label text-sm text-on-surface-variant">
           שלב {currentStep} מתוך {totalSteps}
         </span>
-        <span className="text-sm font-medium text-foreground">
+        <span className="font-headline text-sm font-medium text-on-surface">
           {labels[currentStep - 1]}
         </span>
       </div>
+      {/* פס התקדמות */}
       <div
-        className="flex gap-1.5"
+        className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden"
         role="progressbar"
         aria-label="התקדמות אשף ההכנסה"
-        aria-valuenow={currentStep}
-        aria-valuemin={1}
-        aria-valuemax={totalSteps}
+        aria-valuetext={`שלב ${currentStep} מתוך ${totalSteps}`}
       >
+        <div
+          className={cn(
+            'h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full transition-all duration-300',
+            currentStep === 1 && 'w-1/4',
+            currentStep === 2 && 'w-2/4',
+            currentStep === 3 && 'w-3/4',
+            currentStep === 4 && 'w-full',
+          )}
+        />
+      </div>
+      {/* נקודות שלבים */}
+      <div className="flex gap-2 mt-3 justify-center">
         {Array.from({ length: totalSteps }).map((_, i) => (
           <div
             key={i}
             className={cn(
-              'h-1.5 flex-1 rounded-full transition-colors',
-              i < currentStep ? 'bg-primary' : 'bg-border'
+              'rounded-full transition-all duration-300',
+              i < currentStep
+                ? 'bg-primary w-3 h-3'
+                : 'bg-surface-container-high w-2 h-2'
             )}
           />
         ))}
@@ -136,7 +149,7 @@ export function OnboardingWizard() {
 
   return (
     <motion.div {...animations.fadeIn} className="mx-auto max-w-md w-full">
-      <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+      <div className="bg-surface-container/60 backdrop-blur-xl rounded-2xl p-8 border border-outline-variant/10">
         <StepIndicator currentStep={step} totalSteps={4} labels={STEP_LABELS} />
 
         {step === 1 && (

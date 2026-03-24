@@ -84,11 +84,11 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!item) return null;
   return (
     <div
-      className="rounded-lg border border-border bg-card p-2.5 text-xs shadow-lg"
+      className="bg-surface-container border border-outline-variant/20 rounded-lg p-3 shadow-lg text-xs"
       dir="rtl"
     >
-      <p className="font-medium text-foreground">{item.payload.categoryLabel}</p>
-      <p className="text-muted-foreground">
+      <p className="font-label font-medium text-on-surface">{item.payload.categoryLabel}</p>
+      <p className="text-on-surface-variant font-label">
         {Math.round(item.value)}% התקדמות · {item.payload.count} יעדים
       </p>
     </div>
@@ -135,13 +135,13 @@ export function GoalsProgressChart({ data }: GoalsProgressChartProps) {
         >
           <XAxis
             dataKey="categoryLabel"
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
           />
           <YAxis
             domain={[0, 100]}
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
             tickFormatter={(value: number) => `${value}%`}

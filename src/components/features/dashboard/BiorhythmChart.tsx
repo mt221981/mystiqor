@@ -115,24 +115,24 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
       <div className="mb-3 flex flex-wrap gap-4 text-xs" role="list" aria-label="מקרא תרשים">
         <span className="flex items-center gap-1.5" role="listitem">
           <span
-            className="inline-block h-2 w-2 rounded-full bg-rose-500"
+            className="inline-block h-2 w-2 rounded-full bg-primary"
             aria-hidden="true"
           />
-          <span className="text-muted-foreground">פיזי (23 יום)</span>
+          <span className="text-on-surface-variant font-label text-xs">פיזי (23 יום)</span>
         </span>
         <span className="flex items-center gap-1.5" role="listitem">
           <span
-            className="inline-block h-2 w-2 rounded-full bg-blue-500"
+            className="inline-block h-2 w-2 rounded-full bg-secondary"
             aria-hidden="true"
           />
-          <span className="text-muted-foreground">רגשי (28 יום)</span>
+          <span className="text-on-surface-variant font-label text-xs">רגשי (28 יום)</span>
         </span>
         <span className="flex items-center gap-1.5" role="listitem">
           <span
-            className="inline-block h-2 w-2 rounded-full bg-amber-500"
+            className="inline-block h-2 w-2 rounded-full bg-tertiary"
             aria-hidden="true"
           />
-          <span className="text-muted-foreground">אינטלקטואלי (33 יום)</span>
+          <span className="text-on-surface-variant font-label text-xs">אינטלקטואלי (33 יום)</span>
         </span>
       </div>
 
@@ -141,7 +141,7 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           {/* קו אפס */}
           <ReferenceLine
             y={0}
-            stroke="hsl(var(--border))"
+            stroke="#4a4455"
             strokeDasharray="3 3"
           />
 
@@ -149,7 +149,7 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           <XAxis
             dataKey="date"
             reversed={true}
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
           />
@@ -163,8 +163,8 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           {/* Tooltip */}
           <Tooltip
             contentStyle={{
-              backgroundColor: 'hsl(var(--card))',
-              border: '1px solid hsl(var(--border))',
+              backgroundColor: '#201f22',
+              border: '1px solid rgba(74,68,85,0.2)',
               borderRadius: '8px',
               fontSize: '12px',
               direction: 'rtl',
@@ -178,11 +178,11 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           {/* Legend נסתר — משתמשים במקרא מותאם למעלה */}
           <Legend className="hidden" />
 
-          {/* 3 קווי ביוריתם */}
+          {/* 3 קווי ביוריתם — MD3 colors */}
           <Line
             type="monotone"
             dataKey="פיזי"
-            stroke="#f43f5e"
+            stroke="#ddb8ff"
             strokeWidth={2}
             dot={false}
             name="פיזי"
@@ -190,7 +190,7 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           <Line
             type="monotone"
             dataKey="רגשי"
-            stroke="#3b82f6"
+            stroke="#c3c0ff"
             strokeWidth={2}
             dot={false}
             name="רגשי"
@@ -198,7 +198,7 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
           <Line
             type="monotone"
             dataKey="אינטלקטואלי"
-            stroke="#eab308"
+            stroke="#4edea3"
             strokeWidth={2}
             dot={false}
             name="אינטלקטואלי"

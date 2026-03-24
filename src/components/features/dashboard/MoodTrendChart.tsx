@@ -86,21 +86,21 @@ export function MoodTrendChart({ data, period }: MoodTrendChartProps) {
     <div dir="rtl">
       <ResponsiveContainer width="100%" height={200}>
         <AreaChart data={chartData} margin={{ top: 5, right: 5, bottom: 5, left: 0 }}>
-          {/* הגדרת gradient */}
+          {/* הגדרת gradient — MD3 primary */}
           <defs>
             <linearGradient id="moodGradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="5%" stopColor="#8b5cf6" stopOpacity={0.3} />
-              <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
+              <stop offset="5%" stopColor="#ddb8ff" stopOpacity={0.3} />
+              <stop offset="95%" stopColor="#ddb8ff" stopOpacity={0} />
             </linearGradient>
           </defs>
 
-          <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" opacity={0.3} />
+          <CartesianGrid strokeDasharray="3 3" stroke="#4a4455" opacity={0.3} />
 
           {/* ציר X — הפוך ל-RTL */}
           <XAxis
             dataKey="dateLabel"
             reversed={true}
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
           />
@@ -108,7 +108,7 @@ export function MoodTrendChart({ data, period }: MoodTrendChartProps) {
           {/* ציר Y — טווח 1-10 */}
           <YAxis
             domain={[1, 10]}
-            tick={{ fontSize: 11, fill: 'hsl(var(--muted-foreground))' }}
+            tick={{ fontSize: 11, fill: '#ccc3d8' }}
             axisLine={false}
             tickLine={false}
             ticks={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]}
@@ -117,8 +117,8 @@ export function MoodTrendChart({ data, period }: MoodTrendChartProps) {
 
           <Tooltip
             contentStyle={{
-              backgroundColor: 'hsl(var(--card))',
-              border: '1px solid hsl(var(--border))',
+              backgroundColor: '#201f22',
+              border: '1px solid rgba(74,68,85,0.2)',
               borderRadius: '8px',
               fontSize: '12px',
               direction: 'rtl',
@@ -129,15 +129,15 @@ export function MoodTrendChart({ data, period }: MoodTrendChartProps) {
             }}
           />
 
-          {/* Area עם gradient fill */}
+          {/* Area עם gradient fill — MD3 primary */}
           <Area
             type="monotone"
             dataKey="mood_score"
-            stroke="#8b5cf6"
+            stroke="#ddb8ff"
             strokeWidth={2}
             fill="url(#moodGradient)"
-            dot={{ fill: '#8b5cf6', r: 3 }}
-            activeDot={{ r: 5, fill: '#8b5cf6' }}
+            dot={{ fill: '#ddb8ff', r: 3 }}
+            activeDot={{ r: 5, fill: '#ddb8ff' }}
             name="מצב רוח"
           />
         </AreaChart>
