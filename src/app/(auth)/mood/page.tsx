@@ -195,8 +195,8 @@ export default function MoodPage() {
 
         {/* כותרת */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-white">מעקב מצב רוח</h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <h1 className="font-headline text-2xl font-bold text-on-surface">מעקב מצב רוח</h1>
+          <p className="mt-1 text-sm text-on-surface-variant">
             רשום את מצב הרוח שלך כדי לזהות מגמות ולשפר את האיזון האישי
           </p>
         </div>
@@ -205,13 +205,13 @@ export default function MoodPage() {
         <form
           onSubmit={handleSubmit(onSubmit)}
           className={cn(
-            'mb-10 rounded-2xl border border-white/10 bg-white/5 p-6',
+            'mb-10 rounded-2xl border border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl p-6',
             'space-y-6'
           )}
         >
           {/* בורר אמוג'י */}
           <div>
-            <label className="mb-3 block text-sm font-medium text-gray-300">
+            <label className="font-label mb-3 block text-sm font-medium text-on-surface-variant">
               איך אתה מרגיש?
             </label>
             <MoodEmojiPicker value={selectedScore} onChange={handleMoodSelect} />
@@ -230,10 +230,10 @@ export default function MoodPage() {
             {/* אנרגיה */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-300">
+                <label className="font-label text-sm font-medium text-on-surface-variant">
                   רמת אנרגיה
                 </label>
-                <span className="text-sm text-purple-300">
+                <span className="font-label text-sm text-primary">
                   {watch('energy_level') ?? 5}/10
                 </span>
               </div>
@@ -260,10 +260,10 @@ export default function MoodPage() {
             {/* לחץ */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-300">
+                <label className="font-label text-sm font-medium text-on-surface-variant">
                   רמת לחץ
                 </label>
-                <span className="text-sm text-purple-300">
+                <span className="font-label text-sm text-primary">
                   {watch('stress_level') ?? 5}/10
                 </span>
               </div>
@@ -290,10 +290,10 @@ export default function MoodPage() {
             {/* שינה */}
             <div>
               <div className="mb-2 flex items-center justify-between">
-                <label className="text-sm font-medium text-gray-300">
+                <label className="font-label text-sm font-medium text-on-surface-variant">
                   איכות שינה
                 </label>
-                <span className="text-sm text-purple-300">
+                <span className="font-label text-sm text-primary">
                   {watch('sleep_quality') ?? 5}/10
                 </span>
               </div>
@@ -322,7 +322,7 @@ export default function MoodPage() {
           <div>
             <label
               htmlFor="mood-notes"
-              className="mb-2 block text-sm font-medium text-gray-300"
+              className="font-label mb-2 block text-sm font-medium text-on-surface-variant"
             >
               הערות (אופציונלי)
             </label>
@@ -332,9 +332,9 @@ export default function MoodPage() {
               placeholder="מה עוד שווה לרשום על היום הזה?"
               rows={3}
               className={cn(
-                'w-full rounded-lg border border-white/10 bg-white/5 px-4 py-3',
-                'text-sm text-white placeholder:text-gray-600',
-                'focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500',
+                'w-full bg-surface-container-lowest border-none rounded-lg px-4 py-3',
+                'text-sm text-on-surface placeholder:text-outline/40',
+                'focus:outline-none focus:ring-1 focus:ring-primary/40',
                 'resize-none transition-colors duration-200'
               )}
             />
@@ -353,8 +353,8 @@ export default function MoodPage() {
                 href={`/journal?mood_score=${currentScore}&mood=${encodeURIComponent(currentMood)}`}
                 className={cn(
                   'inline-flex items-center gap-2 rounded-lg px-4 py-2.5',
-                  'border border-white/10 text-sm text-gray-300',
-                  'hover:border-purple-400/50 hover:text-purple-300',
+                  'border border-outline-variant/20 text-sm text-on-surface-variant',
+                  'hover:border-primary/40 hover:text-primary',
                   'transition-colors duration-200'
                 )}
               >
@@ -368,12 +368,12 @@ export default function MoodPage() {
               type="submit"
               disabled={isSubmitting || createMutation.isPending}
               className={cn(
-                'inline-flex items-center gap-2 rounded-lg px-6 py-2.5',
-                'bg-purple-600 text-sm font-medium text-white',
-                'hover:bg-purple-500 active:bg-purple-700',
+                'inline-flex items-center gap-2 rounded-xl px-6 py-2.5',
+                'bg-gradient-to-br from-primary-container to-secondary-container font-headline font-bold text-white',
+                'shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95',
                 'disabled:cursor-not-allowed disabled:opacity-60',
-                'transition-colors duration-200',
-                'focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500',
+                'transition-all duration-200',
+                'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
                 'ms-auto'
               )}
             >
@@ -385,7 +385,7 @@ export default function MoodPage() {
 
         {/* רשימת רשומות אחרונות */}
         <section>
-          <h2 className="mb-4 text-lg font-semibold text-white">
+          <h2 className="font-headline mb-4 text-lg font-semibold text-on-surface">
             רשומות אחרונות
           </h2>
 

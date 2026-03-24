@@ -69,8 +69,8 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
   return (
     <div
       className={cn(
-        'rounded-xl border border-white/10 bg-white/5 p-4',
-        'transition-colors duration-200 hover:border-white/20'
+        'bg-surface-container rounded-xl p-4 border border-outline-variant/5',
+        'transition-colors duration-200 hover:border-primary/10'
       )}
     >
       {/* שורה עליונה — אמוג'י, מצב רוח, ציון, תאריך, מחיקה */}
@@ -87,8 +87,8 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
 
           {/* שם מצב רוח וציון */}
           <div>
-            <p className="font-medium text-white">{entry.mood}</p>
-            <p className={cn('text-sm font-bold', scoreColor)}>
+            <p className="font-medium text-on-surface">{entry.mood}</p>
+            <p className="font-headline font-bold text-primary text-sm">
               {entry.mood_score}/10
             </p>
           </div>
@@ -96,7 +96,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
 
         <div className="flex items-center gap-2">
           {/* תאריך */}
-          <span className="text-xs text-gray-500">
+          <span className="font-label text-xs text-on-surface-variant">
             {formatDate(entry.created_at)}
           </span>
 
@@ -105,8 +105,8 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
             type="button"
             onClick={() => onDelete(entry.id)}
             className={cn(
-              'rounded-lg p-1.5 text-gray-500',
-              'hover:bg-red-500/10 hover:text-red-400',
+              'rounded-lg p-1.5 text-error/60',
+              'hover:bg-error/10 hover:text-error',
               'transition-colors duration-200',
               'focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500'
             )}
@@ -126,7 +126,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
             <span
               className={cn(
                 'inline-flex items-center rounded-full px-2.5 py-0.5',
-                'bg-blue-500/10 text-xs font-medium text-blue-300'
+                'bg-primary/10 font-label text-xs text-primary'
               )}
             >
               אנרגיה: {entry.energy_level}/10
@@ -136,7 +136,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
             <span
               className={cn(
                 'inline-flex items-center rounded-full px-2.5 py-0.5',
-                'bg-orange-500/10 text-xs font-medium text-orange-300'
+                'bg-tertiary/10 font-label text-xs text-tertiary'
               )}
             >
               לחץ: {entry.stress_level}/10
@@ -146,7 +146,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
             <span
               className={cn(
                 'inline-flex items-center rounded-full px-2.5 py-0.5',
-                'bg-indigo-500/10 text-xs font-medium text-indigo-300'
+                'bg-secondary/10 font-label text-xs text-secondary'
               )}
             >
               שינה: {entry.sleep_quality}/10
@@ -157,7 +157,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
 
       {/* הערות */}
       {entry.notes && (
-        <p className="mt-3 text-sm text-gray-400 leading-relaxed">
+        <p className="font-body mt-3 text-sm text-on-surface-variant leading-relaxed">
           {entry.notes}
         </p>
       )}

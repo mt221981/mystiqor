@@ -76,8 +76,8 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
   return (
     <article
       className={cn(
-        'rounded-xl border border-white/10 bg-gray-900/60 p-4',
-        'transition-colors duration-200 hover:border-white/20 hover:bg-gray-900/80'
+        'bg-surface-container rounded-xl p-5 border border-outline-variant/5',
+        'transition-colors duration-200 hover:border-primary/10'
       )}
       dir="rtl"
     >
@@ -87,16 +87,16 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
           {/* תאריך */}
           <time
             dateTime={entry.created_at ?? undefined}
-            className="block text-xs text-gray-500 mb-1"
+            className="font-label block text-xs text-on-surface-variant mb-1"
           >
             {formattedDate}
           </time>
 
           {/* כותרת או תצוגה ראשונה של תוכן */}
           {entry.title ? (
-            <h3 className="text-sm font-semibold text-white truncate">{entry.title}</h3>
+            <h3 className="font-headline text-sm font-semibold text-on-surface truncate">{entry.title}</h3>
           ) : (
-            <h3 className="text-sm font-medium text-gray-300 truncate">
+            <h3 className="font-headline text-sm font-medium text-on-surface-variant truncate">
               {entry.content.slice(0, 60)}
               {entry.content.length > 60 && '...'}
             </h3>
@@ -111,9 +111,9 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
             aria-label="ערוך רשומה"
             className={cn(
               'flex h-7 w-7 items-center justify-center rounded-md',
-              'text-gray-400 hover:bg-white/10 hover:text-white',
+              'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface',
               'transition-colors duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-1 focus:ring-offset-gray-900'
+              'focus:outline-none focus:ring-2 focus:ring-primary/40 focus:ring-offset-1'
             )}
           >
             <Pencil className="h-3.5 w-3.5" aria-hidden="true" />
@@ -124,9 +124,9 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
             aria-label="מחק רשומה"
             className={cn(
               'flex h-7 w-7 items-center justify-center rounded-md',
-              'text-gray-400 hover:bg-red-500/10 hover:text-red-400',
+              'text-error/60 hover:bg-error/10 hover:text-error',
               'transition-colors duration-150',
-              'focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-1 focus:ring-offset-gray-900'
+              'focus:outline-none focus:ring-2 focus:ring-error/40 focus:ring-offset-1'
             )}
           >
             <Trash2 className="h-3.5 w-3.5" aria-hidden="true" />
@@ -136,7 +136,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
 
       {/* תצוגת תוכן מקוצרת */}
       {entry.title && (
-        <p className="mb-3 text-sm text-gray-400 leading-relaxed">{contentPreview}</p>
+        <p className="font-body mb-3 text-sm text-on-surface-variant leading-relaxed">{contentPreview}</p>
       )}
 
       {/* תחתית הכרטיס — מצב רוח + אנרגיה + הכרת תודה */}
@@ -146,7 +146,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
           <div
             className={cn(
               'flex items-center gap-1 rounded-full px-2 py-0.5',
-              'bg-purple-500/10 border border-purple-500/20'
+              'bg-primary/10 border border-primary/20'
             )}
             title={`מצב רוח: ${entry.mood ?? entry.mood_score}`}
           >
@@ -154,7 +154,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
               {getMoodEmojiByScore(entry.mood_score)}
             </span>
             {entry.mood && (
-              <span className="text-xs text-purple-300">{entry.mood}</span>
+              <span className="font-label text-xs text-primary">{entry.mood}</span>
             )}
           </div>
         )}
@@ -162,7 +162,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
         {/* רמת אנרגיה */}
         {entry.energy_level !== null && (
           <div
-            className="flex items-center gap-1 text-xs text-gray-400"
+            className="flex items-center gap-1 text-xs text-on-surface-variant"
             title={`אנרגיה: ${entry.energy_level}/10`}
           >
             <Zap className="h-3 w-3 text-yellow-400" aria-hidden="true" />
@@ -173,7 +173,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
         {/* הכרת תודה */}
         {hasGratitude && (
           <div
-            className="flex items-center gap-1 text-xs text-gray-400"
+            className="flex items-center gap-1 text-xs text-on-surface-variant"
             title="יש הכרת תודה"
           >
             <Heart className="h-3 w-3 text-pink-400" aria-hidden="true" />

@@ -55,11 +55,11 @@ export function MoodEmojiPicker({ value, onChange }: MoodEmojiPickerProps) {
             className={cn(
               'flex flex-col items-center gap-2 rounded-xl p-3',
               'border-2 transition-all duration-200',
-              'focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 focus-visible:ring-offset-2',
+              'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40 focus-visible:ring-offset-2',
               'cursor-pointer select-none',
               isSelected
-                ? 'border-purple-500 bg-purple-500/10 scale-110'
-                : 'border-white/10 bg-white/5 hover:border-purple-400/50 hover:bg-purple-400/5'
+                ? 'border-primary/40 bg-primary-container/20 ring-2 ring-primary/40 scale-110'
+                : 'border-outline-variant/20 bg-surface-container hover:bg-surface-container-high'
             )}
             aria-pressed={isSelected}
             aria-label={label}
@@ -72,8 +72,8 @@ export function MoodEmojiPicker({ value, onChange }: MoodEmojiPickerProps) {
             {/* תיאור */}
             <span
               className={cn(
-                'text-xs font-medium',
-                isSelected ? 'text-purple-300' : 'text-gray-400'
+                'font-label text-xs',
+                isSelected ? 'text-primary' : 'text-on-surface-variant'
               )}
             >
               {label}

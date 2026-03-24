@@ -180,7 +180,7 @@ export function JournalEntryForm({
                   <Label className="text-sm font-medium">
                     רמת אנרגיה (אופציונלי)
                     {field.value !== undefined && (
-                      <span className="mr-2 text-purple-400">{field.value}/10</span>
+                      <span className="mr-2 text-primary">{field.value}/10</span>
                     )}
                   </Label>
                   <Slider
@@ -212,9 +212,9 @@ export function JournalEntryForm({
                   placeholder={`דבר ${index + 1} שאני אסיר תודה עליו...`}
                   dir="rtl"
                   className={cn(
-                    'flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1',
-                    'text-sm shadow-sm transition-colors placeholder:text-muted-foreground',
-                    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring'
+                    'flex h-9 w-full bg-surface-container-lowest border-none rounded-lg px-3 py-1',
+                    'text-sm text-on-surface placeholder:text-outline/40 transition-colors',
+                    'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary/40'
                   )}
                 />
               ))}

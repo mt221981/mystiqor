@@ -206,8 +206,8 @@ function JournalPageContent() {
       {/* כותרת + כפתורים */}
       <div className="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">יומן אישי</h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <h1 className="font-headline text-2xl font-bold text-on-surface">יומן אישי</h1>
+          <p className="mt-1 text-sm text-on-surface-variant">
             {journalData?.total ? `${journalData.total} רשומות` : 'אין רשומות עדיין'}
           </p>
         </div>
@@ -219,7 +219,7 @@ function JournalPageContent() {
             variant="outline"
             onClick={() => handleNewEntry('quick')}
             disabled={isMutating}
-            className="border-white/10"
+            className="border-outline-variant/20 hover:border-primary/40"
           >
             <Plus className="h-4 w-4 ml-1" aria-hidden="true" />
             רשומה מהירה
@@ -239,20 +239,20 @@ function JournalPageContent() {
       {isFormOpen && (
         <div
           className={cn(
-            'mb-6 rounded-xl border border-white/10 bg-gray-900/80 p-5',
+            'mb-6 rounded-xl border border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl p-5',
             'shadow-xl shadow-black/20'
           )}
         >
           {/* כותרת הטופס */}
           <div className="mb-4 flex items-center justify-between">
-            <h2 className="text-base font-semibold text-white">
+            <h2 className="font-headline text-base font-semibold text-on-surface">
               {editingEntry ? 'עריכת רשומה' : formMode === 'quick' ? 'רשומה מהירה' : 'רשומה חדשה'}
             </h2>
             <button
               type="button"
               onClick={handleCancel}
               aria-label="סגור טופס"
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-on-surface-variant hover:text-on-surface transition-colors"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
