@@ -64,8 +64,24 @@ export const AnalysisQuerySchema = z.object({
   include_results: z.enum(['true', 'false']).optional(),
 });
 
+/** סכמת יצירת שיתוף ניתוח */
+export const ShareAnalysisSchema = z.object({
+  analysis_id: z.string().uuid('מזהה ניתוח לא תקין'),
+});
+
+/** סכמת שליפת ניתוח משותף */
+export const ShareTokenSchema = z.object({
+  token: z.string().uuid('טוקן שיתוף לא תקין'),
+});
+
 /** טיפוס נתוני יצירת ניתוח */
 export type AnalysisCreate = z.infer<typeof AnalysisCreateSchema>;
 
 /** טיפוס נתוני שאילתת ניתוחים */
 export type AnalysisQuery = z.infer<typeof AnalysisQuerySchema>;
+
+/** טיפוס נתוני שיתוף ניתוח */
+export type ShareAnalysis = z.infer<typeof ShareAnalysisSchema>;
+
+/** טיפוס טוקן שיתוף */
+export type ShareToken = z.infer<typeof ShareTokenSchema>;

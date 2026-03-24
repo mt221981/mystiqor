@@ -223,6 +223,8 @@ export interface Database {
           summary: string | null;
           confidence_score: number | null;
           created_at: string;
+          share_token: string | null;
+          is_public: boolean;
         };
         Insert: {
           id?: string;
@@ -233,6 +235,8 @@ export interface Database {
           summary?: string | null;
           confidence_score?: number | null;
           created_at?: string;
+          share_token?: string | null;
+          is_public?: boolean;
         };
         Update: {
           id?: string;
@@ -243,6 +247,8 @@ export interface Database {
           summary?: string | null;
           confidence_score?: number | null;
           created_at?: string;
+          share_token?: string | null;
+          is_public?: boolean;
         };
         Relationships: never[];
       };
