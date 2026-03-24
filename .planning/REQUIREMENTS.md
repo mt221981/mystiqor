@@ -149,7 +149,7 @@
 - [x] **UX-01**: RTL Hebrew UI on all pages (dir="rtl", start/end, Hebrew labels)
 - [x] **UX-02**: Dark/light theme toggle
 - [x] **UX-03**: Responsive mobile layout
-- [ ] **UX-04**: PWA support (install prompt, service worker)
+- [x] **UX-04**: PWA support (install prompt, service worker)
 - [x] **UX-05**: Page transitions and micro-animations
 - [x] **UX-06**: Loading skeletons and empty states
 - [x] **UX-07**: Error boundaries with auto-recovery
@@ -274,7 +274,7 @@
 | UX-01 | Phase 3 | Complete |
 | UX-02 | Phase 3 | Complete |
 | UX-03 | Phase 3 | Complete |
-| UX-04 | Phase 10 | Pending |
+| UX-04 | Phase 10 | Complete |
 | UX-05 | Phase 3 | Complete |
 | UX-06 | Phase 3 | Complete |
 | UX-07 | Phase 3 | Complete |
