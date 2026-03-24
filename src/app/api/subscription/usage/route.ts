@@ -6,6 +6,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { z } from 'zod';
+import { llmRateLimit, checkRateLimit } from '@/lib/rate-limit';
 
 /** סכמת תוצאת RPC — מחליפה type assertion לא בטוח */
 const UsageRPCResultSchema = z.object({
@@ -20,6 +21,15 @@ export async function POST() {
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 });
+    }
+
+    // הגבלת קצב — חסימה לפני שימוש ב-RPC
+    const allowed = await checkRateLimit(llmRateLimit, user.id);
+    if (!allowed) {
+      return NextResponse.json(
+        { error: 'יותר מדי בקשות — נסה שוב בעוד דקה' },
+        { status: 429 }
+      );
     }
 
     const { data, error } = await supabase.rpc('increment_usage', {
