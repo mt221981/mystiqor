@@ -69,7 +69,7 @@ function formatDate(dateStr: string): string {
 /** שלד טעינה מונפש */
 function InsightHeroSkeleton() {
   return (
-    <Card className="overflow-hidden border-purple-500/20 bg-gradient-to-br from-purple-950/30 via-indigo-950/20 to-purple-900/10">
+    <Card className="overflow-hidden nebula-glow rounded-xl">
       <CardHeader className="pb-4">
         <Skeleton className="h-6 w-3/4" />
         <Skeleton className="mt-2 h-4 w-1/4" />
@@ -80,7 +80,7 @@ function InsightHeroSkeleton() {
         <Skeleton className="h-4 w-4/6" />
         <Skeleton className="h-4 w-full" />
         <Skeleton className="h-4 w-3/4" />
-        <div className="mt-4 rounded-lg border border-purple-500/20 bg-purple-950/20 p-3">
+        <div className="mt-4 rounded-lg border border-white/10 bg-white/5 p-3">
           <Skeleton className="h-4 w-1/3" />
           <Skeleton className="mt-2 h-4 w-5/6" />
         </div>
@@ -101,9 +101,9 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
 
   if (!insight) {
     return (
-      <Card className="border-purple-500/20 bg-gradient-to-br from-purple-950/30 via-indigo-950/20 to-purple-900/10">
+      <Card className="nebula-glow rounded-xl border-none">
         <CardContent className="flex items-center justify-center py-12">
-          <p className="text-muted-foreground">לא נמצאה תובנה יומית</p>
+          <p className="text-white/70 font-body">לא נמצאה תובנה יומית</p>
         </CardContent>
       </Card>
     );
@@ -113,29 +113,29 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
 
   return (
     <motion.div {...animations.fadeInUp} transition={{ duration: 0.5 }}>
-      <Card className="overflow-hidden border-purple-500/30 bg-gradient-to-br from-purple-950/40 via-indigo-950/30 to-purple-900/20 shadow-lg shadow-purple-900/10">
+      <Card className="overflow-hidden nebula-glow rounded-xl border-none p-8">
         {/* כותרת */}
-        <CardHeader className="pb-4">
+        <CardHeader className="pb-4 p-0 mb-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-2">
-              <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-purple-400" aria-hidden="true" />
-              <h2 className="text-xl font-bold leading-snug text-purple-100">
+              <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-white" aria-hidden="true" />
+              <h2 className="text-2xl font-headline font-bold leading-snug text-white">
                 {insight.title}
               </h2>
             </div>
             <time
               dateTime={insight.insight_date}
-              className="shrink-0 text-sm text-muted-foreground"
+              className="shrink-0 text-sm font-label text-white/60"
             >
               {formatDate(insight.insight_date)}
             </time>
           </div>
         </CardHeader>
 
-        <CardContent className="space-y-5">
+        <CardContent className="space-y-5 p-0">
           {/* תוכן בפורמט Markdown */}
-          <div className="prose prose-sm prose-invert max-w-none text-purple-100/90
-            prose-headings:text-purple-200 prose-strong:text-purple-200
+          <div className="prose prose-sm prose-invert max-w-none font-body text-white/80
+            prose-headings:text-white prose-strong:text-white
             prose-p:leading-relaxed">
             <ReactMarkdown>{insight.content}</ReactMarkdown>
           </div>
@@ -144,7 +144,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
           {tarotCardName && (
             <div className="flex items-center gap-2 rounded-lg border border-yellow-500/20 bg-yellow-950/20 px-3 py-2">
               <Star className="h-4 w-4 shrink-0 text-yellow-400" aria-hidden="true" />
-              <span className="text-sm text-yellow-200/90">
+              <span className="text-sm font-body text-yellow-200/90">
                 <span className="font-semibold">קלף היום: </span>
                 {tarotCardName}
               </span>
@@ -153,14 +153,14 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
 
           {/* טיפ לפעולה */}
           {insight.actionable_tip && (
-            <div className="rounded-lg border border-emerald-500/20 bg-emerald-950/20 p-3">
+            <div className="rounded-lg border border-tertiary/20 bg-tertiary/10 p-3">
               <div className="flex items-center gap-2 mb-1.5">
-                <Lightbulb className="h-4 w-4 shrink-0 text-emerald-400" aria-hidden="true" />
-                <span className="text-xs font-semibold uppercase tracking-wide text-emerald-400">
+                <Lightbulb className="h-4 w-4 shrink-0 text-tertiary" aria-hidden="true" />
+                <span className="text-xs font-label font-semibold uppercase tracking-wide text-tertiary">
                   טיפ ליום
                 </span>
               </div>
-              <p className="text-sm text-emerald-100/90 leading-relaxed">
+              <p className="text-sm font-body text-tertiary/90 leading-relaxed">
                 {insight.actionable_tip}
               </p>
             </div>

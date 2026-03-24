@@ -217,28 +217,28 @@ export default function DreamPage() {
       />
 
       {/* טופס חלום */}
-      <Card>
-        <CardHeader><CardTitle>תיעוד החלום</CardTitle></CardHeader>
+      <Card className="border-outline-variant/10 bg-surface-container rounded-xl">
+        <CardHeader><CardTitle className="font-headline text-primary">תיעוד החלום</CardTitle></CardHeader>
         <CardContent>
           <SubscriptionGuard feature="analyses">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
             {/* כותרת */}
             <div className="space-y-2">
-              <Label htmlFor="title">כותרת</Label>
-              <Input id="title" {...register('title')} placeholder="שם קצר לחלום" dir="rtl" />
-              {errors.title && <p className="text-sm text-destructive">{errors.title.message}</p>}
+              <Label htmlFor="title" className="font-label text-on-surface-variant">כותרת</Label>
+              <Input id="title" {...register('title')} placeholder="שם קצר לחלום" dir="rtl" className="bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40 font-body" />
+              {errors.title && <p className="text-sm text-error">{errors.title.message}</p>}
             </div>
 
             {/* תיאור */}
             <div className="space-y-2">
-              <Label htmlFor="description">תיאור החלום</Label>
+              <Label htmlFor="description" className="font-label text-on-surface-variant">תיאור החלום</Label>
               <Textarea
                 id="description"
                 {...register('description')}
                 placeholder="ספר את החלום בפרטים — מה ראית, מה הרגשת, מה קרה?"
                 dir="rtl"
                 rows={5}
-                className="resize-y"
+                className="resize-y bg-surface-container-lowest border-none rounded-lg p-4 text-on-surface placeholder:text-outline/40 focus:ring-1 focus:ring-primary/40 font-body"
               />
               {errors.description && <p className="text-sm text-destructive">{errors.description.message}</p>}
             </div>
@@ -267,7 +267,7 @@ export default function DreamPage() {
               placeholder="למשל: מים, בית, ציפור..."
             />
 
-            <Button type="submit" disabled={isSubmitting || isPolling} className="w-full sm:w-auto">
+            <Button type="submit" disabled={isSubmitting || isPolling} className="w-full sm:w-auto bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95">
               {isSubmitting ? (
                 <><Loader2 className="ms-2 h-4 w-4 animate-spin" />שומר חלום...</>
               ) : (
@@ -290,10 +290,10 @@ export default function DreamPage() {
       {/* תוצאת הניתוח */}
       {interpretation && (
         <motion.div {...animations.fadeInUp} transition={{ duration: 0.4 }}>
-          <Card>
-            <CardHeader><CardTitle>ניתוח החלום</CardTitle></CardHeader>
+          <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
+            <CardHeader><CardTitle className="font-headline text-primary">ניתוח החלום</CardTitle></CardHeader>
             <CardContent>
-              <div className="prose prose-sm dark:prose-invert max-w-none">
+              <div className="prose prose-sm prose-invert max-w-none font-body text-on-surface-variant">
                 <ReactMarkdown>{interpretation}</ReactMarkdown>
               </div>
             </CardContent>

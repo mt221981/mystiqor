@@ -43,22 +43,24 @@ export function BigFiveRadarChart({ scores }: BigFiveRadarChartProps) {
   ]
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <RadarChart data={data} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
-        <PolarGrid stroke="#374151" />
-        <PolarAngleAxis
-          dataKey="dimension"
-          tick={{ fill: '#a1a1aa', fontSize: 12 }}
-        />
-        <Radar
-          name="ציון"
-          dataKey="score"
-          fill="#8b5cf6"
-          fillOpacity={0.4}
-          stroke="#8b5cf6"
-          strokeWidth={2}
-        />
-      </RadarChart>
-    </ResponsiveContainer>
+    <div className="bg-surface-container rounded-xl p-6">
+      <ResponsiveContainer width="100%" height={300}>
+        <RadarChart data={data} margin={{ top: 10, right: 30, bottom: 10, left: 30 }}>
+          <PolarGrid stroke="#4a4455" />
+          <PolarAngleAxis
+            dataKey="dimension"
+            tick={{ fill: '#ccc3d8', fontSize: 12 }}
+          />
+          <Radar
+            name="ציון"
+            dataKey="score"
+            fill="#ddb8ff"
+            fillOpacity={0.3}
+            stroke="#ddb8ff"
+            strokeWidth={2}
+          />
+        </RadarChart>
+      </ResponsiveContainer>
+    </div>
   )
 }

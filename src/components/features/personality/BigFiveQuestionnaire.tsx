@@ -88,13 +88,13 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
   return (
     <form onSubmit={handleSubmit(handleFormSubmit)} noValidate className="space-y-6" dir="rtl">
       {/* מד התקדמות */}
-      <div className="flex items-center justify-between text-sm text-muted-foreground mb-2">
+      <div className="flex items-center justify-between text-sm font-label text-on-surface-variant mb-2">
         <span>ענו על {answeredCount} מתוך 20 שאלות</span>
         <span>{Math.round((answeredCount / 20) * 100)}%</span>
       </div>
-      <div className="w-full bg-muted rounded-full h-2 mb-4">
+      <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden mb-4">
         <div
-          className="bg-purple-600 h-2 rounded-full transition-all duration-300"
+          className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-300"
           style={{ width: `${(answeredCount / 20) * 100}%` }}
           role="progressbar"
           aria-valuenow={answeredCount}
@@ -110,9 +110,9 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
         )
 
         return (
-          <Card key={dimension} className="border-purple-500/20 bg-gray-900/40">
+          <Card key={dimension} className="border-outline-variant/10 bg-surface-container rounded-xl">
             <CardHeader className="pb-3">
-              <CardTitle className="text-base text-purple-300">
+              <CardTitle className="text-base font-headline text-primary">
                 {DIMENSION_LABELS[dimension]}
               </CardTitle>
             </CardHeader>
@@ -122,8 +122,9 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
 
                 return (
                   <div key={question.id} className="space-y-3">
-                    <Label className="text-sm font-medium text-gray-200 leading-relaxed block">
-                      {question.id}. {question.text}
+                    <Label className="text-sm font-body font-medium text-on-surface leading-relaxed block">
+                      <span className="font-label text-primary text-sm">{question.id}.</span>{' '}
+                      {question.text}
                     </Label>
 
                     <Controller
@@ -141,13 +142,13 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
                                 className={[
                                   'flex flex-col items-center gap-1 px-3 py-2 rounded-lg border text-xs transition-all',
                                   isSelected
-                                    ? 'bg-purple-600 border-purple-500 text-white font-medium'
-                                    : 'border-gray-600 text-gray-400 hover:border-purple-500/50 hover:text-gray-200',
+                                    ? 'bg-primary-container/20 text-primary border-primary font-medium'
+                                    : 'border-outline-variant/20 text-on-surface-variant hover:border-primary/40',
                                 ].join(' ')}
-                                aria-pressed={isSelected}
+                                aria-pressed={isSelected ? true : false}
                                 aria-label={`${value} — ${LIKERT_LABELS[value]}`}
                               >
-                                <span className="font-bold text-sm">{value}</span>
+                                <span className="font-label font-bold text-sm">{value}</span>
                                 <span className="hidden sm:block text-center leading-tight max-w-[70px]">
                                   {LIKERT_LABELS[value]}
                                 </span>
@@ -167,7 +168,7 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
 
       {/* שגיאת ולידציה */}
       {errors.answers && (
-        <p className="text-sm text-destructive text-center">
+        <p className="text-sm text-error text-center">
           {errors.answers.message ?? 'יש לענות על כל 20 השאלות'}
         </p>
       )}
@@ -176,13 +177,13 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
       <Button
         type="submit"
         disabled={!allAnswered || isSubmitting}
-        className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+        className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
       >
         {isSubmitting ? 'מנתח אישיות...' : 'נתח את האישיות שלי'}
       </Button>
 
       {!allAnswered && (
-        <p className="text-xs text-center text-muted-foreground">
+        <p className="text-xs text-center font-label text-on-surface-variant">
           יש לענות על כל {20 - answeredCount} השאלות הנותרות לפני השליחה
         </p>
       )}

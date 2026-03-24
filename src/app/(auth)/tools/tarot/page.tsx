@@ -119,15 +119,15 @@ export default function TarotPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-purple-500/20 bg-gray-900/50 mb-6">
+        <Card className="border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl mb-6 rounded-xl">
           <CardHeader>
-            <CardTitle className="text-lg text-purple-300">הגדרות פריסה</CardTitle>
+            <CardTitle className="text-lg font-headline text-primary">הגדרות פריסה</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <SubscriptionGuard feature="analyses">
               {/* בחירת מספר קלפים */}
               <div className="space-y-2">
-                <Label className="text-gray-300">מספר קלפים</Label>
+                <Label className="font-label text-on-surface-variant">מספר קלפים</Label>
                 <div className="flex gap-2">
                   {SPREAD_OPTIONS.map(({ count, label }) => (
                     <Button
@@ -137,8 +137,8 @@ export default function TarotPage() {
                       onClick={() => setSpreadCount(count)}
                       className={
                         spreadCount === count
-                          ? 'bg-purple-600 hover:bg-purple-700 text-white'
-                          : 'border-gray-600 text-gray-300 hover:bg-gray-800'
+                          ? 'bg-gradient-to-br from-primary-container to-secondary-container text-white font-label'
+                          : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container hover:border-primary/40'
                       }
                     >
                       {label}
@@ -149,7 +149,7 @@ export default function TarotPage() {
 
               {/* שאלה אופציונלית */}
               <div className="space-y-1">
-                <Label htmlFor="question" className="text-gray-300">
+                <Label htmlFor="question" className="font-label text-on-surface-variant">
                   שאלה (אופציונלי)
                 </Label>
                 <Input
@@ -161,14 +161,14 @@ export default function TarotPage() {
                   maxLength={300}
                   dir="rtl"
                 />
-                <p className="text-xs text-gray-500">{question.length}/300 תווים</p>
+                <p className="text-xs font-label text-on-surface-variant/60">{question.length}/300 תווים</p>
               </div>
 
               {/* כפתור שליפה */}
               <Button
                 onClick={handleDraw}
                 disabled={mutation.isPending}
-                className="w-full bg-purple-600 hover:bg-purple-700 text-white"
+                className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
               >
                 {mutation.isPending ? 'שולף קלפים...' : 'שלוף קלפים'}
               </Button>
@@ -190,19 +190,19 @@ export default function TarotPage() {
             {result.drawn.map((card, index) => (
               <Card
                 key={`${card.id}-${index}`}
-                className="border-purple-500/20 bg-gray-900/50 text-center"
+                className="nebula-glow rounded-xl text-center"
               >
                 <CardContent className="pt-4 pb-4 space-y-2">
-                  <p className="text-lg font-bold text-purple-300">{card.name_he}</p>
-                  <p className="text-xs text-gray-400 italic">{card.name_en}</p>
+                  <p className="text-xl font-headline font-bold text-white">{card.name_he}</p>
+                  <p className="text-xs font-body text-white/70 italic">{card.name_en}</p>
 
                   {/* תגיות */}
                   <div className="flex flex-wrap gap-1 justify-center">
-                    <Badge variant="outline" className="text-xs border-purple-500/30 text-purple-400">
+                    <Badge variant="outline" className="text-xs font-label border-white/30 text-white/80">
                       {ARCANA_HE[card.arcana] ?? card.arcana}
                     </Badge>
                     {card.suit && (
-                      <Badge variant="outline" className="text-xs border-gray-600 text-gray-400">
+                      <Badge variant="outline" className="text-xs font-label border-white/20 text-white/60">
                         {SUIT_HE[card.suit] ?? card.suit}
                       </Badge>
                     )}
@@ -214,7 +214,7 @@ export default function TarotPage() {
                       {card.keywords.slice(0, 3).map((kw) => (
                         <span
                           key={kw}
-                          className="text-xs bg-purple-900/30 text-purple-300 px-2 py-0.5 rounded-full"
+                          className="text-xs font-label text-primary bg-primary/10 px-2 py-0.5 rounded-full"
                         >
                           {kw}
                         </span>
@@ -228,15 +228,15 @@ export default function TarotPage() {
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300 flex items-center gap-2">
+                <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
                   <Sparkles className="h-4 w-4" />
                   פרשנות AI
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                   <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                 </div>
               </CardContent>

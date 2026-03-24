@@ -125,9 +125,9 @@ export default function PersonalityPage() {
           className="space-y-4"
         >
           {/* הסבר על המודל */}
-          <Card className="border-purple-500/20 bg-gray-900/40">
+          <Card className="border-outline-variant/10 bg-surface-container rounded-xl">
             <CardContent className="pt-4 pb-4">
-              <p className="text-sm text-muted-foreground leading-relaxed">
+              <p className="text-sm font-body text-on-surface-variant leading-relaxed">
                 מודל Big Five (OCEAN) הוא הכלי הפסיכולוגי המוכר ביותר למדידת אישיות.
                 הוא מכיל 5 ממדים: פתיחות לניסיון, מצפוניות, מוחצנות, נעימות ורגישות רגשית.
                 ענה על 20 שאלות קצרות וקבל תמונה מדויקת של פרופיל האישיות שלך.
@@ -180,9 +180,9 @@ export default function PersonalityPage() {
           </div>
 
           {/* תרשים רדאר */}
-          <Card className="border-purple-500/20 bg-gray-900/50">
+          <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
             <CardHeader>
-              <CardTitle className="text-base text-purple-300">
+              <CardTitle className="text-base font-headline text-primary">
                 פרופיל האישיות שלך
               </CardTitle>
             </CardHeader>
@@ -198,15 +198,15 @@ export default function PersonalityPage() {
             ).map((dim) => (
               <Card
                 key={dim}
-                className="border-purple-500/20 bg-gray-900/40 text-center"
+                className="border-outline-variant/10 bg-surface-container rounded-xl text-center"
               >
                 <CardContent className="pt-3 pb-3 space-y-1">
-                  <p className="text-xs text-muted-foreground">
+                  <p className="text-xs font-label text-on-surface-variant">
                     {DIMENSION_LABELS[dim]}
                   </p>
                   <Badge
                     variant="outline"
-                    className="text-purple-300 border-purple-500/40 font-bold text-sm"
+                    className="text-primary border-primary/40 font-label font-bold text-sm"
                   >
                     {result.scores[dim]}
                   </Badge>
@@ -217,14 +217,14 @@ export default function PersonalityPage() {
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-purple-500/20 bg-gray-900/50">
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
               <CardHeader>
-                <CardTitle className="text-base text-purple-300">
+                <CardTitle className="text-base font-headline text-primary">
                   פרשנות AI — פרופיל האישיות שלך
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none text-gray-300 leading-relaxed">
+                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                   <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                 </div>
               </CardContent>

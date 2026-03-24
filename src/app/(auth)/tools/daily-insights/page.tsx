@@ -98,7 +98,7 @@ interface ModuleSelectorProps {
 function ModuleSelector({ modules, onToggle }: ModuleSelectorProps) {
   return (
     <div
-      className="flex flex-wrap gap-4 rounded-lg border border-border/50 bg-muted/30 px-4 py-3"
+      className="flex flex-wrap gap-4 rounded-xl border border-outline-variant/10 bg-surface-container px-4 py-3"
       role="group"
       aria-label="בחר מודולים לתובנה"
     >
@@ -188,7 +188,7 @@ export default function DailyInsightsPage() {
         {/* מפריד */}
         <div className="flex items-center gap-3">
           <Separator className="flex-1" />
-          <span className="shrink-0 text-sm text-muted-foreground">תובנות קודמות</span>
+          <span className="shrink-0 text-sm font-label text-on-surface-variant">תובנות קודמות</span>
           <Separator className="flex-1" />
         </div>
 

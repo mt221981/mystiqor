@@ -102,7 +102,7 @@ function InsightHistoryItem({ insight }: InsightHistoryItemProps) {
   }, []);
 
   return (
-    <Card className="border-border/50 transition-colors hover:border-purple-500/30">
+    <Card className="bg-surface-container rounded-xl border border-outline-variant/5 hover:border-primary/20 transition-colors">
       <CardContent className="p-4">
         <button
           type="button"
@@ -115,27 +115,27 @@ function InsightHistoryItem({ insight }: InsightHistoryItemProps) {
             <div className="flex-1 min-w-0">
               {/* תאריך */}
               <div className="flex items-center gap-1.5 mb-1">
-                <Calendar className="h-3.5 w-3.5 shrink-0 text-muted-foreground" aria-hidden="true" />
-                <time dateTime={insight.insight_date} className="text-xs text-muted-foreground">
+                <Calendar className="h-3.5 w-3.5 shrink-0 text-on-surface-variant" aria-hidden="true" />
+                <time dateTime={insight.insight_date} className="text-xs font-label text-on-surface-variant">
                   {formatDate(insight.insight_date)}
                 </time>
               </div>
 
               {/* כותרת */}
-              <p className="text-sm font-semibold text-foreground leading-snug mb-1.5">
+              <p className="text-sm font-headline font-semibold text-on-surface leading-snug mb-1.5">
                 {insight.title}
               </p>
 
               {/* תצוגה מקוצרת */}
               {!isExpanded && (
-                <p className="text-xs text-muted-foreground leading-relaxed">
+                <p className="text-xs font-body text-on-surface-variant leading-relaxed">
                   {truncateText(insight.content)}
                 </p>
               )}
             </div>
 
             {/* אייקון הרחבה */}
-            <span className="mt-0.5 shrink-0 text-muted-foreground" aria-hidden="true">
+            <span className="mt-0.5 shrink-0 text-on-surface-variant" aria-hidden="true">
               {isExpanded ? (
                 <ChevronUp className="h-4 w-4" />
               ) : (
@@ -156,15 +156,15 @@ function InsightHistoryItem({ insight }: InsightHistoryItemProps) {
               transition={{ duration: 0.25 }}
               className="overflow-hidden"
             >
-              <div className="mt-3 pt-3 border-t border-border/50 space-y-3">
-                <p className="text-sm text-foreground leading-relaxed whitespace-pre-wrap">
+              <div className="mt-3 pt-3 border-t border-outline-variant/20 space-y-3">
+                <p className="text-sm font-body text-on-surface leading-relaxed whitespace-pre-wrap">
                   {insight.content}
                 </p>
 
                 {insight.actionable_tip && (
-                  <div className="rounded-md bg-muted/50 px-3 py-2">
-                    <span className="text-xs font-semibold text-muted-foreground">טיפ ליום: </span>
-                    <span className="text-xs text-foreground">{insight.actionable_tip}</span>
+                  <div className="rounded-md bg-surface-container-high px-3 py-2">
+                    <span className="text-xs font-label font-semibold text-on-surface-variant">טיפ ליום: </span>
+                    <span className="text-xs font-body text-on-surface">{insight.actionable_tip}</span>
                   </div>
                 )}
               </div>
