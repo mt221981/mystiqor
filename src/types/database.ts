@@ -558,6 +558,8 @@ export interface Database {
           ai_insights: string | null;
           linked_goal_id: string | null;
           status: JourneyStatus;
+          progress_percentage: number | null;
+          completed_steps: number | null;
           created_at: string;
           updated_at: string;
         };
@@ -573,6 +575,8 @@ export interface Database {
           ai_insights?: string | null;
           linked_goal_id?: string | null;
           status?: JourneyStatus;
+          progress_percentage?: number | null;
+          completed_steps?: number | null;
           created_at?: string;
           updated_at?: string;
         };
@@ -588,6 +592,8 @@ export interface Database {
           ai_insights?: string | null;
           linked_goal_id?: string | null;
           status?: JourneyStatus;
+          progress_percentage?: number | null;
+          completed_steps?: number | null;
           created_at?: string;
           updated_at?: string;
         };

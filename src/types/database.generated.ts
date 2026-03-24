@@ -163,12 +163,14 @@ export type Database = {
       coaching_journeys: {
         Row: {
           ai_insights: string | null
+          completed_steps: number | null
           created_at: string | null
           description: string | null
           focus_area: string | null
           id: string
           journey_type: string | null
           linked_goal_id: string | null
+          progress_percentage: number | null
           status: string | null
           steps: Json
           tags: string[] | null
@@ -178,12 +180,14 @@ export type Database = {
         }
         Insert: {
           ai_insights?: string | null
+          completed_steps?: number | null
           created_at?: string | null
           description?: string | null
           focus_area?: string | null
           id?: string
           journey_type?: string | null
           linked_goal_id?: string | null
+          progress_percentage?: number | null
           status?: string | null
           steps?: Json
           tags?: string[] | null
@@ -193,12 +197,14 @@ export type Database = {
         }
         Update: {
           ai_insights?: string | null
+          completed_steps?: number | null
           created_at?: string | null
           description?: string | null
           focus_area?: string | null
           id?: string
           journey_type?: string | null
           linked_goal_id?: string | null
+          progress_percentage?: number | null
           status?: string | null
           steps?: Json
           tags?: string[] | null
