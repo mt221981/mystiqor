@@ -4,7 +4,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils/cn';
 import { hoverEffects } from '@/lib/animations/presets';
 import { motion } from 'framer-motion';
@@ -17,17 +16,16 @@ interface Tool {
   description: string;
   icon: React.ReactNode;
   href: string;
-  gradient: string;
 }
 
 /** רשימת הכלים */
 const TOOLS: Tool[] = [
-  { id: 'numerology', name: 'נומרולוגיה', description: 'גימטריה + מספרי חיים', icon: <Hash className="h-8 w-8" />, href: '/tools/numerology', gradient: 'from-violet-600 to-purple-600' },
-  { id: 'astrology', name: 'אסטרולוגיה', description: 'מפת לידה + תחזיות', icon: <Stars className="h-8 w-8" />, href: '/tools/astrology', gradient: 'from-indigo-600 to-blue-600' },
-  { id: 'graphology', name: 'גרפולוגיה', description: 'ניתוח כתב יד', icon: <PenTool className="h-8 w-8" />, href: '/tools/graphology', gradient: 'from-emerald-600 to-teal-600' },
-  { id: 'drawing', name: 'ניתוח ציורים', description: 'HTP + Koppitz', icon: <Palette className="h-8 w-8" />, href: '/tools/drawing', gradient: 'from-orange-600 to-amber-600' },
-  { id: 'palmistry', name: 'כירומנטיה', description: 'ניתוח כף יד', icon: <Hand className="h-8 w-8" />, href: '/tools/palmistry', gradient: 'from-rose-600 to-pink-600' },
-  { id: 'tarot', name: 'טארוט', description: 'קלפים + פרשנות AI', icon: <Layers className="h-8 w-8" />, href: '/tools/tarot', gradient: 'from-cyan-600 to-sky-600' },
+  { id: 'numerology', name: 'נומרולוגיה', description: 'גימטריה + מספרי חיים', icon: <Hash className="h-8 w-8" />, href: '/tools/numerology' },
+  { id: 'astrology', name: 'אסטרולוגיה', description: 'מפת לידה + תחזיות', icon: <Stars className="h-8 w-8" />, href: '/tools/astrology' },
+  { id: 'graphology', name: 'גרפולוגיה', description: 'ניתוח כתב יד', icon: <PenTool className="h-8 w-8" />, href: '/tools/graphology' },
+  { id: 'drawing', name: 'ניתוח ציורים', description: 'HTP + Koppitz', icon: <Palette className="h-8 w-8" />, href: '/tools/drawing' },
+  { id: 'palmistry', name: 'כירומנטיה', description: 'ניתוח כף יד', icon: <Hand className="h-8 w-8" />, href: '/tools/palmistry' },
+  { id: 'tarot', name: 'טארוט', description: 'קלפים + פרשנות AI', icon: <Layers className="h-8 w-8" />, href: '/tools/tarot' },
 ];
 
 /** Props של רשת כלים */
@@ -42,20 +40,15 @@ export function ToolGrid({ className }: ToolGridProps) {
       {TOOLS.map((tool) => (
         <Link key={tool.id} href={tool.href}>
           <motion.div {...hoverEffects.lift}>
-            <Card className="h-full border-border/50 hover:border-primary/30 transition-colors cursor-pointer">
-              <CardContent className="p-4 text-center space-y-3">
-                <div className={cn(
-                  'mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br text-white',
-                  tool.gradient
-                )}>
-                  {tool.icon}
-                </div>
-                <div>
-                  <h3 className="font-semibold text-sm">{tool.name}</h3>
-                  <p className="text-xs text-muted-foreground mt-1">{tool.description}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <div className="bg-surface-container rounded-xl p-4 border border-outline-variant/5 hover:border-primary/20 transition-colors cursor-pointer h-full text-center space-y-3">
+              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-xl bg-primary-container/10 text-primary">
+                {tool.icon}
+              </div>
+              <div>
+                <h3 className="font-headline font-semibold text-on-surface text-sm">{tool.name}</h3>
+                <p className="font-body text-xs text-on-surface-variant mt-1">{tool.description}</p>
+              </div>
+            </div>
           </motion.div>
         </Link>
       ))}

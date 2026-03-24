@@ -85,9 +85,9 @@ function TimelineItem({ analysis, index, selected, onSelect }: TimelineItemProps
       {/* כרטיס מידע */}
       <div
         className={cn(
-          'flex-1 max-w-sm cursor-pointer rounded-lg border p-3 transition-all duration-200',
-          'hover:border-purple-400/50 hover:shadow-md',
-          selected && 'ring-2 ring-purple-500 border-purple-400'
+          'flex-1 max-w-sm cursor-pointer bg-surface-container rounded-xl border border-outline-variant/5 p-3 transition-all duration-200',
+          'hover:border-primary/20',
+          selected && 'ring-2 ring-primary border-primary/40'
         )}
         role="button"
         tabIndex={0}
@@ -98,14 +98,14 @@ function TimelineItem({ analysis, index, selected, onSelect }: TimelineItemProps
         }}
       >
         <div className="flex items-center justify-between gap-2 mb-1">
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="outline" className="font-label text-xs bg-primary-container/10 text-primary border-none">
             {toolName}
           </Badge>
           {selected && (
-            <span className="text-xs text-purple-500 font-medium">נבחר</span>
+            <span className="font-label text-xs text-primary">נבחר</span>
           )}
         </div>
-        <p className="text-xs text-muted-foreground line-clamp-2">
+        <p className="font-body text-xs text-on-surface-variant line-clamp-2">
           {analysis.summary ?? 'ניתוח'}
         </p>
       </div>
@@ -113,10 +113,10 @@ function TimelineItem({ analysis, index, selected, onSelect }: TimelineItemProps
       {/* נקודה ותאריך על הציר */}
       <div className="flex flex-col items-center shrink-0">
         <div className={cn(
-          'h-3 w-3 rounded-full border-2 border-purple-400',
-          selected ? 'bg-purple-500' : 'bg-background'
+          'h-3 w-3 rounded-full border-2 border-primary',
+          selected ? 'bg-primary' : 'bg-surface'
         )} />
-        <span className="text-xs text-muted-foreground mt-1 whitespace-nowrap">
+        <span className="font-label text-xs text-on-surface-variant mt-1 whitespace-nowrap">
           {formatDate(analysis.created_at)}
         </span>
       </div>
@@ -140,7 +140,7 @@ function TimelineView({
   return (
     <div className="relative">
       {/* קו אנכי מרכזי */}
-      <div className="absolute inset-y-0 start-1/2 w-px bg-border -translate-x-1/2" aria-hidden />
+      <div className="absolute inset-y-0 start-1/2 w-px bg-outline-variant/20 -translate-x-1/2" aria-hidden />
 
       <div className="flex flex-col gap-6 py-2">
         {analyses.map((analysis, index) => (
@@ -224,8 +224,8 @@ export default function HistoryPage() {
       {/* כותרת הדף */}
       <div className="flex items-center justify-between gap-4 flex-wrap">
         <div className="flex items-center gap-3">
-          <History className="h-6 w-6 text-purple-400" />
-          <h1 className="text-2xl font-bold">היסטוריית ניתוחים</h1>
+          <History className="h-6 w-6 text-primary" />
+          <h1 className="font-headline text-2xl font-bold text-on-surface">היסטוריית ניתוחים</h1>
         </div>
 
         {/* כפתור השוואה — מופיע רק כשנבחרו 2 ניתוחים */}
@@ -247,7 +247,7 @@ export default function HistoryPage() {
 
         {/* מיתוג תצוגה */}
         <div
-          className="flex gap-1 border rounded-lg p-1"
+          className="flex gap-1 bg-surface-container border border-outline-variant/10 rounded-lg p-1"
           role="group"
           aria-label="מצב תצוגה"
         >
@@ -276,7 +276,7 @@ export default function HistoryPage() {
 
       {/* הנחייה לבחירה */}
       {selectedIds.size > 0 && selectedIds.size < 2 && (
-        <p className="text-sm text-muted-foreground">
+        <p className="font-body text-sm text-on-surface-variant">
           בחר ניתוח נוסף להשוואה ({selectedIds.size}/2)
         </p>
       )}
@@ -293,7 +293,7 @@ export default function HistoryPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-32 rounded-lg" />
+            <Skeleton key={i} className="h-32 rounded-xl" />
           ))}
         </div>
       )}
@@ -301,8 +301,8 @@ export default function HistoryPage() {
       {/* מצב ריק */}
       {isEmpty && !isError && (
         <div className="flex flex-col items-center justify-center py-16 text-center">
-          <History className="h-12 w-12 text-muted-foreground/40 mb-4" />
-          <p className="text-muted-foreground">
+          <History className="h-12 w-12 text-on-surface-variant/40 mb-4" />
+          <p className="font-body text-on-surface-variant">
             אין ניתוחים עדיין. התחל להשתמש בכלים כדי לראות היסטוריה.
           </p>
         </div>
@@ -334,7 +334,7 @@ export default function HistoryPage() {
       {/* Pagination */}
       {total > 0 && (
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <span className="text-sm text-muted-foreground">
+          <span className="font-label text-sm text-on-surface-variant">
             {total > 0 ? `מציג ${rangeStart}–${rangeEnd} מתוך ${total}` : ''}
           </span>
           <div className="flex gap-2">

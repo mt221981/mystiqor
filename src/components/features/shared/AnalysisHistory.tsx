@@ -4,9 +4,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 import { formatRelativeDate } from '@/lib/utils/dates';
 import { History, ChevronLeft } from 'lucide-react';
@@ -48,39 +45,48 @@ export function AnalysisHistory({
   const toolTypes = [...new Set(analyses.map((a) => a.tool_type))];
 
   return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2 text-lg">
-          <History className="h-5 w-5" />
+    <div className={cn('bg-surface-container rounded-xl border border-outline-variant/5', className)}>
+      {/* כותרת */}
+      <div className="p-4 border-b border-outline-variant/10">
+        <h3 className="font-headline font-semibold text-on-surface flex items-center gap-2 text-lg">
+          <History className="h-5 w-5 text-primary" />
           ניתוחים אחרונים
-        </CardTitle>
+        </h3>
         {showFilter && toolTypes.length > 1 && (
-          <div className="flex flex-wrap gap-1 mt-2">
-            <Button
-              variant={filter === null ? 'default' : 'outline'}
-              size="sm"
+          <div className="flex flex-wrap gap-1 mt-3">
+            <button
               onClick={() => setFilter(null)}
-              className="text-xs"
+              className={cn(
+                'font-label text-xs rounded-lg px-3 py-1.5 transition-colors',
+                filter === null
+                  ? 'bg-primary-container/20 text-primary'
+                  : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+              )}
             >
               הכל
-            </Button>
+            </button>
             {toolTypes.map((type) => (
-              <Button
+              <button
                 key={type}
-                variant={filter === type ? 'default' : 'outline'}
-                size="sm"
                 onClick={() => setFilter(type)}
-                className="text-xs"
+                className={cn(
+                  'font-label text-xs rounded-lg px-3 py-1.5 transition-colors',
+                  filter === type
+                    ? 'bg-primary-container/20 text-primary'
+                    : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+                )}
               >
                 {TOOL_NAMES[type] ?? type}
-              </Button>
+              </button>
             ))}
           </div>
         )}
-      </CardHeader>
-      <CardContent>
+      </div>
+
+      {/* תוכן */}
+      <div className="p-4">
         {displayed.length === 0 ? (
-          <p className="text-sm text-muted-foreground text-center py-4">
+          <p className="font-body text-sm text-on-surface-variant text-center py-4">
             אין ניתוחים עדיין
           </p>
         ) : (
@@ -89,28 +95,28 @@ export function AnalysisHistory({
               <li key={analysis.id}>
                 <Link
                   href={`/history?id=${analysis.id}`}
-                  className="flex items-center justify-between p-2 rounded-lg hover:bg-accent transition-colors"
+                  className="flex items-center justify-between p-2 rounded-lg hover:bg-surface-container-high transition-colors"
                 >
                   <div className="flex items-center gap-3 min-w-0">
-                    <Badge variant="outline" className="text-xs flex-shrink-0">
+                    <span className="font-label text-xs bg-primary-container/10 text-primary px-2 py-0.5 rounded-full flex-shrink-0">
                       {TOOL_NAMES[analysis.tool_type] ?? analysis.tool_type}
-                    </Badge>
-                    <span className="text-sm truncate">
+                    </span>
+                    <span className="font-body text-sm text-on-surface truncate">
                       {analysis.summary ?? 'ניתוח'}
                     </span>
                   </div>
                   <div className="flex items-center gap-2 flex-shrink-0">
-                    <span className="text-xs text-muted-foreground">
+                    <span className="font-label text-xs text-on-surface-variant">
                       {formatRelativeDate(analysis.created_at)}
                     </span>
-                    <ChevronLeft className="h-4 w-4 text-muted-foreground" />
+                    <ChevronLeft className="h-4 w-4 text-on-surface-variant" />
                   </div>
                 </Link>
               </li>
             ))}
           </ul>
         )}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

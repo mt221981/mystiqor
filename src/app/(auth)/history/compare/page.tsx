@@ -64,15 +64,15 @@ function ComparePageContent() {
     <div className="space-y-6 p-6">
       {/* כותרת הדף */}
       <div className="flex items-center gap-3">
-        <GitCompare className="h-6 w-6 text-purple-400" />
-        <h1 className="text-2xl font-bold">השוואת ניתוחים</h1>
+        <GitCompare className="h-6 w-6 text-primary" />
+        <h1 className="font-headline text-2xl font-bold text-on-surface">השוואת ניתוחים</h1>
       </div>
 
       {/* כפתור חזרה */}
       <div>
         <Link
           href="/history"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          className="inline-flex items-center gap-2 font-label text-sm text-on-surface-variant hover:text-on-surface transition-colors"
         >
           <ArrowRight className="h-4 w-4" />
           חזרה להיסטוריה
@@ -95,8 +95,8 @@ function ComparePageContent() {
       {/* מצב טעינה */}
       {isValid && isLoading && (
         <div className="flex items-center gap-3 py-8">
-          <Loader2 className="h-5 w-5 animate-spin text-purple-400" />
-          <span className="text-muted-foreground">טוען ניתוחים...</span>
+          <Loader2 className="h-5 w-5 animate-spin text-primary" />
+          <span className="font-body text-on-surface-variant">טוען ניתוחים...</span>
         </div>
       )}
 
@@ -111,8 +111,8 @@ function ComparePageContent() {
       {/* skeleton בזמן טעינה */}
       {isValid && isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Skeleton className="h-64 rounded-lg" />
-          <Skeleton className="h-64 rounded-lg" />
+          <Skeleton className="h-64 rounded-xl" />
+          <Skeleton className="h-64 rounded-xl" />
         </div>
       )}
 
@@ -142,12 +142,12 @@ export default function CompareHistoryPage() {
       fallback={
         <div className="space-y-6 p-6">
           <div className="flex items-center gap-3">
-            <GitCompare className="h-6 w-6 text-purple-400" />
-            <h1 className="text-2xl font-bold">השוואת ניתוחים</h1>
+            <GitCompare className="h-6 w-6 text-primary" />
+            <h1 className="font-headline text-2xl font-bold text-on-surface">השוואת ניתוחים</h1>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Skeleton className="h-64 rounded-lg" />
-            <Skeleton className="h-64 rounded-lg" />
+            <Skeleton className="h-64 rounded-xl" />
+            <Skeleton className="h-64 rounded-xl" />
           </div>
         </div>
       }

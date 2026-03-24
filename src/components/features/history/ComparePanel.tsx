@@ -4,8 +4,6 @@
  */
 'use client';
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { formatDate } from '@/lib/utils/dates';
 import { TOOL_NAMES } from '@/lib/constants/tool-names';
 import { GitCompare } from 'lucide-react';
@@ -33,35 +31,32 @@ function AnalysisColumn({ analysis }: { analysis: AnalysisWithResults }) {
   const toolName = TOOL_NAMES[analysis.tool_type] ?? analysis.tool_type;
 
   return (
-    <Card className="h-full">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between gap-2">
-          <Badge variant="outline" className="text-sm">
-            {toolName}
-          </Badge>
-          <span className="text-xs text-muted-foreground">
-            {formatDate(analysis.created_at)}
-          </span>
-        </div>
-        {analysis.summary && (
-          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
-            {analysis.summary}
-          </p>
-        )}
-      </CardHeader>
+    <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 h-full flex flex-col gap-4">
+      {/* כותרת עמודה */}
+      <div className="flex items-center justify-between gap-2">
+        <span className="bg-primary-container/10 text-primary font-label text-sm px-2 py-0.5 rounded-full">
+          {toolName}
+        </span>
+        <span className="font-label text-xs text-on-surface-variant">
+          {formatDate(analysis.created_at)}
+        </span>
+      </div>
 
-      <CardContent>
-        {/* תוצאות מפורטות בפורמט JSON קריא */}
-        <Card className="bg-muted/30">
-          <CardContent className="p-3">
-            <p className="text-xs font-semibold text-muted-foreground mb-2">תוצאות מפורטות</p>
-            <pre className="text-xs text-muted-foreground overflow-auto max-h-96 whitespace-pre-wrap break-words leading-relaxed">
-              {JSON.stringify(analysis.results, null, 2)}
-            </pre>
-          </CardContent>
-        </Card>
-      </CardContent>
-    </Card>
+      {/* סיכום */}
+      {analysis.summary && (
+        <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+          {analysis.summary}
+        </p>
+      )}
+
+      {/* תוצאות מפורטות */}
+      <div className="bg-surface-container-high rounded-lg p-3 flex-1">
+        <p className="font-label text-xs text-on-surface-variant mb-2">תוצאות מפורטות</p>
+        <pre className="font-body text-xs text-on-surface-variant overflow-auto max-h-96 whitespace-pre-wrap break-words leading-relaxed">
+          {JSON.stringify(analysis.results, null, 2)}
+        </pre>
+      </div>
+    </div>
   );
 }
 
@@ -74,8 +69,8 @@ export function ComparePanel({ left, right }: ComparePanelProps) {
     <div>
       {/* כותרת לוח ההשוואה */}
       <div className="flex items-center gap-2 mb-6">
-        <GitCompare className="h-5 w-5 text-purple-400" />
-        <h2 className="text-xl font-bold">השוואת ניתוחים</h2>
+        <GitCompare className="h-5 w-5 text-primary" />
+        <h2 className="font-headline text-xl font-bold text-on-surface">השוואת ניתוחים</h2>
       </div>
 
       {/* רשת שתי עמודות */}

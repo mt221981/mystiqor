@@ -5,8 +5,6 @@
 'use client';
 
 import Link from 'next/link';
-import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils/cn';
 import { formatRelativeDate } from '@/lib/utils/dates';
 import { TOOL_NAMES } from '@/lib/constants/tool-names';
@@ -43,43 +41,46 @@ export function AnalysisCard({ analysis, selected = false, onSelect }: AnalysisC
       ? `${Math.round(analysis.confidence_score * 100)}%`
       : null;
 
+  const cardClass = cn(
+    'bg-surface-container rounded-xl p-4 border border-outline-variant/5 hover:border-primary/10 transition-colors cursor-pointer',
+    selected && 'ring-2 ring-primary border-primary/20'
+  );
+
   const cardContent = (
-    <CardContent className="p-4">
+    <div className={cardClass}>
       {/* כותרת: שם הכלי + אינדיקטור בחירה */}
       <div className="mb-2 flex items-start justify-between gap-2">
-        <Badge variant="outline" className="text-xs shrink-0">
+        <span className="bg-primary-container/10 text-primary font-label text-xs px-2 py-0.5 rounded-full shrink-0">
           {toolName}
-        </Badge>
+        </span>
         {onSelect && selected && (
-          <CheckCircle2 className="h-4 w-4 text-purple-500 shrink-0" aria-label="נבחר" />
+          <CheckCircle2 className="h-4 w-4 text-primary shrink-0" aria-label="נבחר" />
         )}
       </div>
 
       {/* סיכום — מקוצר ל-2 שורות */}
-      <p className="text-sm text-muted-foreground line-clamp-2 mb-3 min-h-[2.5rem]">
+      <p className="font-headline font-semibold text-on-surface text-sm line-clamp-2 mb-3 min-h-[2.5rem]">
         {analysis.summary ?? 'ניתוח'}
       </p>
 
       {/* תחתית: תאריך + ציון ביטחון */}
-      <div className="flex items-center justify-between text-xs text-muted-foreground">
-        <span>{formatRelativeDate(analysis.created_at)}</span>
+      <div className="flex items-center justify-between">
+        <span className="font-label text-xs text-on-surface-variant">
+          {formatRelativeDate(analysis.created_at)}
+        </span>
         {confidenceText && (
-          <span className="opacity-60">{confidenceText}</span>
+          <span className="font-label text-xs text-on-surface-variant opacity-60">
+            {confidenceText}
+          </span>
         )}
       </div>
-    </CardContent>
-  );
-
-  const cardClass = cn(
-    'cursor-pointer transition-all duration-200 hover:shadow-md hover:border-purple-400/50',
-    selected && 'ring-2 ring-purple-500 border-purple-400'
+    </div>
   );
 
   /* כשיש onSelect — כרטיס הוא div לחיץ; אחרת — Link */
   if (onSelect) {
     return (
-      <Card
-        className={cardClass}
+      <div
         onClick={() => onSelect(analysis.id)}
         role="button"
         tabIndex={0}
@@ -89,13 +90,13 @@ export function AnalysisCard({ analysis, selected = false, onSelect }: AnalysisC
         }}
       >
         {cardContent}
-      </Card>
+      </div>
     );
   }
 
   return (
     <Link href={`/history?id=${analysis.id}`} className="block">
-      <Card className={cardClass}>{cardContent}</Card>
+      {cardContent}
     </Link>
   );
 }

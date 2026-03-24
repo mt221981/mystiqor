@@ -4,7 +4,7 @@
  */
 'use client';
 
-import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils/cn';
 import { TOOL_NAMES } from '@/lib/constants/tool-names';
 
 /** Props של רכיב הסינון */
@@ -33,28 +33,34 @@ export function HistoryFilters({
       aria-label="סינון לפי סוג כלי"
     >
       {/* כפתור "הכל" */}
-      <Button
-        variant={selectedTool === null ? 'default' : 'outline'}
-        size="sm"
+      <button
         onClick={() => onToolChange(null)}
-        className="text-xs"
         aria-pressed={selectedTool === null}
+        className={cn(
+          'font-label text-sm rounded-lg px-3 py-1.5 transition-colors',
+          selectedTool === null
+            ? 'bg-primary-container/20 text-primary'
+            : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+        )}
       >
         הכל
-      </Button>
+      </button>
 
       {/* כפתור לכל סוג כלי זמין */}
       {availableTools.map((tool) => (
-        <Button
+        <button
           key={tool}
-          variant={selectedTool === tool ? 'default' : 'outline'}
-          size="sm"
           onClick={() => onToolChange(tool)}
-          className="text-xs"
           aria-pressed={selectedTool === tool}
+          className={cn(
+            'font-label text-sm rounded-lg px-3 py-1.5 transition-colors',
+            selectedTool === tool
+              ? 'bg-primary-container/20 text-primary'
+              : 'text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high'
+          )}
         >
           {TOOL_NAMES[tool] ?? tool}
-        </Button>
+        </button>
       ))}
     </div>
   );
