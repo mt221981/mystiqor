@@ -24,7 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: Learning + History + Analytics** - Analysis history, tutorials, astrology tutor, drawing tutor, self-analytics
 - [x] **Phase 10: Polish + PWA + Export** - PDF export, social sharing, PWA manifest + service worker, notifications
 - [x] **Phase 11: UI Overhaul — Design System Reskin** - MD3 color tokens, new fonts, glassmorphism, nebula gradients, bento layouts, reskin all pages
-- [ ] **Phase 12: Integration Wiring — Gap Closure** - Fix sidebar navigation, onboarding redirect, usage enforcement, export/share rendering, astrology sub-nav, usage bar live data
+- [x] **Phase 12: Integration Wiring — Gap Closure** - Fix sidebar navigation, onboarding redirect, usage enforcement, export/share rendering, astrology sub-nav, usage bar live data (completed 2026-03-25)
 
 ## Phase Details
 
@@ -268,7 +268,7 @@ Plans:
 - [x] 12-01-PLAN.md — Fix sidebar hrefs, astrology sub-tools, live UsageBar, onboarding redirect
 - [x] 12-02-PLAN.md — Wire incrementUsage() into all 16 tool pages
 - [x] 12-03-PLAN.md — Wire ExportButton + SharePanel into AnalysisCard
-- [ ] 12-04-PLAN.md — Integration verification + human approval checkpoint
+- [x] 12-04-PLAN.md — Integration verification + human approval checkpoint
 
 ## Progress
 
@@ -289,4 +289,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
 | 10. Polish + PWA + Export | 3/3 | Complete   | 2026-03-24 |
 | 11. UI Overhaul — Design System Reskin | 10/10 | Complete   | 2026-03-25 |
-| 12. Integration Wiring — Gap Closure | 3/4 | In Progress|  |
+| 12. Integration Wiring — Gap Closure | 4/4 | Complete   | 2026-03-25 |
