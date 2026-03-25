@@ -9,6 +9,8 @@ import { cn } from '@/lib/utils/cn';
 import { formatRelativeDate } from '@/lib/utils/dates';
 import { TOOL_NAMES } from '@/lib/constants/tool-names';
 import { CheckCircle2 } from 'lucide-react';
+import { ExportButton } from '@/components/features/export/ExportButton';
+import { SharePanel } from '@/components/features/sharing/SharePanel';
 
 /** נתוני ניתוח בסיסיים לתצוגת כרטיס */
 export interface AnalysisCardData {
@@ -95,8 +97,23 @@ export function AnalysisCard({ analysis, selected = false, onSelect }: AnalysisC
   }
 
   return (
-    <Link href={`/history?id=${analysis.id}`} className="block">
-      {cardContent}
-    </Link>
+    <div className="flex flex-col gap-2">
+      <Link href={`/history?id=${analysis.id}`} className="block">
+        {cardContent}
+      </Link>
+      {/* כפתורי ייצוא ושיתוף — רק במצב עיון, לא בבחירה להשוואה */}
+      <div className="flex gap-2 flex-wrap px-1" dir="rtl">
+        <ExportButton
+          toolType={analysis.tool_type}
+          summary={analysis.summary}
+          results={{}}
+          createdAt={analysis.created_at}
+        />
+        <SharePanel
+          analysisId={analysis.id}
+          title={`ניתוח ${TOOL_NAMES[analysis.tool_type] ?? analysis.tool_type}`}
+        />
+      </div>
+    </div>
   );
 }
