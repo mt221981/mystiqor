@@ -90,12 +90,12 @@ export default function HumanDesignPage() {
       });
       const json = await res.json() as { data?: HDResult; error?: unknown };
       if (!res.ok) {
-        toast.error('שגיאה בחישוב Human Design — נסה שנית');
+        toast.error('שגיאה בחישוב עיצוב אנושי — נסה שנית');
         return;
       }
       if (json.data) {
         setResult(json.data);
-        toast.success('ניתוח Human Design מוכן!');
+        toast.success('ניתוח עיצוב אנושי מוכן!');
         // עדכן שימוש — non-blocking, non-fatal
         void incrementUsage().catch(() => {});
       }
@@ -109,9 +109,9 @@ export default function HumanDesignPage() {
   return (
     <div className="space-y-8" dir="rtl">
       <PageHeader
-        title="Human Design"
+        title="עיצוב אנושי"
         description="גלה את מפת האנרגיה האישית שלך"
-        breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'Human Design' }]}
+        breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'עיצוב אנושי' }]}
       />
 
       {/* טופס קלט */}
@@ -157,7 +157,7 @@ export default function HumanDesignPage() {
               {isLoading ? (
                 <><Loader2 className="ms-2 h-4 w-4 animate-spin" />מחשב...</>
               ) : (
-                'חשב Human Design'
+                'חשב עיצוב אנושי'
               )}
             </Button>
           </form>

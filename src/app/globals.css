@@ -40,38 +40,38 @@
   }
 
   .dark {
-    --background: 240 5% 7.5%;        /* #131315 */
-    --foreground: 270 3% 89%;         /* #e5e1e4 */
-    --card: 270 3% 13%;               /* #201f22 */
-    --card-foreground: 270 3% 89%;    /* #e5e1e4 */
-    --popover: 270 3% 13%;            /* #201f22 */
-    --popover-foreground: 270 3% 89%; /* #e5e1e4 */
-    --primary: 274 100% 86%;          /* #ddb8ff */
+    --background: 250 45% 8%;          /* #0d0b1e deep cosmic indigo */
+    --foreground: 268 25% 92%;         /* #ece6f5 warm lavender white */
+    --card: 252 35% 12%;               /* #181530 deep card */
+    --card-foreground: 268 25% 92%;    /* #ece6f5 */
+    --popover: 252 35% 12%;            /* #181530 */
+    --popover-foreground: 268 25% 92%; /* #ece6f5 */
+    --primary: 274 100% 86%;           /* #ddb8ff lavender */
     --primary-foreground: 274 100% 25%; /* #490080 */
-    --secondary: 243 100% 88%;        /* #c3c0ff */
+    --secondary: 243 100% 88%;         /* #c3c0ff periwinkle */
     --secondary-foreground: 243 100% 32%; /* #1d00a5 */
-    --muted: 270 3% 16%;              /* #2a2a2c */
-    --muted-foreground: 271 21% 81%;  /* #ccc3d8 */
-    --accent: 270 3% 16%;             /* #2a2a2c */
-    --accent-foreground: 270 3% 89%;  /* #e5e1e4 */
-    --destructive: 7 100% 84%;        /* #ffb4ab */
+    --muted: 250 30% 16%;              /* #242040 indigo muted */
+    --muted-foreground: 268 20% 78%;   /* #c4b8d8 */
+    --accent: 42 65% 58%;              /* #d4a853 mystical gold */
+    --accent-foreground: 42 80% 95%;   /* #fdf3dc warm white */
+    --destructive: 7 100% 84%;         /* #ffb4ab */
     --destructive-foreground: 0 100% 21%; /* #690005 */
-    --border: 270 11% 30%;            /* #4a4455 */
-    --input: 270 11% 30%;             /* #4a4455 */
-    --ring: 274 100% 86%;             /* #ddb8ff */
+    --border: 258 25% 22%;             /* #352d55 purple border */
+    --input: 258 25% 22%;              /* #352d55 */
+    --ring: 274 100% 86%;              /* #ddb8ff */
     --radius: 0.75rem;
-    --chart-1: 274 100% 86%;          /* #ddb8ff */
-    --chart-2: 265 100% 53%;          /* #8f2de6 */
-    --chart-3: 155 69% 59%;           /* #4edea3 */
-    --chart-4: 243 100% 48%;          /* #3626ce */
-    --chart-5: 7 100% 84%;            /* #ffb4ab */
-    --sidebar-background: 240 5% 7.5%;
-    --sidebar-foreground: 270 3% 89%;
+    --chart-1: 274 100% 86%;           /* #ddb8ff */
+    --chart-2: 265 100% 53%;           /* #8f2de6 */
+    --chart-3: 155 69% 59%;            /* #4edea3 */
+    --chart-4: 42 65% 58%;             /* #d4a853 gold */
+    --chart-5: 7 100% 84%;             /* #ffb4ab */
+    --sidebar-background: 252 45% 7%;  /* #0a0918 deeper sidebar */
+    --sidebar-foreground: 268 25% 92%;
     --sidebar-primary: 274 100% 86%;
     --sidebar-primary-foreground: 274 100% 25%;
-    --sidebar-accent: 270 3% 16%;
-    --sidebar-accent-foreground: 270 3% 89%;
-    --sidebar-border: 270 11% 30%;
+    --sidebar-accent: 250 30% 16%;
+    --sidebar-accent-foreground: 268 25% 92%;
+    --sidebar-border: 258 25% 18%;
     --sidebar-ring: 274 100% 86%;
   }
 
@@ -84,48 +84,228 @@
   }
 }
 
-/* ===== כלי עזר מותאמים — עיצוב קוסמי ===== */
+/* ===== כלי עזר מותאמים — עיצוב קוסמי עשיר ===== */
 @layer utilities {
-  /* רקע גרדיאנט ראשי — סגול כהה לכחול */
+  /* רקע גרדיאנט ראשי — סגול עמוק לכחול עם זהב */
   .nebula-glow {
-    background: linear-gradient(135deg, #8f2de6 0%, #3626ce 100%);
+    background: linear-gradient(135deg, #8f2de6 0%, #3626ce 40%, #1a0a4a 80%, #0d0b1e 100%);
   }
 
-  /* ניווט זכוכיתי עם blur */
+  /* ניווט זכוכיתי עם blur — indigo עמוק */
   .glass-nav {
-    background: rgba(19, 19, 21, 0.6);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    background: rgba(10, 9, 28, 0.85);
+    -webkit-backdrop-filter: blur(20px) saturate(1.5);
+    backdrop-filter: blur(20px) saturate(1.5);
+    border-bottom: 1px solid rgba(221, 184, 255, 0.08);
   }
 
-  /* פאנל זכוכיתי עם blur */
+  /* פאנל זכוכיתי עם blur — indigo עמוק */
   .glass-panel {
-    background: rgba(32, 31, 34, 0.6);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
+    background: rgba(14, 12, 35, 0.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(221, 184, 255, 0.06);
   }
 
-  /* רקע כוכבים עדין */
+  /* כרטיס מיסטי — זכוכית עם גבול זוהר */
+  .mystic-card {
+    background: linear-gradient(
+      145deg,
+      rgba(24, 21, 48, 0.9) 0%,
+      rgba(14, 12, 35, 0.95) 100%
+    );
+    border: 1px solid rgba(221, 184, 255, 0.08);
+    box-shadow:
+      0 4px 30px rgba(143, 45, 230, 0.06),
+      inset 0 1px 0 rgba(221, 184, 255, 0.05);
+  }
+
+  /* כרטיס מיסטי עם זהב */
+  .mystic-card-gold {
+    background: linear-gradient(
+      145deg,
+      rgba(24, 21, 48, 0.9) 0%,
+      rgba(20, 18, 40, 0.95) 100%
+    );
+    border: 1px solid rgba(212, 168, 83, 0.12);
+    box-shadow:
+      0 4px 30px rgba(212, 168, 83, 0.06),
+      inset 0 1px 0 rgba(212, 168, 83, 0.08);
+  }
+
+  /* רקע כוכבים — שכבות רב-ממדיות עם ניצוצות */
   .stars-bg {
-    background-image: radial-gradient(circle at 2px 2px, rgba(221, 184, 255, 0.15) 1px, transparent 0);
-    background-size: 40px 40px;
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(221, 184, 255, 0.25) 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, rgba(195, 192, 255, 0.15) 1px, transparent 0),
+      radial-gradient(circle at 3px 3px, rgba(212, 168, 83, 0.1) 1px, transparent 0),
+      radial-gradient(circle at 1.5px 1.5px, rgba(78, 222, 163, 0.08) 1px, transparent 0);
+    background-size: 40px 40px, 80px 80px, 120px 120px, 200px 200px;
+    animation: stars-twinkle 8s ease-in-out infinite alternate;
   }
 
-  /* זוהר עדין — צל סגול רחב */
+  /* זוהר עדין — צל סגול-כחול עמוק */
   .glow-soft {
-    box-shadow: 0 20px 50px rgba(143, 45, 230, 0.08);
+    box-shadow:
+      0 20px 60px rgba(143, 45, 230, 0.15),
+      0 8px 30px rgba(54, 38, 206, 0.1),
+      0 0 0 1px rgba(221, 184, 255, 0.05);
   }
 
-  /* זוהר שמימי — צל סגול חזק יותר */
+  /* זוהר שמימי — הילה מיסטית */
   .celestial-glow {
-    box-shadow: 0 0 40px rgba(143, 45, 230, 0.15);
+    box-shadow:
+      0 0 40px rgba(143, 45, 230, 0.25),
+      0 0 80px rgba(54, 38, 206, 0.12),
+      0 0 120px rgba(212, 168, 83, 0.05);
   }
+
+  /* זוהר זהב — לאלמנטים חשובים */
+  .gold-glow {
+    box-shadow:
+      0 0 20px rgba(212, 168, 83, 0.2),
+      0 0 40px rgba(212, 168, 83, 0.1);
+  }
+
+  /* ✨ אנימציית ניצוצות צפים — עשירה יותר */
+  .sparkle-float {
+    position: relative;
+    overflow: hidden;
+  }
+  .sparkle-float::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, rgba(221, 184, 255, 0.35) 1px, transparent 1px),
+      radial-gradient(circle, rgba(212, 168, 83, 0.2) 1px, transparent 1px),
+      radial-gradient(circle, rgba(78, 222, 163, 0.15) 1px, transparent 1px);
+    background-size: 60px 60px, 90px 90px, 120px 120px;
+    animation: sparkle-drift 20s linear infinite;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* 🌌 אורורה — גרדיאנט זז עם זהב */
+  .aurora-bg {
+    background: linear-gradient(
+      135deg,
+      rgba(143, 45, 230, 0.1) 0%,
+      rgba(54, 38, 206, 0.08) 20%,
+      rgba(212, 168, 83, 0.06) 40%,
+      rgba(78, 222, 163, 0.05) 60%,
+      rgba(143, 45, 230, 0.1) 80%,
+      rgba(54, 38, 206, 0.08) 100%
+    );
+    background-size: 400% 400%;
+    animation: aurora-shift 15s ease infinite;
+  }
+
+  /* 🔮 זוהר מיסטי בהובר — עם זהב */
+  .mystic-hover {
+    transition: box-shadow 0.4s ease, transform 0.3s ease, border-color 0.3s ease;
+  }
+  .mystic-hover:hover {
+    box-shadow:
+      0 0 25px rgba(221, 184, 255, 0.2),
+      0 0 50px rgba(143, 45, 230, 0.12),
+      0 8px 32px rgba(0, 0, 0, 0.3);
+    transform: translateY(-3px);
+    border-color: rgba(221, 184, 255, 0.15);
+  }
+
+  /* 🌟 shimmer effect — אפקט נצנוץ על גבולות */
+  .shimmer-border {
+    position: relative;
+    overflow: hidden;
+  }
+  .shimmer-border::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(221, 184, 255, 0.1) 60deg,
+      rgba(212, 168, 83, 0.08) 120deg,
+      transparent 180deg
+    );
+    animation: shimmer-rotate 6s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* גרדיאנט טקסט זהוב */
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #ddb8ff 0%, #d4a853 50%, #f0c674 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* גרדיאנט טקסט סגול */
+  .text-gradient-mystic {
+    background: linear-gradient(135deg, #ddb8ff 0%, #c3c0ff 50%, #4edea3 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* אייקון מיסטי — עיגול עם זוהר */
+  .mystic-icon-wrap {
+    background: linear-gradient(
+      135deg,
+      rgba(143, 45, 230, 0.15) 0%,
+      rgba(54, 38, 206, 0.1) 50%,
+      rgba(212, 168, 83, 0.08) 100%
+    );
+    border: 1px solid rgba(221, 184, 255, 0.1);
+    box-shadow: 0 0 20px rgba(143, 45, 230, 0.08);
+  }
+}
+
+/* ===== אנימציות ===== */
+@keyframes sparkle-drift {
+  0% { background-position: 0 0, 0 0, 0 0; }
+  100% { background-position: 60px -120px, -90px 180px, 120px -60px; }
+}
+
+@keyframes aurora-shift {
+  0%, 100% { background-position: 0% 50%; }
+  25% { background-position: 100% 50%; }
+  50% { background-position: 100% 100%; }
+  75% { background-position: 0% 100%; }
+}
+
+@keyframes stars-twinkle {
+  0% { opacity: 0.7; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
+
+@keyframes shimmer-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float-gentle {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 15px rgba(143, 45, 230, 0.15); }
+  50% { box-shadow: 0 0 30px rgba(143, 45, 230, 0.3), 0 0 60px rgba(212, 168, 83, 0.1); }
 }
 
 /* ===== סרגל גלילה מותאם ===== */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #4a4455; border-radius: 10px; }
+::-webkit-scrollbar-thumb { background: rgba(143, 45, 230, 0.3); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(143, 45, 230, 0.5); }
 
 /* ===== Print styles for PDF export ===== */
 @media print {

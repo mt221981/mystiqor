@@ -5,6 +5,7 @@ import type { NextConfig } from 'next';
  * כולל תמיכה בתמונות מ-Supabase Storage וניתוב RTL
  */
 const nextConfig: NextConfig = {
+  allowedDevOrigins: ['127.0.0.1', 'localhost', '10.0.0.7'],
   transpilePackages: ['@react-pdf/renderer'],
   images: {
     remotePatterns: [

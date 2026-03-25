@@ -3,7 +3,7 @@
  * כל דפי האפליקציה יורשים מלייאאוט זה
  */
 
-import { Plus_Jakarta_Sans, Inter, Manrope } from 'next/font/google';
+import { Plus_Jakarta_Sans, Inter, Manrope, Heebo } from 'next/font/google';
 import Script from 'next/script';
 
 import './globals.css';
@@ -35,6 +35,14 @@ const manrope = Manrope({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
   variable: '--font-label',
+  display: 'swap',
+});
+
+/** פונט עברי — Heebo */
+const heebo = Heebo({
+  subsets: ['hebrew', 'latin'],
+  weight: ['300', '400', '500', '600', '700'],
+  variable: '--font-hebrew',
   display: 'swap',
 });
 
@@ -89,7 +97,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html
       lang="he"
       dir="rtl"
-      className={cn('dark', plusJakartaSans.variable, inter.variable, manrope.variable)}
+      className={cn('dark', plusJakartaSans.variable, inter.variable, manrope.variable, heebo.variable)}
       suppressHydrationWarning
     >
       <head>

@@ -24,7 +24,7 @@ const config: Config = {
       },
       fontFamily: {
         headline: ['var(--font-headline)', 'Plus Jakarta Sans', 'sans-serif'],
-        body: ['var(--font-body)', 'Inter', 'sans-serif'],
+        body: ['var(--font-hebrew)', 'Heebo', 'var(--font-body)', 'Inter', 'sans-serif'],
         label: ['var(--font-label)', 'Manrope', 'sans-serif'],
       },
       colors: {
@@ -111,33 +111,39 @@ const config: Config = {
         'on-tertiary-fixed': '#002113',
         'on-tertiary-fixed-variant': '#005236',
 
-        // Surface & Background (רקעים כהים)
-        surface: '#131315',
-        'surface-dim': '#131315',
-        'surface-bright': '#39393b',
-        'surface-container-lowest': '#0e0e10',
-        'surface-container-low': '#1c1b1d',
-        'surface-container': '#201f22',
-        'surface-container-high': '#2a2a2c',
-        'surface-container-highest': '#353437',
+        // Surface & Background (רקעים כהים — cosmic deep indigo)
+        surface: '#0d0b1e',
+        'surface-dim': '#08071a',
+        'surface-bright': '#2a2650',
+        'surface-container-lowest': '#080718',
+        'surface-container-low': '#121030',
+        'surface-container': '#181538',
+        'surface-container-high': '#222048',
+        'surface-container-highest': '#2c2a55',
         'surface-tint': '#ddb8ff',
-        'surface-variant': '#353437',
-        'on-surface': '#e5e1e4',
-        'on-surface-variant': '#ccc3d8',
-        'on-background': '#e5e1e4',
+        'surface-variant': '#2c2a55',
+        'on-surface': '#ece6f5',
+        'on-surface-variant': '#c8bede',
+        'on-background': '#ece6f5',
+
+        // Gold (זהב מיסטי)
+        gold: '#d4a853',
+        'gold-dim': '#b8913e',
+        'gold-bright': '#f0c674',
+        'gold-muted': 'rgba(212, 168, 83, 0.15)',
 
         // Error (שגיאות)
         'error-container': '#93000a',
         'on-error': '#690005',
         'on-error-container': '#ffdad6',
 
-        // Outline (גבולות)
-        outline: '#958da1',
-        'outline-variant': '#4a4455',
+        // Outline (גבולות — indigo-tinted)
+        outline: '#8a7fa8',
+        'outline-variant': '#3d3465',
 
         // Inverse (היפוך)
-        'inverse-surface': '#e5e1e4',
-        'inverse-on-surface': '#313032',
+        'inverse-surface': '#ece6f5',
+        'inverse-on-surface': '#1a1835',
       },
       keyframes: {
         'accordion-down': {

@@ -158,7 +158,8 @@ export async function GET(request: NextRequest) {
         cached: false,
       },
     })
-  } catch {
+  } catch (err) {
+    console.error('[Calendar API Error]', err)
     return NextResponse.json({ error: 'שגיאה בטעינת לוח השנה האסטרולוגי' }, { status: 500 })
   }
 }

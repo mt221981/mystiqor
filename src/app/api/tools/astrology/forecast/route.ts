@@ -184,7 +184,8 @@ export async function GET() {
         cached: false,
       },
     })
-  } catch {
+  } catch (err) {
+    console.error('[Forecast API Error]', err)
     return NextResponse.json({ error: 'שגיאה בטעינת התחזית האסטרולוגית' }, { status: 500 })
   }
 }

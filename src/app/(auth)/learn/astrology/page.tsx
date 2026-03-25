@@ -24,7 +24,7 @@ const ASTROLOGY_CONCEPTS: Concept[] = [
   { label: 'בתים אסטרולוגיים', prompt: 'הסבר לי את 12 הבתים האסטרולוגיים' },
   { label: 'אספקטים', prompt: 'מהם אספקטים באסטרולוגיה ואילו סוגים יש?' },
   { label: 'טרנזיטים', prompt: 'הסבר לי מה זה טרנזיטים ואיך הם משפיעים' },
-  { label: 'Solar Return', prompt: 'מהו Solar Return ומה אפשר ללמוד ממנו?' },
+  { label: 'חזרת שמש', prompt: 'מהי חזרת שמש (Solar Return) ומה אפשר ללמוד ממנה?' },
 ]
 
 // ===== פונקציות API =====

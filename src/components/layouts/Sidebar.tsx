@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * סרגל ניווט ראשי — סרגל צד מתקפל עם קטגוריות וניווט
+ * סרגל ניווט ראשי — סרגל צד מתקפל עם אייקונים מיסטיים וקטגוריות
  * כולל תפריט קטגוריות, מצב פעיל, סרגל שימוש חי ותגובתיות למובייל
  */
 
@@ -9,29 +9,37 @@ import { useState, useCallback } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
+  GiCrystalBall,
+  GiAbacus,
+  GiAstrolabe,
+  GiQuillInk,
+  GiPaintBrush,
+  GiHandOfGod,
+  GiCardRandom,
+  GiBodyBalance,
+  GiDreamCatcher,
+  GiSunRadiations,
+  GiCalendar,
+  GiCompass,
+  GiLovers,
+  GiHearts,
+  GiBriefcase,
+  GiScrollUnfurled,
+  GiAllSeeingEye,
+  GiMirrorMirror,
+  GiSparkles,
+  GiTargetArrows,
+  GiNotebook,
+  GiLightBulb,
+  GiGraduateCap,
+  GiNewspaper,
+  GiMountainRoad,
+} from 'react-icons/gi';
+import {
   LayoutDashboard,
   Home,
-  Hash,
-  Stars,
-  PenTool,
-  Palette,
-  Hand,
-  Layers,
-  Fingerprint,
-  Moon,
-  Heart,
-  Briefcase,
-  FileText,
-  HelpCircle,
-  Sparkles,
-  Brain,
   MessageCircle,
-  Target,
   Smile,
-  BookOpen,
-  Lightbulb,
-  GraduationCap,
-  Newspaper,
   User,
   Settings,
   CreditCard,
@@ -43,16 +51,9 @@ import {
   History,
   BarChart3,
   GitCompare,
-  Sun,
-  CalendarDays,
-  Navigation,
-  RotateCcw,
-  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useSubscription } from '@/hooks/useSubscription';
-
-import type { LucideIcon } from 'lucide-react';
 
 // ===== ממשקי טיפוסים =====
 
@@ -62,8 +63,8 @@ interface NavItem {
   readonly label: string;
   /** נתיב הקישור */
   readonly href: string;
-  /** אייקון מ-lucide */
-  readonly icon: LucideIcon;
+  /** אייקון — תומך גם ב-lucide וגם ב-react-icons */
+  readonly icon: React.ComponentType<{ className?: string }>;
 }
 
 /** קבוצת ניווט עם כותרת ופריטים */
@@ -88,54 +89,54 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'כלים מיסטיים',
     items: [
-      { label: 'נומרולוגיה', href: '/tools/numerology', icon: Hash },
-      { label: 'אסטרולוגיה', href: '/tools/astrology', icon: Stars },
-      { label: 'גרפולוגיה', href: '/tools/graphology', icon: PenTool },
-      { label: 'ציור', href: '/tools/drawing', icon: Palette },
-      { label: 'קריאה בכף יד', href: '/tools/palmistry', icon: Hand },
-      { label: 'טארוט', href: '/tools/tarot', icon: Layers },
-      { label: 'עיצוב אנושי', href: '/tools/human-design', icon: Fingerprint },
-      { label: 'חלומות', href: '/tools/dream', icon: Moon },
+      { label: 'נומרולוגיה', href: '/tools/numerology', icon: GiAbacus },
+      { label: 'אסטרולוגיה', href: '/tools/astrology', icon: GiAstrolabe },
+      { label: 'גרפולוגיה', href: '/tools/graphology', icon: GiQuillInk },
+      { label: 'ציור', href: '/tools/drawing', icon: GiPaintBrush },
+      { label: 'קריאה בכף יד', href: '/tools/palmistry', icon: GiHandOfGod },
+      { label: 'טארוט', href: '/tools/tarot', icon: GiCardRandom },
+      { label: 'עיצוב אנושי', href: '/tools/human-design', icon: GiBodyBalance },
+      { label: 'חלומות', href: '/tools/dream', icon: GiDreamCatcher },
     ],
   },
   {
     title: 'אסטרולוגיה מתקדמת',
     items: [
-      { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: Sun },
-      { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: CalendarDays },
-      { label: 'מעברים', href: '/tools/astrology/transits', icon: Navigation },
-      { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: RotateCcw },
-      { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: Users },
+      { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: GiSunRadiations },
+      { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: GiCalendar },
+      { label: 'מעברים', href: '/tools/astrology/transits', icon: GiCompass },
+      { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: GiSunRadiations },
+      { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: GiLovers },
     ],
   },
   {
     title: 'מתקדם',
     items: [
-      { label: 'התאמה', href: '/tools/compatibility', icon: Heart },
-      { label: 'קריירה', href: '/tools/career', icon: Briefcase },
-      { label: 'מסמך', href: '/tools/document', icon: FileText },
-      { label: 'מערכות יחסים', href: '/tools/relationships', icon: HelpCircle },
-      { label: 'סינתזה', href: '/tools/synthesis', icon: Sparkles },
-      { label: 'אישיות', href: '/tools/personality', icon: Brain },
+      { label: 'התאמה', href: '/tools/compatibility', icon: GiHearts },
+      { label: 'קריירה', href: '/tools/career', icon: GiBriefcase },
+      { label: 'מסמך', href: '/tools/document', icon: GiScrollUnfurled },
+      { label: 'מערכות יחסים', href: '/tools/relationships', icon: GiLovers },
+      { label: 'סינתזה', href: '/tools/synthesis', icon: GiAllSeeingEye },
+      { label: 'אישיות', href: '/tools/personality', icon: GiMirrorMirror },
     ],
   },
   {
     title: 'מסע אישי',
     items: [
-      { label: 'מאמן AI', href: '/coach', icon: MessageCircle },
-      { label: 'יעדים', href: '/goals', icon: Target },
+      { label: 'מאמן AI', href: '/coach', icon: GiCrystalBall },
+      { label: 'יעדים', href: '/goals', icon: GiTargetArrows },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
-      { label: 'יומן', href: '/journal', icon: BookOpen },
-      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: Lightbulb },
+      { label: 'יומן', href: '/journal', icon: GiNotebook },
+      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: GiLightBulb },
     ],
   },
   {
     title: 'למידה',
     items: [
-      { label: 'מדריכים', href: '/learn/tutorials', icon: GraduationCap },
-      { label: 'בלוג', href: '/learn/blog', icon: Newspaper },
-      { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: Stars },
-      { label: 'מורה ציור', href: '/learn/drawing', icon: Palette },
+      { label: 'מדריכים', href: '/learn/tutorials', icon: GiGraduateCap },
+      { label: 'בלוג', href: '/learn/blog', icon: GiNewspaper },
+      { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: GiAstrolabe },
+      { label: 'מורה ציור', href: '/learn/drawing', icon: GiPaintBrush },
     ],
   },
   {
@@ -190,7 +191,7 @@ function CollapsibleSection({
         className={cn(
           'flex w-full items-center justify-between px-3 py-2',
           'text-xs font-semibold uppercase tracking-wider',
-          'text-on-surface-variant/70 hover:text-on-surface-variant font-label',
+          'text-gold-dim/70 hover:text-gold font-label',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
@@ -220,12 +221,12 @@ function CollapsibleSection({
                   'flex items-center gap-3 rounded-lg px-3 py-2',
                   'text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20'
-                    : 'text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
+                    ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20 border border-primary/10'
+                    : 'text-on-surface-variant hover:bg-surface-container-high/60 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon className="h-4.5 w-4.5 shrink-0" />
+                <Icon className="h-[18px] w-[18px] shrink-0" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -256,11 +257,11 @@ function UsageBar() {
       <div className="border-t border-outline-variant/10 px-4 py-4">
         <div className="mb-2 flex items-center justify-between text-xs text-on-surface-variant">
           <span>שימוש חודשי</span>
-          <span>ללא הגבלה</span>
+          <span className="text-gold">ללא הגבלה</span>
         </div>
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
           <div
-            className="h-full rounded-full bg-gradient-to-l from-primary-container to-secondary-container shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
+            className="h-full rounded-full bg-gradient-to-l from-gold to-gold-bright shadow-[0_0_15px_rgba(212,168,83,0.4)] transition-all duration-500"
             style={{ width: '0%' }}
             role="progressbar"
             aria-valuenow={0}
@@ -284,7 +285,7 @@ function UsageBar() {
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
         <div
-          className="h-full rounded-full bg-gradient-to-l from-primary-container to-secondary-container shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
+          className="h-full rounded-full bg-gradient-to-l from-primary-container to-gold shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
           style={{ width: `${clampedPercent}%` }}
           role="progressbar"
           aria-valuenow={clampedPercent}
@@ -293,7 +294,7 @@ function UsageBar() {
           aria-label="שימוש חודשי במנוי"
         />
       </div>
-      <p className="mt-1.5 text-xs text-on-surface-variant/60">
+      <p className="mt-1.5 text-xs text-gold-dim/60">
         שדרג לפרימיום לשימוש בלתי מוגבל
       </p>
     </div>
@@ -302,7 +303,7 @@ function UsageBar() {
 
 // ===== קומפוננטה ראשית =====
 
-/** סרגל צד ניווט ראשי — מתקפל, עם קטגוריות, מצב פעיל וסרגל שימוש חי */
+/** סרגל צד ניווט ראשי — מתקפל, עם קטגוריות, אייקונים מיסטיים, מצב פעיל וסרגל שימוש חי */
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -327,9 +328,9 @@ export function Sidebar() {
       aria-label="ניווט ראשי"
     >
       {/* לוגו */}
-      <div className="flex items-center gap-2 border-b border-outline-variant/10 px-4 py-5">
-        <Sparkles className="h-6 w-6 text-primary" />
-        <span className="font-headline text-xl font-bold text-primary">
+      <div className="flex items-center gap-2.5 border-b border-outline-variant/10 px-4 py-5">
+        <GiSparkles className="h-7 w-7 text-gold" />
+        <span className="font-headline text-xl font-bold text-gradient-gold">
           MystiQor
         </span>
       </div>
