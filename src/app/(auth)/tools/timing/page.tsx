@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import { ACTIVITY_TYPES, ACTIVITY_LABELS, type ActivityType } from '@/lib/constants/timing-activities'
 
 // ===== סכמות ולידציה =====
@@ -232,6 +233,7 @@ function TimingResults({ result }: TimingResultsProps) {
 
 export default function TimingPage() {
   const [result, setResult] = useState<TimingResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -246,7 +248,12 @@ export default function TimingPage() {
 
   const mutation = useMutation({
     mutationFn: fetchTiming,
-    onSuccess: (data) => { setResult(data); toast.success('חישוב תזמון הושלם') },
+    onSuccess: (data) => {
+      setResult(data)
+      toast.success('חישוב תזמון הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
+    },
     onError: (err) => { toast.error(err instanceof Error ? err.message : 'שגיאה בחישוב תזמון') },
   })
 

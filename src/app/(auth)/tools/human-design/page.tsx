@@ -24,6 +24,7 @@ import { LocationSearch } from '@/components/forms/LocationSearch';
 import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignCenters';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 import { animations } from '@/lib/animations/presets';
+import { useSubscription } from '@/hooks/useSubscription';
 import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { GeocodingResult } from '@/components/forms/LocationSearch';
 
@@ -67,6 +68,7 @@ export default function HumanDesignPage() {
   const [result, setResult] = useState<HDResult | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [birthPlaceText, setBirthPlaceText] = useState('');
+  const { incrementUsage } = useSubscription();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(HumanDesignInputSchema),
@@ -94,6 +96,8 @@ export default function HumanDesignPage() {
       if (json.data) {
         setResult(json.data);
         toast.success('ניתוח Human Design מוכן!');
+        // עדכן שימוש — non-blocking, non-fatal
+        void incrementUsage().catch(() => {});
       }
     } catch {
       toast.error('שגיאת רשת — נסה שנית');

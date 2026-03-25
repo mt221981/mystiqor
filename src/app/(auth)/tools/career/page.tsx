@@ -21,6 +21,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמת ולידציה =====
 
@@ -75,6 +76,7 @@ async function fetchCareerGuidance(input: FormValues): Promise<CareerResult> {
 /** דף ייעוץ קריירה */
 export default function CareerPage() {
   const [result, setResult] = useState<CareerResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const {
     register,
@@ -89,6 +91,8 @@ export default function CareerPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('ייעוץ הקריירה הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (err) => {
       toast.error(err instanceof Error ? err.message : 'שגיאה בייעוץ קריירה')

@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמות ולידציה =====
 
@@ -242,6 +243,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
 
 export default function SynastryPage() {
   const [result, setResult] = useState<SynastryResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -253,7 +255,12 @@ export default function SynastryPage() {
 
   const mutation = useMutation({
     mutationFn: fetchSynastry,
-    onSuccess: (data) => { setResult(data); toast.success('ניתוח סינסטרי הושלם') },
+    onSuccess: (data) => {
+      setResult(data)
+      toast.success('ניתוח סינסטרי הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
+    },
     onError: (err) => { toast.error(err instanceof Error ? err.message : 'שגיאה בניתוח סינסטרי') },
   })
 

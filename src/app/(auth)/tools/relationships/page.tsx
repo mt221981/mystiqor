@@ -22,6 +22,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמת ולידציה =====
 
@@ -85,6 +86,7 @@ async function fetchRelationshipAnalysis(input: FormValues): Promise<Relationshi
 /** דף ניתוח יחסים */
 export default function RelationshipsPage() {
   const [result, setResult] = useState<RelationshipResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const {
     register,
@@ -104,6 +106,8 @@ export default function RelationshipsPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('ניתוח היחסים הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (err) => {
       toast.error(err instanceof Error ? err.message : 'שגיאה בניתוח יחסים')

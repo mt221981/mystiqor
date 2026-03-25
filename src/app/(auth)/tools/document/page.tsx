@@ -16,6 +16,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== טיפוסים =====
 
@@ -152,6 +153,7 @@ async function fetchDocumentAnalysis(formData: FormData): Promise<DocumentResult
 export default function DocumentPage() {
   const [result, setResult] = useState<DocumentResult | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const { incrementUsage } = useSubscription()
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [context, setContext] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -184,6 +186,8 @@ export default function DocumentPage() {
       if (context.trim()) fd.append('context', context.trim())
       setResult(await fetchDocumentAnalysis(fd))
       toast.success('ניתוח המסמך הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     } catch (error) {
       toast.error(error instanceof Error ? error.message : 'שגיאה בניתוח המסמך')
     } finally {

@@ -25,6 +25,7 @@ import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמות ולידציה =====
 
@@ -273,6 +274,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
 /** דף מעברים פלנטריים */
 export default function TransitsPage() {
   const [result, setResult] = useState<TransitsResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit } = useForm<TransitsFormValues>({
     resolver: zodResolver(TransitsFormSchema),
@@ -284,6 +286,8 @@ export default function TransitsPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('המעברים חושבו בהצלחה')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בחישוב המעברים')

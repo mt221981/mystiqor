@@ -27,6 +27,7 @@ import { AIInterpretation } from '@/components/features/astrology/ChartInfoPanel
 import { PlanetTable } from '@/components/features/astrology/ChartInfoPanels/PlanetTable'
 import { AspectList } from '@/components/features/astrology/ChartInfoPanels/AspectList'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import type { ChartData } from '@/services/astrology/chart'
 
 /** BirthChart נטען באופן עצלן — רכיב SVG כבד, SSR לא נתמך */
@@ -225,6 +226,7 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
 export default function SolarReturnPage() {
   const [result, setResult] = useState<SolarReturnResult | null>(null)
   const [submittedYear, setSubmittedYear] = useState<number>(currentYear)
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit, setValue, watch } = useForm<SolarReturnFormValues>({
     resolver: zodResolver(SolarReturnFormSchema),
@@ -238,6 +240,8 @@ export default function SolarReturnPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success(`מהפכה שמשית ${submittedYear} חושבה בהצלחה`)
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בחישוב המהפכה השמשית')
