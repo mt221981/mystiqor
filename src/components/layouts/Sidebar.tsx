@@ -2,7 +2,7 @@
 
 /**
  * סרגל ניווט ראשי — סרגל צד מתקפל עם קטגוריות וניווט
- * כולל תפריט קטגוריות, מצב פעיל, סרגל שימוש ותגובתיות למובייל
+ * כולל תפריט קטגוריות, מצב פעיל, סרגל שימוש חי ותגובתיות למובייל
  */
 
 import { useState, useCallback } from 'react';
@@ -43,8 +43,14 @@ import {
   History,
   BarChart3,
   GitCompare,
+  Sun,
+  CalendarDays,
+  Navigation,
+  RotateCcw,
+  Users,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
+import { useSubscription } from '@/hooks/useSubscription';
 
 import type { LucideIcon } from 'lucide-react';
 
@@ -82,25 +88,35 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'כלים מיסטיים',
     items: [
-      { label: 'נומרולוגיה', href: '/numerology', icon: Hash },
-      { label: 'אסטרולוגיה', href: '/astrology', icon: Stars },
-      { label: 'גרפולוגיה', href: '/graphology', icon: PenTool },
-      { label: 'ציור', href: '/drawing', icon: Palette },
-      { label: 'כירומנטיה', href: '/palmistry', icon: Hand },
-      { label: 'טארוט', href: '/tarot', icon: Layers },
-      { label: 'עיצוב אנושי', href: '/human-design', icon: Fingerprint },
-      { label: 'חלומות', href: '/dreams', icon: Moon },
+      { label: 'נומרולוגיה', href: '/tools/numerology', icon: Hash },
+      { label: 'אסטרולוגיה', href: '/tools/astrology', icon: Stars },
+      { label: 'גרפולוגיה', href: '/tools/graphology', icon: PenTool },
+      { label: 'ציור', href: '/tools/drawing', icon: Palette },
+      { label: 'כירומנטיה', href: '/tools/palmistry', icon: Hand },
+      { label: 'טארוט', href: '/tools/tarot', icon: Layers },
+      { label: 'עיצוב אנושי', href: '/tools/human-design', icon: Fingerprint },
+      { label: 'חלומות', href: '/tools/dream', icon: Moon },
+    ],
+  },
+  {
+    title: 'אסטרולוגיה מתקדמת',
+    items: [
+      { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: Sun },
+      { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: CalendarDays },
+      { label: 'מעברים', href: '/tools/astrology/transits', icon: Navigation },
+      { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: RotateCcw },
+      { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: Users },
     ],
   },
   {
     title: 'מתקדם',
     items: [
-      { label: 'התאמה', href: '/compatibility', icon: Heart },
-      { label: 'קריירה', href: '/career', icon: Briefcase },
-      { label: 'מסמך', href: '/document', icon: FileText },
-      { label: 'שאלה', href: '/question', icon: HelpCircle },
+      { label: 'התאמה', href: '/tools/compatibility', icon: Heart },
+      { label: 'קריירה', href: '/tools/career', icon: Briefcase },
+      { label: 'מסמך', href: '/tools/document', icon: FileText },
+      { label: 'מערכות יחסים', href: '/tools/relationships', icon: HelpCircle },
       { label: 'סינתזה', href: '/tools/synthesis', icon: Sparkles },
-      { label: 'אישיות', href: '/personality', icon: Brain },
+      { label: 'אישיות', href: '/tools/personality', icon: Brain },
     ],
   },
   {
@@ -110,7 +126,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'יעדים', href: '/goals', icon: Target },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
       { label: 'יומן', href: '/journal', icon: BookOpen },
-      { label: 'תובנות יומיות', href: '/daily-insights', icon: Lightbulb },
+      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: Lightbulb },
     ],
   },
   {
@@ -142,9 +158,6 @@ const NAV_SECTIONS: readonly NavSection[] = [
     ],
   },
 ] as const;
-
-/** אחוז שימוש לדוגמה — יוחלף בנתוני מנוי אמיתיים */
-const PLACEHOLDER_USAGE_PERCENT = 42;
 
 // ===== קומפוננטות פנימיות =====
 
@@ -223,20 +236,58 @@ function CollapsibleSection({
   );
 }
 
-/** סרגל שימוש — מציג אחוזי שימוש במנוי */
+/** סרגל שימוש — מציג אחוזי שימוש חיים מהמנוי */
 function UsageBar() {
+  const { subscription } = useSubscription();
+
+  /** חישוב אחוז שימוש — פרימיום: ללא הגבלה */
+  const isPremium = subscription.plan_type !== 'free';
+
+  const usagePercent =
+    !isPremium && subscription.analyses_limit > 0
+      ? Math.round((subscription.analyses_used / subscription.analyses_limit) * 100)
+      : 0;
+
+  /** הגבלה לטווח 0-100 */
+  const clampedPercent = Math.min(100, Math.max(0, usagePercent));
+
+  if (isPremium) {
+    return (
+      <div className="border-t border-outline-variant/10 px-4 py-4">
+        <div className="mb-2 flex items-center justify-between text-xs text-on-surface-variant">
+          <span>שימוש חודשי</span>
+          <span>ללא הגבלה</span>
+        </div>
+        <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
+          <div
+            className="h-full rounded-full bg-gradient-to-l from-primary-container to-secondary-container shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
+            style={{ width: '0%' }}
+            role="progressbar"
+            aria-valuenow={0}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="שימוש חודשי במנוי"
+          />
+        </div>
+        <p className="mt-1.5 text-xs text-on-surface-variant/60">
+          מנוי פרימיום — שימוש בלתי מוגבל
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="border-t border-outline-variant/10 px-4 py-4">
       <div className="mb-2 flex items-center justify-between text-xs text-on-surface-variant">
         <span>שימוש חודשי</span>
-        <span>{PLACEHOLDER_USAGE_PERCENT}%</span>
+        <span>{clampedPercent}%</span>
       </div>
       <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-container-high">
         <div
           className="h-full rounded-full bg-gradient-to-l from-primary-container to-secondary-container shadow-[0_0_15px_rgba(143,45,230,0.4)] transition-all duration-500"
-          style={{ width: `${PLACEHOLDER_USAGE_PERCENT}%` }}
+          style={{ width: `${clampedPercent}%` }}
           role="progressbar"
-          aria-valuenow={PLACEHOLDER_USAGE_PERCENT}
+          aria-valuenow={clampedPercent}
           aria-valuemin={0}
           aria-valuemax={100}
           aria-label="שימוש חודשי במנוי"
@@ -251,7 +302,7 @@ function UsageBar() {
 
 // ===== קומפוננטה ראשית =====
 
-/** סרגל צד ניווט ראשי — מתקפל, עם קטגוריות, מצב פעיל וסרגל שימוש */
+/** סרגל צד ניווט ראשי — מתקפל, עם קטגוריות, מצב פעיל וסרגל שימוש חי */
 export function Sidebar() {
   const pathname = usePathname();
 
@@ -296,7 +347,7 @@ export function Sidebar() {
         ))}
       </div>
 
-      {/* סרגל שימוש */}
+      {/* סרגל שימוש חי */}
       <UsageBar />
     </aside>
   );
