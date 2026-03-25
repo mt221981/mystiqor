@@ -7,7 +7,7 @@
 
 import { SmilePlus, CheckCircle, Bell } from 'lucide-react';
 import { GiTargetArrows } from 'react-icons/gi';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
 // ===== טיפוסים =====
 
@@ -73,12 +73,12 @@ function StatCardSkeleton() {
     <div className="bg-surface-container rounded-xl p-4 h-32 relative overflow-hidden">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
-          <Skeleton className="h-4 w-20" />
-          <Skeleton className="h-8 w-14" />
+          <MysticSkeleton className="h-4 w-20" />
+          <MysticSkeleton className="h-8 w-14" />
         </div>
-        <Skeleton className="h-10 w-10 rounded-lg" />
+        <MysticSkeleton className="h-10 w-10 rounded-lg" />
       </div>
-      <Skeleton className="mt-3 h-3 w-24" />
+      <MysticSkeleton className="mt-3 h-3 w-24" />
     </div>
   );
 }
