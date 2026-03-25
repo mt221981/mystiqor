@@ -301,6 +301,10 @@
   50% { box-shadow: 0 0 30px rgba(143, 45, 230, 0.3), 0 0 60px rgba(212, 168, 83, 0.1); }
 }
 
+@keyframes shimmer {
+  100% { transform: translateX(100%); }
+}
+
 /* ===== סרגל גלילה מותאם ===== */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: transparent; }
