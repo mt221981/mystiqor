@@ -6,13 +6,11 @@
  * השלבים עצמם: steps.tsx (שלבים 1-3) + PreferencesStep.tsx (שלב 4)
  */
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
 import { toast } from 'sonner';
 
 import { useOnboardingStore } from '@/stores/onboarding';
-import { animations } from '@/lib/animations/presets';
 import { cn } from '@/lib/utils/cn';
 
 import { PersonalInfoStep, LocationStep } from './steps';
@@ -95,6 +93,22 @@ export function OnboardingWizard() {
   const router = useRouter();
   const { step, data, setStep, updateData, reset } = useOnboardingStore();
   const [isLoading, setIsLoading] = useState(false);
+  const [hydrated, setHydrated] = useState(false);
+
+  /** רה-הידרציה של Zustand persist מ-localStorage אחרי mount */
+  useEffect(() => {
+    useOnboardingStore.persist.rehydrate();
+    setHydrated(true);
+  }, []);
+
+  /** מציג שלד טעינה עד שהסטור מוכן */
+  if (!hydrated) {
+    return (
+      <div className="mx-auto max-w-md w-full">
+        <div className="h-96 bg-surface-container/60 backdrop-blur-xl rounded-2xl animate-pulse" />
+      </div>
+    );
+  }
 
   /** מעבר לשלב הבא */
   const goNext = () => {
@@ -148,7 +162,7 @@ export function OnboardingWizard() {
   };
 
   return (
-    <motion.div {...animations.fadeIn} className="mx-auto max-w-md w-full">
+    <div className="mx-auto max-w-md w-full">
       <div className="bg-surface-container/60 backdrop-blur-xl rounded-2xl p-8 border border-outline-variant/10">
         <StepIndicator currentStep={step} totalSteps={4} labels={STEP_LABELS} />
 
@@ -168,6 +182,6 @@ export function OnboardingWizard() {
           <PreferencesStep onComplete={handleComplete} onBack={goBack} isLoading={isLoading} />
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

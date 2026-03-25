@@ -87,6 +87,6 @@ export const useOnboardingStore = create<OnboardingState>()(
       /** מאפס את כל המצב לברירות המחדל */
       reset: () => set({ step: 1, data: INITIAL_DATA }),
     }),
-    { name: 'mystiqor-onboarding' }
+    { name: 'mystiqor-onboarding', skipHydration: true }
   )
 );
