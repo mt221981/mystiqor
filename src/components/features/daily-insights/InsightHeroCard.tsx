@@ -10,7 +10,7 @@ import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
 import { Sparkles, Star, Lightbulb } from 'lucide-react';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { animations } from '@/lib/animations/presets';
 
 // ===== טיפוסים =====
@@ -71,18 +71,18 @@ function InsightHeroSkeleton() {
   return (
     <Card className="overflow-hidden nebula-glow rounded-xl">
       <CardHeader className="pb-4">
-        <Skeleton className="h-6 w-3/4" />
-        <Skeleton className="mt-2 h-4 w-1/4" />
+        <MysticSkeleton className="h-6 w-3/4" />
+        <MysticSkeleton className="mt-2 h-4 w-1/4" />
       </CardHeader>
       <CardContent className="space-y-3">
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-5/6" />
-        <Skeleton className="h-4 w-4/6" />
-        <Skeleton className="h-4 w-full" />
-        <Skeleton className="h-4 w-3/4" />
+        <MysticSkeleton className="h-4 w-full" />
+        <MysticSkeleton className="h-4 w-5/6" />
+        <MysticSkeleton className="h-4 w-4/6" />
+        <MysticSkeleton className="h-4 w-full" />
+        <MysticSkeleton className="h-4 w-3/4" />
         <div className="mt-4 rounded-lg border border-outline-variant/10 bg-surface-container-high/20 p-3">
-          <Skeleton className="h-4 w-1/3" />
-          <Skeleton className="mt-2 h-4 w-5/6" />
+          <MysticSkeleton className="h-4 w-1/3" />
+          <MysticSkeleton className="mt-2 h-4 w-5/6" />
         </div>
       </CardContent>
     </Card>

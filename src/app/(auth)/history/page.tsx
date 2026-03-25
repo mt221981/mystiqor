@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useQuery } from '@tanstack/react-query';
 import { History, List, Clock, GitCompare, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils/cn';
@@ -293,7 +293,7 @@ export default function HistoryPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Skeleton key={i} className="h-32 rounded-xl" />
+            <MysticSkeleton key={i} className="h-32 rounded-xl" />
           ))}
         </div>
       )}

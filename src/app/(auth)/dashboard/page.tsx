@@ -13,7 +13,7 @@ import { subDays, subMonths, startOfDay } from 'date-fns';
 
 import { createClient } from '@/lib/supabase/client';
 import { CACHE_TIMES, queryKeys } from '@/lib/query/cache-config';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { Breadcrumbs } from '@/components/common/Breadcrumbs';
@@ -313,7 +313,7 @@ export default function DashboardPage() {
           <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">מגמת מצב רוח</h2>
             {isMoodLoading ? (
-              <Skeleton className="h-[200px] w-full" />
+              <MysticSkeleton className="h-[200px] w-full" />
             ) : (
               <MoodTrendChart data={moodTrendData} period={period} />
             )}
@@ -323,7 +323,7 @@ export default function DashboardPage() {
           <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">התקדמות יעדים</h2>
             {isGoalsLoading ? (
-              <Skeleton className="h-[200px] w-full" />
+              <MysticSkeleton className="h-[200px] w-full" />
             ) : (
               <GoalsProgressChart data={goalsChartData} />
             )}
@@ -333,7 +333,7 @@ export default function DashboardPage() {
           <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ניתוחים לפי כלי</h2>
             {isAnalysesLoading ? (
-              <Skeleton className="h-[200px] w-full" />
+              <MysticSkeleton className="h-[200px] w-full" />
             ) : (
               <AnalysesChart data={analysesChartData} />
             )}

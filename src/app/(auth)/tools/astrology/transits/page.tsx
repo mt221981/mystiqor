@@ -23,7 +23,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
@@ -376,9 +376,9 @@ export default function TransitsPage() {
       {/* מצב טעינה */}
       {mutation.isPending && (
         <div className="space-y-4">
-          <Skeleton className="h-32 w-full rounded-xl" />
-          <Skeleton className="h-48 w-full rounded-xl" />
-          <Skeleton className="h-64 w-full rounded-xl" />
+          <MysticSkeleton className="h-32 w-full rounded-xl" />
+          <MysticSkeleton className="h-48 w-full rounded-xl" />
+          <MysticSkeleton className="h-64 w-full rounded-xl" />
         </div>
       )}
 

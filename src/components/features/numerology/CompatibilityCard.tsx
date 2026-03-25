@@ -8,7 +8,7 @@
 import { Heart } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Progress } from '@/components/ui/progress'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import type { CompatibilityResult } from '@/types/numerology'
 
 /** Props של כרטיס תאימות נומרולוגית */
@@ -60,14 +60,14 @@ export function CompatibilityCard({ result, isLoading = false }: CompatibilityCa
     return (
       <Card className="border-primary/20 bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl">
         <CardHeader>
-          <Skeleton className="h-6 w-40" />
+          <MysticSkeleton className="h-6 w-40" />
         </CardHeader>
         <CardContent className="space-y-4">
-          <Skeleton className="h-24 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-4 w-full" />
-          <Skeleton className="h-16 w-full" />
+          <MysticSkeleton className="h-24 w-full" />
+          <MysticSkeleton className="h-4 w-full" />
+          <MysticSkeleton className="h-4 w-full" />
+          <MysticSkeleton className="h-4 w-full" />
+          <MysticSkeleton className="h-16 w-full" />
         </CardContent>
       </Card>
     )

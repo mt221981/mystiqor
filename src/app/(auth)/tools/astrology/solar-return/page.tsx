@@ -22,7 +22,7 @@ import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { AIInterpretation } from '@/components/features/astrology/ChartInfoPanels/AIInterpretation'
 import { PlanetTable } from '@/components/features/astrology/ChartInfoPanels/PlanetTable'
@@ -37,7 +37,7 @@ const BirthChart = dynamic(
   {
     ssr: false,
     loading: () => (
-      <Skeleton className="w-full aspect-square max-w-[500px] mx-auto rounded-full" />
+      <MysticSkeleton className="w-full aspect-square max-w-[500px] mx-auto rounded-full" />
     ),
   }
 )
@@ -350,10 +350,10 @@ export default function SolarReturnPage() {
       {/* מצב טעינה */}
       {mutation.isPending && (
         <div className="space-y-4">
-          <Skeleton className="h-20 w-full rounded-xl" />
-          <Skeleton className="h-96 w-full rounded-xl" />
-          <Skeleton className="h-48 w-full rounded-xl" />
-          <Skeleton className="h-64 w-full rounded-xl" />
+          <MysticSkeleton className="h-20 w-full rounded-xl" />
+          <MysticSkeleton className="h-96 w-full rounded-xl" />
+          <MysticSkeleton className="h-48 w-full rounded-xl" />
+          <MysticSkeleton className="h-64 w-full rounded-xl" />
         </div>
       )}
 

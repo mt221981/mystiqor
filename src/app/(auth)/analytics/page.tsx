@@ -9,7 +9,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { BarChart3 } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { cn } from '@/lib/utils/cn';
 import { ToolUsageChart } from '@/components/features/analytics/ToolUsageChart';
 import { ActivityHeatmap } from '@/components/features/analytics/ActivityHeatmap';
@@ -80,14 +80,14 @@ function AnalyticsSkeleton() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
           <div key={i} className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
-            <Skeleton className="mb-2 h-4 w-24" />
-            <Skeleton className="h-8 w-16" />
+            <MysticSkeleton className="mb-2 h-4 w-24" />
+            <MysticSkeleton className="h-8 w-16" />
           </div>
         ))}
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Skeleton className="h-[350px] rounded-xl" />
-        <Skeleton className="h-[350px] rounded-xl" />
+        <MysticSkeleton className="h-[350px] rounded-xl" />
+        <MysticSkeleton className="h-[350px] rounded-xl" />
       </div>
     </div>
   );

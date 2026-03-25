@@ -8,7 +8,7 @@
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { Newspaper, Search } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils/cn';
 import { BlogPostCard, type BlogPost } from '@/components/features/blog/BlogPostCard';
@@ -107,7 +107,7 @@ export default function BlogPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {Array.from({ length: 4 }).map((_, i) => (
-            <Skeleton key={i} className="h-48 rounded-xl" />
+            <MysticSkeleton key={i} className="h-48 rounded-xl" />
           ))}
         </div>
       )}

@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown'
 import { Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 
 /** Props של רכיב AIInterpretation */
 export interface AIInterpretationProps {
@@ -52,10 +52,10 @@ export function AIInterpretation({ interpretation, isLoading = false }: AIInterp
         {isLoading ? (
           /* מצב טעינה — 4 שורות skeleton */
           <div className="space-y-3" aria-label="טוען פרשנות...">
-            <Skeleton className="h-4 w-full" />
-            <Skeleton className="h-4 w-5/6" />
-            <Skeleton className="h-4 w-4/5" />
-            <Skeleton className="h-4 w-3/4" />
+            <MysticSkeleton className="h-4 w-full" />
+            <MysticSkeleton className="h-4 w-5/6" />
+            <MysticSkeleton className="h-4 w-4/5" />
+            <MysticSkeleton className="h-4 w-3/4" />
           </div>
         ) : (
           <div>

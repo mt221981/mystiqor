@@ -18,7 +18,7 @@ import { EmptyState } from '@/components/common/EmptyState';
 import { JournalEntryForm } from '@/components/features/journal/JournalEntryForm';
 import { JournalEntryCard } from '@/components/features/journal/JournalEntryCard';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { queryKeys } from '@/lib/query/cache-config';
 import { cn } from '@/lib/utils/cn';
 
@@ -102,7 +102,7 @@ function JournalSkeletons() {
   return (
     <div className="space-y-3">
       {Array.from({ length: 3 }).map((_, i) => (
-        <Skeleton key={i} className="h-[120px] w-full rounded-xl" />
+        <MysticSkeleton key={i} className="h-[120px] w-full rounded-xl" />
       ))}
     </div>
   );

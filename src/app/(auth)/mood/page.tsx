@@ -19,7 +19,7 @@ import { EmptyState } from '@/components/common/EmptyState';
 import { MoodEmojiPicker } from '@/components/features/mood/MoodEmojiPicker';
 import { MoodEntryCard } from '@/components/features/mood/MoodEntryCard';
 import { Slider } from '@/components/ui/slider';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { z } from 'zod';
 import { MoodCreateSchema, type MoodCreate } from '@/lib/validations/mood';
 
@@ -91,7 +91,7 @@ function MoodEntriesSkeleton() {
   return (
     <div className="flex flex-col gap-3">
       {Array.from({ length: 3 }, (_, i) => (
-        <Skeleton key={i} className="h-24 w-full rounded-xl" />
+        <MysticSkeleton key={i} className="h-24 w-full rounded-xl" />
       ))}
     </div>
   );

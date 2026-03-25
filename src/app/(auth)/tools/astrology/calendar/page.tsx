@@ -14,7 +14,7 @@ import { GiCalendar } from 'react-icons/gi'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { AstroCalendar } from '@/components/features/astrology/AstroCalendar'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { animations } from '@/lib/animations/presets'
 import type { AstroEvent } from '@/app/api/tools/astrology/calendar/route'
 
@@ -54,10 +54,10 @@ async function fetchCalendarEvents(month: number, year: number): Promise<Calenda
 function CalendarSkeleton() {
   return (
     <div className="space-y-4">
-      <Skeleton className="h-10 w-full rounded-lg" />
+      <MysticSkeleton className="h-10 w-full rounded-lg" />
       <div className="grid grid-cols-7 gap-1">
         {Array.from({ length: 35 }).map((_, i) => (
-          <Skeleton key={i} className="h-14 w-full rounded-lg" />
+          <MysticSkeleton key={i} className="h-14 w-full rounded-lg" />
         ))}
       </div>
     </div>

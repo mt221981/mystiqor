@@ -19,7 +19,7 @@ import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { BigFiveQuestionnaire } from '@/components/features/personality/BigFiveQuestionnaire'
 import { animations } from '@/lib/animations/presets'
@@ -33,7 +33,7 @@ const BigFiveRadarChart = dynamic(
     import('@/components/features/personality/BigFiveRadarChart').then(
       (m) => m.BigFiveRadarChart
     ),
-  { ssr: false, loading: () => <Skeleton className="h-[300px] w-full" /> }
+  { ssr: false, loading: () => <MysticSkeleton className="h-[300px] w-full" /> }
 )
 
 // ===== טיפוסים =====
@@ -156,10 +156,10 @@ export default function PersonalityPage() {
           {...animations.fadeIn}
           className="space-y-4 mt-6"
         >
-          <Skeleton className="h-[300px] w-full rounded-xl" />
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-          <Skeleton className="h-4 w-2/3" />
+          <MysticSkeleton className="h-[300px] w-full rounded-xl" />
+          <MysticSkeleton className="h-4 w-3/4" />
+          <MysticSkeleton className="h-4 w-1/2" />
+          <MysticSkeleton className="h-4 w-2/3" />
         </motion.div>
       )}
 

@@ -15,7 +15,7 @@ import { EmptyState } from '@/components/common/EmptyState';
 import { GoalForm } from '@/components/features/goals/GoalForm';
 import { GoalCard } from '@/components/features/goals/GoalCard';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import {
   Dialog,
@@ -104,14 +104,14 @@ function GoalsSkeleton() {
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {[1, 2, 3].map((i) => (
         <div key={i} className="rounded-xl border border-outline-variant/5 bg-surface-container p-5 space-y-3">
-          <Skeleton className="h-5 w-3/4" />
-          <Skeleton className="h-3 w-full" />
-          <Skeleton className="h-3 w-1/2" />
+          <MysticSkeleton className="h-5 w-3/4" />
+          <MysticSkeleton className="h-3 w-full" />
+          <MysticSkeleton className="h-3 w-1/2" />
           <div className="flex gap-2">
-            <Skeleton className="h-5 w-16 rounded-full" />
-            <Skeleton className="h-5 w-14 rounded-full" />
+            <MysticSkeleton className="h-5 w-16 rounded-full" />
+            <MysticSkeleton className="h-5 w-14 rounded-full" />
           </div>
-          <Skeleton className="h-2 w-full rounded-full" />
+          <MysticSkeleton className="h-2 w-full rounded-full" />
         </div>
       ))}
     </div>

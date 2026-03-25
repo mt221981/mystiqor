@@ -8,7 +8,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { GraduationCap, Stars, Hash, Pencil } from 'lucide-react';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { LearningPathCard } from '@/components/features/learn/LearningPathCard';
 import { ProgressTracker } from '@/components/features/learn/ProgressTracker';
 import type { Tables } from '@/types/database';
@@ -157,7 +157,7 @@ export default function TutorialsPage() {
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {Array.from({ length: 3 }).map((_, i) => (
-            <Skeleton key={i} className="h-64 rounded-xl" />
+            <MysticSkeleton key={i} className="h-64 rounded-xl" />
           ))}
         </div>
       )}

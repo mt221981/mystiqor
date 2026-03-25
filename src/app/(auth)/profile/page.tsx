@@ -14,7 +14,7 @@ import { Breadcrumbs } from '@/components/common/Breadcrumbs';
 import { ProfileEditForm } from '@/components/features/profile/ProfileEditForm';
 import { GuestProfileList } from '@/components/features/profile/GuestProfileList';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { queryKeys } from '@/lib/query/cache-config';
 import type { ProfileFormData } from '@/lib/validations/profile';
 
@@ -143,8 +143,8 @@ function ProfileSkeleton() {
     <div className="space-y-4 bg-surface-container/60 rounded-xl p-6 border border-outline-variant/10">
       {Array.from({ length: 5 }).map((_, i) => (
         <div key={i} className="space-y-1.5">
-          <Skeleton className="h-4 w-24" />
-          <Skeleton className="h-10 w-full" />
+          <MysticSkeleton className="h-4 w-24" />
+          <MysticSkeleton className="h-10 w-full" />
         </div>
       ))}
     </div>
@@ -292,7 +292,7 @@ export default function ProfilePage() {
             {guestsLoading ? (
               <div className="space-y-3">
                 {Array.from({ length: 2 }).map((_, i) => (
-                  <Skeleton key={i} className="h-20 w-full" />
+                  <MysticSkeleton key={i} className="h-20 w-full" />
                 ))}
               </div>
             ) : (

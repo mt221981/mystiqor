@@ -12,7 +12,7 @@ import Link from 'next/link';
 import { GitCompare, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { ComparePanel, type AnalysisWithResults } from '@/components/features/history/ComparePanel';
 import { CACHE_TIMES } from '@/lib/query/cache-config';
 
@@ -111,8 +111,8 @@ function ComparePageContent() {
       {/* skeleton בזמן טעינה */}
       {isValid && isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Skeleton className="h-64 rounded-xl" />
-          <Skeleton className="h-64 rounded-xl" />
+          <MysticSkeleton className="h-64 rounded-xl" />
+          <MysticSkeleton className="h-64 rounded-xl" />
         </div>
       )}
 
@@ -146,8 +146,8 @@ export default function CompareHistoryPage() {
             <h1 className="font-headline text-2xl font-bold text-on-surface">השוואת ניתוחים</h1>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <Skeleton className="h-64 rounded-xl" />
-            <Skeleton className="h-64 rounded-xl" />
+            <MysticSkeleton className="h-64 rounded-xl" />
+            <MysticSkeleton className="h-64 rounded-xl" />
           </div>
         </div>
       }

@@ -6,7 +6,7 @@
 import ReactMarkdown from 'react-markdown'
 import { Star, Heart, Briefcase, Activity, Sparkles } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import type { ZodiacSignKey } from '@/lib/constants/astrology'
 import { ZODIAC_SIGNS } from '@/lib/constants/astrology'
 
@@ -65,13 +65,13 @@ function formatDate(isoDate: string): string {
 function ForecastSkeleton() {
   return (
     <div className="space-y-4">
-      <Skeleton className="h-24 w-full rounded-xl" />
+      <MysticSkeleton className="h-24 w-full rounded-xl" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {Array.from({ length: 4 }).map((_, i) => (
-          <Skeleton key={i} className="h-20 w-full rounded-lg" />
+          <MysticSkeleton key={i} className="h-20 w-full rounded-lg" />
         ))}
       </div>
-      <Skeleton className="h-12 w-full rounded-lg" />
+      <MysticSkeleton className="h-12 w-full rounded-lg" />
     </div>
   )
 }

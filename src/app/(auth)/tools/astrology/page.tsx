@@ -22,7 +22,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Skeleton } from '@/components/ui/skeleton'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { AIInterpretation } from '@/components/features/astrology/ChartInfoPanels/AIInterpretation'
@@ -40,7 +40,7 @@ const BirthChart = dynamic(
   {
     ssr: false,
     loading: () => (
-      <Skeleton className="w-full aspect-square max-w-[500px] mx-auto rounded-full" />
+      <MysticSkeleton className="w-full aspect-square max-w-[500px] mx-auto rounded-full" />
     ),
   }
 )
