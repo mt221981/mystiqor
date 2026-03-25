@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 11-08-PLAN.md — AI coach cosmic chat + pricing 3-tier cards + SubscriptionGuard glassmorphism reskin
-last_updated: "2026-03-25T09:36:34.893Z"
+stopped_at: Completed 12-03-PLAN.md — ExportButton and SharePanel wired into AnalysisCard browse mode
+last_updated: "2026-03-25T10:17:52.042Z"
 progress:
-  total_phases: 11
+  total_phases: 12
   completed_phases: 11
-  total_plans: 62
-  completed_plans: 62
+  total_plans: 66
+  completed_plans: 63
 ---
 
 # Project State
@@ -19,12 +19,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-22)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 11 — ui-overhaul-design-system-reskin
+**Current focus:** Phase 12 — integration-wiring-gap-closure
 
 ## Current Position
 
-Phase: 11 (ui-overhaul-design-system-reskin) — EXECUTING
-Plan: 3 of 10
+Phase: 12 (integration-wiring-gap-closure) — EXECUTING
+Plan: 2 of 4
 
 ## Performance Metrics
 
@@ -102,6 +102,7 @@ Plan: 3 of 10
 | Phase 06-tools-tier-3-advanced-astrology P02 | 22 | 2 tasks | 4 files |
 | Phase 11 P09 | 10 | 2 tasks | 22 files |
 | Phase 11-ui-overhaul-design-system-reskin P08 | 10 | 2 tasks | 20 files |
+| Phase 12-integration-wiring-gap-closure P03 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -267,6 +268,8 @@ Recent decisions affecting current work:
 - [Phase 06-tools-tier-3-advanced-astrology]: Solar Return natal context is optional in transit/SR route — try/catch wraps fetch, SR still generates even without prior birth chart analysis
 - [Phase 11]: MD3 chart colors (#ddb8ff primary, #c3c0ff secondary, #4edea3 tertiary) used in Recharts Pie/Bar/Line charts — Tailwind classes cannot be used inside Recharts configuration objects
 - [Phase 11-ui-overhaul-design-system-reskin]: text-white on gradient buttons and gradient plan cards is correct MD3 pattern for dark gradient surfaces (on-primary-container)
+- [Phase 12-integration-wiring-gap-closure]: results={{}} passed to ExportButton — AnalysisCardData carries only summary (not full results JSON), PDF renders summary text which is most useful history export content
+- [Phase 12-integration-wiring-gap-closure]: Export/Share buttons guarded by onSelect===undefined — comparison selection mode must not conflict with action button clicks in AnalysisCard
 
 ### Pending Todos
 
@@ -281,6 +284,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T09:36:34.890Z
-Stopped at: Completed 11-08-PLAN.md — AI coach cosmic chat + pricing 3-tier cards + SubscriptionGuard glassmorphism reskin
+Last session: 2026-03-25T10:17:52.038Z
+Stopped at: Completed 12-03-PLAN.md — ExportButton and SharePanel wired into AnalysisCard browse mode
 Resume file: None
