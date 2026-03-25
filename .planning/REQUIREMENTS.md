@@ -30,19 +30,19 @@
 
 | REQ | Phase | Status |
 |-----|-------|--------|
-| ICON-01 | — | Pending |
-| ICON-02 | — | Pending |
-| ICON-03 | — | Pending |
-| ICON-04 | — | Pending |
-| ICON-05 | — | Pending |
-| CSS-01 | — | Pending |
-| CSS-02 | — | Pending |
-| CSS-03 | — | Pending |
-| CSS-04 | — | Pending |
-| ONB-01 | — | Pending |
-| ONB-02 | — | Pending |
-| ANIM-01 | — | Pending |
-| ANIM-02 | — | Pending |
-| ANIM-03 | — | Pending |
-| TYPO-01 | — | Pending |
-| TYPO-02 | — | Pending |
+| ONB-01 | Phase 13 | Pending |
+| ONB-02 | Phase 13 | Pending |
+| TYPO-01 | Phase 14 | Pending |
+| TYPO-02 | Phase 14 | Pending |
+| ICON-01 | Phase 15 | Pending |
+| ICON-02 | Phase 15 | Pending |
+| ICON-03 | Phase 15 | Pending |
+| ICON-04 | Phase 15 | Pending |
+| ICON-05 | Phase 15 | Pending |
+| CSS-01 | Phase 16 | Pending |
+| CSS-02 | Phase 16 | Pending |
+| CSS-03 | Phase 16 | Pending |
+| CSS-04 | Phase 16 | Pending |
+| ANIM-03 | Phase 16 | Pending |
+| ANIM-01 | Phase 17 | Pending |
+| ANIM-02 | Phase 17 | Pending |
