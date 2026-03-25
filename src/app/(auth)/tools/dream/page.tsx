@@ -24,6 +24,7 @@ import { PageHeader } from '@/components/layouts/PageHeader';
 import { animations } from '@/lib/animations/presets';
 import { DreamInputSchema } from '@/app/api/tools/dream/route';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
+import { useSubscription } from '@/hooks/useSubscription';
 
 // ===== טיפוסים =====
 
@@ -115,6 +116,7 @@ function TagInput({ label, values, onAdd, onRemove, placeholder }: TagInputProps
 
 /** דף ניתוח חלומות */
 export default function DreamPage() {
+  const { incrementUsage } = useSubscription();
   const [dreamId, setDreamId] = useState<string | null>(null);
   const [interpretation, setInterpretation] = useState<string | null>(null);
   const [isPolling, setIsPolling] = useState(false);
@@ -199,6 +201,7 @@ export default function DreamPage() {
         setIsPolling(true);
         setInterpretation(null);
         toast.success('חלומך נשמר! הניתוח יהיה מוכן בקרוב');
+        void incrementUsage().catch(() => {});
       }
     } catch {
       toast.error('שגיאת רשת — נסה שנית');

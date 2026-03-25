@@ -12,6 +12,7 @@ import { motion } from 'framer-motion'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
+import { useSubscription } from '@/hooks/useSubscription'
 import { SynthesisResult } from '@/components/features/synthesis/SynthesisResult'
 import { createClient } from '@/lib/supabase/client'
 import { animations } from '@/lib/animations/presets'
@@ -92,6 +93,7 @@ export default function SynthesisPage() {
     },
   })
 
+  const { incrementUsage } = useSubscription()
   const hasEnoughAnalyses = (analysisCount ?? 0) >= 2
 
   // Mutation ליצירת סינתזה חדשה
@@ -110,6 +112,7 @@ export default function SynthesisPage() {
     },
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: ['synthesis-latest'] })
+      void incrementUsage().catch(() => {})
       toast.success('הסינתזה המיסטית הושלמה בהצלחה!')
     },
     onError: (err: Error) => {
