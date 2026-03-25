@@ -2,102 +2,74 @@
 
 ## What This Is
 
-MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת כלים מיסטיים ופסיכולוגיים — אסטרולוגיה, נומרולוגיה, ניתוח ציורים, גרפולוגיה, טארוט, Human Design ועוד — עם AI Coach שמסנתז תובנות מכל הכלים לתמונה אחת שלמה. המערכת בנויה בעברית (RTL) עם מודל מנויים (Stripe) ומיועדת למשתמשים שרוצים הבנה עמוקה של עצמם דרך שילוב כלים מיסטיים.
+MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת כלים מיסטיים ופסיכולוגיים — אסטרולוגיה (כולל אפמריס אמיתי), נומרולוגיה, ניתוח ציורים, גרפולוגיה, טארוט, Human Design, palmistry ועוד — עם AI Coach שמסנתז תובנות מכל הכלים לתמונה אחת שלמה. עם מנוי Stripe, PWA, ועיצוב MD3 כהה-קוסמי. בנויה ב-Next.js 14 + TypeScript strict + Supabase, בעברית (RTL).
 
 ## Core Value
 
 **ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים** — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות. לא כלים בודדים, אלא תמונה שלמה.
 
+## Current State
+
+**Shipped: v1.0 MystiQor MVP** (2026-03-25)
+
+- 12 phases, 66 plans, 308 source files, ~27,300 LOC TypeScript
+- 20+ analysis tools with AI interpretation
+- Real ephemeris via astronomy-engine (not LLM approximation)
+- Stripe subscription (Free/Basic/Premium)
+- Dark cosmic MD3 design system with glassmorphism
+- PWA installable, PDF export, social sharing
+- All 85/86 v1 requirements satisfied (INFRA-05 tech debt)
+
 ## Requirements
 
-### Validated
+### Validated (v1.0)
 
-הפיצ'רים הבאים קיימים ועובדים במערכת המקורית (BASE44):
-
-- ✓ **אסטרולוגיה מלאה** — מפת לידה, טרנזיטים, Solar Return, סינסטרי, תחזית יומית, לוח אסטרולוגי, קריאות — existing
-- ✓ **נומרולוגיה** — חישוב מספרי חיים, תאימות נומרולוגית — existing
-- ✓ **ניתוח ציורים** — העלאת ציור, ניתוח פסיכולוגי (HTP, Koppitz, FDM), השוואת ציורים — existing
-- ✓ **גרפולוגיה** — ניתוח כתב יד, מעקב התקדמות, ייצוא PDF, השוואות — existing
-- ✓ **AI Coach** — ייעוץ AI אישי, היסטוריית שיחות, פעולות מהירות — existing
-- ✓ **ניתוח חלומות** — פרשנות חלומות עם AI — existing
-- ✓ **ניתוח אישיות** — פרופיל Big Five, תרשים רדאר — existing
-- ✓ **מנויים (Stripe)** — תמחור, checkout, webhook, ניהול מנוי, הפניות — existing
-- ✓ **Dashboard** — ביוריתם, מדדים, מגמות מצב רוח, מטרות — existing
-- ✓ **תובנות יומיות** — תובנה יומית (טארוט+נומרולוגיה+אסטרולוגיה) — existing
-- ✓ **מעקב מצב רוח** — כניסות מצב רוח, מגמות, תרשימים — existing
-- ✓ **יומן אישי** — רשומות יומן עם תגים ותובנות — existing
-- ✓ **מטרות** — הגדרת מטרות, מעקב התקדמות, המלצות AI — existing
-- ✓ **Onboarding** — תהליך הצטרפות מונחה — existing
-- ✓ **פרופיל משתמש** — עריכה, ניהול פרופילים מרובים — existing
-- ✓ **התראות** — מנהל התראות, תזכורות — existing
-- ✓ **ייצוא PDF** — ייצוא ניתוחים ל-PDF — existing
-- ✓ **שיתוף חברתי** — שיתוף תוצאות ברשתות — existing
-- ✓ **תאימות** — תאימות אסטרולוגית ונומרולוגית בין שני אנשים — existing
-- ✓ **כלי תזמון** — מציאת ימים מועדפים למטרות שונות — existing
-- ✓ **סינתזה מיסטית** — שילוב תובנות ממספר כלים — existing
-- ✓ **הדרכה/טיוטור** — מדריכים, טיוטור אסטרולוגיה וציורים — existing
-- ✓ **ניתוח מסמכים** — העלאה וניתוח מסמכים — existing
-- ✓ **RTL + עברית** — ממשק מלא בעברית עם RTL — existing
-- ✓ **Theme (Light/Dark)** — מצב כהה/בהיר — existing
-- ✓ **PWA** — התקנה כאפליקציה, תמיכה offline — existing
+- ✓ **Infrastructure** — LLM Zod validation, file upload, atomic usage counter, geocoding, rate limiting, email — v1.0
+- ✓ **Auth + Onboarding** — Supabase Auth, multi-step onboarding, protected routes — v1.0
+- ✓ **Profile + Settings** — Profile editing, guest profiles, theme/notification settings — v1.0
+- ✓ **Dashboard** — Biorhythm chart, stats, mood trends, goals, period selector — v1.0
+- ✓ **Astrology (full suite)** — Natal chart, transits, Solar Return, synastry, forecast, calendar, history — v1.0
+- ✓ **Numerology** — Life path/destiny/soul, sub-number breakdown, compatibility — v1.0
+- ✓ **Drawing Analysis** — Upload/canvas, Koppitz/FDM, annotated viewer, compare, concepts — v1.0
+- ✓ **Graphology** — Upload analysis, timeline, compare, PDF export, reminders, quick stats — v1.0
+- ✓ **AI Coach** — Chat interface, journey system, cross-analysis context — v1.0
+- ✓ **Synthesis** — Cross-tool AI synthesis, on-demand and weekly reports — v1.0
+- ✓ **Tracking** — Mood tracker, journal, goals, daily insights, notifications — v1.0
+- ✓ **Additional Tools** — Tarot, Human Design, palmistry, compatibility, timing, dream, personality, career, relationships, document — v1.0
+- ✓ **History** — Filterable list, timeline, side-by-side compare — v1.0
+- ✓ **Growth** — Referral program, blog, tutorials, astrology/drawing tutors — v1.0
+- ✓ **Export/Share** — PDF export, social sharing via link — v1.0
+- ✓ **UX** — RTL Hebrew, dark/light theme, responsive, PWA, animations, loading states, error boundaries, breadcrumbs, analytics dashboard — v1.0
+- ✓ **Subscription** — Stripe 3-tier pricing, checkout, webhook idempotency, usage enforcement, management — v1.0
+- ✓ **UI Overhaul** — MD3 dark cosmic theme, glassmorphism, nebula gradients, Plus Jakarta Sans typography — v1.0
 
 ### Active
 
-- [ ] מיגרציה ל-Next.js 14+ (App Router) + TypeScript strict
-- [ ] מיגרציה ל-Supabase (PostgreSQL + Auth + RLS + Storage)
-- [ ] type safety מלא — zero `any`, zero `@ts-ignore`
-- [ ] Zod validation על כל API route וטופס
-- [ ] React Hook Form על כל טופס
-- [ ] React Query + Zustand לניהול state
-- [ ] RLS policies על כל טבלה
-- [ ] Error handling מקיף עם feedback למשתמש
-- [ ] ביצועים — lazy loading, image optimization, pagination
-- [ ] נגישות (a11y) — ARIA, keyboard navigation
-- [ ] הגנה מ-XSS, input sanitization
-- [ ] Rate limiting על endpoints רגישים
+(None — awaiting v1.1 milestone definition)
 
 ### Out of Scope
 
-- אפליקציה מובייל native — Web-first, PWA מספיק לעכשיו
-- Multi-language (EN) — עברית בלבד ב-v1
+- אפליקציה מובייל native — Web-first, PWA מספיק
+- Multi-language (EN) — עברית בלבד
 - Real-time collaboration — לא נדרש
 - Video/audio content — טקסט ותמונות בלבד
 - Self-hosted deployment — Vercel בלבד
 
 ## Context
 
-### מערכת מקורית (BASE44)
-המערכת המקורית בנויה על BASE44 — פלטפורמת low-code עם:
-- **Frontend:** React 18 + React Router + Vite + Tailwind + shadcn/ui
-- **Backend:** Deno TypeScript serverless functions (34 פונקציות)
-- **DB:** BASE44 entities (NoSQL-like)
-- **Auth:** BASE44 auth system
-- **Payments:** Stripe integration
+### Tech Stack (Current)
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript strict (~27,300 LOC)
+- **Database:** Supabase (PostgreSQL + Auth + Storage + RLS)
+- **Styling:** Tailwind CSS + shadcn/ui + MD3 dark cosmic design system
+- **State:** React Query (server) + Zustand (client)
+- **Payments:** Stripe (checkout, webhooks, subscription management)
+- **Astrology:** astronomy-engine (real ephemeris calculations)
+- **Deployment:** Vercel + PWA
 
-### מקור קוד
-- `github-source/` — מערכת מקורית (BASE44) — 53 דפים, 100+ קומפוננטות, 34 backend functions
-- `mystiqor-build/` — ניסיון build קודם ב-Next.js (Phase 0 Foundation — 127 קבצים, קומפיילציה נקייה)
-
-### GEMs (קטעי קוד איכותיים מהמקור)
-6 מתוך 14 GEMs כבר הועברו ל-mystiqor-build:
-- GEM 5: forceToString (llm-response.ts)
-- GEM 6: Zodiac constants (astrology.ts)
-- GEM 7: Plan definitions (plans.ts)
-- GEM 8: Cache config (cache-config.ts)
-- GEM 10: Error boundary auto-recovery
-- GEM 11: Animation presets
-
-### בסיס נתונים (DB Entities)
-entities עיקריים מהמקור:
-- UserProfile, Subscription, Analysis, DailyInsight
-- UserGoal, CoachingJourney, AstrologyCalculation
-- PaymentHistory, MoodEntry, Reminder, UserJourney, Chat
-
-### אינטגרציות חיצוניות
-- **Stripe** — תשלומים ומנויים (checkout, webhooks, ניהול מנוי)
-- **LLM/AI** — יצירת תוכן, פרשנות, ייעוץ (דרך BASE44 proxy)
-- **Geocoding** — המרת כתובת לקואורדינטות (לאסטרולוגיה)
-- **Email** — התראות, welcome, daily insights
+### Known Tech Debt
+- INFRA-05: database.ts is manual, not auto-generated from Supabase schema
+- Rate limiting only on usage route, not individual tool LLM endpoints
 
 ## Constraints
 
@@ -112,12 +84,16 @@ entities עיקריים מהמקור:
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Next.js 14+ App Router | SSR, routing, API routes built-in, production-ready | — Pending |
-| Supabase במקום BASE44 | PostgreSQL + Auth + RLS + Realtime + Storage, self-hostable | — Pending |
-| TypeScript strict | Type safety, refactoring confidence, better DX | — Pending |
-| שימוש חוזר בלוגיקה מ-BASE44 | 34 backend functions + UI patterns — לא בונים מאפס | — Pending |
+| Next.js 14+ App Router | SSR, routing, API routes built-in, production-ready | ✓ Good |
+| Supabase במקום BASE44 | PostgreSQL + Auth + RLS + Realtime + Storage | ✓ Good |
+| TypeScript strict | Type safety, refactoring confidence, better DX | ✓ Good |
+| שימוש חוזר בלוגיקה מ-BASE44 | 34 backend functions + UI patterns — לא בונים מאפס | ✓ Good |
 | shadcn/ui (מהמקור) | כבר בשימוש במקור, RTL compatible | ✓ Good |
-| React Query + Zustand | כבר בשימוש חלקי במקור, proven pattern | — Pending |
+| React Query + Zustand | כבר בשימוש חלקי במקור, proven pattern | ✓ Good |
+| astronomy-engine | Real ephemeris instead of LLM approximation | ✓ Good |
+| MD3 dark cosmic design | Glassmorphism + nebula gradients — distinctive brand | ✓ Good |
+| Stripe 3-tier subscription | Free 3/month, Basic ₪49, Premium ₪99 unlimited | ✓ Good |
+| Phase 12 gap closure | Integration audit revealed 6 wiring gaps, all fixed in one phase | ✓ Good |
 
 ---
-*Last updated: 2026-03-22 after reverse engineering of BASE44 source*
+*Last updated: 2026-03-25 after v1.0 milestone*
