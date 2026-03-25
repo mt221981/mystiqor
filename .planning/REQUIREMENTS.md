@@ -205,7 +205,7 @@
 | SUBS-01 | Phase 8 | Complete |
 | SUBS-02 | Phase 8 | Complete |
 | SUBS-03 | Phase 8 | Complete |
-| SUBS-04 | Phase 8, 12 | Pending — wiring gap (incrementUsage not called) |
+| SUBS-04 | Phase 8, 12 | Complete — gap closed in 12-02 |
 | SUBS-05 | Phase 8 | Complete |
 | SUBS-06 | Phase 8 | Complete |
 | DASH-01 | Phase 3 | Complete |
@@ -269,8 +269,8 @@
 | GROW-03 | Phase 9 | Complete — 09-02 |
 | GROW-04 | Phase 9 | Complete |
 | GROW-05 | Phase 9 | Complete |
-| EXPO-01 | Phase 10, 12 | Pending — wiring gap (ExportButton not rendered) |
-| EXPO-02 | Phase 10, 12 | Pending — wiring gap (SharePanel not rendered) |
+| EXPO-01 | Phase 10, 12 | Complete — gap closed in 12-03 |
+| EXPO-02 | Phase 10, 12 | Complete — gap closed in 12-03 |
 | UX-01 | Phase 3 | Complete |
 | UX-02 | Phase 3 | Complete |
 | UX-03 | Phase 3 | Complete |
@@ -284,7 +284,7 @@
 **Coverage:**
 - v1 requirements: 86 total
 - Complete: 83
-- Pending (wiring gaps for Phase 12): 3 (SUBS-04, EXPO-01, EXPO-02)
+- Pending: 1 (INFRA-05 — tech debt, manual database.ts)
 - Mapped to phases: 86
 - Unmapped: 0 ✓
 
