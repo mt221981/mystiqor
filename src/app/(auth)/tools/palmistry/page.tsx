@@ -147,7 +147,7 @@ export default function PalmistryPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/5 bg-surface-container mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg text-primary font-headline">הגדרות ניתוח</CardTitle>
           </CardHeader>
@@ -208,7 +208,7 @@ export default function PalmistryPage() {
           animate={animations.fadeInUp.animate}
           transition={{ duration: 0.5, delay: 0.1 }}
         >
-          <Card className="border-outline-variant/5 bg-surface-container">
+          <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
             <CardHeader>
               <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
                 <GiHandOfGod className="h-4 w-4" />

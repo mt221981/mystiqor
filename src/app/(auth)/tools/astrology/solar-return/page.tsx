@@ -275,7 +275,7 @@ export default function SolarReturnPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/5 bg-surface-container mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">בחירת שנה</CardTitle>
           </CardHeader>

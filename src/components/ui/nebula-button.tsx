@@ -13,7 +13,7 @@ import type { ButtonHTMLAttributes } from 'react';
 
 /** פרופס של NebulaButton */
 interface NebulaButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  readonly variant?: 'primary' | 'secondary' | 'icon';
+  readonly variant?: 'primary' | 'secondary' | 'icon' | 'gold';
 }
 
 /** כפתור עיצוב nebula עם גרדיאנט קוסמי */
@@ -25,6 +25,7 @@ const NebulaButton = forwardRef<HTMLButtonElement, NebulaButtonProps>(
       secondary:
         'border border-outline-variant/20 hover:bg-surface-container rounded-lg py-2 px-4 text-on-surface-variant hover:text-on-surface transition-colors',
       icon: 'text-on-surface-variant hover:text-primary p-2 rounded-full active:scale-95 transition-all',
+      gold: 'bg-gradient-to-br from-gold-dim to-gold text-surface font-headline font-bold py-4 px-6 rounded-xl gold-glow active:scale-95 transition-transform',
     };
     return (
       <button ref={ref} className={cn(variants[variant], className)} {...props}>

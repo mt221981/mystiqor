@@ -117,7 +117,7 @@ export default function HumanDesignPage() {
       />
 
       {/* טופס קלט */}
-      <Card className="border-outline-variant/5 bg-surface-container">
+      <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
         <CardHeader>
           <CardTitle className="text-primary font-headline">נתוני לידה</CardTitle>
         </CardHeader>
@@ -171,7 +171,7 @@ export default function HumanDesignPage() {
       {result && (
         <motion.div {...animations.fadeInUp} transition={{ duration: 0.4 }} className="space-y-6">
           {/* ויזואליזציה */}
-          <Card className="border-outline-variant/5 bg-surface-container">
+          <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
             <CardHeader><CardTitle className="text-primary font-headline">מפת המרכזים</CardTitle></CardHeader>
             <CardContent>
               <HumanDesignCenters

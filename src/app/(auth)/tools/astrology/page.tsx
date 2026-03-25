@@ -201,7 +201,7 @@ export default function AstrologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/10 bg-surface-container mb-6">
+        <Card className="border-outline-variant/10 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">נתוני לידה</CardTitle>
           </CardHeader>
@@ -293,7 +293,7 @@ export default function AstrologyPage() {
           className="space-y-6"
         >
           {/* SVG מפת הגלגל */}
-          <Card className="border-outline-variant/5 bg-surface-container p-4 rounded-xl">
+          <Card className="border-outline-variant/5 bg-surface-container p-4 rounded-xl mystic-hover">
             <BirthChart planets={result.planets} chartData={result.chartData} />
           </Card>
 

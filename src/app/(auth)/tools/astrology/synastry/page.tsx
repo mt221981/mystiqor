@@ -335,7 +335,7 @@ export default function SynastryPage() {
         transition={{ duration: 0.4 }}
         className="mb-6"
       >
-        <Card className="border-outline-variant/5 bg-surface-container">
+        <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">הזן נתוני לידה לשני אנשים</CardTitle>
           </CardHeader>

@@ -123,7 +123,7 @@ export default function TarotPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl mb-6 rounded-xl">
+        <Card className="border-outline-variant/10 bg-surface-container/60 backdrop-blur-xl mb-6 rounded-xl mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">הגדרות פריסה</CardTitle>
           </CardHeader>
@@ -232,7 +232,7 @@ export default function TarotPage() {
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
               <CardHeader>
                 <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
                   <GiCardRandom className="h-4 w-4" />

@@ -126,7 +126,7 @@ export default function CompatibilityPage() {
       />
 
       <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.4 }} className="mb-6">
-        <Card className="border-outline-variant/5 bg-surface-container">
+        <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
           <CardHeader><CardTitle className="text-lg text-primary font-headline">הזן נתוני לידה</CardTitle></CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
@@ -158,7 +158,7 @@ export default function CompatibilityPage() {
       {result && (
         <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.5, delay: 0.1 }} className="space-y-4">
           {/* ציון כולל */}
-          <Card className="border-outline-variant/5 bg-surface-container text-center">
+          <Card className="border-outline-variant/5 bg-surface-container text-center mystic-hover">
             <CardContent className="pt-6">
               <div className={`text-5xl font-headline font-black text-primary`}>
                 {result.overall_score}%

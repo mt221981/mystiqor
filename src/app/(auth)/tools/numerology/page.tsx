@@ -226,7 +226,7 @@ export default function NumerologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/10 bg-surface-container mb-6">
+        <Card className="border-outline-variant/10 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">הזן פרטים</CardTitle>
           </CardHeader>
@@ -329,7 +329,7 @@ export default function NumerologyPage() {
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
               <CardHeader>
                 <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
                   <GiAbacus className="h-4 w-4" />

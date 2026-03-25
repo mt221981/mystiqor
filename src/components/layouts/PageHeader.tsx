@@ -77,7 +77,7 @@ export function PageHeader({
         )}
 
         <div>
-          <h1 className="text-2xl font-headline font-bold tracking-tight text-on-surface">
+          <h1 className="text-2xl font-headline font-bold tracking-tight text-gradient-gold">
             {title}
           </h1>
           {description && (

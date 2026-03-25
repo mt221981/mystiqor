@@ -221,7 +221,7 @@ export default function DreamPage() {
       />
 
       {/* טופס חלום */}
-      <Card className="border-outline-variant/10 bg-surface-container rounded-xl">
+      <Card className="border-outline-variant/10 bg-surface-container rounded-xl mystic-hover">
         <CardHeader><CardTitle className="font-headline text-primary">תיעוד החלום</CardTitle></CardHeader>
         <CardContent>
           <SubscriptionGuard feature="analyses">
@@ -294,7 +294,7 @@ export default function DreamPage() {
       {/* תוצאת הניתוח */}
       {interpretation && (
         <motion.div {...animations.fadeInUp} transition={{ duration: 0.4 }}>
-          <Card className="bg-surface-container rounded-xl border border-outline-variant/5">
+          <Card className="bg-surface-container rounded-xl border border-outline-variant/5 mystic-hover">
             <CardHeader><CardTitle className="font-headline text-primary">ניתוח החלום</CardTitle></CardHeader>
             <CardContent>
               <div className="prose prose-sm prose-invert max-w-none font-body text-on-surface-variant">

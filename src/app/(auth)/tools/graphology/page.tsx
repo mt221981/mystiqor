@@ -176,7 +176,7 @@ export default function GraphologyPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/5 bg-surface-container mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg text-primary font-headline">העלאת דגימת כתב יד</CardTitle>
           </CardHeader>
@@ -239,7 +239,7 @@ export default function GraphologyPage() {
           className="space-y-6"
         >
           {/* סיכום כללי + הערכה */}
-          <Card className="border-outline-variant/5 bg-surface-container">
+          <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
             <CardHeader>
               <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
                 <GiQuillInk className="h-4 w-4" />

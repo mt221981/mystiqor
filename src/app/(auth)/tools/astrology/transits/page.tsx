@@ -181,7 +181,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
       </div>
 
       {/* גריד מיקומי כוכבים טרנזיטים */}
-      <Card className="border-outline-variant/5 bg-surface-container">
+      <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
         <CardHeader>
           <CardTitle className="text-base font-headline text-primary">מיקומי כוכבים נוכחיים</CardTitle>
         </CardHeader>
@@ -256,7 +256,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
       )}
 
       {/* פרשנות AI */}
-      <Card className="border-outline-variant/5 bg-surface-container">
+      <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
         <CardHeader>
           <CardTitle className="text-base font-headline text-primary">פרשנות AI</CardTitle>
         </CardHeader>
@@ -320,7 +320,7 @@ export default function TransitsPage() {
         exit={animations.fadeInUp.exit}
         transition={{ duration: 0.4 }}
       >
-        <Card className="border-outline-variant/5 bg-surface-container mb-6">
+        <Card className="border-outline-variant/5 bg-surface-container mb-6 mystic-hover">
           <CardHeader>
             <CardTitle className="text-lg font-headline text-primary">חישוב מעברים</CardTitle>
           </CardHeader>

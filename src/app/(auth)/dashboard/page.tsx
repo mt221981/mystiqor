@@ -304,13 +304,13 @@ export default function DashboardPage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
           {/* D-02/DASH-01: ביוריתם — רחב */}
-          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ביוריתם אישי</h2>
             <BiorhythmChart birthDate={profile?.birth_date ?? null} />
           </div>
 
           {/* D-02/DASH-03: מגמת מצב רוח */}
-          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">מגמת מצב רוח</h2>
             {isMoodLoading ? (
               <Skeleton className="h-[200px] w-full" />
@@ -320,7 +320,7 @@ export default function DashboardPage() {
           </div>
 
           {/* D-02/DASH-04: התקדמות יעדים */}
-          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">התקדמות יעדים</h2>
             {isGoalsLoading ? (
               <Skeleton className="h-[200px] w-full" />
@@ -330,7 +330,7 @@ export default function DashboardPage() {
           </div>
 
           {/* DASH-05: ניתוחים לפי כלי — רחב */}
-          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5">
+          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
             <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ניתוחים לפי כלי</h2>
             {isAnalysesLoading ? (
               <Skeleton className="h-[200px] w-full" />

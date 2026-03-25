@@ -130,7 +130,7 @@ export default function PersonalityPage() {
           className="space-y-4"
         >
           {/* הסבר על המודל */}
-          <Card className="border-outline-variant/10 bg-surface-container rounded-xl">
+          <Card className="border-outline-variant/10 bg-surface-container rounded-xl mystic-hover">
             <CardContent className="pt-4 pb-4">
               <p className="text-sm font-body text-on-surface-variant leading-relaxed">
                 מודל Big Five (OCEAN) הוא הכלי הפסיכולוגי המוכר ביותר למדידת אישיות.
@@ -185,7 +185,7 @@ export default function PersonalityPage() {
           </div>
 
           {/* תרשים רדאר */}
-          <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
+          <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
             <CardHeader>
               <CardTitle className="text-base font-headline text-primary">
                 פרופיל האישיות שלך
