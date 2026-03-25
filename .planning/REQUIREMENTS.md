@@ -26,15 +26,15 @@
 
 | REQ | Phase | Status |
 |-----|-------|--------|
-| TAROT-01 | — | Pending |
-| TAROT-02 | — | Pending |
-| TAROT-03 | — | Pending |
-| ASTRO-01 | — | Pending |
-| ASTRO-02 | — | Pending |
-| ASTRO-03 | — | Pending |
-| ASTRO-04 | — | Pending |
-| DREAM-01 | — | Pending |
-| BLOG-01 | — | Pending |
-| BLOG-02 | — | Pending |
-| PROMPT-01 | — | Pending |
-| PROMPT-02 | — | Pending |
+| TAROT-01 | Phase 18 | Pending |
+| TAROT-02 | Phase 18 | Pending |
+| TAROT-03 | Phase 18 | Pending |
+| ASTRO-01 | Phase 19 | Pending |
+| ASTRO-02 | Phase 19 | Pending |
+| ASTRO-03 | Phase 19 | Pending |
+| ASTRO-04 | Phase 19 | Pending |
+| DREAM-01 | Phase 20 | Pending |
+| BLOG-01 | Phase 20 | Pending |
+| BLOG-02 | Phase 20 | Pending |
+| PROMPT-01 | Phase 21 | Pending |
+| PROMPT-02 | Phase 21 | Pending |
