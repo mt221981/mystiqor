@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 12-01-PLAN.md — navigation wiring gap closure (sidebar hrefs + onboarding redirect + live usage bar)
-last_updated: "2026-03-25T10:19:12.385Z"
+stopped_at: Completed 12-02-PLAN.md — incrementUsage wired into all 16 tool pages
+last_updated: "2026-03-25T10:22:47.696Z"
 progress:
   total_phases: 12
   completed_phases: 11
   total_plans: 66
-  completed_plans: 64
+  completed_plans: 65
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-22)
 ## Current Position
 
 Phase: 12 (integration-wiring-gap-closure) — EXECUTING
-Plan: 3 of 4
+Plan: 4 of 4
 
 ## Performance Metrics
 
@@ -104,6 +104,7 @@ Plan: 3 of 4
 | Phase 11-ui-overhaul-design-system-reskin P08 | 10 | 2 tasks | 20 files |
 | Phase 12-integration-wiring-gap-closure P03 | 1 | 1 tasks | 1 files |
 | Phase 12-integration-wiring-gap-closure P01 | 3 | 2 tasks | 2 files |
+| Phase 12 P02 | 6 | 2 tasks | 16 files |
 
 ## Accumulated Context
 
@@ -274,6 +275,8 @@ Recent decisions affecting current work:
 - [Phase 12-integration-wiring-gap-closure]: UsageBar calls useSubscription() directly inside component — avoids prop drilling, matches React Query caching pattern
 - [Phase 12-integration-wiring-gap-closure]: New astrology sub-tools section added as separate NavSection — cleanest approach, no nesting required
 - [Phase 12-integration-wiring-gap-closure]: /question sidebar item mapped to /tools/relationships — question page does not exist per audit
+- [Phase 12]: void incrementUsage().catch(() => {}) pattern used uniformly — usage counter failure never blocks analysis result UI
+- [Phase 12]: human-design and document async/await pages: incrementUsage called inside try block after toast.success — correct insertion point for async pattern
 
 ### Pending Todos
 
@@ -288,6 +291,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-25T10:19:12.382Z
-Stopped at: Completed 12-01-PLAN.md — navigation wiring gap closure (sidebar hrefs + onboarding redirect + live usage bar)
+Last session: 2026-03-25T10:22:47.692Z
+Stopped at: Completed 12-02-PLAN.md — incrementUsage wired into all 16 tool pages
 Resume file: None

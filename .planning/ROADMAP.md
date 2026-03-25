@@ -266,7 +266,7 @@ Plans: 0/4
 
 Plans:
 - [x] 12-01-PLAN.md — Fix sidebar hrefs, astrology sub-tools, live UsageBar, onboarding redirect
-- [ ] 12-02-PLAN.md — Wire incrementUsage() into all 16 tool pages
+- [x] 12-02-PLAN.md — Wire incrementUsage() into all 16 tool pages
 - [x] 12-03-PLAN.md — Wire ExportButton + SharePanel into AnalysisCard
 - [ ] 12-04-PLAN.md — Integration verification + human approval checkpoint
 
@@ -289,4 +289,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
 | 10. Polish + PWA + Export | 3/3 | Complete   | 2026-03-24 |
 | 11. UI Overhaul — Design System Reskin | 10/10 | Complete   | 2026-03-25 |
-| 12. Integration Wiring — Gap Closure | 2/4 | In Progress|  |
+| 12. Integration Wiring — Gap Closure | 3/4 | In Progress|  |
