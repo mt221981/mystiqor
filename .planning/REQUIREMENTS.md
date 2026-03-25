@@ -61,8 +61,8 @@
 - [x] **ASTR-03**: Transit calculations showing current planetary influences on natal chart
 - [x] **ASTR-04**: Solar Return annual chart and forecast
 - [x] **ASTR-05**: Synastry chart overlay for relationship compatibility
-- [ ] **ASTR-06**: Daily forecast with current planetary positions
-- [ ] **ASTR-07**: Astro calendar with monthly astrological events
+- [x] **ASTR-06**: Daily forecast with current planetary positions
+- [x] **ASTR-07**: Astro calendar with monthly astrological events
 - [x] **ASTR-08**: Astrology readings history (curated saved readings)
 
 ### Numerology
@@ -219,8 +219,8 @@
 | ASTR-03 | Phase 6 | Complete |
 | ASTR-04 | Phase 6 | Complete — 06-02 |
 | ASTR-05 | Phase 6 | Complete — 06-03 |
-| ASTR-06 | Phase 4 | Pending |
-| ASTR-07 | Phase 4 | Pending |
+| ASTR-06 | Phase 4 | Complete |
+| ASTR-07 | Phase 4 | Complete |
 | ASTR-08 | Phase 9 | Complete — 09-01 |
 | NUMR-01 | Phase 4 | Pending |
 | NUMR-02 | Phase 4 | Pending |
