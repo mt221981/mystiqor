@@ -22,6 +22,7 @@ import { Badge } from '@/components/ui/badge'
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { BigFiveQuestionnaire } from '@/components/features/personality/BigFiveQuestionnaire'
+import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 import { DIMENSION_LABELS } from '@/lib/constants/big-five-questions'
@@ -165,77 +166,80 @@ export default function PersonalityPage() {
 
       {/* תוצאות */}
       {result && (
-        <motion.div
-          initial={animations.fadeInUp.initial}
-          animate={animations.fadeInUp.animate}
-          transition={{ duration: 0.5 }}
-          className="space-y-6 mt-4"
-        >
+        <ProgressiveReveal className="space-y-6 mt-4">
           {/* כפתור ניתוח חדש */}
-          <div className="flex justify-end">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleReset}
-              className="gap-2"
-            >
-              <RefreshCw className="h-4 w-4" />
-              ניתוח חדש
-            </Button>
-          </div>
+          <RevealItem>
+            <div className="flex justify-end">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleReset}
+                className="gap-2"
+              >
+                <RefreshCw className="h-4 w-4" />
+                ניתוח חדש
+              </Button>
+            </div>
+          </RevealItem>
 
           {/* תרשים רדאר */}
-          <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
-            <CardHeader>
-              <CardTitle className="text-base font-headline text-primary">
-                פרופיל האישיות שלך
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <BigFiveRadarChart scores={result.scores} />
-            </CardContent>
-          </Card>
-
-          {/* ציוני הממדים */}
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
-            {(
-              Object.keys(result.scores) as Array<keyof BigFiveScores>
-            ).map((dim) => (
-              <Card
-                key={dim}
-                className="border-outline-variant/10 bg-surface-container rounded-xl text-center"
-              >
-                <CardContent className="pt-3 pb-3 space-y-1">
-                  <p className="text-xs font-label text-on-surface-variant">
-                    {DIMENSION_LABELS[dim]}
-                  </p>
-                  <Badge
-                    variant="outline"
-                    className="text-primary border-primary/40 font-label font-bold text-sm"
-                  >
-                    {result.scores[dim]}
-                  </Badge>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-
-          {/* פרשנות AI */}
-          {result.interpretation && (
-            <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
+          <RevealItem>
+            <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
               <CardHeader>
                 <CardTitle className="text-base font-headline text-primary">
-                  פרשנות AI — פרופיל האישיות שלך
+                  פרופיל האישיות שלך
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
-                  <ReactMarkdown>{result.interpretation}</ReactMarkdown>
-                </div>
+                <BigFiveRadarChart scores={result.scores} />
               </CardContent>
             </Card>
+          </RevealItem>
+
+          {/* ציוני הממדים */}
+          <RevealItem>
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+              {(
+                Object.keys(result.scores) as Array<keyof BigFiveScores>
+              ).map((dim) => (
+                <Card
+                  key={dim}
+                  className="border-outline-variant/10 bg-surface-container rounded-xl text-center"
+                >
+                  <CardContent className="pt-3 pb-3 space-y-1">
+                    <p className="text-xs font-label text-on-surface-variant">
+                      {DIMENSION_LABELS[dim]}
+                    </p>
+                    <Badge
+                      variant="outline"
+                      className="text-primary border-primary/40 font-label font-bold text-sm"
+                    >
+                      {result.scores[dim]}
+                    </Badge>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </RevealItem>
+
+          {/* פרשנות AI */}
+          {result.interpretation && (
+            <RevealItem>
+              <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
+                <CardHeader>
+                  <CardTitle className="text-base font-headline text-primary">
+                    פרשנות AI — פרופיל האישיות שלך
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                    <ReactMarkdown>{result.interpretation}</ReactMarkdown>
+                  </div>
+                </CardContent>
+              </Card>
+            </RevealItem>
           )}
-        </motion.div>
+        </ProgressiveReveal>
       )}
     </div>
   )

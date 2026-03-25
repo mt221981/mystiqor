@@ -26,6 +26,7 @@ import { NumberCard } from '@/components/features/numerology/NumberCard'
 import { SubNumberBreakdown } from '@/components/features/numerology/SubNumberBreakdown'
 import { CompatibilityCard } from '@/components/features/numerology/CompatibilityCard'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
+import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 import type { CompatibilityResult } from '@/types/numerology'
@@ -281,73 +282,73 @@ export default function NumerologyPage() {
 
       {/* תוצאות */}
       {result && (
-        <motion.div
-          initial={animations.fadeInUp.initial}
-          animate={animations.fadeInUp.animate}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-6"
-        >
+        <ProgressiveReveal className="space-y-6">
           {/* 5 כרטיסי מספרים + פירוק שלבי צמצום */}
-          <div className="space-y-3">
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-              {NUMBER_CARD_DEFS.map(({ key, label, color }) => (
-                <NumberCard
-                  key={key}
-                  label={label}
-                  value={result[key]}
-                  color={color}
-                />
-              ))}
-            </div>
-
-            {/* פירוק שלבי צמצום — מוצג כשיש תאריך לידה */}
-            {mainFormValues?.birthDate && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
-                <SubNumberBreakdown
-                  label="נתיב חיים"
-                  rawValue={getRawLifePathSum(mainFormValues.birthDate)}
-                  finalValue={result.life_path}
-                />
-                <SubNumberBreakdown
-                  label="גורל"
-                  rawValue={result.destiny}
-                  finalValue={result.destiny}
-                />
-                <SubNumberBreakdown
-                  label="נשמה"
-                  rawValue={result.soul}
-                  finalValue={result.soul}
-                />
-                <SubNumberBreakdown
-                  label="אישיות"
-                  rawValue={result.personality}
-                  finalValue={result.personality}
-                />
+          <RevealItem>
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+                {NUMBER_CARD_DEFS.map(({ key, label, color }) => (
+                  <NumberCard
+                    key={key}
+                    label={label}
+                    value={result[key]}
+                    color={color}
+                  />
+                ))}
               </div>
-            )}
-          </div>
+
+              {/* פירוק שלבי צמצום — מוצג כשיש תאריך לידה */}
+              {mainFormValues?.birthDate && (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mt-2">
+                  <SubNumberBreakdown
+                    label="נתיב חיים"
+                    rawValue={getRawLifePathSum(mainFormValues.birthDate)}
+                    finalValue={result.life_path}
+                  />
+                  <SubNumberBreakdown
+                    label="גורל"
+                    rawValue={result.destiny}
+                    finalValue={result.destiny}
+                  />
+                  <SubNumberBreakdown
+                    label="נשמה"
+                    rawValue={result.soul}
+                    finalValue={result.soul}
+                  />
+                  <SubNumberBreakdown
+                    label="אישיות"
+                    rawValue={result.personality}
+                    finalValue={result.personality}
+                  />
+                </div>
+              )}
+            </div>
+          </RevealItem>
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
-              <CardHeader>
-                <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                  <GiAbacus className="h-4 w-4" />
-                  פרשנות AI מותאמת אישית
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
-                  <ReactMarkdown>{result.interpretation}</ReactMarkdown>
-                </div>
-              </CardContent>
-            </Card>
+            <RevealItem>
+              <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
+                <CardHeader>
+                  <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
+                    <GiAbacus className="h-4 w-4" />
+                    פרשנות AI מותאמת אישית
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                    <ReactMarkdown>{result.interpretation}</ReactMarkdown>
+                  </div>
+                </CardContent>
+              </Card>
+            </RevealItem>
           )}
 
           {/* סקציית תאימות נומרולוגית — פרימיום */}
-          <SubscriptionGuard feature="analyses">
-            <Card className="bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl border border-outline-variant/10">
-              <CardHeader>
+          <RevealItem>
+            <SubscriptionGuard feature="analyses">
+              <Card className="bg-gradient-to-br from-primary-container/20 to-secondary-container/20 rounded-xl border border-outline-variant/10">
+                <CardHeader>
                 {/* כותרת עם toggle */}
                 <button
                   type="button"
@@ -437,9 +438,10 @@ export default function NumerologyPage() {
                   )}
                 </CardContent>
               )}
-            </Card>
-          </SubscriptionGuard>
-        </motion.div>
+              </Card>
+            </SubscriptionGuard>
+          </RevealItem>
+        </ProgressiveReveal>
       )}
     </div>
   )

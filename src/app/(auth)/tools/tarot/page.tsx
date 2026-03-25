@@ -19,6 +19,7 @@ import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
+import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 import type { Database } from '@/types/database'
@@ -183,70 +184,69 @@ export default function TarotPage() {
 
       {/* תוצאות */}
       {result && (
-        <motion.div
-          initial={animations.fadeInUp.initial}
-          animate={animations.fadeInUp.animate}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="space-y-6"
-        >
+        <ProgressiveReveal className="space-y-6">
           {/* קלפים שנשלפו */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            {result.drawn.map((card, index) => (
-              <Card
-                key={`${card.id}-${index}`}
-                className="nebula-glow rounded-xl text-center"
-              >
-                <CardContent className="pt-4 pb-4 space-y-2">
-                  <p className="text-xl font-headline font-bold text-white">{card.name_he}</p>
-                  <p className="text-xs font-body text-white/70 italic">{card.name_en}</p>
+          <RevealItem>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {result.drawn.map((card, index) => (
+                <Card
+                  key={`${card.id}-${index}`}
+                  className="nebula-glow rounded-xl text-center"
+                >
+                  <CardContent className="pt-4 pb-4 space-y-2">
+                    <p className="text-xl font-headline font-bold text-white">{card.name_he}</p>
+                    <p className="text-xs font-body text-white/70 italic">{card.name_en}</p>
 
-                  {/* תגיות */}
-                  <div className="flex flex-wrap gap-1 justify-center">
-                    <Badge variant="outline" className="text-xs font-label border-outline-variant/30 text-on-surface">
-                      {ARCANA_HE[card.arcana] ?? card.arcana}
-                    </Badge>
-                    {card.suit && (
-                      <Badge variant="outline" className="text-xs font-label border-outline-variant/20 text-on-surface-variant">
-                        {SUIT_HE[card.suit] ?? card.suit}
-                      </Badge>
-                    )}
-                  </div>
-
-                  {/* מילות מפתח */}
-                  {card.keywords && card.keywords.length > 0 && (
+                    {/* תגיות */}
                     <div className="flex flex-wrap gap-1 justify-center">
-                      {card.keywords.slice(0, 3).map((kw) => (
-                        <span
-                          key={kw}
-                          className="text-xs font-label text-primary bg-primary/10 px-2 py-0.5 rounded-full"
-                        >
-                          {kw}
-                        </span>
-                      ))}
+                      <Badge variant="outline" className="text-xs font-label border-outline-variant/30 text-on-surface">
+                        {ARCANA_HE[card.arcana] ?? card.arcana}
+                      </Badge>
+                      {card.suit && (
+                        <Badge variant="outline" className="text-xs font-label border-outline-variant/20 text-on-surface-variant">
+                          {SUIT_HE[card.suit] ?? card.suit}
+                        </Badge>
+                      )}
                     </div>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+
+                    {/* מילות מפתח */}
+                    {card.keywords && card.keywords.length > 0 && (
+                      <div className="flex flex-wrap gap-1 justify-center">
+                        {card.keywords.slice(0, 3).map((kw) => (
+                          <span
+                            key={kw}
+                            className="text-xs font-label text-primary bg-primary/10 px-2 py-0.5 rounded-full"
+                          >
+                            {kw}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </RevealItem>
 
           {/* פרשנות AI */}
           {result.interpretation && (
-            <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
-              <CardHeader>
-                <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                  <GiCardRandom className="h-4 w-4" />
-                  פרשנות AI
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
-                  <ReactMarkdown>{result.interpretation}</ReactMarkdown>
-                </div>
-              </CardContent>
-            </Card>
+            <RevealItem>
+              <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
+                <CardHeader>
+                  <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
+                    <GiCardRandom className="h-4 w-4" />
+                    פרשנות AI
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                    <ReactMarkdown>{result.interpretation}</ReactMarkdown>
+                  </div>
+                </CardContent>
+              </Card>
+            </RevealItem>
           )}
-        </motion.div>
+        </ProgressiveReveal>
       )}
     </div>
   )
