@@ -140,7 +140,7 @@ Plans:
   3. Synastry chart overlays two natal charts and shows inter-chart aspects between two people
   4. Timing tools page returns a list of astrologically favorable days within a user-selected date range, with explanation of which transits make those days favorable
   5. Career guidance analysis returns actionable career insights informed by the user's birth chart
-**Plans:** 5/5 plans executed — PHASE COMPLETE
+**Plans:** 5/5 plans complete
 
 Plans:
 - [x] 06-01-PLAN.md — Ephemeris adapter (astronomy-engine install + ephemeris.ts + transit/inter-chart aspect functions + birth-chart upgrade to real data)
@@ -261,7 +261,7 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 3. UX Shell + Profile + Dashboard + Tracking | 7/7 | Complete   | 2026-03-22 |
 | 4. Tools Tier 1 — Astrology Core + Numerology + Light Tools | 7/7 | Complete   | 2026-03-23 |
 | 5. Tools Tier 2 — Image Upload Tools | 7/7 | Complete   | 2026-03-23 |
-| 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 5/5 | Complete   | 2026-03-24 |
+| 6. Tools Tier 3 — Advanced Astrology (Ephemeris) | 5/5 | Complete   | 2026-03-25 |
 | 7. AI Coach + Mystic Synthesis | 4/4 | Complete   | 2026-03-24 |
 | 8. Growth + Monetization | 6/6 | Complete   | 2026-03-24 |
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
