@@ -1,48 +1,40 @@
-# Requirements — v1.1 UI Polish
+# Requirements — v1.2 Rich Content & Soul
 
-## Icons Migration
-- [ ] **ICON-01**: כל 16 עמודי הכלים משתמשים באייקוני react-icons/gi תמטיים במקום lucide-react
-- [ ] **ICON-02**: StatCards, DailyInsightCard, PeriodSelector משתמשים באייקונים מיסטיים
-- [ ] **ICON-03**: MobileNav ו-Header מעודכנים עם אייקוני react-icons/gi תואמים ל-Sidebar
-- [ ] **ICON-04**: EmptyState, ErrorBoundary, LoadingSpinner משתמשים באייקונים מיסטיים
-- [ ] **ICON-05**: PageHeader icon slots בכל העמודים מקבלים אייקוני react-icons/gi
+## Tarot Content
+- [ ] **TAROT-01**: 78 קלפי טארוט מלאים ב-DB כולל 40 Minor Arcana (Ace-10 לכל סוט) עם משמעויות עבריות
+- [ ] **TAROT-02**: כל קלף כולל: התאמה אסטרולוגית, ערך נומרולוגי, נתיב קבלה, ארכיטיפ, מילות מפתח (upright + reversed)
+- [ ] **TAROT-03**: 4 פריסות טארוט (קלף בודד, 3 קלפים, יחסים, צלב קלטי 10 עמדות) מוגדרות ב-UI
 
-## CSS Adoption
-- [ ] **CSS-01**: GlassCard מציע variant `mystic` עם class mystic-card ו-variant `gold` עם mystic-card-gold
-- [ ] **CSS-02**: NebulaButton מציע variant `gold` עם gold-glow shadow
-- [ ] **CSS-03**: כל כרטיסי הכלים בעמודי הכלים משתמשים ב-mystic-hover לאפקט hover
-- [ ] **CSS-04**: text-gradient-gold מיושם בכותרות ראשיות (דשבורד, כלים, פרופיל)
+## Astrology Knowledge Base
+- [ ] **ASTRO-01**: מילון 12 מזלות עם סמל, אלמנט, צבע, כוכב שולט, תיאור מפורט בעברית — מוצג ב-UI
+- [ ] **ASTRO-02**: מילון 10 כוכבי לכת עם סמל, צבע, משמעות מפורטת בעברית — מוצג ב-UI
+- [ ] **ASTRO-03**: 12 בתים אסטרולוגיים עם פרשנות מפורטת בעברית — מוצג ב-UI
+- [ ] **ASTRO-04**: 7 אספקטים עם חוזק, צבע, משמעות מפורטת בעברית — מוצג ב-UI
 
-## Onboarding Fix
-- [ ] **ONB-01**: OnboardingWizard מרנדר ומציג את שלב 1 (מידע אישי) לאחר התחברות
-- [ ] **ONB-02**: משתמש חדש יכול להשלים את כל 4 השלבים ולהגיע ל-dashboard
+## Dream Content
+- [ ] **DREAM-01**: מילון 10+ רגשות חלומות עם אימוג'ים ותיאורים בעברית — בחירה בטופס
 
-## Animations
-- [ ] **ANIM-01**: Skeleton loading מוחלף ב-shimmer מיסטי (purple gradient sweep) בכל מקום
-- [ ] **ANIM-02**: תוצאות ניתוח מופיעות עם אנימציית progressive reveal (staggered fade-in)
-- [ ] **ANIM-03**: mystic-hover מיושם על כל אלמנט אינטראקטיבי (כרטיסים, כפתורים)
+## Blog & Learning
+- [ ] **BLOG-01**: 3+ מאמרי בלוג מלאים (נומרולוגיה למתחילים, מזלות, סימנים בכף היד) עם תוכן עשיר
+- [ ] **BLOG-02**: מאמרי בלוג ב-DB (טבלת blog_posts) ולא hardcoded
 
-## Typography & Localization
-- [ ] **TYPO-01**: פונט Heebo (עברי) טעון כ-webfont וקשור ל-font-body fallback
-- [ ] **TYPO-02**: "Human Design" → "עיצוב אנושי", "Solar Return" → "חזרת שמש", "HTP + Koppitz" → "בית-עץ-אדם" בכל ה-UI
+## Prompts & Personality
+- [ ] **PROMPT-01**: כל ה-LLM prompts כוללים פניה אישית (שם המשתמש), שפה רוחנית עמוקה, והתייחסות לדאטה האישית
+- [ ] **PROMPT-02**: תובנות יומיות כוללות התייחסות למזל, מספר חיים, וקלף יום אישי — לא גנרי
 
 ## Traceability
 
 | REQ | Phase | Status |
 |-----|-------|--------|
-| ONB-01 | Phase 13 | Pending |
-| ONB-02 | Phase 13 | Pending |
-| TYPO-01 | Phase 14 | Pending |
-| TYPO-02 | Phase 14 | Pending |
-| ICON-01 | Phase 15 | Pending |
-| ICON-02 | Phase 15 | Pending |
-| ICON-03 | Phase 15 | Pending |
-| ICON-04 | Phase 15 | Pending |
-| ICON-05 | Phase 15 | Pending |
-| CSS-01 | Phase 16 | Pending |
-| CSS-02 | Phase 16 | Pending |
-| CSS-03 | Phase 16 | Pending |
-| CSS-04 | Phase 16 | Pending |
-| ANIM-03 | Phase 16 | Pending |
-| ANIM-01 | Phase 17 | Pending |
-| ANIM-02 | Phase 17 | Pending |
+| TAROT-01 | — | Pending |
+| TAROT-02 | — | Pending |
+| TAROT-03 | — | Pending |
+| ASTRO-01 | — | Pending |
+| ASTRO-02 | — | Pending |
+| ASTRO-03 | — | Pending |
+| ASTRO-04 | — | Pending |
+| DREAM-01 | — | Pending |
+| BLOG-01 | — | Pending |
+| BLOG-02 | — | Pending |
+| PROMPT-01 | — | Pending |
+| PROMPT-02 | — | Pending |
