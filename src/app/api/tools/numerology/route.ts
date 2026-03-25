@@ -46,8 +46,8 @@ export async function POST(request: NextRequest) {
     const llmResponse = await invokeLLM({
       userId: user.id,
       systemPrompt:
-        'אתה מומחה נומרולוגיה עברית. תן פרשנות מותאמת אישית ב-3 פסקאות קצרות. התמקד בנקודות החיובית ובכוחות. אל תיתן ניבוי גורל — רק פוטנציאלים.',
-      prompt: `מספרי הנומרולוגיה של ${numbers.name}: נתיב חיים ${numbers.life_path}, גורל ${numbers.destiny}, נשמה ${numbers.soul}, אישיות ${numbers.personality}, שנה אישית ${numbers.personal_year}. פרש את המשמעות המשולבת.`,
+        `אתה מומחה נומרולוגיה עברית עם ידע עמוק בגימטריה, קבלה ומסורת מיסטית. פנה אל ${numbers.name} בשמו/ה. דבר ישירות לנשמה — חם, אינטימי, חודר. גלה פוטנציאלים, כוחות נסתרים ודרכים לצמיחה. שלב חוכמה עתיקה.`,
+      prompt: `${numbers.name}, המספרים שלך: נתיב חיים ${numbers.life_path}, גורל ${numbers.destiny}, נשמה ${numbers.soul}, אישיות ${numbers.personality}, שנה אישית ${numbers.personal_year}. פרש את התמונה המשולבת — מה המספרים מגלים על ${numbers.name} כאדם שלם?`,
       maxTokens: 800,
     })
 

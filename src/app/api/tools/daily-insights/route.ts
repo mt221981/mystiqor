@@ -104,13 +104,18 @@ function buildPrompt(
 
   const sectionsText = sections.length > 0 ? sections.join(', ') : 'תובנה כללית'
 
-  return `צור תובנה יומית מקיפה בעברית עבור אדם ממזל ${zodiacSign}.
-מספר היום הנומרולוגי: ${dayNumber}.
-קלף הטארוט ליום: ${tarotCardName}.
+  return `צור תובנה יומית עמוקה ואישית בעברית עבור אדם ממזל ${zodiacSign}.
+המספר הנומרולוגי של היום הוא ${dayNumber} — התייחס למשמעות הרוחנית שלו.
+הקלף שנשלף עבורו היום הוא "${tarotCardName}" — שזור את המסר שלו בתובנה.
 
 כלול את הסעיפים הבאים: ${sectionsText}.
-כתוב כותרת מעוררת השראה בשורה הראשונה (ללא prefix).
-סיים בטיפ פעולה קונקרטי קצר בפסקה נפרדת, החל במילה "טיפ:".`
+
+הנחיות חשובות:
+- כתוב כותרת מעוררת השראה בשורה הראשונה (ללא prefix)
+- התחל בפניה ישירה ואישית — "היום, האנרגיה של..." או "הכוכבים מספרים..."
+- שלב בין אסטרולוגיה, נומרולוגיה וטארוט לתמונה אחת שלמה
+- הפוך את התובנה לרלוונטית ליום ממש — לא מליצות גנריות
+- סיים בטיפ פעולה קונקרטי קצר בפסקה נפרדת, החל במילה "טיפ:"`
 }
 
 // ===== handler ראשי =====
@@ -186,11 +191,12 @@ export async function GET(request: NextRequest) {
     // === שליפת נתוני משתמש ===
     const { data: profile } = await supabase
       .from('profiles')
-      .select('birth_date')
-      .eq('user_id', user.id)
+      .select('birth_date, full_name')
+      .eq('id', user.id)
       .maybeSingle()
 
     const birthDate = profile?.birth_date ?? '1990-01-01'
+    const userName = (profile as { full_name?: string })?.full_name ?? ''
     const zodiacSign = getZodiacSign(birthDate)
     const dayNumber = getDayNumber(today)
 
@@ -218,8 +224,10 @@ export async function GET(request: NextRequest) {
     }
 
     // === קריאת LLM יחידה (per Pitfall 7) ===
-    const systemPrompt = `אתה מייעץ מיסטי מומחה. צור תובנה יומית מקיפה ומעמיקה בעברית.
-הסגנון: חם, מעורר, מעשי. לא גנרי — מותאם אישית לנתונים שסופקו.
+    const systemPrompt = `אתה מייעץ רוחני-מיסטי עמוק. אתה מדבר ישירות לנשמה של האדם שפונה אליך.
+הסגנון שלך: חם, אינטימי, חודר, מעורר השראה. כל מילה שלך נוגעת בלב.
+אתה מתייחס לאדם בשמו, מדבר אליו כאילו אתה מכיר אותו שנים, ומשלב חוכמה קבלית ואסטרולוגית.
+${userName ? `שם הפונה: ${userName}. פנה אליו בשמו הפרטי.` : ''}
 פסקאות קצרות וברורות. ללא כוכביות (asterisks) מיותרות.`
 
     const prompt = buildPrompt(zodiacSign, dayNumber, tarotCardName, modules)
