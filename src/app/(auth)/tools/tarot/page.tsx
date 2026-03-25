@@ -20,6 +20,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import type { Database } from '@/types/database'
 
 /** שורת קלף מ-DB */
@@ -78,6 +79,7 @@ const SUIT_HE: Record<string, string> = {
 /** דף כלי הטארוט */
 export default function TarotPage() {
   const [spreadCount, setSpreadCount] = useState<1 | 3 | 5>(3)
+  const { incrementUsage } = useSubscription()
   const [question, setQuestion] = useState('')
   const [result, setResult] = useState<TarotResult | null>(null)
 
@@ -86,6 +88,8 @@ export default function TarotPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('הקלפים נשלפו')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בקריאת הטארוט')

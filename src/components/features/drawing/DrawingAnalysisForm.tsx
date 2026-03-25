@@ -25,6 +25,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
+import { useSubscription } from '@/hooks/useSubscription'
 import { KoppitzVisualization } from '@/components/features/drawing/KoppitzVisualization'
 import { FDMVisualization } from '@/components/features/drawing/FDMVisualization'
 import { AnnotatedDrawingViewer } from '@/components/features/drawing/AnnotatedDrawingViewer'
@@ -78,6 +79,7 @@ export function DrawingAnalysisForm() {
   const [resultImageUrl, setResultImageUrl] = useState<string>('')
   const [uploading, setUploading] = useState(false)
   const [inputMode, setInputMode] = useState<'upload' | 'canvas'>('upload')
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -92,6 +94,8 @@ export function DrawingAnalysisForm() {
       setResult(data)
       setResultImageUrl(variables.imageUrl)
       toast.success('הניתוח הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בניתוח הציור')

@@ -26,6 +26,7 @@ import { SubNumberBreakdown } from '@/components/features/numerology/SubNumberBr
 import { CompatibilityCard } from '@/components/features/numerology/CompatibilityCard'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import type { CompatibilityResult } from '@/types/numerology'
 
 // ===== סכמת ולידציה =====
@@ -156,6 +157,7 @@ async function fetchCompatibility(params: {
 /** דף כלי הנומרולוגיה */
 export default function NumerologyPage() {
   const [result, setResult] = useState<NumerologyResult | null>(null)
+  const { incrementUsage } = useSubscription()
   const [mainFormValues, setMainFormValues] = useState<FormValues | null>(null)
   const [compatResult, setCompatResult] = useState<CompatibilityApiResponse['data'] | null>(null)
   const [showCompatibility, setShowCompatibility] = useState(false)
@@ -175,6 +177,8 @@ export default function NumerologyPage() {
       setMainFormValues(variables)
       setCompatResult(null)
       toast.success('הניתוח הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בחישוב נומרולוגי')

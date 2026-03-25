@@ -23,6 +23,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמת ולידציה =====
 
@@ -71,6 +72,7 @@ async function fetchPalmistry(input: FormValues): Promise<PalmistryResult> {
 export default function PalmistryPage() {
   const [result, setResult] = useState<PalmistryResult | null>(null)
   const [uploading, setUploading] = useState(false)
+  const { incrementUsage } = useSubscription()
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -81,6 +83,8 @@ export default function PalmistryPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('הניתוח הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בניתוח כף היד')

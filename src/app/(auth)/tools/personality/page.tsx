@@ -22,6 +22,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { BigFiveQuestionnaire } from '@/components/features/personality/BigFiveQuestionnaire'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import { DIMENSION_LABELS } from '@/lib/constants/big-five-questions'
 import type { BigFiveScores } from '@/services/personality/scoring'
 
@@ -84,12 +85,15 @@ async function fetchPersonalityAnalysis(
 /** דף ניתוח אישיות Big Five */
 export default function PersonalityPage() {
   const [result, setResult] = useState<PersonalityResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   const mutation = useMutation({
     mutationFn: fetchPersonalityAnalysis,
     onSuccess: (data) => {
       setResult(data)
       toast.success('ניתוח האישיות הושלם!')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(

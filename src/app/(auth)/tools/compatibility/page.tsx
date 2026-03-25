@@ -21,6 +21,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 
 const PersonFormSchema = z.object({
   name: z.string().min(1, 'שם חובה'),
@@ -71,6 +72,7 @@ async function fetchCompatibility(input: FormValues): Promise<CompatibilityResul
 
 export default function CompatibilityPage() {
   const [result, setResult] = useState<CompatibilityResult | null>(null)
+  const { incrementUsage } = useSubscription()
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: { compatibilityType: 'romantic' },
@@ -78,7 +80,12 @@ export default function CompatibilityPage() {
   const selectedType = watch('compatibilityType')
   const mutation = useMutation({
     mutationFn: fetchCompatibility,
-    onSuccess: (data) => { setResult(data); toast.success('הניתוח הושלם') },
+    onSuccess: (data) => {
+      setResult(data)
+      toast.success('הניתוח הושלם')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
+    },
     onError: (err) => { toast.error(err instanceof Error ? err.message : 'שגיאה בניתוח תאימות') },
   })
 

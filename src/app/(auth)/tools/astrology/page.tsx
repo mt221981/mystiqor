@@ -30,6 +30,7 @@ import { PlanetTable } from '@/components/features/astrology/ChartInfoPanels/Pla
 import { AspectList } from '@/components/features/astrology/ChartInfoPanels/AspectList'
 import { QuickSummary } from '@/components/features/astrology/ChartInfoPanels/QuickSummary'
 import { animations } from '@/lib/animations/presets'
+import { useSubscription } from '@/hooks/useSubscription'
 import type { ChartData } from '@/services/astrology/chart'
 import { getSign } from '@/services/astrology/chart'
 
@@ -131,6 +132,7 @@ async function fetchBirthChart(input: BirthChartFormValues): Promise<BirthChartR
 /** דף מפת לידה אסטרולוגית */
 export default function AstrologyPage() {
   const [result, setResult] = useState<BirthChartResult | null>(null)
+  const { incrementUsage } = useSubscription()
 
   // שליפת פרופיל לפיזור ראשוני של הטופס
   const { data: profile } = useQuery({
@@ -162,6 +164,8 @@ export default function AstrologyPage() {
     onSuccess: (data) => {
       setResult(data)
       toast.success('מפת הלידה הושלמה')
+      // עדכן שימוש — non-blocking, non-fatal
+      void incrementUsage().catch(() => {})
     },
     onError: (error) => {
       toast.error(error instanceof Error ? error.message : 'שגיאה בחישוב מפת הלידה')
