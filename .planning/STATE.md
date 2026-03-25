@@ -1,9 +1,9 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.1
-milestone_name: UI Polish
-status: Roadmap created, ready to plan Phase 13
-stopped_at: Roadmap created for v1.1 UI Polish — 5 phases (13-17), 16 requirements mapped
+milestone: v1.2
+milestone_name: Rich Content & Soul
+status: Defining requirements
+stopped_at: Milestone v1.2 started
 last_updated: "2026-03-25T12:00:00.000Z"
 progress:
   total_phases: 5
@@ -19,14 +19,14 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-25)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 13 — Onboarding Fix
+**Current focus:** Milestone v1.2 — Rich Content & Soul
 
 ## Current Position
 
-Phase: 13 of 17 (Onboarding Fix)
-Plan: 0 of 0 in current phase (not yet planned)
-Status: Ready to plan
-Last activity: 2026-03-25 — Roadmap created for v1.1 UI Polish milestone
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-03-25 — Milestone v1.2 started
 
 Progress: [░░░░░░░░░░] 0%
 
