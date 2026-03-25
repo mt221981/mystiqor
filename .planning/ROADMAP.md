@@ -24,6 +24,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 - [x] **Phase 9: Learning + History + Analytics** - Analysis history, tutorials, astrology tutor, drawing tutor, self-analytics
 - [x] **Phase 10: Polish + PWA + Export** - PDF export, social sharing, PWA manifest + service worker, notifications
 - [x] **Phase 11: UI Overhaul — Design System Reskin** - MD3 color tokens, new fonts, glassmorphism, nebula gradients, bento layouts, reskin all pages
+- [ ] **Phase 12: Integration Wiring — Gap Closure** - Fix sidebar navigation, onboarding redirect, usage enforcement, export/share rendering, astrology sub-nav, usage bar live data
 
 ## Phase Details
 
@@ -248,6 +249,21 @@ Plans:
 - [x] 11-09-PLAN.md — Learning + Analytics reskin: history, compare, tutorials, blog, analytics, tutors, shared components (UI-13)
 - [x] 11-10-PLAN.md — Integration verification: remaining components + codebase-wide color audit + visual QA checkpoint (UI-10, UI-11, UI-12, UI-13, UI-14)
 
+### Phase 12: Integration Wiring — Gap Closure
+**Goal**: Fix all cross-phase wiring gaps found in the v1.0 milestone audit — sidebar navigation reaches all tools, onboarding completes cleanly, subscription usage enforces limits, export/share are accessible from the UI, astrology sub-tools have navigation paths, and the usage bar shows real data.
+**Depends on**: Phase 11
+**Requirements**: ONBD-03, INFRA-03, SUBS-04, EXPO-01, EXPO-02, ASTR-03, ASTR-04, ASTR-05, ASTR-06, ASTR-07
+**Gap Closure**: Closes all 6 integration gaps from v1.0-MILESTONE-AUDIT.md
+**Success Criteria** (what must be TRUE):
+  1. Every tool link in the sidebar navigates to the correct `/tools/*` page (0 broken links)
+  2. Completing onboarding redirects to a valid page (not 404)
+  3. Each tool API call increments the usage counter — free users hit the 3/month limit
+  4. Every analysis result page shows Export and Share buttons
+  5. All 5 astrology sub-tools (forecast, calendar, transits, solar-return, synastry) are reachable from navigation
+  6. Sidebar usage bar shows the user's real usage percentage from useSubscription
+
+Plans: 0/0
+
 ## Progress
 
 **Execution Order:**
@@ -267,3 +283,4 @@ Phases execute in numeric order: 1 -> 2 -> 3 -> 4 -> 5 -> 6 -> 7 -> 8 -> 9 -> 10
 | 9. Learning + History + Analytics | 5/5 | Complete   | 2026-03-24 |
 | 10. Polish + PWA + Export | 3/3 | Complete   | 2026-03-24 |
 | 11. UI Overhaul — Design System Reskin | 10/10 | Complete   | 2026-03-25 |
+| 12. Integration Wiring — Gap Closure | 0/0 | Planned | |

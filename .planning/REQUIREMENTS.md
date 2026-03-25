@@ -32,9 +32,9 @@
 
 ### User Profile
 
-- [ ] **PROF-01**: User can view and edit profile (name, birth data, preferences)
-- [ ] **PROF-02**: User can manage multiple guest profiles (family/partner analysis)
-- [ ] **PROF-03**: User can configure settings (theme, notifications)
+- [x] **PROF-01**: User can view and edit profile (name, birth data, preferences)
+- [x] **PROF-02**: User can manage multiple guest profiles (family/partner analysis)
+- [x] **PROF-03**: User can configure settings (theme, notifications)
 
 ### Subscription
 
@@ -67,27 +67,27 @@
 
 ### Numerology
 
-- [ ] **NUMR-01**: Life path, destiny, soul number calculations from birth date
-- [ ] **NUMR-02**: Numerology summary card with sub-number breakdown
-- [ ] **NUMR-03**: Numerology compatibility between two people
+- [x] **NUMR-01**: Life path, destiny, soul number calculations from birth date
+- [x] **NUMR-02**: Numerology summary card with sub-number breakdown
+- [x] **NUMR-03**: Numerology compatibility between two people
 
 ### Drawing Analysis
 
-- [ ] **DRAW-01**: Upload drawing image for psychological analysis (HTP: house, tree, person)
-- [ ] **DRAW-02**: In-browser digital canvas for real-time drawing (DigitalCanvas)
-- [ ] **DRAW-03**: Koppitz scoring and FDM visualization of drawing features
-- [ ] **DRAW-04**: Annotated drawing viewer with feature highlights
+- [x] **DRAW-01**: Upload drawing image for psychological analysis (HTP: house, tree, person)
+- [x] **DRAW-02**: In-browser digital canvas for real-time drawing (DigitalCanvas)
+- [x] **DRAW-03**: Koppitz scoring and FDM visualization of drawing features
+- [x] **DRAW-04**: Annotated drawing viewer with feature highlights
 - [x] **DRAW-05**: Compare drawing analyses across sessions
 - [x] **DRAW-06**: Drawing concept cards with educational content
 
 ### Graphology
 
 - [x] **GRPH-01**: Upload handwriting scan for psychological analysis
-- [ ] **GRPH-02**: Graphology progress tracking across sessions (GraphologyTimeline)
-- [ ] **GRPH-03**: Graphology comparison between samples
-- [ ] **GRPH-04**: PDF export of graphology analysis
+- [x] **GRPH-02**: Graphology progress tracking across sessions (GraphologyTimeline)
+- [x] **GRPH-03**: Graphology comparison between samples
+- [x] **GRPH-04**: PDF export of graphology analysis
 - [x] **GRPH-05**: Graphology quick stats and tooltips
-- [ ] **GRPH-06**: Graphology reminder system
+- [x] **GRPH-06**: Graphology reminder system
 
 ### AI Coach
 
@@ -114,13 +114,13 @@
 
 ### Additional Tools
 
-- [ ] **TOOL-01**: Tarot card reading with AI interpretation
+- [x] **TOOL-01**: Tarot card reading with AI interpretation
 - [x] **TOOL-02**: Human Design chart (type, authority, profile, centers)
 - [x] **TOOL-03**: Palmistry via palm photo upload + AI interpretation
 - [x] **TOOL-04**: Compatibility analysis (romantic/friendship/professional)
 - [x] **TOOL-05**: Timing tools — find astrologically favorable days
-- [ ] **TOOL-06**: Dream analysis via text input + AI interpretation
-- [ ] **TOOL-07**: Personality analysis (Big Five) with radar chart
+- [x] **TOOL-06**: Dream analysis via text input + AI interpretation
+- [x] **TOOL-07**: Personality analysis (Big Five) with radar chart
 - [x] **TOOL-08**: Career guidance informed by birth data
 - [x] **TOOL-09**: Relationship analysis beyond compatibility
 - [x] **TOOL-10**: Document analyzer (upload any document for AI insights)
@@ -199,15 +199,15 @@
 | ONBD-01 | Phase 2 | Complete |
 | ONBD-02 | Phase 2 | Complete |
 | ONBD-03 | Phase 2 | Complete |
-| PROF-01 | Phase 3 | Pending |
-| PROF-02 | Phase 3 | Pending |
-| PROF-03 | Phase 3 | Pending |
+| PROF-01 | Phase 3 | Complete |
+| PROF-02 | Phase 3 | Complete |
+| PROF-03 | Phase 3 | Complete |
 | SUBS-01 | Phase 8 | Complete |
 | SUBS-02 | Phase 8 | Complete |
 | SUBS-03 | Phase 8 | Complete |
-| SUBS-04 | Phase 8 | Pending |
-| SUBS-05 | Phase 8 | Pending |
-| SUBS-06 | Phase 8 | Pending |
+| SUBS-04 | Phase 8, 12 | Pending — wiring gap (incrementUsage not called) |
+| SUBS-05 | Phase 8 | Complete |
+| SUBS-06 | Phase 8 | Complete |
 | DASH-01 | Phase 3 | Complete |
 | DASH-02 | Phase 3 | Complete |
 | DASH-03 | Phase 3 | Complete |
@@ -222,21 +222,21 @@
 | ASTR-06 | Phase 4 | Complete |
 | ASTR-07 | Phase 4 | Complete |
 | ASTR-08 | Phase 9 | Complete — 09-01 |
-| NUMR-01 | Phase 4 | Pending |
-| NUMR-02 | Phase 4 | Pending |
-| NUMR-03 | Phase 4 | Pending |
-| DRAW-01 | Phase 5 | Pending |
-| DRAW-02 | Phase 5 | Pending |
-| DRAW-03 | Phase 5 | Pending |
-| DRAW-04 | Phase 5 | Pending |
+| NUMR-01 | Phase 4 | Complete |
+| NUMR-02 | Phase 4 | Complete |
+| NUMR-03 | Phase 4 | Complete |
+| DRAW-01 | Phase 5 | Complete |
+| DRAW-02 | Phase 5 | Complete |
+| DRAW-03 | Phase 5 | Complete |
+| DRAW-04 | Phase 5 | Complete |
 | DRAW-05 | Phase 5 | Complete |
 | DRAW-06 | Phase 5 | Complete |
 | GRPH-01 | Phase 5 | Complete |
-| GRPH-02 | Phase 5 | Pending |
-| GRPH-03 | Phase 5 | Pending |
-| GRPH-04 | Phase 5 | Pending |
+| GRPH-02 | Phase 5 | Complete |
+| GRPH-03 | Phase 5 | Complete |
+| GRPH-04 | Phase 5 | Complete |
 | GRPH-05 | Phase 5 | Complete |
-| GRPH-06 | Phase 5 | Pending |
+| GRPH-06 | Phase 5 | Complete |
 | COCH-01 | Phase 7 | Complete |
 | COCH-02 | Phase 7 | Complete |
 | COCH-03 | Phase 7 | Complete |
@@ -251,13 +251,13 @@
 | TRCK-04 | Phase 3 | Complete |
 | TRCK-05 | Phase 4 | Complete |
 | TRCK-06 | Phase 8 | Complete |
-| TOOL-01 | Phase 4 | Pending |
+| TOOL-01 | Phase 4 | Complete |
 | TOOL-02 | Phase 5 | Complete |
 | TOOL-03 | Phase 5 | Complete |
 | TOOL-04 | Phase 5 | Complete |
 | TOOL-05 | Phase 6 | Complete — 06-03 |
-| TOOL-06 | Phase 4 | Pending |
-| TOOL-07 | Phase 4 | Pending |
+| TOOL-06 | Phase 4 | Complete |
+| TOOL-07 | Phase 4 | Complete |
 | TOOL-08 | Phase 6 | Complete |
 | TOOL-09 | Phase 6 | Complete |
 | TOOL-10 | Phase 6 | Complete |
@@ -269,8 +269,8 @@
 | GROW-03 | Phase 9 | Complete — 09-02 |
 | GROW-04 | Phase 9 | Complete |
 | GROW-05 | Phase 9 | Complete |
-| EXPO-01 | Phase 10 | Complete — 10-01 |
-| EXPO-02 | Phase 10 | Complete — 10-01 |
+| EXPO-01 | Phase 10, 12 | Pending — wiring gap (ExportButton not rendered) |
+| EXPO-02 | Phase 10, 12 | Pending — wiring gap (SharePanel not rendered) |
 | UX-01 | Phase 3 | Complete |
 | UX-02 | Phase 3 | Complete |
 | UX-03 | Phase 3 | Complete |
@@ -283,9 +283,11 @@
 
 **Coverage:**
 - v1 requirements: 86 total
+- Complete: 83
+- Pending (wiring gaps for Phase 12): 3 (SUBS-04, EXPO-01, EXPO-02)
 - Mapped to phases: 86
 - Unmapped: 0 ✓
 
 ---
 *Requirements defined: 2026-03-22*
-*Last updated: 2026-03-22 — Traceability updated to 10-phase roadmap (original 9-phase split for finer granularity)*
+*Last updated: 2026-03-25 — 20 tracking gaps fixed (code existed but traceability said Pending), Phase 12 gap closure added*
