@@ -12,7 +12,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Users, CheckCircle, AlertTriangle } from 'lucide-react'
+import { CheckCircle, AlertTriangle } from 'lucide-react'
+import { GiHearts } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -93,7 +94,7 @@ export default function CompatibilityPage() {
     <Card className="border-outline-variant/5 bg-surface-container rounded-xl p-6 flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="font-headline font-semibold text-primary text-lg flex items-center gap-2">
-          <Users className="h-4 w-4" />{title}
+          <GiHearts className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -120,7 +121,7 @@ export default function CompatibilityPage() {
       <PageHeader
         title="ניתוח תאימות"
         description="ניתוח תאימות אסטרולוגי ונומרולוגי בין שני אנשים"
-        icon={<Users className="h-5 w-5" />}
+        icon={<GiHearts className="h-5 w-5" />}
         breadcrumbs={[{ label: 'דף הבית', href: '/' }, { label: 'כלים', href: '/tools' }, { label: 'תאימות' }]}
       />
 

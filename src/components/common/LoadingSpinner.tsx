@@ -3,7 +3,7 @@
  * תומך ב-3 גדלים (קטן, בינוני, גדול) ומרכז את עצמו אוטומטית
  */
 
-import { Loader2 } from 'lucide-react';
+import { GiSparkles } from 'react-icons/gi';
 import { cn } from '@/lib/utils/cn';
 
 // ===== ממשקי טיפוסים =====
@@ -48,7 +48,7 @@ export function LoadingSpinner({
       role="status"
       aria-label={message ?? 'טוען...'}
     >
-      <Loader2
+      <GiSparkles
         className={cn(
           SIZE_CLASSES[size],
           'animate-spin text-primary'

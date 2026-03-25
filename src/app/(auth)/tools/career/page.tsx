@@ -12,7 +12,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Briefcase, CheckCircle, AlertTriangle, TrendingUp, Zap } from 'lucide-react'
+import { CheckCircle, AlertTriangle, TrendingUp, Zap } from 'lucide-react'
+import { GiBriefcase } from 'react-icons/gi'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -104,7 +105,7 @@ export default function CareerPage() {
       <PageHeader
         title="ייעוץ קריירה"
         description="קבל ייעוץ קריירה מותאם אישית המשלב כישורים, תחומי עניין והקשר אסטרולוגי"
-        icon={<Briefcase className="h-5 w-5" />}
+        icon={<GiBriefcase className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -187,7 +188,7 @@ export default function CareerPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
               <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                <Briefcase className="h-4 w-4" />
+                <GiBriefcase className="h-4 w-4" />
                 תחומים מומלצים
               </CardTitle>
             </CardHeader>

@@ -10,7 +10,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
-import { Loader2, Plus, X, Moon } from 'lucide-react';
+import { Loader2, Plus, X } from 'lucide-react';
+import { GiDreamCatcher } from 'react-icons/gi';
 import { motion } from 'framer-motion';
 import type { z } from 'zod';
 
@@ -215,7 +216,7 @@ export default function DreamPage() {
       <PageHeader
         title="ניתוח חלומות"
         description="תעד את חלומך וקבל פרשנות פסיכולוגית"
-        icon={<Moon className="h-5 w-5" />}
+        icon={<GiDreamCatcher className="h-5 w-5" />}
         breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'ניתוח חלומות' }]}
       />
 

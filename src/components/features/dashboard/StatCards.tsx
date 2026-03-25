@@ -5,7 +5,8 @@
  * מציג: יעדים פעילים, ציון מצב רוח, יעדים שהושלמו, תזכורות ממתינות
  */
 
-import { Target, SmilePlus, CheckCircle, Bell } from 'lucide-react';
+import { SmilePlus, CheckCircle, Bell } from 'lucide-react';
+import { GiTargetArrows } from 'react-icons/gi';
 import { Skeleton } from '@/components/ui/skeleton';
 
 // ===== טיפוסים =====
@@ -38,7 +39,7 @@ const STAT_CARD_DEFINITIONS = [
     key: 'activeGoals' as const,
     label: 'יעדים פעילים',
     description: 'יעדים בעבודה',
-    Icon: Target,
+    Icon: GiTargetArrows,
     format: (v: number) => String(v),
   },
   {

@@ -15,7 +15,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Star } from 'lucide-react'
+import { GiAstrolabe } from 'react-icons/gi'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -186,7 +186,7 @@ export default function AstrologyPage() {
       <PageHeader
         title="מפת לידה אסטרולוגית"
         description="חישוב מפת גלגל אסטרולוגית מלאה עם פרשנות AI"
-        icon={<Star className="h-5 w-5" />}
+        icon={<GiAstrolabe className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

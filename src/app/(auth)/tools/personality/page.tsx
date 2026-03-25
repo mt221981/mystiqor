@@ -11,7 +11,8 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { motion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
-import { Brain, RefreshCw } from 'lucide-react'
+import { RefreshCw } from 'lucide-react'
+import { GiMirrorMirror } from 'react-icons/gi'
 import dynamic from 'next/dynamic'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -113,7 +114,7 @@ export default function PersonalityPage() {
       <PageHeader
         title="ניתוח אישיות — חמשת הממדים הגדולים"
         description="גלה את פרופיל האישיות שלך עם מודל OCEAN המוכח מדעית"
-        icon={<Brain className="h-5 w-5" />}
+        icon={<GiMirrorMirror className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'ניתוח אישיות' },

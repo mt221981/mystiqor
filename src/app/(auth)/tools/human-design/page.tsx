@@ -11,6 +11,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { Loader2, Info } from 'lucide-react';
+import { GiBodyBalance } from 'react-icons/gi';
 import { motion } from 'framer-motion';
 import type { z } from 'zod';
 
@@ -111,6 +112,7 @@ export default function HumanDesignPage() {
       <PageHeader
         title="עיצוב אנושי"
         description="גלה את מפת האנרגיה האישית שלך"
+        icon={<GiBodyBalance className="h-5 w-5" />}
         breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'עיצוב אנושי' }]}
       />
 

@@ -15,7 +15,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Sun, RotateCcw } from 'lucide-react'
+import { RotateCcw } from 'lucide-react'
+import { GiSunRadiations } from 'react-icons/gi'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -258,7 +259,7 @@ export default function SolarReturnPage() {
       <PageHeader
         title="מהפכה שמשית"
         description="תחזית שנתית מלאה מבוססת רגע חזרת השמש למיקום הלידה"
-        icon={<Sun className="h-5 w-5" />}
+        icon={<GiSunRadiations className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

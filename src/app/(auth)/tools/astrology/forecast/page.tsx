@@ -8,7 +8,7 @@
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { Sparkles } from 'lucide-react'
+import { GiSunRadiations } from 'react-icons/gi'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { DailyForecast } from '@/components/features/astrology/DailyForecast'
@@ -71,7 +71,7 @@ export default function AstroForecastPage() {
       <PageHeader
         title="תחזית יומית"
         description="תחזית אסטרולוגית מותאמת אישית למזל שלך"
-        icon={<Sparkles className="h-5 w-5" />}
+        icon={<GiSunRadiations className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'אסטרולוגיה', href: '/tools/astrology' },

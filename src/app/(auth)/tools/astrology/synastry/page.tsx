@@ -12,7 +12,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Heart, CheckCircle, AlertTriangle, Star, ChevronDown } from 'lucide-react'
+import { CheckCircle, AlertTriangle, ChevronDown } from 'lucide-react'
+import { GiLovers } from 'react-icons/gi'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -177,14 +178,14 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-            <Star className="h-4 w-4" />המלצות
+            <GiLovers className="h-4 w-4" />המלצות
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
             {interpretation.recommendations.map((r, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
-                <Star className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
+                <GiLovers className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
               </li>
             ))}
           </ul>
@@ -268,7 +269,7 @@ export default function SynastryPage() {
     <Card className="border-outline-variant/5 bg-surface-container flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-          <Heart className="h-4 w-4" />{title}
+          <GiLovers className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -319,7 +320,7 @@ export default function SynastryPage() {
       <PageHeader
         title="סינסטרי"
         description="תאימות אסטרולוגית — ניתוח שני גלגלות לידה ואספקטים בין-גלגלות"
-        icon={<Heart className="h-5 w-5" />}
+        icon={<GiLovers className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

@@ -14,7 +14,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Orbit, RotateCcw, AlertTriangle } from 'lucide-react'
+import { RotateCcw, AlertTriangle } from 'lucide-react'
+import { GiCompass } from 'react-icons/gi'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
@@ -303,7 +304,7 @@ export default function TransitsPage() {
       <PageHeader
         title="מעברים פלנטריים"
         description="מיקומי הכוכבים הנוכחיים ואספקטיהם מול מפת הלידה שלך"
-        icon={<Orbit className="h-5 w-5" />}
+        icon={<GiCompass className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

@@ -8,7 +8,7 @@
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
-import { Paintbrush } from 'lucide-react'
+import { GiPaintBrush } from 'react-icons/gi'
 import dynamic from 'next/dynamic'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -48,7 +48,7 @@ export default function DrawingPage() {
       <PageHeader
         title="ניתוח ציורים"
         description="ניתוח פסיכולוגי של ציורים HTP — בית, עץ, אדם — עם מדדי Koppitz ו-FDM"
-        icon={<Paintbrush className="h-5 w-5" />}
+        icon={<GiPaintBrush className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

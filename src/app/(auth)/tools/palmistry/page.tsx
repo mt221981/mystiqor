@@ -13,7 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Hand } from 'lucide-react'
+import { GiHandOfGod } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -132,7 +132,7 @@ export default function PalmistryPage() {
       <PageHeader
         title="קריאה בכף יד"
         description="ניתוח כף יד מתמונה באמצעות AI — קווי לב, ראש, חיים וגורל"
-        icon={<Hand className="h-5 w-5" />}
+        icon={<GiHandOfGod className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -211,7 +211,7 @@ export default function PalmistryPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
               <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
-                <Hand className="h-4 w-4" />
+                <GiHandOfGod className="h-4 w-4" />
                 קריאה כירומנטית
               </CardTitle>
             </CardHeader>

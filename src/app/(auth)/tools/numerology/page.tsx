@@ -13,7 +13,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { ChevronDown, ChevronUp, Heart, Sparkles } from 'lucide-react'
+import { ChevronDown, ChevronUp, Heart } from 'lucide-react'
+import { GiAbacus } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -210,7 +211,7 @@ export default function NumerologyPage() {
       <PageHeader
         title="נומרולוגיה"
         description="חישוב 5 מספרים נומרולוגיים עבריים מותאמים אישית + פרשנות AI"
-        icon={<Sparkles className="h-5 w-5" />}
+        icon={<GiAbacus className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -331,7 +332,7 @@ export default function NumerologyPage() {
             <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
               <CardHeader>
                 <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
+                  <GiAbacus className="h-4 w-4" />
                   פרשנות AI מותאמת אישית
                 </CardTitle>
               </CardHeader>

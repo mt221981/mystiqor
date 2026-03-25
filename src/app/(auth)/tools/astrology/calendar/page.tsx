@@ -9,7 +9,7 @@ import { useState, useCallback } from 'react'
 import { motion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { CalendarIcon } from 'lucide-react'
+import { GiCalendar } from 'react-icons/gi'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { AstroCalendar } from '@/components/features/astrology/AstroCalendar'
@@ -99,7 +99,7 @@ export default function AstroCalendarPage() {
       <PageHeader
         title="לוח שנה אסטרולוגי"
         description="אירועים קוסמיים חשובים — ירח מלא, מרקורי רטרוגרד, כניסות מזל"
-        icon={<CalendarIcon className="h-5 w-5" />}
+        icon={<GiCalendar className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'אסטרולוגיה', href: '/tools/astrology' },

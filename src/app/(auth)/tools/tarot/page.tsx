@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { Sparkles } from 'lucide-react'
+import { GiCardRandom } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -108,7 +108,7 @@ export default function TarotPage() {
       <PageHeader
         title="טארוט"
         description="שליפת קלפים מה-DB + פרשנות AI מותאמת אישית"
-        icon={<Sparkles className="h-5 w-5" />}
+        icon={<GiCardRandom className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -235,7 +235,7 @@ export default function TarotPage() {
             <Card className="border-outline-variant/5 bg-surface-container rounded-xl">
               <CardHeader>
                 <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                  <Sparkles className="h-4 w-4" />
+                  <GiCardRandom className="h-4 w-4" />
                   פרשנות AI
                 </CardTitle>
               </CardHeader>

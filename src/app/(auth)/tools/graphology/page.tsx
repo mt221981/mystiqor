@@ -13,7 +13,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { PenTool, Printer, Clock, GitCompare, Bell } from 'lucide-react'
+import { Printer, Clock, GitCompare, Bell } from 'lucide-react'
+import { GiQuillInk } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
@@ -138,7 +139,7 @@ export default function GraphologyPage() {
     <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
       <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
         <TabsList className="mb-4 bg-surface-container/60">
-          <TabsTrigger value="analysis" className="flex items-center gap-1"><PenTool className="h-3 w-3" /> ניתוח</TabsTrigger>
+          <TabsTrigger value="analysis" className="flex items-center gap-1"><GiQuillInk className="h-3 w-3" /> ניתוח</TabsTrigger>
           <TabsTrigger value="timeline" className="flex items-center gap-1"><Clock className="h-3 w-3" /> ציר זמן</TabsTrigger>
           <TabsTrigger value="compare" className="flex items-center gap-1"><GitCompare className="h-3 w-3" /> השוואה</TabsTrigger>
           <TabsTrigger value="reminder" className="flex items-center gap-1"><Bell className="h-3 w-3" /> תזכורת</TabsTrigger>
@@ -160,7 +161,7 @@ export default function GraphologyPage() {
       <PageHeader
         title="גרפולוגיה"
         description="ניתוח כתב יד מתמונה — 9 מרכיבים גרפולוגיים עם ציונים, תרשים רדאר ותובנות אישיות"
-        icon={<PenTool className="h-5 w-5" />}
+        icon={<GiQuillInk className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -241,7 +242,7 @@ export default function GraphologyPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
               <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
-                <PenTool className="h-4 w-4" />
+                <GiQuillInk className="h-4 w-4" />
                 ניתוח גרפולוגי
               </CardTitle>
             </CardHeader>
