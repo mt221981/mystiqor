@@ -58,7 +58,7 @@ interface ProfileData {
 
 /** תרגום שמות כלים לעברית — שימוש ב-DASH-05 */
 const TOOL_NAME_HE: Record<string, string> = {
-  numerology: 'נומרולוגיה', astrology: 'אסטרולוגיה', palmistry: 'כירומנטיה',
+  numerology: 'נומרולוגיה', astrology: 'אסטרולוגיה', palmistry: 'קריאה בכף יד',
   graphology: 'גרפולוגיה', tarot: 'טארוט', drawing: 'ציורים',
   dream: 'חלומות', career: 'קריירה', compatibility: 'התאמה',
   synastry: 'סינסטרי', solar_return: 'חזרה סולרית', transits: 'טרנזיטים',

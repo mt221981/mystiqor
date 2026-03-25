@@ -2,7 +2,7 @@
  * POST /api/tools/palmistry — ניתוח כף יד מתמונה באמצעות LLM vision
  * אימות → ולידציה → invokeLLM עם תמונה → שמירה ב-analyses → החזרה
  *
- * מדוע: API עבור כלי הכירומנטיה — מנתח תמונת כף יד עם GPT-4o Vision
+ * מדוע: API עבור כלי הקריאה בכף יד — מנתח תמונת כף יד עם GPT-4o Vision
  * ומייצר קריאה מקצועית של קווי כף היד.
  */
 
@@ -12,7 +12,7 @@ import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import type { TablesInsert } from '@/types/database'
 
-/** סכמת ולידציה לקלט כירומנטיה */
+/** סכמת ולידציה לקלט קריאה בכף יד */
 const PalmistryInputSchema = z.object({
   imageUrl: z.string().url('כתובת URL לא תקינה'),
 })

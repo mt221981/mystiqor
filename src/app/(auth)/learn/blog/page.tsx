@@ -16,7 +16,7 @@ import { BlogPostCard, type BlogPost } from '@/components/features/blog/BlogPost
 // ===== קבועים =====
 
 /** קטגוריות סינון */
-const CATEGORIES = ['הכל', 'אסטרולוגיה', 'נומרולוגיה', 'כירומנטיה', 'גרפולוגיה'] as const;
+const CATEGORIES = ['הכל', 'אסטרולוגיה', 'נומרולוגיה', 'קריאה בכף יד', 'גרפולוגיה'] as const;
 
 // ===== פונקציות API =====
 

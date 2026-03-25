@@ -1,8 +1,8 @@
 'use client'
 
 /**
- * דף כירומנטיה — העלאת תמונת כף יד → ניתוח AI
- * מדוע: ממשק ראשי לכלי הכירומנטיה — מאפשר למשתמש לצרף URL של תמונה לניתוח
+ * דף קריאה בכף יד — העלאת תמונת כף יד → ניתוח AI
+ * מדוע: ממשק ראשי לכלי הקריאה בכף יד — מאפשר למשתמש לצרף URL של תמונה לניתוח
  * v1: קלט URL ישיר; תמיכה באפשרות העלאה דרך /api/upload
  */
 
@@ -27,7 +27,7 @@ import { useSubscription } from '@/hooks/useSubscription'
 
 // ===== סכמת ולידציה =====
 
-/** סכמת ולידציה לטופס כירומנטיה */
+/** סכמת ולידציה לטופס קריאה בכף יד */
 const FormSchema = z.object({
   imageUrl: z.string().url('כתובת URL לא תקינה — אנא הכנס URL תקין'),
 })
@@ -36,7 +36,7 @@ type FormValues = z.infer<typeof FormSchema>
 
 // ===== טיפוסי תוצאה =====
 
-/** תוצאת API כירומנטיה */
+/** תוצאת API קריאה בכף יד */
 interface PalmistryResult {
   interpretation: string
   analysis_id: string | null
@@ -50,7 +50,7 @@ interface PalmistryApiResponse {
 // ===== פונקציית קריאת API =====
 
 /**
- * שולחת בקשת POST ל-API כירומנטיה
+ * שולחת בקשת POST ל-API קריאה בכף יד
  */
 async function fetchPalmistry(input: FormValues): Promise<PalmistryResult> {
   const res = await fetch('/api/tools/palmistry', {
@@ -68,7 +68,7 @@ async function fetchPalmistry(input: FormValues): Promise<PalmistryResult> {
 
 // ===== קומפוננטה ראשית =====
 
-/** דף כלי הכירומנטיה */
+/** דף כלי הקריאה בכף יד */
 export default function PalmistryPage() {
   const [result, setResult] = useState<PalmistryResult | null>(null)
   const [uploading, setUploading] = useState(false)
@@ -130,13 +130,13 @@ export default function PalmistryPage() {
   return (
     <div className="container mx-auto px-4 py-6 max-w-3xl">
       <PageHeader
-        title="כירומנטיה"
+        title="קריאה בכף יד"
         description="ניתוח כף יד מתמונה באמצעות AI — קווי לב, ראש, חיים וגורל"
         icon={<Hand className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
-          { label: 'כירומנטיה' },
+          { label: 'קריאה בכף יד' },
         ]}
       />
 

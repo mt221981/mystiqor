@@ -8,7 +8,7 @@
 export const TOOL_NAMES: Record<string, string> = {
   numerology: 'נומרולוגיה',
   astrology: 'אסטרולוגיה',
-  palmistry: 'כירומנטיה',
+  palmistry: 'קריאה בכף יד',
   graphology: 'גרפולוגיה',
   tarot: 'טארוט',
   drawing: 'ניתוח ציורים',

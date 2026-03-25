@@ -14,6 +14,9 @@ self.addEventListener('activate', (event) => {
 });
 
 // Network-only fetch — no caching (offline is v2)
+// Only handle http/https requests — skip chrome-extension, data, etc.
 self.addEventListener('fetch', (event) => {
-  event.respondWith(fetch(event.request));
+  if (event.request.url.startsWith('http')) {
+    event.respondWith(fetch(event.request).catch(() => new Response('', { status: 503 })));
+  }
 });

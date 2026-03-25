@@ -92,7 +92,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'אסטרולוגיה', href: '/tools/astrology', icon: Stars },
       { label: 'גרפולוגיה', href: '/tools/graphology', icon: PenTool },
       { label: 'ציור', href: '/tools/drawing', icon: Palette },
-      { label: 'כירומנטיה', href: '/tools/palmistry', icon: Hand },
+      { label: 'קריאה בכף יד', href: '/tools/palmistry', icon: Hand },
       { label: 'טארוט', href: '/tools/tarot', icon: Layers },
       { label: 'עיצוב אנושי', href: '/tools/human-design', icon: Fingerprint },
       { label: 'חלומות', href: '/tools/dream', icon: Moon },

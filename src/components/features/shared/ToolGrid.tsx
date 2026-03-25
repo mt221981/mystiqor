@@ -24,7 +24,7 @@ const TOOLS: Tool[] = [
   { id: 'astrology', name: 'אסטרולוגיה', description: 'מפת לידה + תחזיות', icon: <Stars className="h-8 w-8" />, href: '/tools/astrology' },
   { id: 'graphology', name: 'גרפולוגיה', description: 'ניתוח כתב יד', icon: <PenTool className="h-8 w-8" />, href: '/tools/graphology' },
   { id: 'drawing', name: 'ניתוח ציורים', description: 'HTP + Koppitz', icon: <Palette className="h-8 w-8" />, href: '/tools/drawing' },
-  { id: 'palmistry', name: 'כירומנטיה', description: 'ניתוח כף יד', icon: <Hand className="h-8 w-8" />, href: '/tools/palmistry' },
+  { id: 'palmistry', name: 'קריאה בכף יד', description: 'ניתוח כף יד', icon: <Hand className="h-8 w-8" />, href: '/tools/palmistry' },
   { id: 'tarot', name: 'טארוט', description: 'קלפים + פרשנות AI', icon: <Layers className="h-8 w-8" />, href: '/tools/tarot' },
 ];
 
