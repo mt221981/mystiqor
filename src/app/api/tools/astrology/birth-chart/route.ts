@@ -22,12 +22,12 @@ import type { TablesInsert } from '@/types/database'
 const InputSchema = z.object({
   /** תאריך לידה בפורמט ISO: YYYY-MM-DD */
   birthDate: z.string().min(1, 'תאריך לידה חובה'),
-  /** שעת לידה בפורמט HH:mm */
-  birthTime: z.string().min(1, 'שעת לידה חובה'),
-  /** קו רוחב של מקום הלידה */
-  latitude: z.number(),
-  /** קו אורך של מקום הלידה */
-  longitude: z.number(),
+  /** שעת לידה בפורמט HH:mm — ברירת מחדל 12:00 */
+  birthTime: z.string().default('12:00'),
+  /** קו רוחב של מקום הלידה — ברירת מחדל ירושלים */
+  latitude: z.number().default(31.7683),
+  /** קו אורך של מקום הלידה — ברירת מחדל ירושלים */
+  longitude: z.number().default(35.2137),
   /** שם מלא של הנולד */
   fullName: z.string().min(1, 'שם מלא חובה'),
 })

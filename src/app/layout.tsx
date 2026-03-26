@@ -79,7 +79,9 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
-  themeColor: '#131315',
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#0d0b1e',
 };
 
 // ===== ממשקים =====

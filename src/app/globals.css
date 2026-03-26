@@ -81,6 +81,9 @@
 
   body {
     @apply bg-background text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 
@@ -244,6 +247,8 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    font-weight: 700;
+    letter-spacing: -0.01em;
   }
 
   /* גרדיאנט טקסט סגול */
@@ -303,6 +308,16 @@
 
 @keyframes shimmer {
   100% { transform: translateX(100%); }
+}
+
+/* ===== מובייל — safe area + touch ===== */
+@supports (padding: env(safe-area-inset-top)) {
+  body {
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+  }
 }
 
 /* ===== סרגל גלילה מותאם ===== */
