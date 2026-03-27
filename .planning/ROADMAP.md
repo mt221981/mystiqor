@@ -70,7 +70,9 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. "Human Design" מופיע כ-"עיצוב אנושי" בכל מקום ב-UI (sidebar, כותרות, כרטיסים)
   3. "Solar Return" מופיע כ-"חזרת שמש" בכל מקום ב-UI
   4. "HTP + Koppitz" מופיע כ-"בית-עץ-אדם" בכל מקום ב-UI
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 14-01-PLAN.md — Verify Heebo font propagation + replace English display terms with Hebrew
 **UI hint**: yes
 
 ### Phase 15: Icons Migration
@@ -167,7 +169,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 13. Onboarding Fix | v1.1 | 0/0 | Not started | - |
-| 14. Typography & Hebrew Localization | v1.1 | 0/0 | Not started | - |
+| 14. Typography & Hebrew Localization | v1.1 | 0/1 | Planned | - |
 | 15. Icons Migration | v1.1 | 0/0 | Not started | - |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
