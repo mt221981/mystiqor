@@ -85,7 +85,9 @@ Pre-populated from `mystiqor-build/src/app/layout.tsx` and `mystiqor-build/tailw
 | Body | 14px | 400 | 1.5 | `text-sm font-body font-normal` |
 | Body large | 16px | 400 | 1.5 | `text-base font-body font-normal` |
 | Heading | 20px | 600 | 1.2 | `text-xl font-headline font-semibold` |
-| Display | 28px (text-2xl) | 700 | 1.2 | `text-2xl font-headline font-bold` |
+| Display | 28px (text-2xl) | 600 | 1.2 | `text-2xl font-headline font-semibold` |
+
+**Declared weights:** 400 (regular / `font-normal`) and 600 (semibold / `font-semibold`) — two weights only. The 28px Display size provides sufficient visual hierarchy over 20px Heading without requiring a third weight.
 
 **Source:** Derived from existing usage in `src/app/(auth)/analytics/page.tsx`, `dashboard/page.tsx`, and consistent patterns across the codebase.
 
@@ -215,6 +217,8 @@ No third-party registries. `components.json` confirms `"registries": {}`.
 5. **HTP replacement strategy.** "בית-עץ-אדם" is the full Hebrew name. In context where screen real estate is limited, "בית-עץ-אדם" may be used as-is (it is a well-known term in Hebrew psychology). Do not abbreviate to initials.
 
 6. **No visual regression.** This phase must not change any layout, spacing, color, or component structure. Text replacements only, plus any `font-sans` → `font-body` corrections.
+
+7. **Display weight.** All headline/display text uses `font-semibold` (600). Do not apply `font-bold` (700) to any element — it is not part of the declared weight scale.
 
 ---
 
