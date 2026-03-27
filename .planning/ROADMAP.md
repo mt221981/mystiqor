@@ -23,7 +23,7 @@ See .planning/milestones/v1.0-ROADMAP.md for full details.
 See v1.1 section below for details.
 
 - [ ] **Phase 13: Onboarding Fix** - תיקון OnboardingWizard השבור והשלמת זרימת משתמש חדש
-- [ ] **Phase 14: Typography & Hebrew Localization** - פונט עברי Heebo ותרגום מונחים אנגליים שנותרו
+- [x] **Phase 14: Typography & Hebrew Localization** - פונט עברי Heebo ותרגום מונחים אנגליים שנותרו
 - [ ] **Phase 15: Icons Migration** - מיגרציית כל האייקונים ל-react-icons/gi תמטיים
 - [ ] **Phase 16: CSS & Interaction Polish** - אימוץ CSS utilities חדשים ו-mystic-hover בכל האפליקציה
 - [ ] **Phase 17: Loading & Reveal Animations** - Shimmer loading מיסטי ואנימציית progressive reveal
