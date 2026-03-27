@@ -49,7 +49,7 @@ export interface HumanDesignCentersProps {
 export function HumanDesignCenters({ definedCenters, openCenters, undefinedCenters }: HumanDesignCentersProps) {
   return (
     <div className="flex flex-col items-center gap-3">
-      <svg viewBox="0 0 500 500" className="w-full max-w-sm" aria-label="מפת מרכזי Human Design">
+      <svg viewBox="0 0 500 500" className="w-full max-w-sm" aria-label="מפת מרכזי עיצוב אנושי">
         {HD_CENTERS.map((center) => {
           const state: 'defined' | 'open' | 'undefined' = definedCenters.includes(center.id)
             ? 'defined'
@@ -104,7 +104,7 @@ export function HumanDesignCenters({ definedCenters, openCenters, undefinedCente
                 textAnchor="middle"
                 fontSize="9"
                 fill={state === 'defined' ? '#f2dfff' : '#ccc3d8'}
-                fontFamily="sans-serif"
+                fontFamily="Heebo, sans-serif"
               >
                 {center.name}
               </text>
