@@ -144,7 +144,7 @@ function AnalysisCard({
         {/* ציון Koppitz */}
         {response.koppitz_score !== undefined && (
           <div>
-            <p className="text-xs font-label font-medium text-on-surface-variant mb-1">ציון Koppitz</p>
+            <p className="text-xs font-label font-medium text-on-surface-variant mb-1">ציון קופיץ</p>
             <span className="text-lg font-bold font-headline text-primary">{response.koppitz_score}/30</span>
           </div>
         )}
@@ -297,7 +297,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
             <CardContent className="space-y-3">
               {/* Koppitz delta */}
               <div className="flex items-center gap-3">
-                <span className="text-sm text-on-surface-variant font-label w-32">שינוי ציון Koppitz:</span>
+                <span className="text-sm text-on-surface-variant font-label w-32">שינוי ציון קופיץ:</span>
                 <KoppitzDelta
                   scoreA={responseA.koppitz_score}
                   scoreB={responseB.koppitz_score}

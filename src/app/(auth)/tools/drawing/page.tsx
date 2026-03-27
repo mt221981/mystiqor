@@ -47,7 +47,7 @@ export default function DrawingPage() {
     <div className="container mx-auto px-4 py-6 max-w-4xl" dir="rtl">
       <PageHeader
         title="ניתוח ציורים"
-        description="ניתוח פסיכולוגי של ציורים HTP — בית, עץ, אדם — עם מדדי Koppitz ו-FDM"
+        description="ניתוח פסיכולוגי של ציורים (בית-עץ-אדם) — עם מדדי קופיץ ו-FDM"
         icon={<GiPaintBrush className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },

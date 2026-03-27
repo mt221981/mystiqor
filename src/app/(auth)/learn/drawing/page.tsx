@@ -20,8 +20,8 @@ import { QuickConceptButtons, type Concept } from '@/components/features/learn/Q
 
 /** מושגים מהירים לניתוח ציורים */
 const DRAWING_CONCEPTS: Concept[] = [
-  { label: 'מה זה HTP?', prompt: 'הסבר לי את שיטת HTP — בית, עץ, אדם' },
-  { label: 'ציון Koppitz', prompt: 'מהו ציון Koppitz ואיך מחשבים אותו?' },
+  { label: 'מה זה בית-עץ-אדם?', prompt: 'הסבר לי את שיטת HTP — בית, עץ, אדם' },
+  { label: 'ציון קופיץ', prompt: 'מהו ציון Koppitz ואיך מחשבים אותו?' },
   { label: 'מודל FDM', prompt: 'הסבר לי את מודל FDM לניתוח ציורים' },
   { label: 'משמעות צבעים', prompt: 'מה משמעות הצבעים השונים בציורי ילדים?' },
   { label: 'קומפוזיציה', prompt: 'איך מנתחים קומפוזיציה ומיקום בציור?' },

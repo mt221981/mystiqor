@@ -58,11 +58,11 @@ const LEARNING_PATHS = [
   {
     discipline: 'drawing',
     title: 'ציורים',
-    description: 'יסודות HTP, ניקוד Koppitz, מודל FDM וצבעים',
+    description: 'יסודות בית-עץ-אדם, ניקוד קופיץ, מודל FDM וצבעים',
     icon: Pencil,
     topics: [
-      { id: 'htp_basics', name: 'יסודות HTP' },
-      { id: 'koppitz_scoring', name: 'ניקוד Koppitz' },
+      { id: 'htp_basics', name: 'יסודות בית-עץ-אדם' },
+      { id: 'koppitz_scoring', name: 'ניקוד קופיץ' },
       { id: 'fdm_model', name: 'מודל FDM' },
       { id: 'color_meaning', name: 'משמעות צבעים' },
       { id: 'composition', name: 'קומפוזיציה בציור' },

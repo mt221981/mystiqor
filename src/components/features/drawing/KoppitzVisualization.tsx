@@ -56,7 +56,7 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
     <Card className="border-outline-variant/5 bg-surface-container" dir="rtl">
       <CardHeader>
         <CardTitle className="text-base text-primary font-headline flex items-center justify-between">
-          <span>מדדי Koppitz</span>
+          <span>מדדי קופיץ</span>
           {koppitzScore !== undefined && riskInfo && (
             <div className="flex items-center gap-2">
               <span className={`text-lg font-bold font-headline ${riskInfo.colorClass}`}>
