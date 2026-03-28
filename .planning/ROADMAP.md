@@ -145,7 +145,10 @@ Plans:
   3. 12 בתים אסטרולוגיים מוצגים ב-UI עם פרשנות מפורטת בעברית
   4. 7 אספקטים מוצגים ב-UI עם חוזק, צבע, ומשמעות מפורטת בעברית
   5. משתמש שגולש לעמוד מילון אסטרולוגי רואה מידע מלא ונגיש (לא צריך לחפש מחוץ למערכת)
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 19-01-PLAN.md — Data completeness tests + 4 dictionary display components (ZodiacGrid, PlanetGrid, HouseList, AspectDictionary)
+- [ ] 19-02-PLAN.md — Dictionary page assembly with tabs + Sidebar nav entry + visual verification
 **UI hint**: yes
 
 ### Phase 20: Dream & Blog Content
@@ -183,6 +186,6 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
 | 18. Tarot Card Library | v1.2 | 3/4 | Complete    | 2026-03-28 |
-| 19. Astrology Knowledge Base | v1.2 | 0/0 | Not started | - |
+| 19. Astrology Knowledge Base | v1.2 | 0/2 | Not started | - |
 | 20. Dream & Blog Content | v1.2 | 0/0 | Not started | - |
 | 21. Prompt Enrichment & Soul | v1.2 | 0/0 | Not started | - |
