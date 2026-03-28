@@ -131,7 +131,7 @@ Plans:
 Plans:
 - [x] 18-01-PLAN.md — DB migration (7 columns) + TypeScript types update + test scaffolds
 - [ ] 18-02-PLAN.md — Sync script (78 cards from TAROT_CARD_META to DB) + API route upgrade (spreadCount=10)
-- [ ] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
+- [x] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
 - [ ] 18-04-PLAN.md — Page wiring (integrate all components into tarot page) + visual verification
 **UI hint**: yes
 
