@@ -1,9 +1,9 @@
 # Requirements — v1.2 Rich Content & Soul
 
 ## Tarot Content
-- [ ] **TAROT-01**: 78 קלפי טארוט מלאים ב-DB כולל 40 Minor Arcana (Ace-10 לכל סוט) עם משמעויות עבריות
-- [ ] **TAROT-02**: כל קלף כולל: התאמה אסטרולוגית, ערך נומרולוגי, נתיב קבלה, ארכיטיפ, מילות מפתח (upright + reversed)
-- [ ] **TAROT-03**: 4 פריסות טארוט (קלף בודד, 3 קלפים, יחסים, צלב קלטי 10 עמדות) מוגדרות ב-UI
+- [x] **TAROT-01**: 78 קלפי טארוט מלאים ב-DB כולל 40 Minor Arcana (Ace-10 לכל סוט) עם משמעויות עבריות
+- [x] **TAROT-02**: כל קלף כולל: התאמה אסטרולוגית, ערך נומרולוגי, נתיב קבלה, ארכיטיפ, מילות מפתח (upright + reversed)
+- [x] **TAROT-03**: 4 פריסות טארוט (קלף בודד, 3 קלפים, יחסים, צלב קלטי 10 עמדות) מוגדרות ב-UI
 
 ## Astrology Knowledge Base
 - [ ] **ASTRO-01**: מילון 12 מזלות עם סמל, אלמנט, צבע, כוכב שולט, תיאור מפורט בעברית — מוצג ב-UI
@@ -26,9 +26,9 @@
 
 | REQ | Phase | Status |
 |-----|-------|--------|
-| TAROT-01 | Phase 18 | Pending |
-| TAROT-02 | Phase 18 | Pending |
-| TAROT-03 | Phase 18 | Pending |
+| TAROT-01 | Phase 18 | Complete |
+| TAROT-02 | Phase 18 | Complete |
+| TAROT-03 | Phase 18 | Complete |
 | ASTRO-01 | Phase 19 | Pending |
 | ASTRO-02 | Phase 19 | Pending |
 | ASTRO-03 | Phase 19 | Pending |
