@@ -57,7 +57,7 @@ function loadEnv(): void {
     const envContent = readFileSync(resolve(__dirname, '..', '.env.local'), 'utf-8')
     for (const line of envContent.split('\n')) {
       const m = line.match(/^([^#=\s][^=]*)=(.*)$/)
-      if (m) process.env[m[1].trim()] = m[2].trim().replace(/^["']|["']$/g, '')
+      if (m?.[1] && m[2] !== undefined) process.env[m[1].trim()] = m[2].trim().replace(/^["']|["']$/g, '')
     }
   } catch {
     console.warn('⚠️  .env.local לא נמצא — מניח שמשתני הסביבה כבר מוגדרים')
@@ -69,6 +69,10 @@ function loadEnv(): void {
  */
 function buildMeta(cardNumber: number): MetaUpdate {
   const meta = TAROT_CARD_META[cardNumber]
+  if (!meta) {
+    return { element: null, astrology: null, kabbalah: null, archetype: null,
+      upright_keywords: [], reversed_keywords: [], numerology_value: null }
+  }
   let numerology_value: number | null = null
   if (cardNumber <= 21) {
     numerology_value = cardNumber
