@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: verifying
-stopped_at: Completed 18-03-PLAN.md
-last_updated: "2026-03-28T20:42:46.607Z"
+stopped_at: Completed 18-02-PLAN.md
+last_updated: "2026-03-28T20:54:13.196Z"
 last_activity: 2026-03-28
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
+  completed_plans: 3
   percent: 0
 ---
 
@@ -54,6 +54,7 @@ Progress: [░░░░░░░░░░] 0%
 *Updated after each plan completion*
 | Phase 14 P01 | 10 | 2 tasks | 7 files |
 | Phase 18 P03 | 8 | 2 tasks | 5 files |
+| Phase 18 P02 | 5m 3s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,8 @@ Recent decisions affecting current work:
 - [Phase 14]: Academic English subtitle 'Koppitz Emotional Indicators' preserved; Hebrew display terms use עיצוב אנושי, בית-עץ-אדם, קופיץ throughout UI while code identifiers remain English
 - [Phase 14]: SVG text elements use fontFamily='Heebo, sans-serif' for consistent Hebrew rendering inside SVG — not relying on inherited CSS
 - [Phase 18]: Used local TarotCardRow type extension to support Plan 01 rich fields before DB migration — optional fields prevent TS errors in parallel wave
+- [Phase 18]: Court card matching uses suit + null number + sorted-by-id positional index (Page=0, Knight=1, Queen=2, King=3) to avoid name mismatch between seed data and archetype field
+- [Phase 18]: LLM prompt uses rich metadata per card (archetype, element, astrology) for deeper AI interpretation in tarot readings
 
 ### Pending Todos
 
@@ -79,6 +82,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-28T20:42:46.605Z
-Stopped at: Completed 18-03-PLAN.md
+Last session: 2026-03-28T20:54:13.194Z
+Stopped at: Completed 18-02-PLAN.md
 Resume file: None
