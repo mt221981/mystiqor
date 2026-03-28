@@ -85,7 +85,11 @@ Plans:
   3. MobileNav ו-Header תואמים ויזואלית ל-Sidebar עם אותם אייקוני react-icons/gi
   4. EmptyState, ErrorBoundary, LoadingSpinner משתמשים באייקונים מיסטיים
   5. PageHeader בכל העמודים מציג אייקון react-icons/gi תואם לנושא העמוד
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 15-01-PLAN.md — Migrate 5 remaining tool page PageHeaders (timing, document, synthesis, daily-insights, relationships)
+- [ ] 15-02-PLAN.md — Migrate StatCards dashboard icons + Header mobile logo
+- [ ] 15-03-PLAN.md — Migrate InsightHeroCard section icons + learn page PageHeaders
 **UI hint**: yes
 
 ### Phase 16: CSS & Interaction Polish
@@ -170,7 +174,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 |-------|-----------|----------------|--------|-----------|
 | 13. Onboarding Fix | v1.1 | 0/0 | Not started | - |
 | 14. Typography & Hebrew Localization | v1.1 | 1/1 | Complete   | 2026-03-27 |
-| 15. Icons Migration | v1.1 | 0/0 | Not started | - |
+| 15. Icons Migration | v1.1 | 0/3 | Not started | - |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
 | 18. Tarot Card Library | v1.2 | 0/0 | Not started | - |
