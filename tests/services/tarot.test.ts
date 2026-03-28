@@ -37,4 +37,18 @@ describe('drawCards — tarot card selection logic', () => {
     expect(drawn).toHaveLength(0)
     expect(Array.isArray(drawn)).toBe(true)
   })
+
+  it('Test 3: draws exactly 10 cards for Celtic Cross spread (TAROT-01 + TAROT-03)', () => {
+    // צלב קלטי דורש 10 קלפים — וידוא שהפונקציה מסוגלת לטפל בכמות גדולה
+    const cards = Array.from({ length: 78 }, (_, i) => ({ id: String(i), name: `Card ${i}` }))
+    const drawn = drawCards(cards, 10)
+    expect(drawn).toHaveLength(10)
+  })
+
+  it('Test 4: draws all available cards when count exceeds pool (edge case)', () => {
+    // כאשר מבקשים יותר קלפים מהקיימים — מחזיר את כל מה שיש
+    const cards = [{ id: '1', name: 'שוטה' }, { id: '2', name: 'קוסם' }]
+    const drawn = drawCards(cards, 5)
+    expect(drawn).toHaveLength(2) // מקסימום מה שיש
+  })
 })
