@@ -136,6 +136,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'מדריכים', href: '/learn/tutorials', icon: GiGraduateCap },
       { label: 'בלוג', href: '/learn/blog', icon: GiNewspaper },
       { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: GiAstrolabe },
+      { label: 'מילון אסטרולוגי', href: '/learn/astrology/dictionary', icon: GiAstrolabe },
       { label: 'מורה ציור', href: '/learn/drawing', icon: GiPaintBrush },
     ],
   },
