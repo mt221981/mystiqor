@@ -17,8 +17,9 @@ type TarotCardRow = Database['public']['Tables']['tarot_cards']['Row']
 
 /** סכמת ולידציה לקלט טארוט */
 const TarotInputSchema = z.object({
-  spreadCount: z.union([z.literal(1), z.literal(3), z.literal(5)]).default(3),
+  spreadCount: z.union([z.literal(1), z.literal(3), z.literal(5), z.literal(10)]).default(3),
   question: z.string().max(300, 'שאלה ארוכה מדי — מקסימום 300 תווים').optional(),
+  spreadId: z.string().optional(),
 })
 
 /**
@@ -67,8 +68,15 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // בניית פרשנות AI — שימוש ב-name_he (שם עברי)
-    const cardNames = drawn.map((c) => c.name_he).join(', ')
+    // בניית פרשנות AI — שם עברי + מטא-דאטה עשירה (ארכיטיפ, אלמנט, אסטרולוגיה)
+    const cardDescriptions = drawn.map((c) => {
+      const meta = [
+        c.archetype ? `ארכיטיפ: ${c.archetype}` : '',
+        c.element ? `אלמנט: ${c.element}` : '',
+        c.astrology ? `אסטרולוגיה: ${c.astrology}` : '',
+      ].filter(Boolean).join(', ')
+      return `${c.name_he}${meta ? ` (${meta})` : ''}`
+    }).join('; ')
     const questionText = parsed.data.question
       ? `שאלת המשתמש: "${parsed.data.question}". `
       : ''
@@ -77,7 +85,7 @@ export async function POST(request: NextRequest) {
       userId: user.id,
       systemPrompt:
         'אתה קורא טארוט חכם ואינטואיטיבי עם ידע עמוק בקבלה ובסמליות הקלפים. דבר ישירות לפונה — חם, אינטימי, כאילו אתה רואה את נשמתו דרך הקלפים. שלב בין הסמל, המספר, האלמנט והארכיטיפ של כל קלף. אל תסתפק בתיאור — חדור לעומק, חשוף מה שמוסתר.',
-      prompt: `${questionText}הקלפים שנשלפו: ${cardNames}. פרש את הפריסה כסיפור אחד שלם — מה הקלפים מספרים יחד? מה הם מגלים על מה שמתרחש מתחת לפני השטח? מה המסר העמוק שהיקום שולח?`,
+      prompt: `${questionText}הקלפים שנשלפו: ${cardDescriptions}. פרש את הפריסה כסיפור אחד שלם — מה הקלפים מספרים יחד? מה הם מגלים על מה שמתרחש מתחת לפני השטח? מה המסר העמוק שהיקום שולח?`,
       maxTokens: 1000,
     })
 
@@ -99,10 +107,17 @@ export async function POST(request: NextRequest) {
           arcana: c.arcana,
           suit: c.suit,
           keywords: c.keywords,
+          element: c.element,
+          astrology: c.astrology,
+          kabbalah: c.kabbalah,
+          archetype: c.archetype,
+          upright_keywords: c.upright_keywords,
+          reversed_keywords: c.reversed_keywords,
+          numerology_value: c.numerology_value,
         })),
         interpretation: aiText,
       })),
-      summary: `פריסת ${parsed.data.spreadCount} קלפים: ${cardNames}`,
+      summary: `פריסת ${parsed.data.spreadCount} קלפים: ${drawn.map((c) => c.name_he).join(', ')}`,
     }
     const { data: analysis } = await supabase
       .from('analyses')
