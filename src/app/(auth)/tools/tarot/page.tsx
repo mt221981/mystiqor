@@ -2,24 +2,29 @@
 
 /**
  * דף טארוט — משיכת קלפים מה-DB + פרשנות AI
- * מדוע: ממשק ראשי לכלי הטארוט — מאפשר למשתמש לשאול שאלה ולשלוף קלפים
+ * מדוע: ממשק ראשי לכלי הטארוט — מאפשר למשתמש לבחור פריסה, לשאול שאלה ולשלוף קלפים
  */
 
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { GiCardRandom } from 'react-icons/gi'
+import { GiCardRandom, GiCrystalBall } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
+import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
+import { EmptyState } from '@/components/common/EmptyState'
+import { SpreadSelector } from '@/components/features/tarot/SpreadSelector'
+import { SpreadLayout } from '@/components/features/tarot/SpreadLayout'
+import { TarotCardDetailModal } from '@/components/features/tarot/TarotCardDetailModal'
+import { TAROT_SPREADS, type TarotSpread } from '@/lib/constants/tarot-data'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 import type { Database } from '@/types/database'
@@ -39,17 +44,14 @@ interface TarotApiResponse {
   data: TarotResult
 }
 
-/** סוגי פריסות טארוט */
-const SPREAD_OPTIONS: Array<{ count: 1 | 3 | 5; label: string }> = [
-  { count: 1, label: 'קלף אחד' },
-  { count: 3, label: '3 קלפים' },
-  { count: 5, label: '5 קלפים' },
-]
-
 /**
  * שולחת בקשת POST ל-API טארוט
  */
-async function fetchTarot(params: { spreadCount: 1 | 3 | 5; question?: string }): Promise<TarotResult> {
+async function fetchTarot(params: {
+  spreadCount: 1 | 3 | 5 | 10
+  question?: string
+  spreadId?: string
+}): Promise<TarotResult> {
   const res = await fetch('/api/tools/tarot', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -63,23 +65,12 @@ async function fetchTarot(params: { spreadCount: 1 | 3 | 5; question?: string })
   return json.data
 }
 
-/** תרגום ארקנה לעברית */
-const ARCANA_HE: Record<string, string> = {
-  major: 'ארקנה גדולה',
-  minor: 'ארקנה קטנה',
-}
-
-/** תרגום חפיסות לעברית */
-const SUIT_HE: Record<string, string> = {
-  wands: 'שרביטים',
-  cups: 'גביעים',
-  swords: 'חרבות',
-  pentacles: 'פנטקלים',
-}
-
 /** דף כלי הטארוט */
 export default function TarotPage() {
-  const [spreadCount, setSpreadCount] = useState<1 | 3 | 5>(3)
+  const [selectedSpread, setSelectedSpread] = useState<TarotSpread>(
+    TAROT_SPREADS[1] ?? TAROT_SPREADS[0]!
+  )
+  const [detailCard, setDetailCard] = useState<TarotCardRow | null>(null)
   const { incrementUsage } = useSubscription()
   const [question, setQuestion] = useState('')
   const [result, setResult] = useState<TarotResult | null>(null)
@@ -99,7 +90,8 @@ export default function TarotPage() {
 
   const handleDraw = () => {
     mutation.mutate({
-      spreadCount,
+      spreadCount: selectedSpread.cardCount as 1 | 3 | 5 | 10,
+      spreadId: selectedSpread.id,
       question: question.trim() || undefined,
     })
   }
@@ -130,26 +122,13 @@ export default function TarotPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <SubscriptionGuard feature="analyses">
-              {/* בחירת מספר קלפים */}
+              {/* בחירת סוג פריסה */}
               <div className="space-y-2">
-                <Label className="font-label text-on-surface-variant">מספר קלפים</Label>
-                <div className="flex gap-2">
-                  {SPREAD_OPTIONS.map(({ count, label }) => (
-                    <Button
-                      key={count}
-                      variant={spreadCount === count ? 'default' : 'outline'}
-                      size="sm"
-                      onClick={() => setSpreadCount(count)}
-                      className={
-                        spreadCount === count
-                          ? 'bg-gradient-to-br from-primary-container to-secondary-container text-white font-label'
-                          : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container hover:border-primary/40'
-                      }
-                    >
-                      {label}
-                    </Button>
-                  ))}
-                </div>
+                <Label className="font-label text-on-surface-variant">סוג פריסה</Label>
+                <SpreadSelector
+                  selectedId={selectedSpread.id}
+                  onSelect={setSelectedSpread}
+                />
               </div>
 
               {/* שאלה אופציונלית */}
@@ -160,7 +139,7 @@ export default function TarotPage() {
                 <Input
                   id="question"
                   type="text"
-                  placeholder="הכנס שאלה שתרצה לשאול את הקלפים..."
+                  placeholder="שאל את הקלפים... (300 תווים מקסימום)"
                   value={question}
                   onChange={(e) => setQuestion(e.target.value)}
                   maxLength={300}
@@ -182,50 +161,35 @@ export default function TarotPage() {
         </Card>
       </motion.div>
 
+      {/* מצב ריק — לפני שליפה */}
+      {!result && !mutation.isPending && (
+        <EmptyState
+          icon={<GiCrystalBall className="h-12 w-12" />}
+          title="בחר פריסה ושאל את הקלפים"
+          description='בחר סוג פריסה, הכנס שאלה (אופציונלי), ולחץ על "שלוף קלפים" לקבל תשובה'
+        />
+      )}
+
+      {/* מצב טעינה */}
+      {mutation.isPending && (
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {Array.from({ length: selectedSpread.cardCount }).map((_, i) => (
+            <MysticSkeleton key={i} className="h-48 rounded-xl" />
+          ))}
+        </div>
+      )}
+
       {/* תוצאות */}
       {result && (
         <ProgressiveReveal className="space-y-6">
-          {/* קלפים שנשלפו */}
+          {/* פריסת קלפים */}
           <RevealItem>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {result.drawn.map((card, index) => (
-                <Card
-                  key={`${card.id}-${index}`}
-                  className="nebula-glow rounded-xl text-center"
-                >
-                  <CardContent className="pt-4 pb-4 space-y-2">
-                    <p className="text-xl font-headline font-bold text-white">{card.name_he}</p>
-                    <p className="text-xs font-body text-white/70 italic">{card.name_en}</p>
-
-                    {/* תגיות */}
-                    <div className="flex flex-wrap gap-1 justify-center">
-                      <Badge variant="outline" className="text-xs font-label border-outline-variant/30 text-on-surface">
-                        {ARCANA_HE[card.arcana] ?? card.arcana}
-                      </Badge>
-                      {card.suit && (
-                        <Badge variant="outline" className="text-xs font-label border-outline-variant/20 text-on-surface-variant">
-                          {SUIT_HE[card.suit] ?? card.suit}
-                        </Badge>
-                      )}
-                    </div>
-
-                    {/* מילות מפתח */}
-                    {card.keywords && card.keywords.length > 0 && (
-                      <div className="flex flex-wrap gap-1 justify-center">
-                        {card.keywords.slice(0, 3).map((kw) => (
-                          <span
-                            key={kw}
-                            className="text-xs font-label text-primary bg-primary/10 px-2 py-0.5 rounded-full"
-                          >
-                            {kw}
-                          </span>
-                        ))}
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <SpreadLayout
+              spreadId={selectedSpread.id}
+              cards={result.drawn}
+              positions={selectedSpread.positions}
+              onCardClick={(card) => setDetailCard(card)}
+            />
           </RevealItem>
 
           {/* פרשנות AI */}
@@ -248,6 +212,13 @@ export default function TarotPage() {
           )}
         </ProgressiveReveal>
       )}
+
+      {/* מודל פרטי קלף */}
+      <TarotCardDetailModal
+        card={detailCard}
+        isOpen={detailCard !== null}
+        onClose={() => setDetailCard(null)}
+      />
     </div>
   )
 }
