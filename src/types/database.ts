@@ -879,6 +879,14 @@ export interface Database {
           meaning_reversed: string;
           keywords: string[];
           image_url: string | null;
+          // Phase 18 — שדות מטא-דאטה עשירה
+          element: string | null;
+          astrology: string | null;
+          kabbalah: string | null;
+          archetype: string | null;
+          upright_keywords: string[];
+          reversed_keywords: string[];
+          numerology_value: number | null;
         };
         Insert: {
           id?: number;
@@ -891,6 +899,14 @@ export interface Database {
           meaning_reversed: string;
           keywords?: string[];
           image_url?: string | null;
+          // Phase 18 — שדות מטא-דאטה עשירה (אופציונליים בהוספה)
+          element?: string | null;
+          astrology?: string | null;
+          kabbalah?: string | null;
+          archetype?: string | null;
+          upright_keywords?: string[];
+          reversed_keywords?: string[];
+          numerology_value?: number | null;
         };
         Update: {
           id?: number;
@@ -903,6 +919,14 @@ export interface Database {
           meaning_reversed?: string;
           keywords?: string[];
           image_url?: string | null;
+          // Phase 18 — שדות מטא-דאטה עשירה (אופציונליים בעדכון)
+          element?: string | null;
+          astrology?: string | null;
+          kabbalah?: string | null;
+          archetype?: string | null;
+          upright_keywords?: string[];
+          reversed_keywords?: string[];
+          numerology_value?: number | null;
         };
         Relationships: never[];
       };
