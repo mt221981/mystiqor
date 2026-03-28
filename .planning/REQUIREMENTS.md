@@ -6,10 +6,10 @@
 - [x] **TAROT-03**: 4 פריסות טארוט (קלף בודד, 3 קלפים, יחסים, צלב קלטי 10 עמדות) מוגדרות ב-UI
 
 ## Astrology Knowledge Base
-- [ ] **ASTRO-01**: מילון 12 מזלות עם סמל, אלמנט, צבע, כוכב שולט, תיאור מפורט בעברית — מוצג ב-UI
-- [ ] **ASTRO-02**: מילון 10 כוכבי לכת עם סמל, צבע, משמעות מפורטת בעברית — מוצג ב-UI
-- [ ] **ASTRO-03**: 12 בתים אסטרולוגיים עם פרשנות מפורטת בעברית — מוצג ב-UI
-- [ ] **ASTRO-04**: 7 אספקטים עם חוזק, צבע, משמעות מפורטת בעברית — מוצג ב-UI
+- [x] **ASTRO-01**: מילון 12 מזלות עם סמל, אלמנט, צבע, כוכב שולט, תיאור מפורט בעברית — מוצג ב-UI
+- [x] **ASTRO-02**: מילון 10 כוכבי לכת עם סמל, צבע, משמעות מפורטת בעברית — מוצג ב-UI
+- [x] **ASTRO-03**: 12 בתים אסטרולוגיים עם פרשנות מפורטת בעברית — מוצג ב-UI
+- [x] **ASTRO-04**: 7 אספקטים עם חוזק, צבע, משמעות מפורטת בעברית — מוצג ב-UI
 
 ## Dream Content
 - [ ] **DREAM-01**: מילון 10+ רגשות חלומות עם אימוג'ים ותיאורים בעברית — בחירה בטופס
@@ -29,10 +29,10 @@
 | TAROT-01 | Phase 18 | Complete |
 | TAROT-02 | Phase 18 | Complete |
 | TAROT-03 | Phase 18 | Complete |
-| ASTRO-01 | Phase 19 | Pending |
-| ASTRO-02 | Phase 19 | Pending |
-| ASTRO-03 | Phase 19 | Pending |
-| ASTRO-04 | Phase 19 | Pending |
+| ASTRO-01 | Phase 19 | Complete |
+| ASTRO-02 | Phase 19 | Complete |
+| ASTRO-03 | Phase 19 | Complete |
+| ASTRO-04 | Phase 19 | Complete |
 | DREAM-01 | Phase 20 | Pending |
 | BLOG-01 | Phase 20 | Pending |
 | BLOG-02 | Phase 20 | Pending |
