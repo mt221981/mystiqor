@@ -131,7 +131,7 @@ Plans:
 Plans:
 - [ ] 18-01-PLAN.md — DB migration (7 columns) + TypeScript types update + test scaffolds
 - [ ] 18-02-PLAN.md — Sync script (78 cards from TAROT_CARD_META to DB) + API route upgrade (spreadCount=10)
-- [ ] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
+- [x] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
 - [ ] 18-04-PLAN.md — Page wiring (integrate all components into tarot page) + visual verification
 **UI hint**: yes
 
@@ -182,7 +182,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | 15. Icons Migration | v1.1 | 0/3 | Not started | - |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
-| 18. Tarot Card Library | v1.2 | 0/4 | Not started | - |
+| 18. Tarot Card Library | v1.2 | 1/4 | In Progress|  |
 | 19. Astrology Knowledge Base | v1.2 | 0/0 | Not started | - |
 | 20. Dream & Blog Content | v1.2 | 0/0 | Not started | - |
 | 21. Prompt Enrichment & Soul | v1.2 | 0/0 | Not started | - |
