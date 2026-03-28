@@ -127,7 +127,12 @@ Plans:
   2. כל קלף מכיל שדות מטא: התאמה אסטרולוגית, ערך נומרולוגי, נתיב קבלה, ארכיטיפ, מילות מפתח upright ו-reversed
   3. 4 פריסות טארוט (קלף בודד, 3 קלפים, יחסים, צלב קלטי 10 עמדות) מוגדרות ופועלות בעמוד הטארוט
   4. משתמש שמבקש פריסת טארוט מקבל קלפים עם כל הדאטה העשירה (לא רק שם ומשמעות בסיסית)
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 18-01-PLAN.md — DB migration (7 columns) + TypeScript types update + test scaffolds
+- [ ] 18-02-PLAN.md — Sync script (78 cards from TAROT_CARD_META to DB) + API route upgrade (spreadCount=10)
+- [ ] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
+- [ ] 18-04-PLAN.md — Page wiring (integrate all components into tarot page) + visual verification
 **UI hint**: yes
 
 ### Phase 19: Astrology Knowledge Base
@@ -177,7 +182,7 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | 15. Icons Migration | v1.1 | 0/3 | Not started | - |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
-| 18. Tarot Card Library | v1.2 | 0/0 | Not started | - |
+| 18. Tarot Card Library | v1.2 | 0/4 | Not started | - |
 | 19. Astrology Knowledge Base | v1.2 | 0/0 | Not started | - |
 | 20. Dream & Blog Content | v1.2 | 0/0 | Not started | - |
 | 21. Prompt Enrichment & Soul | v1.2 | 0/0 | Not started | - |
