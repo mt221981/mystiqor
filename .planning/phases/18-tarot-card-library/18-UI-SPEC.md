@@ -57,11 +57,10 @@ Source: default 8-point scale; exceptions from TAROT-03 success criteria (4 spre
 |------|------|--------|-------------|------|-------|
 | Body | 14px | 400 (regular) | 1.5 | `font-body` (Heebo) | Card meaning text, meta descriptions, AI interpretation prose |
 | Label | 12px | 400 (regular) | 1.4 | `font-label` (Manrope) | Badge text, keyword chips, arcana/suit tags, position names |
-| Heading | 20px | 600 (semibold) | 1.2 | `font-headline` (Plus Jakarta Sans) | Card name (Hebrew), section titles, spread name |
+| Heading | 20px | 700 (bold) | 1.2 | `font-headline` (Plus Jakarta Sans) | Card name (Hebrew), section titles, spread name |
 | Display | 28px | 700 (bold) | 1.1 | `font-headline` (Plus Jakarta Sans) | Page title "טארוט", spread selector heading |
 
-Two weights in use: 400 regular + 600/700 semibold/bold.
-Note: 700 bold is used only for display-level text and the draw CTA; all other text uses 600 or 400.
+Two weights in use: 400 regular + 700 bold.
 
 Source: `tailwind.config.ts` fontFamily tokens + existing `tarot/page.tsx` patterns
 
@@ -89,6 +88,8 @@ Primary purple (`#ddb8ff` / `hsl(274 100% 86%)`) reserved for:
 - Card name text on nebula-glow card background
 - Section title text (`text-primary`)
 - Focus ring on interactive elements
+
+**Primary visual anchor:** "שלוף קלפים" CTA button (gold gradient + glow shadow) — primary eye-draw after page title.
 
 Source: `globals.css` dark mode variables + `tailwind.config.ts` MD3 tokens
 
