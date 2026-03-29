@@ -24,6 +24,19 @@
     --input: 240 5.9% 90%;
     --ring: 262 83% 58%;
     --radius: 0.75rem;
+
+    /* === סקאלת z-index גלובלית === */
+    --z-base: 0;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-header: 50;
+    --z-tabs: 40;
+    --z-floating: 60;
+    --z-panel: 55;
+    --z-overlay: 50;
+    --z-modal: 70;
+    --z-toast: 80;
+
     --chart-1: 262 83% 58%;
     --chart-2: 280 65% 60%;
     --chart-3: 200 70% 50%;
@@ -60,6 +73,19 @@
     --input: 258 25% 22%;              /* #352d55 */
     --ring: 274 100% 86%;              /* #ddb8ff */
     --radius: 0.75rem;
+
+    /* === סקאלת z-index גלובלית === */
+    --z-base: 0;
+    --z-dropdown: 10;
+    --z-sticky: 20;
+    --z-header: 50;
+    --z-tabs: 40;
+    --z-floating: 60;
+    --z-panel: 55;
+    --z-overlay: 50;
+    --z-modal: 70;
+    --z-toast: 80;
+
     --chart-1: 274 100% 86%;           /* #ddb8ff */
     --chart-2: 265 100% 53%;           /* #8f2de6 */
     --chart-3: 155 69% 59%;            /* #4edea3 */
@@ -332,4 +358,33 @@
   .print-only { display: block !important; }
   body { background: white !important; color: black !important; }
   nav, header, aside, footer { display: none !important; }
+}
+
+/* === נגישות: כיבוי אנימציות למשתמשים שמבקשים reduced-motion === */
+@media (prefers-reduced-motion: reduce) {
+  .stars-bg,
+  .aurora-bg,
+  .sparkle-float,
+  .sparkle-float::before,
+  .shimmer-border,
+  .shimmer-border::after {
+    animation: none !important;
+  }
+
+  .mystic-hover {
+    transition: none !important;
+  }
+
+  .mystic-hover:hover {
+    transform: none !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
