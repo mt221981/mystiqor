@@ -125,7 +125,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
             </div>
             <time
               dateTime={insight.insight_date}
-              className="shrink-0 text-sm font-label text-white/60"
+              className="shrink-0 text-sm font-label text-white/70"
             >
               {formatDate(insight.insight_date)}
             </time>

@@ -189,9 +189,9 @@ export function InsightHistoryList({ insights, isLoading }: InsightHistoryListPr
   if (insights.length === 0) {
     return (
       <motion.div {...animations.fadeIn} className="flex flex-col items-center justify-center py-10 text-center">
-        <Calendar className="mb-3 h-8 w-8 text-muted-foreground/50" aria-hidden="true" />
+        <Calendar className="mb-3 h-8 w-8 text-muted-foreground/80" aria-hidden="true" />
         <p className="text-sm text-muted-foreground">אין תובנות קודמות</p>
-        <p className="mt-1 text-xs text-muted-foreground/70">תובנות יומיות יצטברו כאן עם הזמן</p>
+        <p className="mt-1 text-xs text-muted-foreground/85">תובנות יומיות יצטברו כאן עם הזמן</p>
       </motion.div>
     );
   }

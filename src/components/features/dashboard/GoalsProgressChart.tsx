@@ -111,7 +111,7 @@ export function GoalsProgressChart({ data }: GoalsProgressChartProps) {
             aria-hidden="true"
           />
           <p className="text-sm text-muted-foreground">אין יעדים פעילים</p>
-          <p className="mt-1 text-xs text-muted-foreground/60">
+          <p className="mt-1 text-xs text-muted-foreground/80">
             הוסף יעדים בדף &quot;יעדים&quot; כדי לעקוב אחר ההתקדמות
           </p>
         </div>

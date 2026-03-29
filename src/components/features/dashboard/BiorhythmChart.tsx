@@ -206,7 +206,7 @@ export function BiorhythmChart({ birthDate }: BiorhythmChartProps) {
         </LineChart>
       </ResponsiveContainer>
 
-      <p className="mt-2 text-center text-xs text-muted-foreground/60">
+      <p className="mt-2 text-center text-xs text-muted-foreground/80">
         מעל הקו — אנרגיה גבוהה · מתחת — זמן למנוחה
       </p>
     </div>

@@ -190,7 +190,7 @@ export function JourneysPanel() {
       {journeys.length === 0 && !showFocusSelector ? (
         <div className="flex flex-col items-center gap-4 rounded-xl border border-outline-variant/10 bg-surface-container-high py-12 text-center">
           <p className="text-on-surface-variant">עדיין לא התחלת מסע.</p>
-          <p className="text-sm text-on-surface-variant/60 font-body">
+          <p className="text-sm text-on-surface-variant/80 font-body">
             בחר נושא ליצירת מסע אימון אישי!
           </p>
           <div className="flex flex-wrap justify-center gap-2 mt-2">

@@ -192,7 +192,7 @@ function CollapsibleSection({
         className={cn(
           'flex w-full items-center justify-between px-3 py-2',
           'text-xs font-semibold uppercase tracking-wider',
-          'text-gold-dim/70 hover:text-gold font-label',
+          'text-gold-dim/85 hover:text-gold font-label',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
@@ -271,7 +271,7 @@ function UsageBar() {
             aria-label="שימוש חודשי במנוי"
           />
         </div>
-        <p className="mt-1.5 text-xs text-on-surface-variant/60">
+        <p className="mt-1.5 text-xs text-on-surface-variant/80">
           מנוי פרימיום — שימוש בלתי מוגבל
         </p>
       </div>
@@ -295,7 +295,7 @@ function UsageBar() {
           aria-label="שימוש חודשי במנוי"
         />
       </div>
-      <p className="mt-1.5 text-xs text-gold-dim/60">
+      <p className="mt-1.5 text-xs text-gold-dim/85">
         שדרג לפרימיום לשימוש בלתי מוגבל
       </p>
     </div>

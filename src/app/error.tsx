@@ -75,7 +75,7 @@ export default function GlobalError({ error, reset }: ErrorPageProps) {
           אירעה שגיאה בלתי צפויה. ניתן לנסות שוב או לחזור לדף הבית.
         </p>
         {error.digest && (
-          <p className="text-xs text-muted-foreground/60">
+          <p className="text-xs text-muted-foreground/80">
             קוד שגיאה: {error.digest}
           </p>
         )}

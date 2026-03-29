@@ -54,7 +54,7 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
         <div className="bg-gradient-to-br from-primary-container to-secondary-container rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%]">
           <p className="text-white font-body text-sm leading-relaxed">{message.content}</p>
           {message.created_at && (
-            <p className="text-white/50 font-label text-xs mt-1">
+            <p className="text-white/70 font-label text-xs mt-1">
               {new Date(message.created_at).toLocaleTimeString('he-IL', {
                 hour: '2-digit',
                 minute: '2-digit',
@@ -81,7 +81,7 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
             </ReactMarkdown>
           </div>
           {message.created_at && (
-            <p className="text-on-surface-variant/50 font-label text-xs mt-1">
+            <p className="text-on-surface-variant/80 font-label text-xs mt-1">
               {new Date(message.created_at).toLocaleTimeString('he-IL', {
                 hour: '2-digit',
                 minute: '2-digit',

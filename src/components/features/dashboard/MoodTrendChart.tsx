@@ -68,7 +68,7 @@ export function MoodTrendChart({ data, period }: MoodTrendChartProps) {
           <p className="text-sm text-muted-foreground">
             אין נתוני מצב רוח לתקופה זו
           </p>
-          <p className="mt-1 text-xs text-muted-foreground/60">
+          <p className="mt-1 text-xs text-muted-foreground/80">
             עדכן מצב רוח ב&quot;מעקב&quot; כדי לראות מגמות
           </p>
         </div>
