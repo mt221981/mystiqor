@@ -3,8 +3,8 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: in_progress
-stopped_at: "Completed 01-HARDENING (Tasks 1+2 done, Task 3 deferred skip-db) — next: 02-03 Graphology + Drawing"
-last_updated: "2026-03-22T09:30:00.000Z"
+stopped_at: "Completed 19-02 מילון אסטרולוגי dictionary page — astrology knowledge base phase 19 complete"
+last_updated: "2026-03-29T00:35:00.000Z"
 progress:
   total_phases: 5
   completed_phases: 1
@@ -105,6 +105,9 @@ Recent decisions affecting current work:
 - [Hardening]: 003_schema_fixes.sql uses idempotent patterns (IF NOT EXISTS / OR REPLACE / DO blocks) — safe to reapply
 - [Hardening]: increment_usage() uses SELECT FOR UPDATE — prevents race conditions under concurrent subscription usage
 - [Hardening]: UsageRPCResultSchema replaces unsafe `as` type assertion — Zod safeParse for RPC result validation
+- [Phase 19-02]: Dictionary page uses 'use client' — required for shadcn Tabs interactive behavior
+- [Phase 19-02]: Reused existing GiAstrolabe icon in Sidebar — no duplicate import added
+- [Phase 19-02]: Tab defaultValue='signs' — zodiac signs as most common reference entry point
 
 ### Pending Todos
 
@@ -119,6 +122,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-22T09:30:00.000Z
-Stopped at: Infrastructure Hardening (01-HARDENING) — Tasks 1+2 done, Task 3 (apply DB migrations) deferred by user (skip-db). Next: 02-03 Graphology + Drawing.
+Last session: 2026-03-29T00:35:00.000Z
+Stopped at: Completed 19-02 (מילון אסטרולוגי dictionary page) — phase 19-astrology-knowledge-base fully delivered (19-01 display components + 19-02 dictionary page + sidebar nav).
 Resume file: None
