@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Completed 21-01-PLAN.md
-last_updated: "2026-03-29T10:17:05.954Z"
+stopped_at: Completed 21-03-PLAN.md
+last_updated: "2026-03-29T10:25:31.902Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 4
   completed_phases: 3
   total_plans: 13
-  completed_plans: 10
+  completed_plans: 11
   percent: 0
 ---
 
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 20 P02 | 7m38s | 2 tasks | 3 files |
 | Phase 20 P03 | 10min | 2 tasks | 1 files |
 | Phase 21-prompt-enrichment P01 | 8min | 2 tasks | 2 files |
+| Phase 21-prompt-enrichment P03 | 4min | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -84,6 +85,8 @@ Recent decisions affecting current work:
 - [Phase 21-prompt-enrichment]: PersonalContext helper: getPersonalContext(supabase, userId) returns firstName, zodiacSign, lifePathNumber with safe fallbacks — shared by all 21 enrichment routes
 - [Phase 21-prompt-enrichment]: ZODIAC_RANGES lives in personal-context.ts only — removed from daily-insights route (DRY)
 - [Phase 21-prompt-enrichment]: daily-insights systemPrompt uses Kabbalistic language (אור אין-סוף) + personal address (first name, zodiac, life path) as gold standard pattern for all routes
+- [Phase 21-prompt-enrichment]: coach/messages COACH_PERSONA constant left unchanged — personal identity appended to fullSystemPrompt after contextText block (Pitfall 5)
+- [Phase 21-prompt-enrichment]: personalLine pattern uses conditional guard on ctx.firstName — falls back to empty string for graceful degradation when profile lacks name
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T10:17:05.951Z
-Stopped at: Completed 21-01-PLAN.md
+Last session: 2026-03-29T10:25:31.900Z
+Stopped at: Completed 21-03-PLAN.md
 Resume file: None
