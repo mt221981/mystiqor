@@ -4,7 +4,7 @@ milestone: v1.1
 milestone_name: UI Polish
 status: executing
 stopped_at: Completed 20-03-PLAN.md — blog detail page /learn/blog/[slug] with ReactMarkdown + human-verified
-last_updated: "2026-03-29T08:28:15.305Z"
+last_updated: "2026-03-29T09:00:26.156Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 4
@@ -25,7 +25,7 @@ See: .planning/PROJECT.md (updated 2026-03-25)
 
 ## Current Position
 
-Phase: 20
+Phase: 21
 Plan: Not started
 Status: Executing Phase 19
 Last activity: 2026-03-29
