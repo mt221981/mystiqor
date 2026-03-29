@@ -209,7 +209,7 @@ Plans:
   4. טוקן `--z-floating: 60` מוגדר ב-globals.css ויכול להיות מיובא על-ידי כל קומפוננט חדש בלי לנחש מספרים
 **Plans**: 2 plans
 Plans:
-- [ ] 22-01-PLAN.md — Z-index CSS custom properties + prefers-reduced-motion + component migration
+- [x] 22-01-PLAN.md — Z-index CSS custom properties + prefers-reduced-motion + component migration
 - [ ] 22-02-PLAN.md — Text opacity contrast audit and fix across 38 component files
 **UI hint**: yes
 
@@ -266,7 +266,7 @@ Phases execute in numeric order: 13 → 14 → 15 → 16 → 17 → 18 → 19 �
 | 19. Astrology Knowledge Base | v1.2 | 2/2 | Complete | 2026-03-29 |
 | 20. Dream & Blog Content | v1.2 | 3/3 | Complete | 2026-03-29 |
 | 21. Prompt Enrichment & Soul | v1.2 | 4/4 | Complete | 2026-03-29 |
-| 22. Accessibility Foundation | v1.3 | 0/2 | Planned | - |
+| 22. Accessibility Foundation | v1.3 | 1/2 | In Progress|  |
 | 23. Floating Coach & Bottom Tabs | v1.3 | 0/0 | Not started | - |
 | 24. Atmospheric Depth Sweep | v1.3 | 0/0 | Not started | - |
 | 25. Coach Intelligence & Sidebar Polish | v1.3 | 0/0 | Not started | - |

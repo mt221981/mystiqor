@@ -8,8 +8,8 @@
 ### ניגודיות וקריאות (Contrast)
 - [ ] **CONTRAST-01**: כל טקסט משני (variant, muted) קריא על רקע כהה עם יחס ניגודיות WCAG AA (4.5:1 לפחות)
 - [ ] **CONTRAST-02**: כותרות ותוצאות חשובות מציגות זוהר טקסט (text-shadow) סגול/זהב שנותן תחושה שהטקסט "מאיר"
-- [ ] **CONTRAST-03**: משתמשים שמבקשים prefers-reduced-motion מקבלים חוויה ללא אנימציות
-- [ ] **CONTRAST-04**: סקאלת z-index גלובלית מוגדרת (header, nav, floating chat, modals) למניעת התנגשויות
+- [x] **CONTRAST-03**: משתמשים שמבקשים prefers-reduced-motion מקבלים חוויה ללא אנימציות
+- [x] **CONTRAST-04**: סקאלת z-index גלובלית מוגדרת (header, nav, floating chat, modals) למניעת התנגשויות
 
 ### אווירה מיסטית (Atmosphere)
 - [ ] **ATMOS-01**: כל עמוד כלי מציג כותרת מיסטית אחידה (StandardSectionHeader) עם סמל, זוהר, וכתובית בעברית
@@ -57,8 +57,8 @@
 |-----|-------|--------|
 | CONTRAST-01 | Phase 22 | Pending |
 | CONTRAST-02 | Phase 24 | Pending |
-| CONTRAST-03 | Phase 22 | Pending |
-| CONTRAST-04 | Phase 22 | Pending |
+| CONTRAST-03 | Phase 22 | Complete |
+| CONTRAST-04 | Phase 22 | Complete |
 | ATMOS-01 | Phase 24 | Pending |
 | ATMOS-02 | Phase 24 | Pending |
 | ATMOS-03 | Phase 24 | Pending |

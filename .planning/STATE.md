@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: planning
-stopped_at: Phase 22 context gathered
-last_updated: "2026-03-29T19:31:38.676Z"
+stopped_at: Completed 22-01-PLAN.md
+last_updated: "2026-03-29T19:53:56.108Z"
 last_activity: 2026-03-29 — v1.3 roadmap created, 4 phases mapped (22-25), 15/15 requirements covered
 progress:
-  total_phases: 13
-  completed_phases: 6
-  total_plans: 18
-  completed_plans: 18
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 2
+  completed_plans: 1
   percent: 0
 ---
 
@@ -55,6 +55,7 @@ Progress: [░░░░░░░░░░] 0% (v1.3)
 - Trend: Stable
 
 *Updated after each plan completion*
+| Phase 22 P01 | 3 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -70,6 +71,8 @@ Recent decisions affecting current work:
 - [v1.3 Research]: Zero new npm packages needed — framer-motion, Zustand, ReactDOM.createPortal all installed
 - [v1.3 Research]: Fix opacity-modified tokens only (text-gold-dim/60, text-on-surface-variant/60) — do NOT change base token values (affects 50+ sites)
 - [Phase 21]: birth-chart enrichedSystemPrompt wraps INTERPRETATION_SYSTEM_PROMPT at route level — constant preserved
+- [Phase 22]: Used inline style z-index with CSS variables instead of Tailwind arbitrary values for cross-browser reliability
+- [Phase 22]: Z-index custom properties added to both :root and .dark blocks — values identical, theme-agnostic
 
 ### Pending Todos
 
@@ -83,6 +86,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T19:31:38.673Z
-Stopped at: Phase 22 context gathered
-Resume file: .planning/phases/22-accessibility-foundation/22-CONTEXT.md
+Last session: 2026-03-29T19:53:56.106Z
+Stopped at: Completed 22-01-PLAN.md
+Resume file: None
