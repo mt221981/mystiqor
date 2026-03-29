@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import { buildDrawingAnalysisPrompt } from '@/services/drawing/analysis'
 import { DrawingResponseSchema, type DrawingResponse } from '@/services/analysis/response-schemas/drawing'
 import type { TablesInsert } from '@/types/database'
@@ -84,12 +85,19 @@ export async function POST(request: NextRequest) {
 
     const { imageUrl, drawingType } = parsed.data
 
+    // שליפת הקשר האישי לבניית systemPrompt (היה חסר לחלוטין ב-route זה)
+    const ctx = await getPersonalContext(supabase, user.id)
+    const drawingSystemPrompt = ctx.firstName
+      ? `אתה מנתח ציורים מומחה. פנה אל ${ctx.firstName} (מספר חיים ${ctx.lifePathNumber}) בשמו. ענה בעברית.`
+      : 'אתה מנתח ציורים מומחה. ענה בעברית.'
+
     // בניית פרומפט ניתוח ציור
     const drawingPrompt = buildDrawingAnalysisPrompt('ניתח את הציור', {})
 
     // ניתוח הציור עם LLM Vision (GPT-4o) — imageUrls מפעיל מצב vision
     const llmResponse = await invokeLLM<DrawingResponse>({
       userId: user.id,
+      systemPrompt: drawingSystemPrompt,
       imageUrls: [imageUrl],
       prompt: drawingPrompt,
       responseSchema: DRAWING_RESPONSE_SCHEMA,

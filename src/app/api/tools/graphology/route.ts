@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import { GraphologyResponseSchema, type GraphologyResponse } from '@/services/analysis/response-schemas/graphology'
 import type { TablesInsert } from '@/types/database'
 
@@ -81,12 +82,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // שליפת הקשר האישי להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+    const personalLine = ctx.firstName
+      ? `פנה ישירות אל ${ctx.firstName} (מזל ${ctx.zodiacSign}). `
+      : ''
+
     // ניתוח כתב היד עם LLM Vision (GPT-4o)
     // maxTokens: 8000 — גרפולוגיה דורשת יותר טוקנים מכלים אחרים (9 מרכיבים + תובנות + הערכה)
     const llmResponse = await invokeLLM<GraphologyResponse>({
       userId: user.id,
       imageUrls: [parsed.data.imageUrl],
-      systemPrompt: `אתה מומחה גרפולוגי ברמה עולמית עם 25+ שנות ניסיון בניתוח כתב יד.
+      systemPrompt: personalLine + `אתה מומחה גרפולוגי ברמה עולמית עם 25+ שנות ניסיון בניתוח כתב יד.
 נתח את דגימת כתב היד בתמונה ופרט את הממצאים לפי 9 מרכיבים גרפולוגיים עיקריים:
 
 1. לחץ (Pressure) — עוצמת לחץ העט/עיפרון, עקביות, שינויים

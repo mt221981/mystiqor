@@ -8,6 +8,7 @@
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { invokeLLM } from '@/services/analysis/llm';
+import { getPersonalContext } from '@/services/analysis/personal-context';
 import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { TablesInsert } from '@/types/database';
 
@@ -52,9 +53,15 @@ export async function POST(request: Request) {
 
     const { birthDate, birthTime, birthPlace } = parsed.data;
 
+    // שליפת הקשר האישי להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id);
+    const personalLine = ctx.firstName
+      ? `פנה ישירות אל ${ctx.firstName} — מספר חיים ${ctx.lifePathNumber}. `
+      : '';
+
     // קריאת LLM לסימולציית Human Design
     const llmResponse = await invokeLLM<HDResult>({
-      systemPrompt: `אתה מומחה Human Design. בהינתן תאריך, שעה ומקום לידה, ספק ניתוח Human Design מפורט.
+      systemPrompt: personalLine + `אתה מומחה Human Design. בהינתן תאריך, שעה ומקום לידה, ספק ניתוח Human Design מפורט.
 החזר JSON בלבד: { type: 'Generator'|'Manifesting Generator'|'Projector'|'Manifestor'|'Reflector', profile: string, authority: string, strategy: string, definedCenters: string[], undefinedCenters: string[], openCenters: string[], channels: string[], gates: string[], description: string, strengths: string[], challenges: string[], disclosure: string }.
 שים disclosure: 'ניתוח זה מבוסס על סימולציה ולא חישוב אסטרונומי מדויק — לניתוח HD מדויק יש לפנות למומחה.'`,
       prompt: `תאריך לידה: ${birthDate}, שעה: ${birthTime}, מקום: ${birthPlace}`,

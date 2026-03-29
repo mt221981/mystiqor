@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 
 // ===== קבועים =====
@@ -130,12 +131,18 @@ export async function POST(request: NextRequest) {
     const { data: publicUrlData } = supabase.storage.from('uploads').getPublicUrl(fileName)
     const storageUrl = publicUrlData.publicUrl
 
+    // שליפת הקשר האישי להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+    const personalLine = ctx.firstName
+      ? `פנה ישירות אל ${ctx.firstName}. `
+      : ''
+
     // בניית פרומפט המערכת
     const contextStr = contextParsed.data
       ? `\nהקשר נוסף שהמשתמש סיפק: ${contextParsed.data}`
       : ''
 
-    const systemPrompt = `אתה מנתח מסמכים מומחה. נתח את המסמך בתמונה וחלץ תובנות, נקודות מפתח ופעולות מומלצות.
+    const systemPrompt = personalLine + `אתה מנתח מסמכים מומחה. נתח את המסמך בתמונה וחלץ תובנות, נקודות מפתח ופעולות מומלצות.
 ${contextStr}
 
 הנחיות לניתוח:
