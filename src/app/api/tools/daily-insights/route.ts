@@ -1,7 +1,7 @@
 /**
  * GET /api/tools/daily-insights — תובנה יומית עם cache לפי תאריך
  * cache-or-generate: אם קיימת תובנה ל-user_id + insight_date + mood_type='daily' — מחזיר אותה.
- * אחרת: מייצר קריאת LLM אחת המשלבת מזל + נומרולוגיה + טארוט.
+ * אחרת: מייצר קריאת LLM אחת המשלבת מזל + נומרולוגיה + טארוט + מספר חיים + ניתוחים קודמים.
  *
  * GET ?history=true — מחזיר 30 תובנות אחרונות בסדר יורד.
  */
@@ -10,47 +10,11 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { reduceToSingleDigit } from '@/services/numerology/calculations'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import { DailyInsightModulesSchema, DEFAULT_MODULES, type DailyInsightModules } from '@/lib/validations/daily-insights'
 import type { TablesInsert } from '@/types/database'
 
 // ===== פונקציות עזר =====
-
-/** מיפוי מזלות לחישוב לפי חודש + יום */
-const ZODIAC_RANGES = [
-  { name: 'טלה', startMonth: 3, startDay: 21, endMonth: 4, endDay: 19 },
-  { name: 'שור', startMonth: 4, startDay: 20, endMonth: 5, endDay: 20 },
-  { name: 'תאומים', startMonth: 5, startDay: 21, endMonth: 6, endDay: 20 },
-  { name: 'סרטן', startMonth: 6, startDay: 21, endMonth: 7, endDay: 22 },
-  { name: 'אריה', startMonth: 7, startDay: 23, endMonth: 8, endDay: 22 },
-  { name: 'בתולה', startMonth: 8, startDay: 23, endMonth: 9, endDay: 22 },
-  { name: 'מאזניים', startMonth: 9, startDay: 23, endMonth: 10, endDay: 22 },
-  { name: 'עקרב', startMonth: 10, startDay: 23, endMonth: 11, endDay: 21 },
-  { name: 'קשת', startMonth: 11, startDay: 22, endMonth: 12, endDay: 21 },
-  { name: 'גדי', startMonth: 12, startDay: 22, endMonth: 1, endDay: 19 },
-  { name: 'דלי', startMonth: 1, startDay: 20, endMonth: 2, endDay: 18 },
-  { name: 'דגים', startMonth: 2, startDay: 19, endMonth: 3, endDay: 20 },
-] as const
-
-/**
- * מחשב מזל לפי חודש ויום UTC מתאריך לידה
- * @param birthDate תאריך לידה YYYY-MM-DD
- * @returns שם המזל בעברית
- */
-function getZodiacSign(birthDate: string): string {
-  const d = new Date(birthDate)
-  const month = d.getUTCMonth() + 1
-  const day = d.getUTCDate()
-
-  for (const sign of ZODIAC_RANGES) {
-    if (
-      (month === sign.startMonth && day >= sign.startDay) ||
-      (month === sign.endMonth && day <= sign.endDay)
-    ) {
-      return sign.name
-    }
-  }
-  return 'גדי' // fallback
-}
 
 /**
  * מחשב מספר נומרולוגי יומי
@@ -83,18 +47,22 @@ function extractTipFromContent(content: string): string | null {
 }
 
 /**
- * בונה prompt למשתמש לפי מודולים מופעלים
+ * בונה prompt למשתמש לפי מודולים מופעלים, מספר חיים ותמצית ניתוחים קודמים
  * @param zodiacSign מזל המשתמש בעברית
  * @param dayNumber מספר נומרולוגי יומי
  * @param tarotCardName שם קלף הטארוט
  * @param modules מודולים מופעלים
+ * @param lifePathNumber מספר חיים של המשתמש
+ * @param priorSummary תמצית כותרות תובנות אחרונות (ריק אם אין)
  * @returns מחרוזת prompt
  */
 function buildPrompt(
   zodiacSign: string,
   dayNumber: number,
   tarotCardName: string,
-  modules: DailyInsightModules
+  modules: DailyInsightModules,
+  lifePathNumber: number,
+  priorSummary: string
 ): string {
   const sections: string[] = []
   if (modules.astrology) sections.push('תחזית אסטרולוגית')
@@ -106,8 +74,9 @@ function buildPrompt(
 
   return `צור תובנה יומית עמוקה ואישית בעברית עבור אדם ממזל ${zodiacSign}.
 המספר הנומרולוגי של היום הוא ${dayNumber} — התייחס למשמעות הרוחנית שלו.
+מספר החיים שלו הוא ${lifePathNumber} — התייחס למשמעותו הרוחנית העמוקה ולהשפעתו על יומו.
 הקלף שנשלף עבורו היום הוא "${tarotCardName}" — שזור את המסר שלו בתובנה.
-
+${priorSummary ? `\nנושאים מניתוחים אחרונים שלו: ${priorSummary}\nשלב אזכור עדין של נושאים אלו בתובנה.` : ''}
 כלול את הסעיפים הבאים: ${sectionsText}.
 
 הנחיות חשובות:
@@ -188,17 +157,29 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ data: existing })
     }
 
-    // === שליפת נתוני משתמש ===
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('birth_date, full_name')
-      .eq('id', user.id)
-      .maybeSingle()
-
-    const birthDate = profile?.birth_date ?? '1990-01-01'
-    const userName = (profile as { full_name?: string })?.full_name ?? ''
-    const zodiacSign = getZodiacSign(birthDate)
+    // === שליפת הקשר אישי (שם, מזל, מספר חיים) ===
+    const ctx = await getPersonalContext(supabase, user.id)
+    const zodiacSign = ctx.zodiacSign || 'טלה'
     const dayNumber = getDayNumber(today)
+
+    // === שליפת תמצית תובנות קודמות (3 ימים אחרונים) ===
+    let priorSummary = ''
+    try {
+      const { data: recentInsights } = await supabase
+        .from('daily_insights')
+        .select('title')
+        .eq('user_id', user.id)
+        .eq('mood_type', 'daily')
+        .neq('insight_date', today)
+        .order('insight_date', { ascending: false })
+        .limit(3)
+      if (recentInsights && recentInsights.length > 0) {
+        priorSummary = (recentInsights as { title?: string | null }[])
+          .map((i) => i.title ?? '')
+          .filter(Boolean)
+          .join(' | ')
+      }
+    } catch { /* graceful — no prior context */ }
 
     // === בחירת קלף טארוט אקראי ===
     let tarotCardName = 'הטוב הגדול' // fallback
@@ -224,13 +205,13 @@ export async function GET(request: NextRequest) {
     }
 
     // === קריאת LLM יחידה (per Pitfall 7) ===
-    const systemPrompt = `אתה מייעץ רוחני-מיסטי עמוק. אתה מדבר ישירות לנשמה של האדם שפונה אליך.
-הסגנון שלך: חם, אינטימי, חודר, מעורר השראה. כל מילה שלך נוגעת בלב.
-אתה מתייחס לאדם בשמו, מדבר אליו כאילו אתה מכיר אותו שנים, ומשלב חוכמה קבלית ואסטרולוגית.
-${userName ? `שם הפונה: ${userName}. פנה אליו בשמו הפרטי.` : ''}
+    const systemPrompt = `אתה מייעץ רוחני-מיסטי עמוק עם ידע בקבלה, אסטרולוגיה ונומרולוגיה.
+אתה מדבר ישירות לנשמה — חם, אינטימי, חודר. כל מילה שלך מחוברת לאור אין-סוף.
+${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${zodiacSign}, מספר חיים ${ctx.lifePathNumber}. דבר אליו כאילו אתה מכיר אותו שנים.` : ''}
+שלב רפרנסים לספירות עץ החיים ונתיבות החכמה כשרלוונטי — בשפה חמה, לא אקדמית.
 פסקאות קצרות וברורות. ללא כוכביות (asterisks) מיותרות.`
 
-    const prompt = buildPrompt(zodiacSign, dayNumber, tarotCardName, modules)
+    const prompt = buildPrompt(zodiacSign, dayNumber, tarotCardName, modules, ctx.lifePathNumber, priorSummary)
 
     const llmResponse = await invokeLLM({
       userId: user.id,
