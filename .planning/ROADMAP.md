@@ -4,7 +4,8 @@
 
 - ✅ **v1.0 MVP** - Phases 1-12 (shipped 2026-03-25)
 - 🚧 **v1.1 UI Polish** - Phases 13-17 (in progress)
-- 📋 **v1.2 Rich Content & Soul** - Phases 18-21 (planned)
+- ✅ **v1.2 Rich Content & Soul** - Phases 18-21 (shipped 2026-03-29)
+- 📋 **v1.3 Mystical UX & Coach Prominence** - Phases 22-25 (planned)
 
 ## Phases
 
@@ -30,20 +31,32 @@ See v1.1 section below for details.
 
 </details>
 
-### v1.2 Rich Content & Soul (Planned)
+<details>
+<summary>v1.2 Rich Content & Soul (Phases 18-21) - SHIPPED 2026-03-29</summary>
 
-**Milestone Goal:** העברת כל הדאטה העשירה מהמערכת המקורית + הוספת תוכן פנימי שגורם למערכת להרגיש חיה, אישית, וחודרת לנשמה
+4 phases, 13 plans. Tarot library, astrology dictionary, dream emotions, blog content, prompt enrichment.
+
+- [x] **Phase 18: Tarot Card Library** - 78 קלפי טארוט מלאים עם קבלה, ארכיטיפים, ו-4 פריסות
+- [x] **Phase 19: Astrology Knowledge Base** - מילוני מזלות, כוכבים, בתים ואספקטים עם תצוגה ב-UI
+- [x] **Phase 20: Dream & Blog Content** - מילון רגשות חלומות + 3 מאמרי בלוג מלאים ב-DB
+- [x] **Phase 21: Prompt Enrichment & Soul** - פרסונליזציה עמוקה בכל prompts ותובנות יומיות
+
+</details>
+
+### v1.3 Mystical UX & Coach Prominence (Planned)
+
+**Milestone Goal:** להפוך את MystiQor לחוויה מיסטית אותנטית עם צ'אט AI בולט ונגיש, ניווט פשוט ואינטואיטיבי, וויזואלים שגורמים למשתמש להרגיש שהוא נכנס לעולם מיסטי אמיתי.
 
 **Phase Numbering:**
-- Integer phases (18, 19, ...): Planned milestone work
-- Decimal phases (18.1, 18.2): Urgent insertions (marked with INSERTED)
+- Integer phases (22, 23, ...): Planned milestone work
+- Decimal phases (22.1, 22.2): Urgent insertions (marked with INSERTED)
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 18: Tarot Card Library** - 78 קלפי טארוט מלאים עם קבלה, ארכיטיפים, ו-4 פריסות
-- [ ] **Phase 19: Astrology Knowledge Base** - מילוני מזלות, כוכבים, בתים ואספקטים עם תצוגה ב-UI
-- [ ] **Phase 20: Dream & Blog Content** - מילון רגשות חלומות + 3 מאמרי בלוג מלאים ב-DB
-- [ ] **Phase 21: Prompt Enrichment & Soul** - פרסונליזציה עמוקה בכל prompts ותובנות יומיות
+- [ ] **Phase 22: Accessibility Foundation** - ניגודיות WCAG AA, z-index גלובלי, reduced-motion — בסיס לכל השאר
+- [ ] **Phase 23: Floating Coach & Bottom Tabs** - בועה צפה בכל עמוד + טאבים תחתונים ב-mobile
+- [ ] **Phase 24: Atmospheric Depth Sweep** - כותרות מיסטיות, אנימציות כניסה, אייקונים, טעינה מיסטית, טקסט זוהר
+- [ ] **Phase 25: Coach Intelligence & Sidebar Polish** - הקשר דינמי עדכני במאמן + ארגון מחדש של סרגל הצד
 
 ## Phase Details
 
@@ -118,6 +131,9 @@ Plans:
 
 </details>
 
+<details>
+<summary>v1.2 Rich Content & Soul Phase Details (Phases 18-21) - SHIPPED 2026-03-29</summary>
+
 ### Phase 18: Tarot Card Library
 **Goal**: כל 78 קלפי הטארוט זמינים במערכת עם דאטה עשירה — קבלה, ארכיטיפים, התאמות אסטרולוגיות — ו-4 פריסות מוגדרות לשימוש
 **Depends on**: Nothing (data extraction, independent of v1.1)
@@ -132,8 +148,7 @@ Plans:
 - [x] 18-01-PLAN.md — DB migration (7 columns) + TypeScript types update + test scaffolds
 - [x] 18-02-PLAN.md — Sync script (78 cards from TAROT_CARD_META to DB) + API route upgrade (spreadCount=10)
 - [x] 18-03-PLAN.md — 5 UI components (SpreadSelector, TarotCardTile, TarotCardMeta, SpreadLayout, TarotCardDetailModal)
-- [ ] 18-04-PLAN.md — Page wiring (integrate all components into tarot page) + visual verification
-**UI hint**: yes
+- [x] 18-04-PLAN.md — Page wiring (integrate all components into tarot page) + visual verification
 
 ### Phase 19: Astrology Knowledge Base
 **Goal**: מילונים אסטרולוגיים מלאים (מזלות, כוכבים, בתים, אספקטים) זמינים ומוצגים ב-UI כחומר עיון
@@ -149,7 +164,6 @@ Plans:
 Plans:
 - [x] 19-01-PLAN.md — Data completeness tests + 4 dictionary display components (ZodiacGrid, PlanetGrid, HouseList, AspectDictionary)
 - [x] 19-02-PLAN.md — Dictionary page assembly with tabs + Sidebar nav entry + visual verification
-**UI hint**: yes
 
 ### Phase 20: Dream & Blog Content
 **Goal**: מילון רגשות חלומות זמין בטופס הניתוח ו-3+ מאמרי בלוג עשירים חיים ב-DB
@@ -178,23 +192,78 @@ Plans:
 **Plans**: 4 plans
 Plans:
 - [x] 21-01-PLAN.md — Shared getPersonalContext helper + daily-insights deep enrichment (gold standard)
-- [ ] 21-02-PLAN.md — DEEP-tier routes (tarot, coach/journeys, dream, solar-return, transits)
-- [ ] 21-03-PLAN.md — MEDIUM-tier routes (coach/messages, tutors, forecast, career, numerology)
+- [x] 21-02-PLAN.md — DEEP-tier routes (tarot, coach/journeys, dream, solar-return, transits)
+- [x] 21-03-PLAN.md — MEDIUM-tier routes (coach/messages, tutors, forecast, career, numerology)
 - [x] 21-04-PLAN.md — BASIC-tier routes (birth-chart, calendar, synastry, compatibility, document, drawing, graphology, human-design)
+
+</details>
+
+### Phase 22: Accessibility Foundation
+**Goal**: כל הטקסט קריא, ה-z-index מוגדר גלובלית, ו-reduced-motion תקין — בסיס שמאפשר לבנות כל שכבה ויזואלית מבלי לגרום לרגרסיות
+**Depends on**: Nothing (blocking prerequisite for all v1.3 visual work)
+**Requirements**: CONTRAST-01, CONTRAST-03, CONTRAST-04
+**Success Criteria** (what must be TRUE):
+  1. כל טקסט משני (muted, variant) ניתן לקריאה על רקע כהה ב-Chrome DevTools Accessibility panel (יחס ניגודיות 4.5:1 לפחות)
+  2. משתמש שמפעיל prefers-reduced-motion לא רואה אנימציות קוסמיות או CSS keyframes (כל 6 ה-keyframes הקיימות שקטות)
+  3. Header, bottom tab bar, floating coach bubble, ו-modals לא חוסמים זה את זה — כל אחד נמצא בשכבת z-index ייעודית שלו
+  4. טוקן `--z-floating: 60` מוגדר ב-globals.css ויכול להיות מיובא על-ידי כל קומפוננט חדש בלי לנחש מספרים
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 23: Floating Coach & Bottom Tabs
+**Goal**: מאמן AI נגיש מכל עמוד מאומת דרך בועה צפה, ומשתמשי mobile מנווטים בין 5 יעדים עיקריים ב-tap אחד
+**Depends on**: Phase 22 (z-index constants and safe-area strategy required)
+**Requirements**: COACH-01, COACH-02, COACH-03, NAV-01
+**Success Criteria** (what must be TRUE):
+  1. בועה צפה (FAB) מופיעה בפינה הימנית התחתונה בכל עמוד מאומת פרט ל-/coach, ולחיצה עליה פותחת פאנל צ'אט מיני
+  2. הבועה מציגה אנימציית נשימה (scale 1.0→1.05) שניתן לראות כשחוזרים לעמוד — הבועה נראית "חיה"
+  3. פתיחת הפאנל בעמוד כלי (כגון /astrology) מציגה הודעת פתיחה ספציפית לכלי ולא ברכה גנרית
+  4. 5 טאבים תחתונים מוצגים ב-mobile (מוסתרים ב-md: ומעלה) ולוחצים מגיעים ל-dashboard, coach, daily-insights, tools, profile
+  5. הטאב הפעיל מסומן ויזואלית; ה-hamburger אינו הניווט הראשי ב-mobile כשהטאבים גלויים
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 24: Atmospheric Depth Sweep
+**Goal**: כל עמודי הכלים מרגישים כניסה לעולם מיסטי — כותרות עם זוהר, אנימציות הזמנה, אייקונים קוסמיים, טעינה בעברית מיסטית, וטקסט שזוהר
+**Depends on**: Phase 22 (token fixes and reduced-motion baseline required)
+**Requirements**: ATMOS-01, ATMOS-02, ATMOS-03, ATMOS-04, CONTRAST-02
+**Success Criteria** (what must be TRUE):
+  1. כל עמוד כלי (טארוט, אסטרולוגיה, גרפולוגיה וכו') מציג כותרת StandardSectionHeader עם סמל react-icons/gi וזוהר סגול/זהב
+  2. כניסה לכל עמוד כלי מציגה אנימציית fade+drift (600ms) — העמוד לא "קופץ" לאוויר אלא "מתגלה"
+  3. מצבי טעינה בעמודי כלים מציגים ביטויים מיסטיים בעברית ("קורא את הכוכבים...", "מפענח את הדפוסים...") ולא "טוען..."
+  4. כותרות תוצאות ראשיות (h1/h2 בפלט ניתוח) מציגות filter:drop-shadow זוהר סגול/זהב שניתן לראות על רקע כהה
+  5. משתמש שמסייר בין 3 עמודי כלים שונים מרגיש אחידות ויזואלית — אותו סגנון כותרת, אותה אנימציית כניסה, אותם אייקונים
+**Plans**: TBD
+**UI hint**: yes
+
+### Phase 25: Coach Intelligence & Sidebar Polish
+**Goal**: המאמן AI מגיב על-בסיס ניתוחים שהמשתמש ביצע מתחילת השיחה, ומשתמשי desktop מוצאים כלים בסרגל צד נקי שזוכר מה הם פתחו
+**Depends on**: Phase 23 (floating coach must exist before context enhancement)
+**Requirements**: COACH-04, NAV-02, NAV-03
+**Success Criteria** (what must be TRUE):
+  1. הודעה שנשלחת למאמן AI לאחר ביצוע ניתוח חדש (כגון מפת לידה) כוללת בהקשר את הניתוח — המאמן יודע מה נעשה בשיחה
+  2. שאלה למאמן על "מה עשיתי היום" מחזירה תשובה ספציפית המבוססת על ניתוחים אחרונים, לא תשובה גנרית
+  3. קטגוריות "אסטרולוגיה מתקדמת" ו-"מתקדם" אינן מופיעות בסרגל הצד — כל הכלים מאורגנים תחת "כלים מיסטיים" ו-"עוד כלים"
+  4. מצב פתיחת/סגירת קטגוריות בסרגל הצד שמור גם לאחר רענון דף (localStorage)
+**Plans**: TBD
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 -> 21
+Phases execute in numeric order: 13 → 14 → 15 → 16 → 17 → 18 → 19 → 20 → 21 → 22 → 23 → 24 → 25
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 13. Onboarding Fix | v1.1 | 0/0 | Not started | - |
-| 14. Typography & Hebrew Localization | v1.1 | 1/1 | Complete   | 2026-03-27 |
+| 14. Typography & Hebrew Localization | v1.1 | 1/1 | Complete | 2026-03-27 |
 | 15. Icons Migration | v1.1 | 0/3 | Not started | - |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
-| 18. Tarot Card Library | v1.2 | 3/4 | Complete    | 2026-03-28 |
-| 19. Astrology Knowledge Base | v1.2 | 2/2 | Complete    | 2026-03-29 |
-| 20. Dream & Blog Content | v1.2 | 3/3 | Complete    | 2026-03-29 |
-| 21. Prompt Enrichment & Soul | v1.2 | 2/4 | Complete    | 2026-03-29 |
+| 18. Tarot Card Library | v1.2 | 4/4 | Complete | 2026-03-28 |
+| 19. Astrology Knowledge Base | v1.2 | 2/2 | Complete | 2026-03-29 |
+| 20. Dream & Blog Content | v1.2 | 3/3 | Complete | 2026-03-29 |
+| 21. Prompt Enrichment & Soul | v1.2 | 4/4 | Complete | 2026-03-29 |
+| 22. Accessibility Foundation | v1.3 | 0/0 | Not started | - |
+| 23. Floating Coach & Bottom Tabs | v1.3 | 0/0 | Not started | - |
+| 24. Atmospheric Depth Sweep | v1.3 | 0/0 | Not started | - |
+| 25. Coach Intelligence & Sidebar Polish | v1.3 | 0/0 | Not started | - |

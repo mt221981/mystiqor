@@ -55,27 +55,27 @@
 
 | REQ | Phase | Status |
 |-----|-------|--------|
-| CONTRAST-01 | — | Pending |
-| CONTRAST-02 | — | Pending |
-| CONTRAST-03 | — | Pending |
-| CONTRAST-04 | — | Pending |
-| ATMOS-01 | — | Pending |
-| ATMOS-02 | — | Pending |
-| ATMOS-03 | — | Pending |
-| ATMOS-04 | — | Pending |
-| COACH-01 | — | Pending |
-| COACH-02 | — | Pending |
-| COACH-03 | — | Pending |
-| COACH-04 | — | Pending |
-| NAV-01 | — | Pending |
-| NAV-02 | — | Pending |
-| NAV-03 | — | Pending |
+| CONTRAST-01 | Phase 22 | Pending |
+| CONTRAST-02 | Phase 24 | Pending |
+| CONTRAST-03 | Phase 22 | Pending |
+| CONTRAST-04 | Phase 22 | Pending |
+| ATMOS-01 | Phase 24 | Pending |
+| ATMOS-02 | Phase 24 | Pending |
+| ATMOS-03 | Phase 24 | Pending |
+| ATMOS-04 | Phase 24 | Pending |
+| COACH-01 | Phase 23 | Pending |
+| COACH-02 | Phase 23 | Pending |
+| COACH-03 | Phase 23 | Pending |
+| COACH-04 | Phase 25 | Pending |
+| NAV-01 | Phase 23 | Pending |
+| NAV-02 | Phase 25 | Pending |
+| NAV-03 | Phase 25 | Pending |
 
 **Coverage:**
 - v1.3 requirements: 15 total
-- Mapped to phases: 0
-- Unmapped: 15 ⚠️
+- Mapped to phases: 15
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-03-29*
-*Last updated: 2026-03-29 after initial definition*
+*Last updated: 2026-03-29 — traceability mapped to Phases 22-25*

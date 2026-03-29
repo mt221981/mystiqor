@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Mystical UX & Coach Prominence
-status: defining-requirements
+status: ready-to-plan
 stopped_at: null
 last_updated: "2026-03-29"
 last_activity: 2026-03-29
 progress:
-  total_phases: 0
+  total_phases: 4
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,43 +21,38 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Milestone v1.3 — defining requirements
+**Current focus:** Phase 22 — Accessibility Foundation (v1.3 start)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-03-29 — Milestone v1.3 started
+Phase: 22 of 25 (Accessibility Foundation)
+Plan: — (not yet planned)
+Status: Ready to plan
+Last activity: 2026-03-29 — v1.3 roadmap created, 4 phases mapped (22-25), 15/15 requirements covered
+
+Progress: [░░░░░░░░░░] 0% (v1.3)
 
 ## Performance Metrics
 
-**Velocity:**
+**Velocity (v1.2 reference):**
+- Total plans completed (v1.2): 13
+- Average duration: ~8 min/plan
+- Total execution time: ~1.7 hours
 
-- Total plans completed: 0 (v1.2)
-- Average duration: -
-- Total execution time: -
+**By Phase (v1.2):**
 
-**By Phase:**
-
-| Phase | Plans | Total | Avg/Plan |
-|-------|-------|-------|----------|
-| - | - | - | - |
+| Phase | Plans | Avg/Plan |
+|-------|-------|----------|
+| 18. Tarot Library | 4 | ~9 min |
+| 19. Astrology KB | 2 | ~8 min |
+| 20. Dream & Blog | 3 | ~9 min |
+| 21. Prompt Enrichment | 4 | ~8 min |
 
 **Recent Trend:**
-
-- Last 5 plans: -
-- Trend: -
+- Last 5 plans: 8min, 10min, 8min, 8min, 5min
+- Trend: Stable
 
 *Updated after each plan completion*
-| Phase 14 P01 | 10 | 2 tasks | 7 files |
-| Phase 18 P03 | 8 | 2 tasks | 5 files |
-| Phase 18 P02 | 5m 3s | 2 tasks | 2 files |
-| Phase 18 P04 | 15 | 2 tasks | 1 files |
-| Phase 20 P02 | 7m38s | 2 tasks | 3 files |
-| Phase 20 P03 | 10min | 2 tasks | 1 files |
-| Phase 21-prompt-enrichment P01 | 8min | 2 tasks | 2 files |
-| Phase 21 P04 | 8min | 2 tasks | 8 files |
 
 ## Accumulated Context
 
@@ -66,25 +61,13 @@ Last activity: 2026-03-29 — Milestone v1.3 started
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- [v1.2 Roadmap]: Tarot first (Phase 18) — largest content extraction, foundational data for prompts
-- [v1.2 Roadmap]: Prompt enrichment last (Phase 21) — depends on tarot + astrology data being in place
-- [v1.2 Roadmap]: Dream + Blog combined (Phase 20) — both are small content items, natural grouping
-- [Phase 14]: Academic English subtitle 'Koppitz Emotional Indicators' preserved; Hebrew display terms use עיצוב אנושי, בית-עץ-אדם, קופיץ throughout UI while code identifiers remain English
-- [Phase 14]: SVG text elements use fontFamily='Heebo, sans-serif' for consistent Hebrew rendering inside SVG — not relying on inherited CSS
-- [Phase 18]: Used local TarotCardRow type extension to support Plan 01 rich fields before DB migration — optional fields prevent TS errors in parallel wave
-- [Phase 18]: Court card matching uses suit + null number + sorted-by-id positional index (Page=0, Knight=1, Queen=2, King=3) to avoid name mismatch between seed data and archetype field
-- [Phase 18]: LLM prompt uses rich metadata per card (archetype, element, astrology) for deeper AI interpretation in tarot readings
-- [Phase 18]: Default spread is 'three_card' (index 1 of TAROT_SPREADS) — balances discoverability with a meaningful draw for first-time users
-- [Phase 18]: detailCard state is null-gated (isOpen = detailCard !== null) — avoids separate boolean state and prevents stale modal content
-- [Phase 20]: Cast readonly BlogPostSeed[] to unknown first before upsert — avoids any, satisfies TypeScript strict
-- [Phase 20]: Next.js 15+ requires await params in dynamic route handlers — applied to GET /api/blog/[slug]
-- [Phase 20]: Blog seed pattern: loadEnv -> createClient with service key -> upsert with onConflict:'slug'
-- [Phase 20]: Blog detail page uses same prose prose-sm prose-invert pattern as dream page for consistent Markdown rendering
-- [Phase 21-prompt-enrichment]: PersonalContext helper: getPersonalContext(supabase, userId) returns firstName, zodiacSign, lifePathNumber with safe fallbacks — shared by all 21 enrichment routes
-- [Phase 21-prompt-enrichment]: ZODIAC_RANGES lives in personal-context.ts only — removed from daily-insights route (DRY)
-- [Phase 21-prompt-enrichment]: daily-insights systemPrompt uses Kabbalistic language (אור אין-סוף) + personal address (first name, zodiac, life path) as gold standard pattern for all routes
-- [Phase 21]: birth-chart enrichedSystemPrompt wraps INTERPRETATION_SYSTEM_PROMPT at route level — constant preserved (Pitfall 6)
-- [Phase 21]: drawing route: new systemPrompt added (was missing) kept short for JSON mode compatibility
+- [v1.3 Roadmap]: Phase 22 first — CONTRAST-01/03/04 are blocking; z-index constants must exist before any floating component is coded
+- [v1.3 Roadmap]: CONTRAST-02 (glowing text) placed in Phase 24 with atmosphere work — it is visual enhancement, not a contrast fix
+- [v1.3 Roadmap]: Phase 23 bundles COACH-01/02/03 + NAV-01 — all mount into layout-client.tsx as final integration step
+- [v1.3 Roadmap]: COACH-04 deferred to Phase 25 — context freshness is quality polish, not blocking for floating widget
+- [v1.3 Research]: Zero new npm packages needed — framer-motion, Zustand, ReactDOM.createPortal all installed
+- [v1.3 Research]: Fix opacity-modified tokens only (text-gold-dim/60, text-on-surface-variant/60) — do NOT change base token values (affects 50+ sites)
+- [Phase 21]: birth-chart enrichedSystemPrompt wraps INTERPRETATION_SYSTEM_PROMPT at route level — constant preserved
 
 ### Pending Todos
 
@@ -92,10 +75,12 @@ None yet.
 
 ### Blockers/Concerns
 
-None yet.
+- [Phase 23]: Confirm shadcn/ui Sheet availability (MobileNav.tsx comment "ישודרג כשיותקן") at plan time — affects floating panel implementation choice
+- [Phase 23]: iOS PWA virtual keyboard behavior with `visualViewport` API needs physical device test plan before phase closes
+- [Phase 25]: Validate Supabase query volume for buildCoachingContext() per-message against plan limits before Phase 25 deploy
 
 ## Session Continuity
 
-Last session: 2026-03-29T10:27:20.372Z
-Stopped at: Completed 21-04-PLAN.md
+Last session: 2026-03-29
+Stopped at: v1.3 roadmap created — ROADMAP.md + STATE.md written, REQUIREMENTS.md traceability updated
 Resume file: None
