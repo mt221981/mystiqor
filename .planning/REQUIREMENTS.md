@@ -12,11 +12,11 @@
 - [x] **ASTRO-04**: 7 אספקטים עם חוזק, צבע, משמעות מפורטת בעברית — מוצג ב-UI
 
 ## Dream Content
-- [ ] **DREAM-01**: מילון 10+ רגשות חלומות עם אימוג'ים ותיאורים בעברית — בחירה בטופס
+- [x] **DREAM-01**: מילון 10+ רגשות חלומות עם אימוג'ים ותיאורים בעברית — בחירה בטופס
 
 ## Blog & Learning
 - [ ] **BLOG-01**: 3+ מאמרי בלוג מלאים (נומרולוגיה למתחילים, מזלות, סימנים בכף היד) עם תוכן עשיר
-- [ ] **BLOG-02**: מאמרי בלוג ב-DB (טבלת blog_posts) ולא hardcoded
+- [x] **BLOG-02**: מאמרי בלוג ב-DB (טבלת blog_posts) ולא hardcoded
 
 ## Prompts & Personality
 - [ ] **PROMPT-01**: כל ה-LLM prompts כוללים פניה אישית (שם המשתמש), שפה רוחנית עמוקה, והתייחסות לדאטה האישית
@@ -33,8 +33,8 @@
 | ASTRO-02 | Phase 19 | Complete |
 | ASTRO-03 | Phase 19 | Complete |
 | ASTRO-04 | Phase 19 | Complete |
-| DREAM-01 | Phase 20 | Pending |
+| DREAM-01 | Phase 20 | Complete |
 | BLOG-01 | Phase 20 | Pending |
-| BLOG-02 | Phase 20 | Pending |
+| BLOG-02 | Phase 20 | Complete |
 | PROMPT-01 | Phase 21 | Pending |
 | PROMPT-02 | Phase 21 | Pending |
