@@ -70,4 +70,17 @@
 - ExportButton and SharePanel wired into AnalysisCard browse mode — PDF export and social sharing now accessible from every analysis in the history page
 - Status:
 
+## v1.3 Mystical UX & Coach Prominence (Active)
+
+**Goal:** להפוך את MystiQor לחוויה מיסטית אותנטית עם צ'אט AI בולט ונגיש, ניווט פשוט ואינטואיטיבי, וויזואלים שגורמים למשתמש להרגיש שהוא נכנס לעולם מיסטי אמיתי.
+
+**Phases:** 22-25 | **Requirements:** 15
+
+| Phase | Goal | Status |
+|-------|------|--------|
+| 22 | Accessibility Foundation | Not started |
+| 23 | Floating Coach & Bottom Tabs | Not started |
+| 24 | Atmospheric Depth Sweep | Not started |
+| 25 | Coach Intelligence & Sidebar Polish | Not started |
+
 ---
