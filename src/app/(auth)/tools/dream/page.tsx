@@ -26,6 +26,8 @@ import { animations } from '@/lib/animations/presets';
 import { DreamInputSchema } from '@/app/api/tools/dream/route';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 import { useSubscription } from '@/hooks/useSubscription';
+import { DREAM_EMOTIONS } from '@/lib/constants/dream-data';
+import { cn } from '@/lib/utils/cn';
 
 // ===== טיפוסים =====
 
@@ -138,14 +140,12 @@ export default function DreamPage() {
   const emotions = watch('emotions') ?? [];
   const symbols = watch('symbols') ?? [];
 
-  /** הוספת רגש */
-  const addEmotion = useCallback((val: string) => {
-    setValue('emotions', [...emotions, val], { shouldValidate: false });
-  }, [emotions, setValue]);
-
-  /** הסרת רגש */
-  const removeEmotion = useCallback((i: number) => {
-    setValue('emotions', emotions.filter((_, idx) => idx !== i), { shouldValidate: false });
+  /** החלפת מצב רגש — toggle on/off */
+  const toggleEmotion = useCallback((value: string) => {
+    const next = emotions.includes(value)
+      ? emotions.filter((e) => e !== value)
+      : [...emotions, value];
+    setValue('emotions', next, { shouldValidate: false });
   }, [emotions, setValue]);
 
   /** הוספת סמל */
@@ -253,14 +253,32 @@ export default function DreamPage() {
               <Input id="dreamDate" type="date" {...register('dreamDate')} dir="ltr" className="text-start w-auto" />
             </div>
 
-            {/* רגשות */}
-            <TagInput
-              label="רגשות בחלום"
-              values={emotions}
-              onAdd={addEmotion}
-              onRemove={removeEmotion}
-              placeholder="למשל: שמחה, פחד, בלבול..."
-            />
+            {/* רגשות — גריד אימוג'י (per D-01, D-02, D-03) */}
+            <div className="space-y-2">
+              <Label className="font-label text-on-surface-variant">רגשות בחלום</Label>
+              <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                {DREAM_EMOTIONS.map((emotion) => (
+                  <button
+                    key={emotion.value}
+                    type="button"
+                    onClick={() => toggleEmotion(emotion.value)}
+                    title={emotion.description}
+                    aria-pressed={emotions.includes(emotion.value)}
+                    className={cn(
+                      'flex flex-col items-center gap-1 p-3 rounded-xl border transition-colors font-label text-xs',
+                      emotions.includes(emotion.value)
+                        ? 'border-primary bg-primary-container/20 text-primary'
+                        : 'border-outline-variant/10 bg-surface-container-lowest text-on-surface-variant hover:border-primary/30 hover:text-on-surface'
+                    )}
+                  >
+                    <span className="text-2xl leading-none" style={{ fontFamily: 'emoji' }}>
+                      {emotion.emoji}
+                    </span>
+                    <span>{emotion.label}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
             {/* סמלים */}
             <TagInput
