@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 
 // ===== סכמות ולידציה =====
@@ -74,6 +75,12 @@ export async function GET(request: NextRequest) {
     const cacheDate = `${year}-${String(month).padStart(2, '0')}-01`
     const monthName = HEBREW_MONTHS[month] ?? String(month)
 
+    // שליפת הקשר האישי להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+    const personalLine = ctx.firstName
+      ? `פנה אל ${ctx.firstName} (מזל ${ctx.zodiacSign}). `
+      : ''
+
     // בדיקת מטמון — daily_insights עם mood_type='calendar'
     const { data: cached } = await supabase
       .from('daily_insights')
@@ -100,7 +107,7 @@ export async function GET(request: NextRequest) {
     const llmResponse = await invokeLLM<CalendarResponse>({
       userId: user.id,
       systemPrompt:
-        'אתה אסטרולוג מומחה המכין לוחות שנה אסטרולוגיים מדויקים. ספק תאריכים ריאליסטיים ואירועים נכונים.',
+        personalLine + 'אתה אסטרולוג מומחה המכין לוחות שנה אסטרולוגיים מדויקים. ספק תאריכים ריאליסטיים ואירועים נכונים.',
       prompt: `צור רשימה של 5-8 אירועים אסטרולוגיים לחודש ${monthName} ${year}.
 לכל אירוע ציין:
 - date: תאריך בפורמט YYYY-MM-DD (חייב להיות בחודש ${month}/${year})

@@ -13,6 +13,7 @@ import { getEphemerisPositions } from '@/services/astrology/ephemeris'
 import { assembleChart, getSign } from '@/services/astrology/chart'
 import { calculateInterChartAspects, getElementDistribution } from '@/services/astrology/aspects'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { PlanetPositions } from '@/services/astrology/aspects'
 
@@ -166,7 +167,13 @@ export async function POST(request: NextRequest) {
 
     const { person1, person2 } = parsed.data
 
-    // שלב 3: חישוב שני גלגלות לידה במקביל
+    // שלב 3: שליפת הקשר האישי של הפונה להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+    const personalLine = ctx.firstName
+      ? `הפונה הוא ${ctx.firstName} (מספר חיים ${ctx.lifePathNumber}). `
+      : ''
+
+    // שלב 4: חישוב שני גלגלות לידה במקביל
     const [chart1Data, chart2Data] = await Promise.all([
       Promise.resolve(buildPersonChart(
         person1.name, person1.birthDate, person1.birthTime,
@@ -178,17 +185,17 @@ export async function POST(request: NextRequest) {
       )),
     ])
 
-    // שלב 4: חישוב אספקטים בין-גלגלות
+    // שלב 5: חישוב אספקטים בין-גלגלות
     const interAspects = calculateInterChartAspects(chart1Data.planets, chart2Data.planets)
 
-    // שלב 5: בניית פרומפט LLM לניתוח סינסטרי
+    // שלב 6: בניית פרומפט LLM לניתוח סינסטרי
     const topAspects = interAspects
       .sort((a, b) => b.strength - a.strength)
       .slice(0, 15)
       .map(a => `${a.planet1} ${a.type} ${a.planet2} (orb: ${a.orb}°)`)
       .join(', ')
 
-    const systemPrompt = `אתה אסטרולוג מומחה בסינסטרי — ניתוח תאימות בין שני גלגלות לידה.
+    const systemPrompt = personalLine + `אתה אסטרולוג מומחה בסינסטרי — ניתוח תאימות בין שני גלגלות לידה.
 נתח את הדינמיקה הבין-אישית בין שני האנשים לפי האספקטים הבין-גלגלות.`
 
     const prompt = `נתח סינסטרי בין:
@@ -224,7 +231,7 @@ export async function POST(request: NextRequest) {
       },
     }
 
-    // שלב 6: קריאת LLM
+    // שלב 7: קריאת LLM
     const llmResponse = await invokeLLM<SynastryResponse>({
       userId: user.id,
       systemPrompt,
@@ -241,7 +248,7 @@ export async function POST(request: NextRequest) {
 
     const interpretation = llmResponse.validationResult.data as SynastryResponse
 
-    // שלב 7: שמירה ב-DB עם tool_type: 'synastry' (קיים ב-ToolType union)
+    // שלב 8: שמירה ב-DB עם tool_type: 'synastry' (קיים ב-ToolType union)
     const row: TablesInsert<'analyses'> = {
       user_id: user.id,
       tool_type: 'synastry',
@@ -264,7 +271,7 @@ export async function POST(request: NextRequest) {
       .select('id')
       .single()
 
-    // שלב 8: החזרה
+    // שלב 9: החזרה
     return NextResponse.json({
       data: {
         person1_chart: chart1Data.planetDetails,

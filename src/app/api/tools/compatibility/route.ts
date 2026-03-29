@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 
 // ===== סכמות ולידציה =====
@@ -78,8 +79,14 @@ export async function POST(request: NextRequest) {
     const { person1, person2, compatibilityType } = parsed.data
     const typeLabel = COMPATIBILITY_TYPE_LABELS[compatibilityType] ?? compatibilityType
 
+    // שליפת הקשר האישי של הפונה להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+    const personalLine = ctx.firstName
+      ? `הפונה הוא ${ctx.firstName} (מזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}). `
+      : ''
+
     // בניית הנחיית מערכת בעברית
-    const systemPrompt = `אתה אסטרולוג ונומרולוג מומחה. נתח את התאימות בין שני אנשים על בסיס נתוני הלידה שלהם.
+    const systemPrompt = personalLine + `אתה אסטרולוג ונומרולוג מומחה. נתח את התאימות בין שני אנשים על בסיס נתוני הלידה שלהם.
 
 סוג תאימות: ${typeLabel}
 אדם 1: ${person1.name}, נולד/ה ${person1.birthDate}${person1.birthTime ? ` בשעה ${person1.birthTime}` : ''}

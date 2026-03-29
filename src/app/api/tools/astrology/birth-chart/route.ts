@@ -14,6 +14,7 @@ import { getElementDistribution } from '@/services/astrology/aspects'
 import { getEphemerisPositions, getEphemerisPositionsWithRetrograde } from '@/services/astrology/ephemeris'
 import { buildInterpretationPrompt, INTERPRETATION_SYSTEM_PROMPT } from '@/services/astrology/prompts/interpretation'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 
 // ===== סכמות ולידציה =====
@@ -87,15 +88,18 @@ export async function POST(request: NextRequest) {
 
     const { birthDate, birthTime, latitude, longitude, fullName } = parsed.data
 
-    // שלב 3: חישוב מיקומי כוכבים באמצעות astronomy-engine (ephemeris אמיתי)
+    // שלב 3: שליפת הקשר אישי להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+
+    // שלב 4: חישוב מיקומי כוכבים באמצעות astronomy-engine (ephemeris אמיתי)
     const datetime = new Date(`${birthDate}T${birthTime}:00`)
     const planets = getEphemerisPositions(datetime)
     const planetsWithRetrograde = getEphemerisPositionsWithRetrograde(datetime)
 
-    // שלב 4: אסמבלי מפת הגלגל — בתים + אספקטים
+    // שלב 5: אסמבלי מפת הגלגל — בתים + אספקטים
     const chartData = assembleChart(datetime, latitude, longitude, planets)
 
-    // שלב 5: בניית מידע כוכבים מפורט עם שם, מזל, בית, מעלה ורטרוגרד
+    // שלב 6: בניית מידע כוכבים מפורט עם שם, מזל, בית, מעלה ורטרוגרד
     const planetDetails = Object.entries(planets).map(([name, pos]) => {
       const sign = getSign(pos.longitude)
       const house = findHouseForPlanet(pos.longitude, chartData.houses)
@@ -113,7 +117,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // שלב 6: בניית קלט לפרומפט הפרשנות
+    // שלב 7: בניית קלט לפרומפט הפרשנות
     const sunPlanet = planetDetails.find(p => p.name === 'sun')
     const moonPlanet = planetDetails.find(p => p.name === 'moon')
     const ascendantSign = getSign(chartData.ascendant)
@@ -150,19 +154,25 @@ export async function POST(request: NextRequest) {
       },
     }
 
-    // שלב 7: פרשנות AI — קורא buildInterpretationPrompt ואחר כך invokeLLM
+    // שלב 8: פרשנות AI — בניית systemPrompt מועשר עם הקשר אישי (Pitfall 6: לא נוגעים ב-INTERPRETATION_SYSTEM_PROMPT)
     const interpretationPrompt = buildInterpretationPrompt(interpretationInput)
+
+    // הוספת שורת הכרות אישית — INTERPRETATION_SYSTEM_PROMPT נשאר ללא שינוי
+    const personalLine = ctx.firstName
+      ? `\n\nפנה ישירות אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}. דבר אליו באופן אישי.`
+      : ''
+    const enrichedSystemPrompt = INTERPRETATION_SYSTEM_PROMPT + personalLine
 
     const interpretationResponse = await invokeLLM<string>({
       userId: user.id,
-      systemPrompt: INTERPRETATION_SYSTEM_PROMPT,
+      systemPrompt: enrichedSystemPrompt,
       prompt: interpretationPrompt,
       maxTokens: 1500,
     })
 
     const interpretation = String(interpretationResponse.data)
 
-    // שלב 8: שמירת הניתוח ב-DB
+    // שלב 9: שמירת הניתוח ב-DB
     const row: TablesInsert<'analyses'> = {
       user_id: user.id,
       tool_type: 'astrology',
@@ -181,7 +191,7 @@ export async function POST(request: NextRequest) {
       .select('id')
       .single()
 
-    // שלב 9: החזרת תוצאה מלאה
+    // שלב 10: החזרת תוצאה מלאה
     return NextResponse.json({
       data: {
         chartData,
