@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Completed 20-02-PLAN.md — blog-data.ts, seed-blog-posts.ts, and /api/blog/[slug]/route.ts
-last_updated: "2026-03-29T08:10:04.165Z"
+stopped_at: Completed 20-03-PLAN.md — blog detail page /learn/blog/[slug] with ReactMarkdown + human-verified
+last_updated: "2026-03-29T08:28:15.305Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 9
-  completed_plans: 7
+  completed_plans: 9
   percent: 0
 ---
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 18 P02 | 5m 3s | 2 tasks | 2 files |
 | Phase 18 P04 | 15 | 2 tasks | 1 files |
 | Phase 20 P02 | 7m38s | 2 tasks | 3 files |
+| Phase 20 P03 | 10min | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -78,6 +79,7 @@ Recent decisions affecting current work:
 - [Phase 20]: Cast readonly BlogPostSeed[] to unknown first before upsert — avoids any, satisfies TypeScript strict
 - [Phase 20]: Next.js 15+ requires await params in dynamic route handlers — applied to GET /api/blog/[slug]
 - [Phase 20]: Blog seed pattern: loadEnv -> createClient with service key -> upsert with onConflict:'slug'
+- [Phase 20]: Blog detail page uses same prose prose-sm prose-invert pattern as dream page for consistent Markdown rendering
 
 ### Pending Todos
 
@@ -89,6 +91,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T08:10:04.162Z
-Stopped at: Completed 20-02-PLAN.md — blog-data.ts, seed-blog-posts.ts, and /api/blog/[slug]/route.ts
+Last session: 2026-03-29T08:28:15.302Z
+Stopped at: Completed 20-03-PLAN.md — blog detail page /learn/blog/[slug] with ReactMarkdown + human-verified
 Resume file: None
