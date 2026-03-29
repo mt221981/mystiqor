@@ -175,7 +175,12 @@ Plans:
   2. כל prompt משתמש בשפה רוחנית עמוקה בעברית ומתייחס לדאטה האישית (מזל, מספר חיים)
   3. תובנות יומיות כוללות התייחסות ספציפית למזל המשתמש, מספר החיים שלו, וקלף יום אישי
   4. תובנות יומיות אינן גנריות — שני משתמשים שונים מקבלים תוכן שונה בהתאם לפרופיל שלהם
-**Plans**: TBD
+**Plans**: 4 plans
+Plans:
+- [ ] 21-01-PLAN.md — Shared getPersonalContext helper + daily-insights deep enrichment (gold standard)
+- [ ] 21-02-PLAN.md — DEEP-tier routes (tarot, coach/journeys, dream, solar-return, transits)
+- [ ] 21-03-PLAN.md — MEDIUM-tier routes (coach/messages, tutors, forecast, career, numerology)
+- [ ] 21-04-PLAN.md — BASIC-tier routes (birth-chart, calendar, synastry, compatibility, document, drawing, graphology, human-design)
 
 ## Progress
 
@@ -192,4 +197,4 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | 18. Tarot Card Library | v1.2 | 3/4 | Complete    | 2026-03-28 |
 | 19. Astrology Knowledge Base | v1.2 | 2/2 | Complete    | 2026-03-29 |
 | 20. Dream & Blog Content | v1.2 | 3/3 | Complete    | 2026-03-29 |
-| 21. Prompt Enrichment & Soul | v1.2 | 0/0 | Not started | - |
+| 21. Prompt Enrichment & Soul | v1.2 | 0/4 | Not started | - |
