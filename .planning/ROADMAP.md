@@ -162,8 +162,8 @@ Plans:
   4. מאמר בלוג בודד מציג תוכן מעוצב עם כותרות, פסקאות, ותמונות
 **Plans**: 3 plans
 Plans:
-- [x] 20-01-PLAN.md — Dream emotion grid + BlogPostCard link refactor + test scaffolds
-- [ ] 20-02-PLAN.md — Blog seed data (3 articles) + seed script + /api/blog/[slug] route
+- [ ] 20-01-PLAN.md — Dream emotion grid + BlogPostCard link refactor + test scaffolds
+- [x] 20-02-PLAN.md — Blog seed data (3 articles) + seed script + /api/blog/[slug] route
 - [ ] 20-03-PLAN.md — Blog detail page (/learn/blog/[slug]) + visual verification
 
 ### Phase 21: Prompt Enrichment & Soul
