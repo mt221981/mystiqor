@@ -1,17 +1,19 @@
 /**
  * BlogPostCard — כרטיס מאמר בלוג
- * מציג כותרת, תקציר, פרטי מחבר וקטגוריה, עם אפשרות להרחבה לתוכן מלא
+ * מציג כותרת, תקציר, פרטי מחבר וקטגוריה, עם קישור לדף המאמר המלא
  */
 
 'use client';
 
+import Link from 'next/link';
 import { formatDate } from '@/lib/utils/dates';
-import { Clock, User, ChevronDown, ChevronUp } from 'lucide-react';
+import { Clock, User } from 'lucide-react';
 
 /** פוסט בלוג */
 export interface BlogPost {
   id: string;
   title: string;
+  slug: string;
   excerpt: string | null;
   author: string;
   category: string;
@@ -25,17 +27,13 @@ export interface BlogPost {
 interface BlogPostCardProps {
   /** נתוני הפוסט */
   post: BlogPost;
-  /** האם הכרטיס מורחב */
-  expanded: boolean;
-  /** callback לשינוי מצב הרחבה */
-  onToggle: () => void;
 }
 
 /**
- * BlogPostCard — כרטיס מאמר בלוג עם תוכן מורחב
- * לוחץ על "קרא עוד" / "סגור" לפתיחה/סגירה
+ * BlogPostCard — כרטיס מאמר בלוג עם ניווט לדף המאמר המלא
+ * לוחץ על "קרא עוד" מנווט ל-/learn/blog/[slug]
  */
-export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
+export function BlogPostCard({ post }: BlogPostCardProps) {
   return (
     <div className="bg-surface-container rounded-xl overflow-hidden border border-outline-variant/5 hover:border-primary/10 transition-colors flex flex-col">
       <div className="p-5 pb-3">
@@ -73,13 +71,6 @@ export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
           <p className="font-body text-sm text-on-surface-variant line-clamp-3">{post.excerpt}</p>
         )}
 
-        {/* תוכן מורחב */}
-        {expanded && (
-          <div className="font-body text-sm text-on-surface leading-relaxed whitespace-pre-wrap border-t border-outline-variant/10 pt-3 mt-1">
-            {post.content}
-          </div>
-        )}
-
         {/* תגיות */}
         {post.tags && post.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-auto pt-2">
@@ -91,23 +82,13 @@ export function BlogPostCard({ post, expanded, onToggle }: BlogPostCardProps) {
           </div>
         )}
 
-        {/* כפתור הרחבה */}
-        <button
-          type="button"
-          onClick={onToggle}
+        {/* קישור לדף המאמר המלא */}
+        <Link
+          href={`/learn/blog/${post.slug}`}
           className="self-start flex items-center gap-1 text-primary hover:text-primary-fixed font-label text-sm font-semibold transition-colors"
-          aria-expanded={expanded}
         >
-          {expanded ? (
-            <>
-              סגור <ChevronUp className="h-4 w-4" />
-            </>
-          ) : (
-            <>
-              קרא עוד <ChevronDown className="h-4 w-4" />
-            </>
-          )}
-        </button>
+          קרא עוד
+        </Link>
       </div>
     </div>
   );

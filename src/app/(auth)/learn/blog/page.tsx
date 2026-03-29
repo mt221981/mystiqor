@@ -44,7 +44,6 @@ async function fetchBlogPosts(
 export default function BlogPage() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedId, setExpandedId] = useState<string | null>(null);
 
   // שליפת מאמרים
   const { data, isLoading, isError } = useQuery({
@@ -54,11 +53,6 @@ export default function BlogPage() {
   });
 
   const posts = data?.data ?? [];
-
-  /** מטפל בלחיצה על כרטיס — פותח/סוגר */
-  function handleToggle(id: string) {
-    setExpandedId((prev) => (prev === id ? null : id));
-  }
 
   return (
     <div className="flex flex-col gap-6 p-4 md:p-6" dir="rtl">
@@ -121,12 +115,7 @@ export default function BlogPage() {
       {!isLoading && !isError && posts.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {posts.map((post) => (
-            <BlogPostCard
-              key={post.id}
-              post={post}
-              expanded={expandedId === post.id}
-              onToggle={() => handleToggle(post.id)}
-            />
+            <BlogPostCard key={post.id} post={post} />
           ))}
         </div>
       )}
