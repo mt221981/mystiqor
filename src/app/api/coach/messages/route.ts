@@ -11,6 +11,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 // ===== סכמת ולידציה =====
 
@@ -131,6 +132,9 @@ export async function POST(request: NextRequest) {
 
     const { conversation_id: conversationId, message } = parsed.data
 
+    // שליפת הקשר אישי — שם, מזל, מספר חיים לייחוד הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // שליפת השיחה לאימות בעלות והקשר
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { data: conversation, error: convError } = await (supabase as any)
@@ -179,6 +183,11 @@ export async function POST(request: NextRequest) {
     let fullSystemPrompt = COACH_PERSONA
     if (contextText) {
       fullSystemPrompt += `\n\n### הקשר המשתמש:\n${contextText}`
+    }
+
+    // הוספת זהות הפונה — שם, מזל ומספר חיים (Pitfall 5: COACH_PERSONA לא משתנה)
+    if (ctx.firstName) {
+      fullSystemPrompt += `\n\n### זהות הפונה:\nשם: ${ctx.firstName}, מזל: ${ctx.zodiacSign}, מספר חיים: ${ctx.lifePathNumber}.\nפנה אליו בשמו. התייחס למזלו ולמספר חייו כשרלוונטי.`
     }
 
     if (priorList.length > 0) {

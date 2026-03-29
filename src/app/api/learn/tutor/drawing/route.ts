@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { TutorMessageSchema } from '@/lib/validations/tutor'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 /** מידע על ניתוח ציור של המשתמש */
 interface AnalysisRow {
@@ -55,6 +56,9 @@ export async function POST(request: NextRequest) {
 
     const { message } = parsed.data
 
+    // שליפת הקשר אישי — שם ומספר חיים לייחוד הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // שליפת 3 ניתוחי ציורים אחרונים של המשתמש להקשר
     const { data: analyses } = await supabase
       .from('analyses')
@@ -90,8 +94,13 @@ export async function POST(request: NextRequest) {
             .join('\n')
         : null
 
+    // כותרת אישית — שם הסטודנט ומספר חיים
+    const personalHeader = ctx.firstName
+      ? `הסטודנט שלך הוא ${ctx.firstName} — מספר חיים ${ctx.lifePathNumber}. פנה אליו בשמו.\n\n`
+      : ''
+
     // בניית פרומפט מערכת בעברית עם הקשר המשתמש
-    const systemPrompt = `אתה מורה מומחה בניתוח ציורים ופסיכולוגיה של אמנות. תפקידך ללמד את המשתמש מושגי ניתוח ציורים — HTP, Koppitz, FDM ומשמעות צבעים.
+    const systemPrompt = `${personalHeader}אתה מורה מומחה בניתוח ציורים ופסיכולוגיה של אמנות. תפקידך ללמד את המשתמש מושגי ניתוח ציורים — HTP, Koppitz, FDM ומשמעות צבעים.
 ענה בעברית בלבד. היה סבלני, השתמש בדוגמאות ויזואליות, והתייחס לניתוחי הציורים של המשתמש אם רלוונטי.
 
 ### הקשר המשתמש:

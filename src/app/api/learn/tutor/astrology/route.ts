@@ -9,6 +9,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { TutorMessageSchema } from '@/lib/validations/tutor'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 /** מידע על ניתוח אסטרולוגי של המשתמש */
 interface AnalysisRow {
@@ -54,6 +55,9 @@ export async function POST(request: NextRequest) {
 
     const { message } = parsed.data
 
+    // שליפת הקשר אישי — שם, מזל, מספר חיים
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // שליפת 3 ניתוחי אסטרולוגיה אחרונים של המשתמש להקשר
     const { data: analyses } = await supabase
       .from('analyses')
@@ -89,8 +93,13 @@ export async function POST(request: NextRequest) {
             .join('\n')
         : null
 
+    // כותרת אישית — שם הסטודנט, מזל ומספר חיים
+    const personalHeader = ctx.firstName
+      ? `הסטודנט שלך הוא ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}. פנה אליו בשמו ותן דוגמאות רלוונטיות למזלו.\n\n`
+      : ''
+
     // בניית פרומפט מערכת בעברית עם הקשר המשתמש
-    const systemPrompt = `אתה מורה מומחה באסטרולוגיה. תפקידך ללמד את המשתמש מושגי אסטרולוגיה בצורה ברורה ומותאמת לרמתו.
+    const systemPrompt = `${personalHeader}אתה מורה מומחה באסטרולוגיה. תפקידך ללמד את המשתמש מושגי אסטרולוגיה בצורה ברורה ומותאמת לרמתו.
 ענה בעברית בלבד. היה סבלני, השתמש בדוגמאות, והתייחס לניתוחים של המשתמש אם רלוונטי.
 
 ### הקשר המשתמש:
