@@ -13,6 +13,7 @@ import { invokeLLM } from '@/services/analysis/llm'
 import { ZODIAC_SIGNS } from '@/lib/constants/astrology'
 import type { ZodiacSignKey } from '@/lib/constants/astrology'
 import type { TablesInsert } from '@/types/database'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 // ===== חישוב מזל לפי תאריך לידה =====
 
@@ -82,6 +83,9 @@ export async function GET() {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // שליפת הקשר אישי — שם ומספר חיים לייחוד הפרומפט (המזל כבר מחושב מהפרופיל)
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // טעינת פרופיל לקבלת תאריך לידה
     const { data: profile } = await supabase
       .from('profiles')
@@ -125,10 +129,15 @@ export async function GET() {
       weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
     })
 
+    // כתובת אישית — שם ומספר חיים (המזל מוזכר בגוף הפרומפט דרך signInfo.name)
+    const personalLine = ctx.firstName
+      ? `פנה אל ${ctx.firstName} בשמו — מספר חיים ${ctx.lifePathNumber}. `
+      : ''
+
     const llmResponse = await invokeLLM<ForecastResponse>({
       userId: user.id,
       systemPrompt:
-        'אתה אסטרולוג מומחה המתמחה בפרשנות מזלות. צור תחזיות מדויקות ומעמיקות בעברית.',
+        `${personalLine}אתה אסטרולוג מומחה המתמחה בפרשנות מזלות. צור תחזיות מדויקות ומעמיקות בעברית.`,
       prompt: `צור תחזית יומית מפורטת למזל ${signInfo.name} (${signInfo.emoji}) ליום ${dateFormatted}.
 כלול את הפרטים הבאים בפורמט JSON:
 - energyGeneral: תיאור האנרגיה הכללית של היום (2-3 משפטים בגוף ראשון)

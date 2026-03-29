@@ -11,6 +11,7 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import type { TablesInsert } from '@/types/database'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 // ===== סכמות ולידציה =====
 
@@ -113,6 +114,9 @@ export async function POST(request: NextRequest) {
 
     const { skills, interests, currentField } = parsed.data
 
+    // שליפת הקשר אישי — שם, מזל ומספר חיים להעשרת הפרומפט
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // טעינת פרופיל משתמש לתאריך לידה
     const { data: profile } = await supabase
       .from('profiles')
@@ -156,7 +160,12 @@ export async function POST(request: NextRequest) {
       ? `\nתאריך לידה: ${profile.birth_date}`
       : ''
 
-    const systemPrompt = `אתה יועץ קריירה אסטרולוגי מומחה. המשימה שלך היא לספק ייעוץ קריירה מעמיק ומותאם אישית בעברית.
+    // כתובת אישית — שם, מזל ומספר חיים עם טון רוחני
+    const personalLine = ctx.firstName
+      ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}. `
+      : ''
+
+    const systemPrompt = `אתה יועץ קריירה אסטרולוגי מומחה. ${personalLine}המשימה שלך היא לספק ייעוץ קריירה מעמיק ומותאם אישית בעברית.
 
 שלב את הידע האסטרולוגי עם ניתוח כישורים ותחומי עניין כדי להמליץ על מסלולי קריירה מדויקים.
 ${birthDateStr}${natalContext}

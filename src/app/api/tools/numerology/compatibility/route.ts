@@ -12,6 +12,7 @@ import { calculateNumerologyCompatibility } from '@/services/numerology/compatib
 import { invokeLLM } from '@/services/analysis/llm'
 import { NumerologyCompatibilitySchema } from '@/lib/validations/numerology'
 import type { TablesInsert } from '@/types/database'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 /** POST /api/tools/numerology/compatibility — תאימות נומרולוגית + פרשנות AI */
 export async function POST(request: NextRequest) {
@@ -35,16 +36,24 @@ export async function POST(request: NextRequest) {
 
     const { person1, person2 } = parsed.data
 
-    // שלב 3: חישוב תאימות נומרולוגית — פונקציה טהורה
+    // שלב 3: שליפת הקשר אישי — זהות הפונה (מזל ומספר חיים)
+    const ctx = await getPersonalContext(supabase, user.id)
+
+    // זהות הפונה — שם, מזל ומספר חיים להעשרת פרשנות
+    const personalLine = ctx.firstName
+      ? `הפונה הוא ${ctx.firstName} (מזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}). `
+      : ''
+
+    // שלב 4: חישוב תאימות נומרולוגית — פונקציה טהורה
     const result = calculateNumerologyCompatibility(person1, person2)
 
-    // שלב 4: פרשנות AI — try/catch עצמאי שלא מכשיל את כל הבקשה
+    // שלב 5: פרשנות AI — try/catch עצמאי שלא מכשיל את כל הבקשה
     let aiText = ''
     try {
       const llmResponse = await invokeLLM({
         userId: user.id,
         systemPrompt:
-          'אתה מומחה נומרולוגיה עברית. תן ניתוח תאימות מעמיק ב-3 פסקאות קצרות. התייחס למספרים הספציפיים שקיבלת. התמקד בנקודות החיבור, האתגרים הפוטנציאליים וכוחות משלימים. אל תיתן ניבוי גורל — רק פוטנציאלים.',
+          `אתה מומחה נומרולוגיה עברית. ${personalLine}תן ניתוח תאימות מעמיק ב-3 פסקאות קצרות. התייחס למספרים הספציפיים שקיבלת. התמקד בנקודות החיבור, האתגרים הפוטנציאליים וכוחות משלימים. אל תיתן ניבוי גורל — רק פוטנציאלים.`,
         prompt: `תאימות נומרולוגית:
 ${person1.fullName}: נתיב חיים ${result.scores.life_path}, גורל ${result.scores.destiny}, נשמה ${result.scores.soul}
 ${person2.fullName}: פרטים משולבים עם האדם הראשון
@@ -59,7 +68,7 @@ ${person2.fullName}: פרטים משולבים עם האדם הראשון
       console.error('שגיאה בפרשנות AI לתאימות:', llmError)
     }
 
-    // שלב 5: שמירת הניתוח ב-DB
+    // שלב 6: שמירת הניתוח ב-DB
     const row: TablesInsert<'analyses'> = {
       user_id: user.id,
       tool_type: 'compatibility',

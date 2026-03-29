@@ -12,6 +12,7 @@ import { createClient } from '@/lib/supabase/server'
 import { calculateNumerologyNumbers } from '@/services/numerology/calculations'
 import { invokeLLM } from '@/services/analysis/llm'
 import type { TablesInsert } from '@/types/database'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 
 /** סכמת ולידציה לקלט נומרולוגיה */
 const NumerologyInputSchema = z.object({
@@ -42,11 +43,19 @@ export async function POST(request: NextRequest) {
     // חישוב מספרי הנומרולוגיה — פונקציה טהורה, אין צורך ב-try/catch
     const numbers = calculateNumerologyNumbers(parsed.data)
 
+    // שליפת הקשר אישי — מזל לשילוב עם ניתוח נומרולוגי
+    const ctx = await getPersonalContext(supabase, user.id)
+
+    // העשרת המזל — שולב עם ספירות עץ החיים
+    const zodiacEnrichment = ctx.zodiacSign
+      ? `המזל שלו: ${ctx.zodiacSign}. שלב את השפעת המזל על המספרים.`
+      : ''
+
     // פרשנות AI
     const llmResponse = await invokeLLM({
       userId: user.id,
       systemPrompt:
-        `אתה מומחה נומרולוגיה עברית עם ידע עמוק בגימטריה, קבלה ומסורת מיסטית. פנה אל ${numbers.name} בשמו/ה. דבר ישירות לנשמה — חם, אינטימי, חודר. גלה פוטנציאלים, כוחות נסתרים ודרכים לצמיחה. שלב חוכמה עתיקה.`,
+        `אתה מומחה נומרולוגיה עברית עם ידע עמוק בגימטריה, קבלה ומסורת מיסטית. פנה אל ${numbers.name} בשמו/ה. דבר ישירות לנשמה — חם, אינטימי, חודר. גלה פוטנציאלים, כוחות נסתרים ודרכים לצמיחה. שלב חוכמה עתיקה. ${zodiacEnrichment} התייחס לספירות עץ החיים ולנתיבות הנשמה דרך המספרים.`,
       prompt: `${numbers.name}, המספרים שלך: נתיב חיים ${numbers.life_path}, גורל ${numbers.destiny}, נשמה ${numbers.soul}, אישיות ${numbers.personality}, שנה אישית ${numbers.personal_year}. פרש את התמונה המשולבת — מה המספרים מגלים על ${numbers.name} כאדם שלם?`,
       maxTokens: 800,
     })
