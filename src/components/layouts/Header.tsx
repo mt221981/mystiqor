@@ -58,10 +58,11 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
   return (
     <header
       className={cn(
-        'fixed top-0 w-full z-50 flex h-16 items-center justify-between',
+        'fixed top-0 w-full flex h-16 items-center justify-between',
         'px-4 md:px-6 glass-nav',
         'shadow-[0_20px_50px_rgba(143,45,230,0.08)]'
       )}
+      style={{ zIndex: 'var(--z-header)' }}
       dir="rtl"
     >
       {/* צד ימין: כפתור מובייל + לוגו */}

@@ -60,7 +60,7 @@ export function InstallPrompt() {
   if (!deferredPrompt && !isIOS) return null
 
   return (
-    <div className="fixed bottom-4 start-4 end-4 md:start-auto md:end-4 md:w-80 bg-surface-container/60 backdrop-blur-xl rounded-xl p-6 border border-outline-variant/10 shadow-xl z-50">
+    <div className="fixed bottom-4 start-4 end-4 md:start-auto md:end-4 md:w-80 bg-surface-container/60 backdrop-blur-xl rounded-xl p-6 border border-outline-variant/10 shadow-xl" style={{ zIndex: 'var(--z-floating)' }}>
       <div className="flex items-start justify-between gap-2">
         <div className="flex-1">
           <p className="font-headline font-semibold text-sm text-on-surface">התקינו את MystiQor</p>

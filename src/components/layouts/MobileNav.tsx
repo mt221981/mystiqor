@@ -53,10 +53,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       {/* רקע כהה שמאחורי התפריט */}
       <div
         className={cn(
-          'fixed inset-0 z-50 bg-black/60 backdrop-blur-sm',
+          'fixed inset-0 bg-black/60 backdrop-blur-sm',
           'transition-opacity duration-300',
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         )}
+        style={{ zIndex: 'var(--z-overlay)' }}
         onClick={onClose}
         aria-hidden="true"
       />
@@ -64,10 +65,11 @@ export function MobileNav({ isOpen, onClose }: MobileNavProps) {
       {/* פאנל הניווט — נכנס מצד ימין (RTL) */}
       <div
         className={cn(
-          'fixed inset-y-0 end-0 z-50 w-72',
+          'fixed inset-y-0 end-0 w-72',
           'transition-transform duration-300 ease-in-out',
           isOpen ? 'translate-x-0' : 'translate-x-full rtl:-translate-x-full'
         )}
+        style={{ zIndex: 'var(--z-panel)' }}
         role="dialog"
         aria-modal="true"
         aria-label="תפריט ניווט"
