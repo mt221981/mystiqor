@@ -178,8 +178,8 @@ Plans:
 **Plans**: 4 plans
 Plans:
 - [x] 21-01-PLAN.md — Shared getPersonalContext helper + daily-insights deep enrichment (gold standard)
-- [x] 21-02-PLAN.md — DEEP-tier routes (tarot, coach/journeys, dream, solar-return, transits)
-- [ ] 21-03-PLAN.md — MEDIUM-tier routes (coach/messages, tutors, forecast, career, numerology)
+- [ ] 21-02-PLAN.md — DEEP-tier routes (tarot, coach/journeys, dream, solar-return, transits)
+- [x] 21-03-PLAN.md — MEDIUM-tier routes (coach/messages, tutors, forecast, career, numerology)
 - [ ] 21-04-PLAN.md — BASIC-tier routes (birth-chart, calendar, synastry, compatibility, document, drawing, graphology, human-design)
 
 ## Progress
