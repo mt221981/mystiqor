@@ -163,7 +163,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [ ] 20-01-PLAN.md — Dream emotion grid + BlogPostCard link refactor + test scaffolds
-- [ ] 20-02-PLAN.md — Blog seed data (3 articles) + seed script + /api/blog/[slug] route
+- [x] 20-02-PLAN.md — Blog seed data (3 articles) + seed script + /api/blog/[slug] route
 - [ ] 20-03-PLAN.md — Blog detail page (/learn/blog/[slug]) + visual verification
 
 ### Phase 21: Prompt Enrichment & Soul
@@ -191,5 +191,5 @@ Phases execute in numeric order: 13 -> 14 -> 15 -> 16 -> 17 -> 18 -> 19 -> 20 ->
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
 | 18. Tarot Card Library | v1.2 | 3/4 | Complete    | 2026-03-28 |
 | 19. Astrology Knowledge Base | v1.2 | 2/2 | Complete    | 2026-03-29 |
-| 20. Dream & Blog Content | v1.2 | 0/3 | Not started | - |
+| 20. Dream & Blog Content | v1.2 | 1/3 | In Progress|  |
 | 21. Prompt Enrichment & Soul | v1.2 | 0/0 | Not started | - |

@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Phase 20 context gathered
-last_updated: "2026-03-29T06:56:13.352Z"
+stopped_at: Completed 20-02-PLAN.md — blog-data.ts, seed-blog-posts.ts, and /api/blog/[slug]/route.ts
+last_updated: "2026-03-29T08:10:04.165Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 6
-  completed_plans: 6
+  total_plans: 9
+  completed_plans: 7
   percent: 0
 ---
 
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 18 P03 | 8 | 2 tasks | 5 files |
 | Phase 18 P02 | 5m 3s | 2 tasks | 2 files |
 | Phase 18 P04 | 15 | 2 tasks | 1 files |
+| Phase 20 P02 | 7m38s | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -74,6 +75,9 @@ Recent decisions affecting current work:
 - [Phase 18]: LLM prompt uses rich metadata per card (archetype, element, astrology) for deeper AI interpretation in tarot readings
 - [Phase 18]: Default spread is 'three_card' (index 1 of TAROT_SPREADS) — balances discoverability with a meaningful draw for first-time users
 - [Phase 18]: detailCard state is null-gated (isOpen = detailCard !== null) — avoids separate boolean state and prevents stale modal content
+- [Phase 20]: Cast readonly BlogPostSeed[] to unknown first before upsert — avoids any, satisfies TypeScript strict
+- [Phase 20]: Next.js 15+ requires await params in dynamic route handlers — applied to GET /api/blog/[slug]
+- [Phase 20]: Blog seed pattern: loadEnv -> createClient with service key -> upsert with onConflict:'slug'
 
 ### Pending Todos
 
@@ -85,6 +89,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T06:56:13.349Z
-Stopped at: Phase 20 context gathered
-Resume file: .planning/phases/20-dream-blog-content/20-CONTEXT.md
+Last session: 2026-03-29T08:10:04.162Z
+Stopped at: Completed 20-02-PLAN.md — blog-data.ts, seed-blog-posts.ts, and /api/blog/[slug]/route.ts
+Resume file: None
