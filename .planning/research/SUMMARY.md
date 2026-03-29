@@ -1,17 +1,17 @@
 # Project Research Summary
 
-**Project:** MystiQor — Mystical/Psychological Analysis Platform
-**Domain:** Self-knowledge platform via mystical and psychological synthesis (astrology, numerology, drawing analysis, graphology, tarot, AI coaching)
-**Researched:** 2026-03-22
+**Project:** MystiQor
+**Domain:** Mystical/Spiritual Personal Analysis Platform — UX Atmosphere Layer (v1.3)
+**Researched:** 2026-03-29
 **Confidence:** HIGH
 
 ## Executive Summary
 
-MystiQor is a migration project, not a greenfield build. A fully functional 53-page, 100+ component BASE44 application (React/Vite/Deno) already exists and is being moved to Next.js 15 / TypeScript / Supabase. The destination stack is already partially built: a Phase 0 foundation with 127 files and clean compilation exists in `mystiqor-build/`, including auth, middleware, database types, core services, shadcn/ui components, and 5 tool API routes. The primary challenge is not technology selection — all decisions are locked — but completing the migration of a complex domain-specific application with strict ordering constraints, RTL Hebrew requirements, and multiple integration surfaces (Stripe, OpenAI, Supabase Realtime, file uploads).
+MystiQor v1.3 is a UX atmosphere milestone on top of a fully operational mystical personal analysis platform. The codebase already has a complete MD3 dark cosmic design system — glassmorphism panels, nebula gradients, star animations, gold/lavender tokens, and mystical iconography — but that system is inconsistently applied and has three concrete gaps: text contrast failures on dark backgrounds, no persistent AI coach access across pages, and a 47-item hamburger sidebar that dominates mobile navigation. The v1.3 milestone is about closing those gaps and amplifying what exists, not rebuilding anything. Every new capability (glowing text, floating chat overlay, bottom tabs, cosmic section headers) is achievable using the existing stack — zero new npm packages are required.
 
-The recommended approach is a dependency-ordered migration following a 9-phase build order documented in ARCHITECTURE.md. The platform's core differentiator — Mystic Synthesis combining astrology, numerology, drawing analysis, and graphology through a cross-tool AI layer — must be preserved exactly. The subscription system and SubscriptionGuard pattern must be validated end-to-end before tool features ship, because the business model depends on plan-enforced usage limits. Two features (Transits and Human Design) contain mocked or LLM-simulated calculations in the source and must be explicitly rebuilt with real ephemeris data before launch.
+The recommended approach is a strictly additive build sequence driven by a single blocking dependency: text contrast fixes must come first, because all subsequent visual improvements depend on a legible baseline. From there, the two highest-leverage features (floating AI coach widget and mobile bottom tab navigation) are built independently and wired into the authenticated layout in a single integration step. Atmospheric polish — mystical loading states, section headers, page entry animations — rounds out the milestone as a breadth sweep across all tool pages. A final phase refines the coach AI's context freshness and sidebar organization for desktop power users.
 
-Key risks are concentrated in Phase 1 infrastructure: LLM response validation (20+ call sites with no Zod response schemas), file upload architecture (Vercel 4.5MB body limit will break graphology and drawing analysis if not routed through Supabase Storage correctly), atomic usage counter increments (race condition allows free-tier bypass), and Stripe webhook idempotency (duplicate subscription creation on retries). All 6 critical pitfalls are preventable with patterns already established in the codebase — the risk is skipping them under time pressure.
+The chief technical risk is animation performance: `layout-client.tsx` already runs eight or more simultaneous CSS keyframe sequences plus three backdrop-filter blur layers. Any new animation added without auditing the existing budget risks dropped frames and battery drain on mid-range mobile devices — directly undermining the mystical atmosphere the milestone aims to create. The second risk is the z-index stack: Header, MobileNav, floating chat, and bottom tab bar must coexist without tap-event collisions, and this requires a global z-index scale to be defined before the floating component is coded. Both risks have documented prevention strategies; they are pre-solvable, not exploratory problems.
 
 ---
 
@@ -19,196 +19,180 @@ Key risks are concentrated in Phase 1 infrastructure: LLM response validation (2
 
 ### Recommended Stack
 
-The stack is confirmed and locked. All libraries are installed in `mystiqor-build/package.json` and active in the codebase. No technology decisions remain open.
+No new packages are needed for v1.3. The existing stack — Next.js 15, TypeScript strict, Tailwind CSS, Supabase, framer-motion v12.38, shadcn/ui, Zustand v5, React Query, react-icons v5.6, lucide-react v0.577 — covers every new capability. Libraries evaluated and explicitly rejected: tsparticles (80 kB canvas loop for a visual already achieved by existing CSS), lottie-react (no After Effects assets; CSS keyframes sufficient), react-spring (redundant with framer-motion v12.38), react-bottom-navigation (no RTL, unmaintained; 60-line custom component is better), and react-chat-widget (third-party service wrapper, incompatible with internal API routes). All four new capabilities are built with CSS extensions to `globals.css` and custom React components using framer-motion AnimatePresence, Zustand stores, and ReactDOM.createPortal — both already installed.
 
-**Core technologies:**
-- **Next.js 15 App Router** — framework; async cookies/params pattern required; verify `npm list next` to confirm exact installed version (package.json shows `^16.2.0` which may be a prerelease range resolving to Next 15)
-- **TypeScript 5 strict + noUncheckedIndexedAccess** — zero `any`, zero `@ts-ignore`; enforced in tsconfig.json
-- **Supabase (PostgreSQL + Auth + Storage + Realtime)** — three-client pattern complete (browser/server/admin); 20-table schema typed in `src/types/database.ts`
-- **Stripe (stripe v20 + @stripe/stripe-js + @stripe/react-stripe-js)** — webhook route exists; needs idempotency check
-- **OpenAI SDK v4** — server-side only; single `invokeLLM()` abstraction in `services/analysis/llm.ts`; gpt-4o-mini for text, gpt-4o for vision
-- **TanStack Query v5 + Zustand v5** — React Query for server state, Zustand for UI state (theme, onboarding)
-- **React Hook Form v7 + Zod v4** — Zod 4 breaks Zod 3 API (`nonempty()` removed); any ported BASE44 validation code must be audited
-- **Tailwind CSS v3 + shadcn/ui** — RTL confirmed via `dir="rtl"` on `<html>` in layout.tsx; Assistant font (Hebrew + Latin)
-- **Recharts v3** — charts (dashboard, biorhythm, Big Five radar)
-- **Resend v4** — transactional email; service layer scaffolded (welcome, payment-failed, usage-limit)
-- **date-fns v4** — v4 breaks v3 import style; all ported date code needs audit
-- **Vitest v4 + Testing Library** — fully configured with jsdom
+**Core technologies for v1.3 (all already in package.json):**
+- **framer-motion v12.38:** Panel open/close (AnimatePresence), bottom tab indicator (layoutId shared layout), FAB spring physics — patterns already in use in `PageTransition.tsx` and `ChatMessage.tsx`
+- **Zustand v5:** `floating-coach.ts` store for isOpen/activeConversationId/unreadCount; centralized scroll-lock counter coordinating MobileNav and chat overlay
+- **ReactDOM.createPortal:** Renders floating chat panel into `document.body`, escaping `overflow: hidden` ancestors and preventing z-index inheritance from nested layout
+- **CSS logical properties (`inset-inline-start`, `start-*` Tailwind):** RTL-safe fixed positioning — pattern already established in `MobileNav.tsx` (`end-0`)
+- **`env(safe-area-inset-bottom)`:** iPhone home indicator clearance for bottom tab bar; must be applied to tab bar inner container, not body
 
-**Not yet installed (needed for later phases):**
-- `@react-pdf/renderer` — PDF export
-- `@upstash/ratelimit @upstash/redis` — API rate limiting
+**New files required (no new packages):**
+- `src/stores/floating-coach.ts`
+- `src/services/coach/client-api.ts` (extracted from `coach/page.tsx`)
+- `src/components/features/coach/FloatingCoachBubble.tsx`
+- `src/components/features/coach/FloatingCoachPanel.tsx`
+- `src/components/features/coach/FloatingCoachOverlay.tsx`
+- `src/components/layouts/BottomTabBar.tsx`
+
+**Files modified (existing):**
+- `src/app/globals.css` — add `.text-glow-primary`, `.text-glow-gold`, `.text-gradient-cosmic`; adjust `--muted-foreground` lightness 78%→88%; add `@media (prefers-reduced-motion: reduce)` block
+- `src/app/(auth)/layout-client.tsx` — mount FloatingCoachOverlay + BottomTabBar; add `pb-16 md:pb-0` to main
+- `src/components/layouts/Sidebar.tsx` — change default open sections from all→priority only; persist to localStorage; gold treatment on coach item
+- `src/app/api/coach/messages/route.ts` — call `buildCoachingContext()` per-message instead of reading stale stored context
 
 ---
 
 ### Expected Features
 
-All features already exist in the BASE44 source. This is a migration, not a discovery exercise. Features are ordered by migration priority.
+**Must have (table stakes) — Phase 1-2:**
+- **Readable text on dark backgrounds** — `text-gold-dim/60` (~2.8:1) and `text-on-surface-variant/60` (~3.5:1) at sub-70% opacity fail WCAG AA; the base token passes at 6.5:1 but opacity modifiers destroy it; this is a blocking prerequisite for all UX improvements
+- **Persistent AI coach access on every authenticated page** — floating orb with inline panel; validated by Sanctuary (context-aware coach), ChatGPT mobile (no auto-expand), Intercom (persistent floating)
+- **Mobile navigation under 5 taps to any primary destination** — 5-tab bottom bar covers 90% of daily use; eliminates 47-item hamburger problem for mobile users
+- **Consistent atmospheric feel across all pages** — utilities exist but are not applied uniformly; tool pages feel like plain SaaS cards next to the cosmic dashboard
 
-**P0 — Must work from day one:**
-- Auth (login / logout / signup) via Supabase Auth
-- User profile + multi-step onboarding (name, birth date/time/place, gender, consent)
-- Subscription checkout + plan enforcement via SubscriptionGuard
-- Dashboard (entry point with Recharts, biorhythm, goals, mood)
-- Astrology natal chart + AI interpretation (most-used tool)
-- Daily insights (multi-source: tarot + numerology + astrology)
-- Analysis history
+**Should have (differentiators) — Phase 3:**
+- **Glowing text on insight headings** — `filter: drop-shadow` (not `text-shadow` which silently fails on gradient text) on h1/h2 in tool results; creates "revelation" perception
+- **Orb breathing animation** — 4s `orb-breathe` keyframe (scale 1.0→1.05, opacity 0.85→1.0) signals presence and life
+- **Mystical loading states** — central `MysticLoadingState` component; contextual Hebrew phrases ("קורא את הכוכבים...", "מפענח את הדפוסים...") replacing generic "טוען..."
+- **StandardSectionHeader component** — astronomical symbol + glow + gradient title applied to every tool page
+- **Page entry animation** — 500ms `animate-in fade-in slide-in-from-bottom-4` at authenticated layout level; creates "summoning" sensation
 
-**P1 — Must work in first sprint after launch:**
-- Numerology (life path, destiny, soul, gematria)
-- Mood tracker (5-point scale, energy level, trend charts)
-- Personal journal (with AI insights)
-- Goals + progress tracking
-- AI Coach (conversational, knows all user analyses)
-- Mystic Synthesis (cross-tool AI summary)
+**Phase 4 (power-user polish):**
+- **Dynamic coach context per message** — `buildCoachingContext()` called on every POST (`~4 parallelized DB queries, ~50ms`); coach stays current as user runs new analyses mid-conversation
+- **Sidebar distillation** — 3 priority sections open by default; 5 secondary sections collapsed; state persisted to localStorage; coach entry with gold border treatment
+- **Context-aware floating coach opener** — pathname-based tool context injection when tapping orb on a tool page
 
-**P2 — Core differentiators (week 2):**
-- Drawing analysis (HTP test, digital canvas, Koppitz/FDM scoring, annotations)
-- Graphology (9 components, PDF, comparison, progress tracking, reminders)
-- Tarot
-- Compatibility (astrology + numerology)
-- Human Design / Palmistry
-
-**P3 — Value-adds (week 3+):**
-- Timing tools, Solar Return, Synastry, Transits (needs real ephemeris rebuild)
-- Career guidance, Relationship analysis
-- Blog, Tutorials, Astrology Tutor, Drawing Tutor
-- PDF export, Social sharing, Referral program, PWA
-
-**Explicit anti-features (do not build):**
-- Native mobile app (PWA covers mobile)
-- Multi-language / i18n scaffolding (Hebrew only in v1)
-- Real-time collaboration (solo tool)
-- Admin CMS panel
-- IconGenerator, TestStripe, LanguageToggle pages from BASE44 (dev tools — do not migrate)
-- Multiple toast systems (consolidate to Sonner + shadcn toast)
+**Explicit defers (v1.4+):**
+- Streaming chat token-by-token in floating panel (infrastructure change)
+- Notification badges on floating orb (requires unread message tracking infrastructure)
+- Full coach page redesign (`/coach` page is not changed in v1.3)
+- Animated landing page with cosmic parallax
+- New color palette (the purple/lavender/gold/indigo palette is established and must not be altered)
+- Multi-language support (Hebrew only)
 
 ---
 
 ### Architecture Approach
 
-The system topology is Next.js 15 on Vercel with Supabase as the data/auth/storage/realtime backend, OpenAI for all AI calls (server-side only), Stripe for payments, Nominatim for geocoding, and Resend for email. All protected routes live under `app/(auth)/` with a two-layer layout: a Server Component that validates the Supabase session and redirects unauthenticated users, and a Client Component that provides React Query, toasts, and the sidebar shell. All tool mutations go through API route handlers (auth check + Zod validation + usage increment + service call + DB save) — client components never write to Supabase directly.
+All new components are additive to the authenticated layout (`layout-client.tsx`). The floating overlay and bottom tab bar are siblings inside the outer layout div — not nested inside the main content column — so they persist across route changes without re-mounting. This is the only correct placement in Next.js App Router: layout components do not re-mount on navigation; page components do. The floating coach uses a Zustand store (`floating-coach.ts`) for state shared between the bubble, the panel, and the full coach page. Chat API functions are extracted from `coach/page.tsx` into a shared `services/coach/client-api.ts` so both consumers use a single source of truth. The sidebar receives a configuration-only change (default open sections and localStorage persistence) — no structural rewrite.
 
 **Major components and responsibilities:**
-1. **`src/lib/supabase/` (browser/server/admin/middleware)** — auth client selection; wrong client in wrong context causes silent data failures
-2. **`src/app/api/tools/[tool]/route.ts`** — standard 7-step template: auth → validate → usage check → compute → LLM → save → return
-3. **`src/services/`** — pure computation layer (astrology, numerology, drawing, LLM abstraction, email, geocoding); pages call services, never reimplement
-4. **`src/components/features/*/`** — decomposed tool UIs; original BASE44 monoliths (500-1300 lines) split into form + loading + results + history
-5. **`SubscriptionGuard`** — wraps every tool form; checks plan limits client-side, backed by atomic server-side increment in DB
-6. **`src/components/features/astrology/BirthChart/`** — 922-line original split into 4 SVG sub-components (ZodiacRing, PlanetPositions, AspectLines, HouseOverlay)
-7. **Supabase Realtime** — AI Coach chat streaming; every channel must be user-filtered and cleaned up in useEffect
 
-**Current build status (as of 2026-03-22):**
-- Phase 0 (Foundation): COMPLETE — 127 files, clean compile
-- Phase 2 (Core Data + Auth): 3/9 tasks complete
-- 40+ pages still missing (see full migration map in ARCHITECTURE.md)
+1. **`FloatingCoachOverlay`** — orchestrates bubble/panel visibility; reads `usePathname()` to suppress on `/coach`; lives in layout, persists across navigation
+2. **`FloatingCoachBubble`** — fixed FAB at `bottom-24 start-6 md:bottom-6` (RTL logical properties); breathing animation; unread badge from Zustand store
+3. **`FloatingCoachPanel`** — glass-panel drawer (300×420px mobile, 380×560px desktop); reuses `ChatMessage`, `ChatInput`, `QuickActions` from existing coach components; data from shared `client-api.ts`
+4. **`floating-coach.ts` (Zustand store)** — `isOpen`, `activeConversationId`, `unreadCount`, scroll-lock counter (shared with MobileNav to prevent race conditions)
+5. **`BottomTabBar`** — 5-tab fixed bottom strip (`md:hidden`); `usePathname()` with `startsWith` matching; `glass-nav` styling; `env(safe-area-inset-bottom)` on inner container
+6. **`services/coach/client-api.ts`** — extracted `fetchConversations`, `createConversation`, `fetchMessages`, `sendMessage`; imported by both full coach page and floating panel
+7. **`messages/route.ts` (modified)** — `buildCoachingContext()` called per POST via `Promise.all`; ~4 parallelized DB queries at ~50ms, invisible within LLM latency
+
+**Build sequence (strict dependency order):**
+
+`floating-coach.ts` (store) → `client-api.ts` (extraction) → FloatingCoachBubble → FloatingCoachPanel → FloatingCoachOverlay → coach/page.tsx refactor → BottomTabBar → Sidebar.tsx config → messages/route.ts → layout-client.tsx (integration last — wires everything together)
 
 ---
 
 ### Critical Pitfalls
 
-1. **SSR auth client mismatch** — Using browser Supabase client in Server Components or API routes causes silent auth failures (RLS returns zero rows, usage increment never fires). Prevention: three-client rule is already established; enforce it via code review. Phase 0.
+1. **Animation GPU overload from stacking new effects on existing 8+ keyframes** — `layout-client.tsx` already runs three `blur-[100-120px]` blob animations plus `stars-bg`, `aurora-bg`, `sparkle-drift`, `shimmer-rotate`, `float-gentle`. Audit the existing budget before adding anything. Preferred mitigation: replace blob animations with static radial gradients, then redirect the saved GPU budget to new effects. Never add `backdrop-filter` to the floating chat bubble — the existing `glass-nav` and `glass-panel` already saturate GPU compositing layers.
 
-2. **LLM response shape assumed stable** — 20+ LLM call sites have no Zod response schemas; one malformed response crashes the analysis and wastes the usage increment. Prevention: add Zod validation for every LLM response shape before any feature uses the LLM layer. Phase 1.
+2. **No `prefers-reduced-motion` support anywhere in the codebase** — All six `@keyframes` blocks in `globals.css` animate unconditionally. Add a single `@media (prefers-reduced-motion: reduce)` block as the absolute first task of any animations work. The 10-line fix retroactively covers all existing animations plus every new v1.3 animation. Without it, the app fails WCAG 2.3.3 and causes physical discomfort for a significant portion of the wellness app audience.
 
-3. **File upload hits Vercel 4.5MB body limit** — Sending graphology/drawing images as base64 JSON body exceeds Vercel's limit. Prevention: Supabase Storage client-side upload + server-side URL confirmation pattern; `src/app/api/upload/route.ts` must use `request.formData()` with magic-byte content validation. Phase 1.
+3. **z-index collision between Header (z-50), MobileNav (z-50), floating chat bubble, and bottom tabs** — Define a global z-index scale as CSS custom properties before coding any new positioned component. Recommended scale: `--z-header: 50`, `--z-mobile-panel: 50`, `--z-floating: 60`, `--z-modal: 70`, `--z-toast: 80`. Share `isMobileNavOpen` state via Zustand so the floating bubble hides (`opacity-0 pointer-events-none`) when the mobile nav is open.
 
-4. **Stripe webhook processes events twice** — No idempotency check causes duplicate subscriptions on retry. Prevention: insert `stripe_event_id` to `processed_webhook_events` on receipt; use `request.text()` (not `request.json()`) for signature verification. Phase 4.
+4. **iOS virtual keyboard covers floating chat input in PWA mode** — `position: fixed` elements misbehave in iOS Safari standalone mode when the virtual keyboard opens. Implement a `visualViewport` resize handler that adjusts `bottom` offset dynamically. Must be tested on a physical iOS device in add-to-home-screen mode — Chrome DevTools emulation does not reproduce this behavior.
 
-5. **Transits and Human Design carry mocked/LLM-simulated data** — `calculateTransits` is explicitly mocked (score 23/50); `calculateHumanDesign` uses LLM guesswork. Migrating these as-is ships incorrect results. Prevention: mark both as `REBUILD` tasks requiring real ephemeris (Swiss Ephemeris WASM or `astronomia` npm package). Phase 5.
+5. **Text contrast fixes that break existing components using the same token** — The base `on-surface-variant` token (`#c8bede`) passes WCAG AA at 6.5:1. The actual failures are the opacity-modified variants: `text-gold-dim/60` (~2.8:1), `text-on-surface-variant/60` (~3.5:1). Fix strategy: introduce new accessible-specific tokens rather than changing base token values; changing a base token immediately affects all 50+ usage sites including intentionally decorative elements.
 
-6. **Usage counter race condition** — Two simultaneous submissions pass the limit check and both increment, letting free users exceed their plan. Prevention: atomic PostgreSQL `UPDATE ... WHERE analyses_used < analyses_limit RETURNING analyses_used` — no row updated means limit hit. Phase 1.
+6. **Three competing navigation systems if hamburger is not retired on mobile** — Adding bottom tabs alongside the existing hamburger menu without removing the hamburger creates two authoritative navigation systems with inconsistent active states. Bottom tabs must replace the hamburger as the primary mobile navigation pattern. The full-sidebar MobileNav overlay stays as secondary deep-nav access; the hamburger `<Menu>` button in Header becomes `hidden md:block` when tabs are visible.
+
+**Additional moderate pitfalls:**
+- Scroll lock race condition (MobileNav + floating chat both call `document.body.style.overflow` independently) — centralize in Zustand scroll-lock counter
+- Bottom tab safe-area conflict (body already applies `env(safe-area-inset-bottom)`; tab bar and main must not double-stack)
+- Gradient text + `text-shadow` silently does nothing — use `filter: drop-shadow` on all gradient text elements
+- Sidebar active-state gaps when items are collapsed — map every collapsed item to a parent whose href is a prefix of the route
+- Service worker cache invalidation on navigation changes — increment `CACHE_VERSION` in `sw.js`
 
 ---
 
 ## Implications for Roadmap
 
-The build order is already designed and partially implemented. The roadmap must follow the dependency graph from ARCHITECTURE.md. The following phase structure reflects that research and adds research flags.
+Four phases are recommended. The ordering is driven by: (1) the text contrast blocking dependency, (2) the need to define the global z-index scale and reduced-motion baseline before any animated components are coded, (3) a natural split between critical interactive features and atmospheric breadth work.
 
-### Phase 1: Core Infrastructure Hardening
-**Rationale:** Three infrastructure concerns must be locked before any feature is built on top of them. LLM response validation, file upload architecture, and atomic usage counting each affect every subsequent phase. Getting these wrong creates compounding debt.
-**Delivers:** Validated LLM service layer with Zod response schemas; production-ready upload endpoint with Supabase Storage; atomic usage counter; Hebrew text normalization in Zod schemas; tarot card data seeded to database.
-**Addresses:** Table stakes features (auth, subscription guard) depend on correct usage infrastructure.
-**Avoids:** Pitfalls 4 (LLM response), 6 (file upload), 8 (race condition), 11 (Hebrew Zod), 14 (hardcoded tarot).
+### Phase 1: Foundation — Contrast, Z-index, Reduced Motion
 
-### Phase 2: Core Data + Auth Completion (6 remaining tasks)
-**Rationale:** 3/9 tasks are done. The remaining 6 (Goals CRUD, Mood tracker, Journal, Daily insights, Profile edit, Onboarding completion server-side) are prerequisites for the dashboard to be meaningful. Onboarding consent must be server-validated — client-side flags are a legal risk.
-**Delivers:** Working user lifecycle from signup through onboarding to active profile; mood/journal/goals data flowing to dashboard.
-**Uses:** Zustand onboarding store (already built), React Query patterns established in Phase 0.
-**Avoids:** Pitfall 16 (onboarding consent bypass — must be server-side validated).
-**Research flag:** None needed — standard CRUD patterns throughout.
+**Rationale:** Text contrast is a blocking dependency for every subsequent visual improvement. The global z-index scale and `prefers-reduced-motion` baseline must be established before any new animated or positioned components are coded. This phase is unglamorous infrastructure, but it is what makes Phases 2-4 possible without regressions.
 
-### Phase 3: Tools Tier 1 (Foundational, Most-Used)
-**Rationale:** Numerology (done), Tarot (done), Dream (done), Human Design (done) are partially complete. Astrology natal chart is missing and is the platform's most complex feature — it blocks Transits, Solar Return, Synastry, and Timing Tools. The BirthChart SVG decomposition pattern must be applied here.
-**Delivers:** All 5 Tier 1 analysis tools functional; Astrology natal chart with SVG decomposition; subscription gate enforced on all tools.
-**Implements:** BirthChart 4-component split (ZodiacRing, PlanetPositions, AspectLines, HouseOverlay); SubscriptionGuard wrapping all forms.
-**Avoids:** Pitfall 13 (monolith migration — split before porting, not after).
-**Research flag:** Astrology natal chart SVG rendering may benefit from phase-level research to evaluate if an existing React astrology chart library is worth adopting versus completing the custom SVG approach already partially built.
+**Delivers:** WCAG-compliant dark theme (specific opacity-modified class fixes, new accessible tokens, raised `--muted-foreground` lightness); global z-index CSS custom properties; `@media (prefers-reduced-motion: reduce)` block retroactively protecting all existing and future animations.
 
-### Phase 4: Tools Tier 2 (Image Upload Features)
-**Rationale:** Graphology, Drawing Analysis, and Palmistry all require the file upload architecture from Phase 1. Compatibility requires the BirthDataForm pattern for two people. These features are complex (9 graphology components, DigitalCanvas) but do not block other phases.
-**Delivers:** Drawing analysis with digital canvas, annotation viewer, Koppitz scoring; full graphology suite (comparison, PDF, progress tracking, reminders); Compatibility; Personality Analysis.
-**Uses:** Upload endpoint from Phase 1; BirthDataForm extended for two-person input.
-**Avoids:** Pitfall 6 (file upload architecture); Pitfall 15 (PDF export using pdf-lib, not puppeteer).
-**Research flag:** DigitalCanvas implementation (HTML5 Canvas + touch events + base64 export) may need research if the BASE44 implementation has gaps. Graphology PDF export must be validated against Vercel timeout limits.
+**Addresses features from FEATURES.md:** "Readable text at all times" (table stakes #1)
 
-### Phase 5: Tools Tier 3 (Ephemeris-Dependent)
-**Rationale:** Transits, Solar Return, Synastry, and Astrology readings all depend on the natal chart (Phase 3) and real ephemeris data. Transits MUST be rebuilt — the BASE44 version is explicitly mocked. This is the highest technical risk phase.
-**Delivers:** Full astrology suite including transits (real ephemeris), synastry (dual chart), Solar Return, Astrology Readings (8 modes), AstroCalendar, Timing Tools.
-**Avoids:** Pitfall 5 (mocked transits — use Swiss Ephemeris WASM or `astronomia` npm package, cache per UTC day).
-**Research flag:** NEEDS RESEARCH — ephemeris library selection (swisseph WASM vs astronomia vs external API), Human Design deterministic algorithm, caching strategy for computed planetary positions.
+**Avoids pitfalls:** Pitfall 2 (no reduced-motion support), Pitfall 5 (token changes breaking existing components), Pitfall 3 (z-index scale defined here before any floating component is coded)
 
-### Phase 6: AI Coach + Mystic Synthesis
-**Rationale:** AI Coach requires Supabase Realtime and depends on the user having completed analyses (all prior phases). Mystic Synthesis requires at minimum 2 tool types to be done. These are the highest-value differentiators and the most complex AI interactions.
-**Delivers:** AI Coach with streaming chat, Coaching Journeys, Mystic Synthesis (cross-tool), Ask Question, Career Guidance.
-**Implements:** Supabase Realtime channel per user (with filter and useEffect cleanup); streaming LLM responses.
-**Avoids:** Pitfall 9 (realtime subscription leak); Pitfall 12 (prompt injection — XML delimiters on all user input).
-**Research flag:** Supabase Realtime streaming patterns with Next.js App Router — confirm channel configuration for production.
+**Research flag:** Skip. CSS contrast fixes and accessibility media queries are standard, fully-documented patterns. All token hex values are known from direct file reads. No unknowns.
 
-### Phase 7: Growth + Monetization
-**Rationale:** Stripe checkout flow, webhooks, referrals, and subscription management are the business backbone. The webhook route exists but needs idempotency. Referral system and email flows are scaffolded.
-**Delivers:** Complete Stripe checkout, subscription management, referral program, transactional email (welcome, payment-failed, usage-limit), Analytics Dashboard.
-**Avoids:** Pitfall 3 (Stripe webhook idempotency — implement before going live with payments).
-**Research flag:** Vercel cron configuration for monthly usage reset and daily insight batch — confirm timeout limits for Hobby vs Pro plan.
+---
 
-### Phase 8: Learning + Analytics
-**Rationale:** Tutorials, Astrology Tutor, Drawing Tutor, and the self-analytics dashboard are value-adds that increase retention but do not block core functionality. Analysis history and compare features depend on analyses table having sufficient data.
-**Delivers:** Tutorial system, Astrology Tutor, Drawing Tutor, Analysis History with compare, Analytics Dashboard.
-**Research flag:** None needed — content-driven features with standard patterns.
+### Phase 2: Floating Coach Widget + Bottom Tab Navigation
 
-### Phase 9: Infrastructure + PWA
-**Rationale:** Rate limiting, cron jobs, PDF export, social sharing, PWA, notifications, and accessibility audit are final polish. Cron jobs need the queue pattern to avoid timeout issues.
-**Delivers:** Rate limiting (Upstash Redis), cron jobs (queue pattern, unique constraint on user+date), PDF export (pdf-lib), PWA manifest + service worker, social sharing, notifications, accessibility audit.
-**Avoids:** Pitfall 10 (cron timeout — queue pattern with per-user locks); Pitfall 15 (PDF timeout — pdf-lib not puppeteer).
-**Research flag:** Upstash Redis rate limiting integration with Vercel middleware; service worker strategy for Hebrew RTL PWA.
+**Rationale:** These are the two highest-leverage features and are largely independent of each other. Both mount into `layout-client.tsx` as the final integration step, so they can be built concurrently and wired together at the end. Both depend on Phase 1's z-index constants and safe-area strategy.
+
+**Delivers:** Floating AI coach orb accessible from every authenticated page (bubble + glass-panel drawer + Zustand store + shared API client); 5-tab mobile bottom navigation retiring the hamburger as primary mobile nav; `pb-16 md:pb-0` main content padding; `visualViewport` keyboard handler for iOS PWA; centralized scroll-lock Zustand counter.
+
+**Addresses features from FEATURES.md:** "Persistent coach access on every page" (table stakes #2), "Mobile navigation under 5 taps" (table stakes #3)
+
+**Avoids pitfalls:** Pitfall 1 (floating bubble uses solid background, no backdrop-filter), Pitfall 3 (z-index scale from Phase 1), Pitfall 4 (iOS PWA keyboard — visualViewport handler), Pitfall 6 (hamburger retired on mobile — bottom tabs are primary), Pitfall 7 (scroll lock centralized in Zustand), Pitfall 10 (safe-area conflict handled), Pitfall 13 (RTL logical properties: `start-6` not `right-6`), Pitfall 15 (inline chat with Zustand state, not navigation link to /coach)
+
+**Research flag:** Needs attention during planning for one gap: confirm whether shadcn/ui Sheet is installed (MobileNav.tsx has a comment "ישודרג כשיותקן" — upgrade when installed). If Sheet is available, a Sheet-based drawer is simpler than a custom portal panel. Also confirm iOS PWA keyboard test plan on physical device.
+
+---
+
+### Phase 3: Atmospheric Depth Sweep
+
+**Rationale:** Once critical interactive features are in place, this phase applies atmospheric polish across the breadth of all tool pages. Each individual task is low-complexity (CSS utility + component application); the challenge is breadth, not depth. Grouping all atmosphere work in one phase keeps the creative work together and makes it easy to gate-review the overall mystical feel at once.
+
+**Delivers:** `MysticLoadingState` component replacing generic spinners across all tool pages; `StandardSectionHeader` on all tool pages (astronomical symbol + glow + gradient title); page entry animation (`animate-in fade-in slide-in-from-bottom-4`) at authenticated layout level; orb breathing animation (4s CSS keyframe); `filter: drop-shadow` glow on key insight headings.
+
+**Addresses features from FEATURES.md:** "Sense of entering a different world" (table stakes #4), "Mystical iconography" (table stakes #5), glowing text (differentiator), cosmic section headers (differentiator), page entry animation (differentiator), mystical loading states (differentiator)
+
+**Avoids pitfalls:** Pitfall 1 (animation budget — no new keyframes without auditing existing budget; replace blob animations if needed), Pitfall 11 (gradient text + text-shadow = invisible; use filter: drop-shadow throughout)
+
+**Research flag:** Skip. All techniques are well-understood CSS patterns with existing usage examples in the codebase. No exploratory unknowns.
+
+---
+
+### Phase 4: Coach Intelligence + Desktop Sidebar Polish
+
+**Rationale:** Dynamic coach context and sidebar distillation are lower urgency than the mobile improvements in Phases 2-3. Desktop sidebar simplification benefits power users but does not affect the mobile-first majority. Coach context freshness enhances the already-deployed floating coach from Phase 2. Both are quality improvements, not new-feature additions.
+
+**Delivers:** Coach that stays current on analyses run during a conversation (`buildCoachingContext()` per POST, ~4 parallelized queries); sidebar showing 3 priority sections open by default with localStorage persistence; coach sidebar entry with gold border treatment; optional context-aware floating coach opener (pathname → tool context injection, "I see you just received your natal chart...").
+
+**Addresses features from FEATURES.md:** "FloatingCoach context-awareness" (differentiator), "Sidebar distillation" (differentiator), "Orb breathing animation" (already in Phase 3 — confirmed here in coach polish context)
+
+**Avoids pitfalls:** Pitfall 8 (sidebar active state for collapsed/removed items — map to parent href prefixes), Pitfall 12 (service worker cache invalidation — increment CACHE_VERSION for nav structure change), Pitfall 14 (sidebar state not persisted — localStorage persistence implemented here)
+
+**Research flag:** Verify Supabase query volume for `buildCoachingContext()` per-message (~4 queries × message volume) against plan limits. If volume is a concern, implement 60s TTL in-memory cache from the start rather than as a retrofit.
 
 ---
 
 ### Phase Ordering Rationale
 
-- **Phase 1 before everything:** LLM response validation, upload architecture, and atomic counters affect all 20+ tool call sites. Establishing these first prevents compounding rework.
-- **Phase 2 before tools:** Onboarding and profile data are prerequisites for all analysis tools — nothing can be pre-filled without a completed profile.
-- **Phase 3 before Phase 4:** Astrology natal chart is prerequisite for Synastry, Solar Return, and Timing Tools. The BirthDataForm pattern established in Phase 3 is reused in Phase 4 for two-person inputs.
-- **Phase 5 isolated:** Ephemeris rebuild is the highest risk item and is isolated from other features. It does not block Phase 6 (AI Coach) or Phase 7 (monetization).
-- **Phase 6 after Phase 3-5:** Mystic Synthesis requires analyses from multiple tools to exist before it can meaningfully synthesize.
-- **Phase 7 relatively early:** Stripe webhooks and subscription management protect revenue. Even though it's Phase 7, the webhook idempotency fix should be validated in a pre-launch QA pass.
-
----
+- **Phase 1 first:** Text contrast is a visual blocker; z-index constants and reduced-motion baseline are safety infrastructure that must exist before any new positioned/animated components. Non-negotiable sequence.
+- **Phase 2 as the high-impact phase:** Floating coach and bottom tabs are the two features users immediately notice. They are also the most technically complex (PWA behavior, z-index, RTL, Zustand coordination). Completing them cleanly before the breadth sweep of Phase 3 prevents interactive component work from being interleaved with CSS utility application across dozens of files.
+- **Phase 3 as breadth sweep:** All atmospheric features are low-depth, high-breadth. Grouping them enables a coherent visual review of the whole app's mystical feel at the end of the phase.
+- **Phase 4 last:** Coach intelligence and sidebar polish are meaningful quality improvements but do not change the user's first impression of v1.3. They are correctly deprioritized after the features that users see and feel immediately.
 
 ### Research Flags
 
-**Needs phase-level research during planning:**
-- **Phase 3:** Astrology SVG chart — evaluate existing React astrology chart libraries vs completing custom SVG (one-time decision with significant implementation impact)
-- **Phase 5:** Ephemeris library selection — Swiss Ephemeris WASM vs `astronomia` npm vs external API; Human Design deterministic calculation algorithm
-- **Phase 6:** Supabase Realtime streaming configuration for Next.js App Router
-- **Phase 9:** Upstash Redis rate limiting; PWA service worker strategy for RTL
+**Needs deeper research or explicit test planning during phase planning:**
+- **Phase 2 (Floating Coach):** iOS PWA virtual keyboard behavior with `visualViewport` API — needs an explicit test plan on physical device before the phase is considered complete. Also: confirm shadcn/ui Sheet availability for drawer implementation decision.
+- **Phase 4 (Dynamic Context):** Validate Supabase query volume implications of `buildCoachingContext()` per-message against plan read limits. Decide TTL cache strategy before implementation begins.
 
 **Standard patterns — skip research phase:**
-- **Phase 1:** Core infrastructure hardening — all patterns documented and partially implemented
-- **Phase 2:** CRUD features — Goals, Mood, Journal follow established patterns
-- **Phase 4:** Image upload + graphology — architecture established in Phase 1
-- **Phase 7:** Stripe integration — well-documented, existing webhook route to improve
-- **Phase 8:** Content/tutorial features — no novel patterns
+- **Phase 1 (Contrast + Accessibility):** WCAG formulas applied to known hex values; CSS media query is a single well-documented block. Zero unknowns.
+- **Phase 3 (Atmospheric Sweep):** All CSS techniques (keyframes, filter: drop-shadow, Tailwind animate-in) have existing usage examples in the codebase. No novel patterns.
 
 ---
 
@@ -216,44 +200,50 @@ The build order is already designed and partially implemented. The roadmap must 
 
 | Area | Confidence | Notes |
 |------|------------|-------|
-| Stack | HIGH | All libraries confirmed via direct package.json read; all patterns confirmed via direct code inspection; only open question is exact Next.js installed version (verify with `npm list next`) |
-| Features | HIGH | All features derived from direct source code examination of 53 pages and 100+ components; no assumptions |
-| Architecture | HIGH | Architecture design in 03_ARCHITECTURE.md confirmed against actual mystiqor-build/ implementation; build order dependency graph is deterministic |
-| Pitfalls | HIGH for pitfalls from direct code inspection; MEDIUM for Next.js-specific mitigations | 12 of 16 pitfalls derived from documented source issues; Next.js 15 mitigation patterns based on framework knowledge (August 2025 cutoff) |
+| Stack | HIGH | All findings from direct file reads: `package.json`, `globals.css`, `tailwind.config.ts`, component source files. Zero inference or external lookup. |
+| Features | HIGH | Primary source is direct code inspection of the running codebase. Comparable-app patterns (Co-Star, Pattern, Sanctuary) are training-data knowledge (cutoff August 2025) — MEDIUM confidence for those comparisons; HIGH for the primary code-derived findings. |
+| Architecture | HIGH | All patterns derived from direct analysis of the exact files being modified: `layout-client.tsx`, `Sidebar.tsx`, `MobileNav.tsx`, `messages/route.ts`, `context-builder.ts`. Build sequence is deterministic from the dependency graph. |
+| Pitfalls | HIGH (code-derived) / MEDIUM (iOS PWA) | Pitfalls 1-3, 5-9, 11, 13-15 derived from direct source inspection and known CSS/browser behavior. Pitfall 4 (iOS PWA virtual keyboard) and Pitfall 12 (service worker patterns) are MEDIUM — based on well-documented but not live-tested browser behavior. |
 
-**Overall confidence:** HIGH
+**Overall confidence: HIGH**
 
 ### Gaps to Address
 
-- **Next.js exact version:** `npm list next` in `mystiqor-build/` to confirm whether `^16.2.0` resolves to a Next.js 15 stable or a prerelease — affects which async API patterns are safe.
-- **Geocoding provider:** `services/geocode.ts` exists but external API provider (Nominatim vs Google Maps) is not confirmed in research; confirm before implementing birth-place-dependent features.
-- **Transits ephemeris library selection:** This decision must be made before Phase 5 begins. Swiss Ephemeris WASM runs in Node.js (not Edge Runtime); `astronomia` is pure JavaScript but less precise. External API avoids the bundle size issue but adds latency and cost. Not resolvable without a proof-of-concept.
-- **Human Design deterministic algorithm:** No established npm library was identified for Human Design chart calculation; this may require custom implementation or an external service. Must be researched before Phase 5.
-- **Zod v4 API changes:** All ported validation logic from BASE44 must be audited for Zod 3 → 4 API differences (`nonempty()` removed, error shape changed). This is a mechanical task but risks silent validation failures if missed.
-- **date-fns v4 import changes:** All astrology date calculation code ported from BASE44 must be audited for date-fns v3 → v4 import style differences.
+- **WCAG contrast on gradient text** — `text-gradient-gold` and `text-gradient-mystic` use `-webkit-text-fill-color: transparent`. Standard contrast checkers cannot measure them. Must be tested manually in-browser with a color picker at the rendered pixel level during Phase 1 execution.
+- **shadcn/ui Sheet availability** — `MobileNav.tsx` contains a comment suggesting upgrade to Sheet component when installed. Verify at Phase 2 start: if Sheet is installed, prefer it for the floating panel drawer (simpler than custom portal); if not, use portal + custom panel as documented in ARCHITECTURE.md.
+- **Supabase query volume for dynamic context** — Four parallelized queries per coach message is acceptable at current scale. Needs explicit validation against plan row-read limits before Phase 4 production deploy. Preemptively add 60s TTL cache if projections are uncertain.
+- **iOS PWA keyboard behavior** — Prevention strategy (`visualViewport` handler) is specified and well-documented. Needs live device verification in standalone mode during Phase 2 testing. Chrome DevTools mobile emulation does not reproduce this specific behavior.
 
 ---
 
 ## Sources
 
-### Primary (HIGH confidence)
-- `d:/AI_projects/MystiQor/mystiqor-build/package.json` — confirmed stack versions
-- `d:/AI_projects/MystiQor/mystiqor-build/src/**` — direct code inspection (Phase 0 + Phase 2 partial)
-- `d:/AI_projects/MystiQor/github-source/src/pages/` — all 53 BASE44 source pages
-- `d:/AI_projects/MystiQor/github-source/src/components/` — 100+ BASE44 source components
-- `d:/AI_projects/MystiQor/02_REVERSE_ENGINEERING.md` — feature scoring + technical debt
-- `d:/AI_projects/MystiQor/02b_GEMS.md` — 14 documented improvement patterns
-- `d:/AI_projects/MystiQor/03_ARCHITECTURE.md` — system architecture design
-- `d:/AI_projects/MystiQor/.planning/PROJECT.md` — requirements and constraints
+### Primary (HIGH confidence — direct codebase inspection)
+- `mystiqor-build/src/app/globals.css` — full animation definitions, token values, safe-area padding, existing keyframes
+- `mystiqor-build/src/app/(auth)/layout-client.tsx` — existing layout structure, animation layers, z-index baseline
+- `mystiqor-build/src/components/layouts/Sidebar.tsx` — 47-item nav, 8 sections, open-state initialization, active-route logic
+- `mystiqor-build/src/components/layouts/MobileNav.tsx` — z-index 50, scroll lock pattern, RTL panel positioning (`end-0`)
+- `mystiqor-build/src/components/layouts/Header.tsx` — z-index 50, hamburger trigger
+- `mystiqor-build/src/app/(auth)/coach/page.tsx` — fetch functions to extract, existing `ChatMessage` + `ChatInput` + `QuickActions` components
+- `mystiqor-build/src/app/api/coach/messages/route.ts` — current context pattern (stale stored `convRow.context?.text`)
+- `mystiqor-build/src/services/coach/context-builder.ts` — `buildCoachingContext()` function and its DB query structure
+- `mystiqor-build/src/lib/animations/presets.ts` — existing framer-motion animation presets
+- `mystiqor-build/package.json` — framer-motion v12.38, zustand v5, next v16, lucide-react v0.577, react-icons v5.6
+- `mystiqor-build/tailwind.config.ts` — confirmed token hex values: `on-surface-variant` #c8bede, `surface` #0d0b1e, `gold-dim` #b8913e, `muted-foreground` HSL 268 20% 78%
+- `mystiqor-build/src/app/layout.tsx` — PWA service worker registration
+- `.planning/PROJECT.md` — v1.3 milestone goal definition and existing v1.2 state
 
-### Secondary (MEDIUM confidence)
-- Next.js 15 official release blog — async cookies/params API confirmation
-- Supabase SSR documentation — three-client pattern validation
-- Zod v4 migration notes — API differences from v3
-- date-fns v4 migration notes — import style changes
-- Stripe webhook best practices — idempotency pattern
+### Secondary (MEDIUM confidence — training data, cutoff August 2025)
+- Co-Star app — bottom tabs for mobile astrology navigation, austere mystical aesthetic with single accent color
+- Pattern app — card entry animations (fade up, 400ms), floating primary action button
+- Sanctuary astrology — persistent floating "talk to astrologer" button, context-aware opener validated in production
+- Insight Timer — 4-5 bottom tab structure as the standard for wellness app navigation
+- ChatGPT mobile — floating chat widget behavior (no auto-expand, panel slides up, explicit full-screen action)
+- WCAG 2.1 guidelines — contrast ratio formulas and thresholds (4.5:1 normal text, 3:1 large text, 3:1 UI components)
+- iOS Safari `visualViewport` API behavior for PWA keyboard handling (well-documented browser behavior)
+- Service worker `SKIP_WAITING` message pattern for immediate cache invalidation
 
 ---
-
-*Research completed: 2026-03-22*
+*Research completed: 2026-03-29*
+*Milestone: v1.3 Mystical UX & Coach Prominence*
 *Ready for roadmap: yes*

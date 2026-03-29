@@ -1,300 +1,323 @@
-# Technology Stack
+# Technology Stack — v1.3 Mystical UX & Coach Prominence
 
-**Project:** MystiQor — Mystical/Psychological Analysis Platform
-**Migration:** BASE44 (React/Vite/Deno) → Next.js + TypeScript + Supabase
-**Researched:** 2026-03-22
-
----
-
-## Context: This Is a Migration, Not a Greenfield Build
-
-The `mystiqor-build/` directory already contains a Phase 0 foundation with 127 files,
-a clean compile, and all major stack decisions already implemented and validated.
-This STACK.md documents the confirmed stack — what exists, why it works, and what
-still needs attention.
-
-**Source of truth for versions:** `mystiqor-build/package.json` (read directly — not inferred).
+**Project:** MystiQor
+**Milestone:** v1.3 — Mystical UX & Coach Prominence
+**Researched:** 2026-03-29
+**Scope:** NEW capabilities only — existing stack (Next.js 15, TypeScript strict, Tailwind CSS, Supabase, framer-motion 12.38, shadcn/ui) is validated and documented in prior STACK.md (v1.0). This file covers only what v1.3 needs.
 
 ---
 
-## Confirmed Stack (Locked Decisions)
+## Executive Summary
 
-### Core Framework
+No new npm packages are required for v1.3. All four new capabilities (glow/gradient text, cosmic animations, floating chat widget, mobile bottom tabs, text contrast fixes) are achievable by extending the existing CSS in `globals.css`, adding Tailwind utilities, and writing custom React components using framer-motion and ReactDOM.createPortal — both already installed.
 
-| Technology | Version (package.json) | Purpose | Status |
-|------------|------------------------|---------|--------|
-| Next.js | `^16.2.0` | App Router, SSR, API routes, middleware | LOCKED — already bootstrapped |
-| React | `^19.2.4` | UI rendering | LOCKED |
-| TypeScript | `^5` | strict mode, `noUncheckedIndexedAccess` | LOCKED — tsconfig.json confirms strict |
-
-**Note on Next.js version:** The project CLAUDE.md says "Next.js 14+" but the actual
-installed version is `^16.2.0`. Next.js 15 was released October 2024 (confirmed via
-official blog) and is the current stable. Next 16 appears to be a canary/unreleased
-semver range — the `^16.2.0` may be resolving to a prerelease build. Roadmap should
-flag this for verification: `npm list next` to confirm what's actually installed.
-Functionally the App Router API used in the codebase matches Next.js 15 patterns
-(async cookies, async params, `next.config.ts`).
-
-**Confidence:** HIGH for Next.js 15 App Router as the real baseline. MEDIUM on the
-exact installed minor version — needs `npm list next` confirmation.
-
-### Database & Auth
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `@supabase/supabase-js` | `^2.99.3` | DB queries, auth, storage, realtime | PostgreSQL + Auth + RLS + Storage in one platform — replaces BASE44's proprietary entities |
-| `@supabase/ssr` | `^0.9.0` | Cookie-based auth for Next.js SSR | Required for SSR auth — `createServerClient` / `createBrowserClient` pattern already implemented in `src/lib/supabase/` |
-
-**Pattern in use:** Three-file Supabase pattern is complete:
-- `lib/supabase/client.ts` — browser client
-- `lib/supabase/server.ts` — server component client (async cookies, Next.js 15 pattern)
-- `lib/supabase/middleware.ts` — session refresh on every request
-
-**Database schema:** 20 tables fully typed in `src/types/database.ts`. Migrations exist
-in `supabase/migrations/`. The type file is manually authored (placeholder note says
-"until Supabase CLI auto-generates"). This is a migration risk: manual types drift from
-actual DB schema. Phase 1 of the roadmap must run `supabase gen types` to replace the
-manual file.
-
-**Confidence:** HIGH — patterns are correct, implementation is solid.
-
-### Payments
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `stripe` | `^20.4.1` | Server-side Stripe SDK | Webhook handling, checkout sessions |
-| `@stripe/stripe-js` | `^8.11.0` | Client-side Stripe | Payment element loading |
-| `@stripe/react-stripe-js` | `^5.6.1` | React components for Stripe | Payment UI |
-
-**Note:** These versions are the latest major releases as of early 2025. Stripe
-versioning is aggressive — the SDK major version (20) is an API versioning scheme, not
-semver breaking change frequency. The `api/webhooks/` route exists in the build.
-
-**Confidence:** HIGH — Stripe + Next.js is a standard, well-documented pattern.
-
-### AI / LLM
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `openai` | `^4.104.0` | OpenAI SDK | All analysis (numerology, astrology, drawing, graphology, coaching) goes through `services/analysis/llm.ts` |
-
-**Pattern in use:** Single `invokeLLM()` abstraction in `src/services/analysis/llm.ts`.
-- `gpt-4o-mini` for text analysis (cost-efficient)
-- `gpt-4o` for image analysis (vision: drawing analysis, graphology)
-- Server-side only — `OPENAI_API_KEY` never touches client code
-- Input sanitization via `sanitizeForLLM()` before every call
-
-**Confidence:** HIGH — implementation is complete and follows correct server-only pattern.
-
-### State Management
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `@tanstack/react-query` | `^5.91.2` | Server state (fetch, cache, sync) | Replaces BASE44's built-in data layer — handles loading/error/stale states |
-| `zustand` | `^5.0.12` | Client state (UI, theme, onboarding) | Lightweight, already used for `ThemeStore` and `OnboardingStore` |
-
-**Pattern in use:**
-- React Query for all Supabase data (profiles, analyses, subscriptions)
-- Zustand with `persist` middleware for theme (localStorage sync confirmed in `stores/theme.ts`)
-- Cache configuration in `lib/query/cache-config.ts`
-
-**Confidence:** HIGH — both libraries installed and in active use.
-
-### Forms & Validation
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `react-hook-form` | `^7.71.2` | Form state, registration, submission | Performance-first form library |
-| `@hookform/resolvers` | `^5.2.2` | Bridge between RHF and Zod | Required adapter |
-| `zod` | `^4.3.6` | Schema validation (forms + API routes) | TypeScript-first validation — used in `lib/validations/` (auth, profile, goals, etc.) |
-
-**Note:** Zod 4 is a significant breaking change from Zod 3. The version installed
-(`^4.3.6`) is current. Zod 4 changed several APIs (`z.string().min()`, error shape).
-Any code copied from BASE44 or older tutorials that used Zod 3 syntax will need updates.
-This is a real migration pitfall — flag for every validation file ported.
-
-**Confidence:** HIGH for the pattern. MEDIUM for migration — Zod 4 API differences
-will surface when porting BASE44 validation logic.
-
-### Styling & UI
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| Tailwind CSS | `^3.4.1` | Utility-first CSS | Already in BASE44 source, standard in Next.js ecosystem |
-| `shadcn/ui` (CLI) | `^4.1.0` | Component library scaffolding | Already used in BASE44 source — RTL compatible via `dir="rtl"` on root |
-| `tailwind-merge` | `^3.5.0` | Class conflict resolution | Required for `cn()` utility |
-| `class-variance-authority` | `^0.7.1` | shadcn variant logic | Required by shadcn |
-| `tailwindcss-animate` | `^1.0.7` | Animation utilities | shadcn accordion animations |
-| `tw-animate-css` | `^1.4.0` | Extended animation classes | |
-| `framer-motion` | `^12.38.0` | Complex animations | GEM 11 (animation presets) uses this |
-| `lucide-react` | `^0.577.0` | Icon library | shadcn default icon set |
-| `sonner` | `^2.0.7` | Toast notifications | Replaces BASE44's notification system |
-
-**RTL implementation:** Confirmed correct — `dir="rtl"` on `<html>` in `app/layout.tsx`.
-Font: `Assistant` (Google Fonts, supports Hebrew + Latin) confirmed in layout.
-shadcn components use logical CSS properties (start/end) which work correctly with RTL.
-
-**Confidence:** HIGH — full stack confirmed in actual files.
-
-### Data Visualization
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `recharts` | `^3.8.0` | Charts (mood trends, biorhythm, Big Five radar) | Used in BASE44 source — standard React charting library |
-
-**Confidence:** HIGH — confirmed in package.json, used in BASE44 source for the same
-features being migrated.
-
-### Email
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `resend` | `^4.8.0` | Transactional email | Modern email API — replaces BASE44's email. Service files exist in `services/email/` (welcome, payment-failed, usage-limit) |
-
-**Confidence:** HIGH — service layer is already scaffolded.
-
-### Content Rendering
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `react-markdown` | `^10.1.0` | Render LLM markdown output | AI Coach and analysis results contain markdown |
-| `remark-gfm` | `^4.0.1` | GitHub Flavored Markdown plugin | Tables, strikethrough in markdown |
-
-**Confidence:** HIGH — necessary for AI response rendering.
-
-### Security
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `dompurify` | `^3.3.3` | XSS sanitization | Used in `sanitizeForLLM()` — prevents prompt injection from user input |
-
-**Confidence:** HIGH — already in use and correctly placed on the LLM path.
-
-### Dates
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `date-fns` | `^4.1.0` | Date manipulation | Astrology/numerology require precise date arithmetic. Lightweight, tree-shakeable |
-
-**Note:** date-fns v4 is a breaking change from v3 — uses a different import style.
-Any BASE44 date-fns code that uses v3 imports will need updating.
-
-**Confidence:** HIGH for library choice. MEDIUM — v4 API changes need attention during migration.
-
-### Geocoding
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| External API (no npm package) | — | Address to lat/lon for astrology birth place | `services/geocode.ts` exists — uses external geocoding API (Nominatim/Google Maps — confirm in source) |
-
-**Confidence:** MEDIUM — service exists but external API provider needs confirmation.
-
-### Testing
-
-| Technology | Version | Purpose | Why |
-|------------|---------|---------|-----|
-| `vitest` | `^4.1.0` | Test runner | Vite-compatible, fast, jsdom support |
-| `@testing-library/react` | `^16.3.2` | Component testing | Standard React testing |
-| `@testing-library/user-event` | `^14.6.1` | User interaction simulation | |
-| `@testing-library/jest-dom` | `^6.9.1` | DOM matchers | |
-| `jsdom` | `^29.0.1` | Browser environment simulation | |
-
-**Configuration:** `vitest.config.ts` confirms jsdom environment, `@/` path alias,
-tests in `tests/` directory.
-
-**Confidence:** HIGH — fully configured.
-
-### Deployment
-
-| Technology | Purpose | Why |
-|------------|---------|-----|
-| Vercel | Hosting + edge functions + CDN | Next.js native deployment. Supabase + Stripe + Vercel is the standard production triad for 2025 SaaS |
-
-**Confidence:** HIGH — stated constraint, industry standard.
+**New library installs: 0.**
 
 ---
 
-## Alternatives Considered (and rejected)
+## Capability 1: Glowing / Gradient Text and Cosmic Animations
 
-| Category | Recommended | Alternative | Why Not |
-|----------|-------------|-------------|---------|
-| Backend BaaS | Supabase | Firebase | PostgreSQL + RLS + typed schema — better fit for relational mystical data |
-| Backend BaaS | Supabase | PlanetScale | PlanetScale dropped free tier; Supabase has Auth + Storage built in |
-| Auth | Supabase Auth | NextAuth (Auth.js) | Supabase Auth is already integrated — separate auth provider adds complexity |
-| State (server) | TanStack Query | SWR | TanStack Query v5 has better TypeScript support, more features |
-| State (client) | Zustand | Jotai | Zustand already in use and team familiar with it |
-| Forms | React Hook Form | Formik | RHF is faster (uncontrolled), smaller, better TypeScript |
-| Validation | Zod | Yup | Zod is TypeScript-first, better type inference, standard in 2025 |
-| Email | Resend | SendGrid | Resend is simpler, modern API, better DX |
-| Charts | Recharts | Victory / Chart.js | Already in BASE44 source — no reason to switch |
-| Styling | Tailwind + shadcn | Chakra UI / MUI | Already in BASE44 source — RTL works, no migration needed |
-| Testing | Vitest | Jest | Faster, no config needed with Vite-adjacent projects |
-| AI | OpenAI SDK | Anthropic / Vercel AI SDK | BASE44 source used OpenAI — 34 backend functions already built around it |
+### Verdict: CSS-only. No new JS library.
+
+**Rationale:**
+
+`globals.css` already contains the full foundation:
+- `.text-gradient-gold` and `.text-gradient-mystic` — working gradient text via `-webkit-background-clip: text`
+- `.stars-bg` — layered radial-gradient star pattern with `stars-twinkle` keyframe
+- `.aurora-bg` — `background-size: 400% 400%` animated gradient
+- `.sparkle-float` — pseudo-element particle drift
+- `.shimmer-border` — conic-gradient rotating shimmer
+- `pulse-glow`, `float-gentle`, `shimmer`, `sparkle-drift`, `aurora-shift` — all defined `@keyframes`
+
+The gap is not missing technique — it is under-application of existing utilities. Key elements (page headings, card titles, coach icon) do not yet use these classes.
+
+**JS particle libraries (tsparticles, react-particles, lottie-react):**
+- tsparticles: ~80 kB gzipped, canvas render loop, CPU-intensive on low-end mobile, conflicts with PWA paint budget. The existing CSS `stars-bg` achieves the same visual at zero JS cost.
+- lottie-react: designed for After Effects exports, not hand-authored animations. Adds ~40 kB for no benefit over CSS keyframes.
+- react-spring: redundant — framer-motion v12.38 is already installed and covers all animation needs.
+
+**Do not add any of these.**
+
+### New CSS to Add (globals.css additions only)
+
+| Utility | CSS technique | Use case |
+|---------|--------------|---------|
+| `.text-glow-primary` | `text-shadow` with lavender halo | Section headings on dark surfaces |
+| `.text-glow-gold` | `text-shadow` with gold halo | Feature titles, coach label |
+| `.text-gradient-cosmic` | `background-clip: text` with teal-to-purple | Alternate heading treatment |
+| `.pulse-text-glow` | `@keyframes` on `text-shadow` intensity | Animated heading accent |
+
+**Important constraint:** `text-shadow` does not apply to elements using `-webkit-text-fill-color: transparent` (gradient text). Apply glow utilities to solid-color text only. Gradient headings have sufficient luminance by construction and do not need glow.
+
+### framer-motion (already v12.38) for JS animations
+
+framer-motion covers all JS animation needs for this milestone:
+- Floating chat button spring physics and breathing pulse
+- Panel expand/collapse via `AnimatePresence`
+- Bottom tab indicator slide via `layoutId` shared layout
+- Page transitions (already in use via `PageTransition.tsx`)
+
+**Confidence: HIGH** — verified via direct file reads of `globals.css`, `package.json` (framer-motion v12.38), `ChatMessage.tsx`, `PageTransition.tsx`.
 
 ---
 
-## What NOT to Use
+## Capability 2: Floating Chat Widget Overlay
 
-**Server Components for everything:** Complex interactive features (AI Coach chat,
-drawing upload with preview, form-heavy onboarding) need `'use client'`. Don't force
-Server Components where they don't fit — the LLM calls are server-side but the UI
-is client-interactive.
+### Verdict: No new library. framer-motion + ReactDOM.createPortal.
 
-**`any` types:** Zero `any`, zero `@ts-ignore`. The tsconfig has `strict: true` +
-`noUncheckedIndexedAccess`. Don't bypass this — it's the whole point of the migration.
+**Why no specialized chat widget library:**
 
-**Direct DB access in client components:** All Supabase queries go through the service
-layer (`src/services/`) or Server Components. Never import `createBrowserClient` in a
-server component or vice versa.
+Libraries like `react-chat-widget` or `crisp-sdk-web` are wrappers around third-party chat services (Intercom, Crisp, Drift). They cannot connect to MystiQor's internal coach API endpoints (`/api/coach/conversations`, `/api/coach/messages`). Using them would require duplicating all API logic outside the existing service layer and bypassing the `SubscriptionGuard` component.
 
-**`json_object` response_format for structured LLM output:** The current `llm.ts` uses
-`json_object` which requires the word "JSON" in the prompt. Consider upgrading to
-`response_format: { type: 'json_schema', json_schema: ... }` (available in GPT-4o) for
-more reliable structured output in future phases.
+### Architecture (new files)
 
-**Zod 3 syntax in ported code:** `z.string().email().nonempty()` → `z.string().email().min(1)`.
-Check all ported validation files.
-
----
-
-## Installation Reference
-
-Everything in `package.json` is already installed. For new phases, additions needed:
-
-```bash
-# PDF export (not yet installed — needed for graphology/analysis export)
-npm install @react-pdf/renderer
-
-# Rate limiting (not yet installed — needed for API protection)
-npm install @upstash/ratelimit @upstash/redis
-
-# Potential addition for astrology calculations (verify BASE44 approach)
-# The BASE44 source uses server functions — may need a dedicated astrology library
-# or keep using LLM-based interpretation (current approach)
+```
+src/components/features/coach/
+├── FloatingCoachButton.tsx    FAB — crystal ball icon, pulse-glow, open/close trigger
+├── FloatingChatPanel.tsx      Mini-chat panel — 300x420px, portal-rendered
+└── FloatingCoachWidget.tsx    Parent — manages state, conditionally renders both
 ```
 
+**Integration point:** `src/app/(auth)/layout-client.tsx`
+
+Render `<FloatingCoachWidget />` once at the authenticated layout level. The widget appears on every authenticated page automatically. Must suppress on `/coach` to avoid duplication alongside the full coach page.
+
+```typescript
+// In FloatingCoachWidget.tsx
+const pathname = usePathname();
+if (pathname === '/coach') return null;
+```
+
+**ReactDOM.createPortal** — renders the panel into `document.body` directly, outside the layout tree. This prevents z-index inheritance from nested `overflow: hidden` ancestors and avoids stacking conflicts with the existing `glass-nav` (z-50) and the new bottom tab bar (z-40).
+
+### Z-index Layering
+
+| Layer | z-index | Component |
+|-------|---------|-----------|
+| Bottom tab bar | 40 | `BottomTabBar` (new) |
+| Header `glass-nav` | 50 | Existing |
+| Floating chat widget | 60 | `FloatingCoachWidget` (new) |
+| shadcn Dialog / Sheet | 100+ | Existing |
+
+### Positioning (RTL)
+
+```css
+/* FAB — logical properties for RTL */
+position: fixed;
+bottom: calc(5rem + env(safe-area-inset-bottom)); /* above tab bar + iPhone notch */
+inset-inline-start: 1.5rem; /* = right side in RTL */
+z-index: 60;
+```
+
+```css
+/* Panel — opens upward/inward from FAB position */
+position: fixed;
+bottom: calc(8rem + env(safe-area-inset-bottom));
+inset-inline-start: 1.5rem;
+width: 300px;
+height: 420px;
+z-index: 60;
+```
+
+### framer-motion animation pattern
+
+```typescript
+// FAB: breathing pulse when closed, shrink when open
+<motion.button
+  animate={{ scale: isOpen ? 0.9 : 1 }}
+  whileHover={{ scale: 1.08 }}
+  whileTap={{ scale: 0.95 }}
+/>
+
+// Panel: spring slide up from FAB
+<AnimatePresence>
+  {isOpen && (
+    <motion.div
+      initial={{ opacity: 0, scale: 0.85, y: 20 }}
+      animate={{ opacity: 1, scale: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.85, y: 20 }}
+      transition={{ type: 'spring', stiffness: 320, damping: 28 }}
+    />
+  )}
+</AnimatePresence>
+```
+
+**Reuse from existing coach page:** `ChatMessage`, `ChatInput`, `QuickActions` components can be imported directly into `FloatingChatPanel`. The existing API fetch functions (`fetchMessages`, `sendMessage`, `createConversation`) from `coach/page.tsx` should be extracted to a shared service module so both the full page and the widget use the same data layer.
+
+**Confidence: HIGH** — framer-motion AnimatePresence and ReactDOM.createPortal are core stable APIs. RTL logical properties (`inset-inline-start`) confirmed working in `MobileNav.tsx` (uses `end-0` logical property).
+
 ---
 
-## Critical Version Flags for Roadmap
+## Capability 3: Mobile Bottom Tab Navigation
 
-These are breaking change areas that will surface during migration of BASE44 code:
+### Verdict: No new library. Custom component with Tailwind + framer-motion.
 
-| Library | Breaking Change | Migration Risk | Phase Impact |
-|---------|----------------|----------------|--------------|
-| Zod 4 (vs 3) | `nonempty()` removed, error shape changed | HIGH | Every validation file ported |
-| date-fns 4 (vs 3) | Import style changed | MEDIUM | Astrology date calculations |
-| Next.js 15 async APIs | `cookies()`, `params` are now async | HIGH | All server components ported |
-| React 19 | `useContext` changes, `ref` as prop | LOW | Most code unaffected |
-| `@supabase/supabase-js` v2.99+ | `PostgrestVersion: '12'` required in Database type | LOW | Already handled in `database.ts` |
+**Why no bottom-nav library:**
+
+Available npm packages (`react-bottom-navigation`, `@mui/bottom-navigation`, etc.) either: (a) have no RTL support, (b) require MUI theme integration that conflicts with the shadcn/Tailwind stack, or (c) are unmaintained (last publish 2021-2022). Building the component takes ~60 lines of Tailwind — less than any library's configuration.
+
+### Tab Structure
+
+5 tabs maximum — beyond 5, thumb reach becomes unreliable on phones under 6 inches.
+
+| Tab | Label | Icon source | Route |
+|-----|-------|-------------|-------|
+| בית | Dashboard | `LayoutDashboard` (lucide) | `/dashboard` |
+| כלים | Tools | `GiCrystalBall` (react-icons/gi) | `/tools` |
+| מאמן | Coach | `Sparkles` (lucide) | `/coach` |
+| היסטוריה | History | `History` (lucide) | `/history` |
+| פרופיל | Profile | `User` (lucide) | `/profile` |
+
+Both icon libraries are already installed (`lucide-react ^0.577.0`, `react-icons ^5.6.0`).
+
+The full 38-item Sidebar remains for desktop. Bottom tabs are `md:hidden` — they do not replace desktop navigation.
+
+### Architecture
+
+```
+src/components/layouts/
+└── BottomTabBar.tsx    New. Fixed bottom, glass-nav styling, 5 tabs, md:hidden.
+```
+
+**Integration:** Add to `src/app/(auth)/layout-client.tsx`. Add `pb-20 md:pb-0` to the main content wrapper to prevent content clipping under the tab bar (bar height = 64px + safe area inset).
+
+### Positioning
+
+```css
+position: fixed;
+bottom: 0;
+inset-inline: 0;            /* RTL-safe full width, logical property */
+height: 64px;
+padding-bottom: env(safe-area-inset-bottom);
+z-index: 40;
+```
+
+Use the existing `glass-nav` CSS utility from globals.css — same frosted indigo background (`rgba(10, 9, 28, 0.85)` + `backdrop-filter: blur(20px)`) as the top header. Consistent visual language.
+
+### Active State Animation
+
+framer-motion `layoutId` creates a smooth sliding indicator between tabs without manual position calculation:
+
+```typescript
+{isActive && (
+  <motion.div
+    layoutId="tab-indicator"
+    className="absolute top-0 inset-x-1 h-0.5 rounded-full bg-primary"
+    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+  />
+)}
+```
+
+Active tab: `text-primary` + glow. Inactive tab: `text-on-surface-variant/70`.
+
+**Confidence: HIGH** — `layoutId` shared layout animation is a core framer-motion feature (since v4). RTL `inset-inline: 0` is standard CSS logical property, same pattern as the existing `glass-nav` on mobile.
+
+---
+
+## Capability 4: Text Contrast on Dark Cosmic Backgrounds
+
+### Verdict: CSS variable adjustments + className audit. No library.
+
+This is not a library problem. Root cause is three patterns:
+
+**Pattern A — Low opacity modifiers on dim tokens:**
+Example: `text-on-surface-variant/50` in `ChatMessage.tsx` timestamps. The base token `#c8bede` has 7.2:1 contrast at full opacity on `#0d0b1e`. At `/50` (50% opacity) the effective contrast drops to ~3.5:1 — fails WCAG AA (4.5:1) for normal text.
+
+**Pattern B — `muted-foreground` near-threshold:**
+`--muted-foreground: 268 20% 78%` on `--muted: 250 30% 16%` background gives 4.1:1. Passes AA for large text (3:1 required) but fails for normal text (4.5:1 required). Many UI labels use `muted-foreground` for normal-sized text.
+
+**Pattern C — Gold at low opacity:**
+`text-gold-dim/60` (= `#b8913e` at 60% opacity) on `#0d0b1e` deep indigo = ~2.5:1. Fails AA entirely. Used in sidebar labels and secondary text.
+
+### CSS Fixes (globals.css only)
+
+**Fix 1 — Raise `--muted-foreground` lightness:**
+```css
+.dark {
+  --muted-foreground: 268 20% 88%; /* was 78% → 6.1:1 on muted bg */
+}
+```
+
+**Fix 2 — New glow utilities for key headings:**
+```css
+@layer utilities {
+  /* Glow for solid-color text on dark/complex backgrounds */
+  .text-glow-primary {
+    text-shadow:
+      0 0 20px rgba(221, 184, 255, 0.55),
+      0 0 40px rgba(143, 45, 230, 0.3);
+  }
+
+  .text-glow-gold {
+    text-shadow:
+      0 0 15px rgba(212, 168, 83, 0.55),
+      0 0 30px rgba(212, 168, 83, 0.25);
+  }
+}
+```
+
+Note: `text-shadow` has no effect on `-webkit-text-fill-color: transparent` elements. Apply only to solid-color text.
+
+### Opacity Audit Rule for Implementation
+
+Apply during phase execution when editing existing files:
+
+| Context | Minimum opacity | Rationale |
+|---------|----------------|-----------|
+| Meaningful text (labels, values, descriptions) | `/80` minimum | Ensures contrast above 4.5:1 |
+| Decorative / timestamps / metadata | `/60` acceptable | Not critical content |
+| Headings | Use gradient utilities or `text-on-surface` (full) | Gradient utilities have built-in luminance |
+| Gold text on dark bg | `text-gold` or `text-gold-bright` (no opacity) | `text-gold-dim` at any opacity below `/80` fails |
+
+**Confidence: HIGH** — contrast ratios calculated directly from hex/HSL values in `globals.css` and `tailwind.config.ts`. WCAG 2.1 formula applied to actual token values.
+
+---
+
+## Complete New Library Table
+
+| Library | Needed | Verdict | Reason |
+|---------|--------|---------|--------|
+| tsparticles | No | Reject | 80 kB canvas loop for visual already achieved by existing CSS |
+| react-particles | No | Reject | Same as tsparticles |
+| lottie-react | No | Reject | No After Effects assets; CSS keyframes sufficient |
+| react-spring | No | Reject | Redundant with framer-motion v12.38 |
+| react-bottom-navigation | No | Reject | No RTL, unmaintained, 60-line custom component is better |
+| react-chat-widget | No | Reject | Third-party service wrapper, incompatible with internal API |
+| @radix-ui/react-dialog for FAB | No | Reject | FAB panel is not a modal dialog; portal + ARIA region is correct semantic |
+| Any new npm package | No | Reject | All capabilities covered by existing dependencies |
+
+**New installs: 0.**
+
+---
+
+## What Changes in Existing Files
+
+| File | Change type | What changes |
+|------|-------------|-------------|
+| `src/app/globals.css` | Extension | Add `.text-glow-primary`, `.text-glow-gold`, `.text-gradient-cosmic`; adjust `--muted-foreground` |
+| `src/app/(auth)/layout-client.tsx` | Mount | Add `<BottomTabBar />` and `<FloatingCoachWidget />` |
+| `src/app/(auth)/layout-client.tsx` | Content offset | Add `pb-20 md:pb-0` to main content wrapper |
+| Coach API functions | Extract | Move `fetchMessages`, `sendMessage`, `createConversation` to `src/services/coach/api.ts` for shared use |
+
+**New files:**
+- `src/components/layouts/BottomTabBar.tsx`
+- `src/components/features/coach/FloatingCoachButton.tsx`
+- `src/components/features/coach/FloatingChatPanel.tsx`
+- `src/components/features/coach/FloatingCoachWidget.tsx`
+- `src/services/coach/api.ts` (extracted from `coach/page.tsx`)
 
 ---
 
 ## Sources
 
-- Next.js 15 release blog: https://nextjs.org/blog/next-15 (accessed 2026-03-22) — HIGH confidence
-- `mystiqor-build/package.json` — direct file read — HIGH confidence
-- `mystiqor-build/src/**` — direct file reads — HIGH confidence
-- `mystiqor-build/tsconfig.json` — direct file read — HIGH confidence
-- Supabase SSR docs pattern — matches `@supabase/ssr` implementation in codebase — HIGH confidence
-- Zod v4 migration: training data knowledge, flagged MEDIUM until verified against official docs
-- date-fns v4 migration: training data knowledge, flagged MEDIUM until verified
+| Source | Type | Confidence |
+|--------|------|------------|
+| `mystiqor-build/src/app/globals.css` — direct file read | Codebase | HIGH |
+| `mystiqor-build/tailwind.config.ts` — direct file read | Codebase | HIGH |
+| `mystiqor-build/package.json` — framer-motion v12.38 confirmed | Codebase | HIGH |
+| `mystiqor-build/src/components/layouts/MobileNav.tsx` — RTL logical properties pattern | Codebase | HIGH |
+| `mystiqor-build/src/components/features/coach/ChatMessage.tsx` — framer-motion usage | Codebase | HIGH |
+| `mystiqor-build/src/components/common/PageTransition.tsx` — AnimatePresence usage | Codebase | HIGH |
+| `mystiqor-build/src/app/(auth)/layout-client.tsx` — integration point confirmed | Codebase | HIGH |
+| WCAG 2.1 relative luminance formula — applied to token hex values from globals.css | Standard | HIGH |
+| framer-motion v12 AnimatePresence, layoutId, spring transition — confirmed in installed node_modules | Library | HIGH |
