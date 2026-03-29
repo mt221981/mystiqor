@@ -161,7 +161,7 @@ export default function SettingsPage() {
             </span>
           </h2>
           <div className="space-y-4">
-            <p className="font-body text-sm text-on-surface-variant/60">
+            <p className="font-body text-sm text-on-surface-variant/80">
               הגדרות התראות יהיו זמינות בקרוב
             </p>
 

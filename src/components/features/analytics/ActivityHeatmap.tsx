@@ -122,7 +122,7 @@ export function ActivityHeatmap({ data }: ActivityHeatmapProps) {
             aria-hidden="true"
           />
           <p className="font-body text-sm text-on-surface-variant">אין פעילות בתקופה הנבחרת</p>
-          <p className="mt-1 font-body text-xs text-on-surface-variant/60">
+          <p className="mt-1 font-body text-xs text-on-surface-variant/80">
             בצע ניתוחים כדי לראות את דפוסי הפעילות שלך
           </p>
         </div>

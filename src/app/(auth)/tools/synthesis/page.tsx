@@ -239,7 +239,7 @@ export default function SynthesisPage() {
                 נוצר: {new Date(latestSynthesis.created_at).toLocaleDateString('he-IL')}
               </p>
               {latestSynthesis.input_data?.sources?.length > 0 && (
-                <p className="text-xs text-on-surface-variant/60 font-label">
+                <p className="text-xs text-on-surface-variant/80 font-label">
                   מבוסס על: {latestSynthesis.input_data.sources.join(', ')}
                 </p>
               )}

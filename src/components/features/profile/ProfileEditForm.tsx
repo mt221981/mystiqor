@@ -265,7 +265,7 @@ export function ProfileEditForm({
               <button
                 type="button"
                 onClick={() => removeTag('disciplines', d, disciplines)}
-                className="text-primary/60 hover:text-primary"
+                className="text-primary/80 hover:text-primary"
                 aria-label={`הסר ${d}`}
               >
                 <X className="h-3 w-3" />
@@ -321,7 +321,7 @@ export function ProfileEditForm({
               <button
                 type="button"
                 onClick={() => removeTag('focus_areas', f, focusAreas)}
-                className="text-secondary/60 hover:text-secondary"
+                className="text-secondary/80 hover:text-secondary"
                 aria-label={`הסר ${f}`}
               >
                 <X className="h-3 w-3" />
@@ -377,7 +377,7 @@ export function ProfileEditForm({
               <button
                 type="button"
                 onClick={() => removeTag('personal_goals', g, personalGoals)}
-                className="text-tertiary/60 hover:text-tertiary"
+                className="text-tertiary/80 hover:text-tertiary"
                 aria-label={`הסר ${g}`}
               >
                 <X className="h-3 w-3" />

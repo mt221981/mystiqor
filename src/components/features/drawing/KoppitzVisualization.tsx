@@ -123,7 +123,7 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
 
         {/* הערת מחקר */}
         {features.length > 0 && (
-          <p className="text-xs text-on-surface-variant/60 mt-2 text-center font-body">
+          <p className="text-xs text-on-surface-variant/80 mt-2 text-center font-body">
             מבוסס על מחקר ד"ר אליזבת קופיץ (1968) — 30 מדדים רגשיים
           </p>
         )}

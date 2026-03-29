@@ -112,7 +112,7 @@ export function ToolUsageChart({ data }: ToolUsageChartProps) {
             aria-hidden="true"
           />
           <p className="font-body text-sm text-on-surface-variant">אין נתונים עדיין</p>
-          <p className="mt-1 font-body text-xs text-on-surface-variant/60">
+          <p className="mt-1 font-body text-xs text-on-surface-variant/80">
             השתמש בכלים כדי לראות את ההתפלגות
           </p>
         </div>

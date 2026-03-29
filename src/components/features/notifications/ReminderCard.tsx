@@ -112,7 +112,7 @@ export function ReminderCard({ reminder, onDelete, isDeleting }: ReminderCardPro
           disabled={isDeleting}
           className={cn(
             'flex-shrink-0 rounded-lg p-2 transition-colors duration-200',
-            'text-error/60 hover:bg-error/10 hover:text-error',
+            'text-error/80 hover:bg-error/10 hover:text-error',
             'disabled:cursor-not-allowed disabled:opacity-50'
           )}
           aria-label="מחק תזכורת"

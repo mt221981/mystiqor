@@ -172,7 +172,7 @@ export function GuestProfileList({
         <div className="border border-dashed border-outline-variant/30 rounded-xl p-12 text-center hover:border-primary/40 transition-colors">
           <User className="h-12 w-12 mx-auto mb-3 text-on-surface-variant opacity-40" />
           <p className="text-on-surface-variant font-body">אין פרופילים אורחים עדיין</p>
-          <p className="font-body text-sm text-on-surface-variant/60 mt-1">הוסף פרופיל כדי לנתח בני משפחה וחברים</p>
+          <p className="font-body text-sm text-on-surface-variant/80 mt-1">הוסף פרופיל כדי לנתח בני משפחה וחברים</p>
         </div>
       ) : (
         <div className="space-y-3">
@@ -186,7 +186,7 @@ export function GuestProfileList({
                   {profile.birth_place && ` · ${profile.birth_place}`}
                 </p>
                 {profile.relationship && (
-                  <p className="font-label text-xs text-on-surface-variant/60">{profile.relationship}</p>
+                  <p className="font-label text-xs text-on-surface-variant/80">{profile.relationship}</p>
                 )}
               </div>
               <div className="flex gap-2">

@@ -67,7 +67,7 @@ export function SubNumberBreakdown({ label, rawValue, finalValue }: SubNumberBre
           {steps.map((step, idx) => (
             <span key={idx} className="flex items-center gap-1">
               {idx > 0 && (
-                <span className="text-on-surface-variant/60 text-xs">←</span>
+                <span className="text-on-surface-variant/80 text-xs">←</span>
               )}
               <Badge
                 variant="outline"

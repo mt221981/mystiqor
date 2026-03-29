@@ -208,7 +208,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
             <div className="overflow-x-auto">
               <table className="w-full text-xs text-on-surface-variant">
                 <thead>
-                  <tr className="border-b border-outline-variant/20 text-on-surface-variant/60">
+                  <tr className="border-b border-outline-variant/20 text-on-surface-variant/80">
                     <th className="pb-2 text-start font-label">כוכב 1</th>
                     <th className="pb-2 text-center font-label">אספקט</th>
                     <th className="pb-2 text-start font-label">כוכב 2</th>
@@ -222,9 +222,9 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
                       <td className="py-1 text-primary font-label">{asp.planet1.replace('p1:', '')}</td>
                       <td className="py-1 text-center text-secondary font-label">{asp.type}</td>
                       <td className="py-1 text-on-surface-variant font-label">{asp.planet2.replace('p2:', '')}</td>
-                      <td className="py-1 text-end text-on-surface-variant/60 font-label">{asp.orb}°</td>
+                      <td className="py-1 text-end text-on-surface-variant/80 font-label">{asp.orb}°</td>
                       <td className="py-1 text-end font-label">
-                        <span className={asp.strength > 0.7 ? 'text-tertiary' : asp.strength > 0.4 ? 'text-secondary' : 'text-on-surface-variant/60'}>
+                        <span className={asp.strength > 0.7 ? 'text-tertiary' : asp.strength > 0.4 ? 'text-secondary' : 'text-on-surface-variant/80'}>
                           {Math.round(asp.strength * 100)}%
                         </span>
                       </td>

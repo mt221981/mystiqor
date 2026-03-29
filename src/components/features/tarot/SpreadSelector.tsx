@@ -44,7 +44,7 @@ export function SpreadSelector({ selectedId, onSelect }: SpreadSelectorProps) {
               {spread.name}{' '}
               <span className="text-xs opacity-70">({spread.cardCount})</span>
             </span>
-            <span className="text-xs text-on-surface-variant/70 font-normal">
+            <span className="text-xs text-on-surface-variant/85 font-normal">
               {spread.description}
             </span>
           </Button>

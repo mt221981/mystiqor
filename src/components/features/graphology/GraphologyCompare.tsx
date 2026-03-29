@@ -89,7 +89,7 @@ async function fetchFullAnalysis(id: string): Promise<FullAnalysis> {
 function DeltaIcon({ delta }: { delta: number }) {
   if (delta > 0) return <ArrowUp className="h-3 w-3 text-green-400" />
   if (delta < 0) return <ArrowDown className="h-3 w-3 text-red-400" />
-  return <Minus className="h-3 w-3 text-on-surface-variant/60" />
+  return <Minus className="h-3 w-3 text-on-surface-variant/80" />
 }
 
 /** תיבת בחירת ניתוח */
@@ -238,7 +238,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                       <div className="flex items-center gap-1">
                         <DeltaIcon delta={delta} />
                         <span className={`text-xs font-medium ${
-                          delta > 0 ? 'text-tertiary' : delta < 0 ? 'text-error' : 'text-on-surface-variant/60'
+                          delta > 0 ? 'text-tertiary' : delta < 0 ? 'text-error' : 'text-on-surface-variant/80'
                         }`}>
                           {delta > 0 ? `+${delta}` : delta}
                         </span>
@@ -281,7 +281,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-on-surface-variant/60">—</p>
+                  <p className="text-xs text-on-surface-variant/80">—</p>
                 )}
               </div>
 
@@ -297,7 +297,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-on-surface-variant/60">—</p>
+                  <p className="text-xs text-on-surface-variant/80">—</p>
                 )}
               </div>
 
@@ -313,7 +313,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
                     ))}
                   </div>
                 ) : (
-                  <p className="text-xs text-on-surface-variant/60">—</p>
+                  <p className="text-xs text-on-surface-variant/80">—</p>
                 )}
               </div>
             </div>
@@ -322,7 +322,7 @@ export function GraphologyCompare({ userId: _userId }: GraphologyCompareProps) {
 
         {/* הוראות אם לא נבחרו */}
         {(!analysisA || !analysisB) && (
-          <p className="text-xs text-on-surface-variant/60 text-center py-4">
+          <p className="text-xs text-on-surface-variant/80 text-center py-4">
             בחר שני ניתוחים להשוואה
           </p>
         )}

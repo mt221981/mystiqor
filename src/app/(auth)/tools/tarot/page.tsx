@@ -145,7 +145,7 @@ export default function TarotPage() {
                   maxLength={300}
                   dir="rtl"
                 />
-                <p className="text-xs font-label text-on-surface-variant/60">{question.length}/300 תווים</p>
+                <p className="text-xs font-label text-on-surface-variant/80">{question.length}/300 תווים</p>
               </div>
 
               {/* כפתור שליפה */}

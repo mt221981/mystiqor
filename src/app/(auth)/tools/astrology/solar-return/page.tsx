@@ -192,7 +192,7 @@ function SolarReturnResults({ result, targetYear }: { result: SolarReturnResult;
                 <div key={element} className="space-y-1">
                   <div className="flex justify-between text-xs">
                     <span className="text-on-surface-variant font-label">{ELEMENT_NAMES_HE[element] ?? element}</span>
-                    <span className="text-on-surface-variant/60 font-label">{count ?? 0} כוכבים ({pct}%)</span>
+                    <span className="text-on-surface-variant/80 font-label">{count ?? 0} כוכבים ({pct}%)</span>
                   </div>
                   <div className="h-2 bg-surface-container-high rounded-full overflow-hidden">
                     <div
@@ -317,7 +317,7 @@ export default function SolarReturnPage() {
 
                 {/* קלט שנה מותאם אישית */}
                 <div className="space-y-1">
-                  <p className="font-label text-xs text-on-surface-variant/60">או הזן שנה ספציפית (1900-2100):</p>
+                  <p className="font-label text-xs text-on-surface-variant/80">או הזן שנה ספציפית (1900-2100):</p>
                   <input
                     type="number"
                     {...register('targetYear')}

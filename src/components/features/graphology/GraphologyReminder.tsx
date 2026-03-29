@@ -125,7 +125,7 @@ export function GraphologyReminder() {
               <BellOff className="h-4 w-4 ms-2" />
               הגדר תזכורת
             </Button>
-            <p className="text-xs text-on-surface-variant/60 text-center font-body">
+            <p className="text-xs text-on-surface-variant/80 text-center font-body">
               התזכורת נשמרת במכשיר זה בלבד
             </p>
           </div>

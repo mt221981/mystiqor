@@ -96,7 +96,7 @@ export default function DrawingConceptCards() {
                   <Icon className={`h-5 w-5 ${card.colorClass}`} />
                   <div>
                     <CardTitle className={`text-sm font-headline font-semibold ${card.colorClass}`}>{card.title}</CardTitle>
-                    <p className="text-xs text-on-surface-variant/60 font-label">{card.subtitle}</p>
+                    <p className="text-xs text-on-surface-variant/80 font-label">{card.subtitle}</p>
                   </div>
                 </div>
               </CardHeader>
@@ -109,7 +109,7 @@ export default function DrawingConceptCards() {
       </div>
 
       {/* הערת בסיס */}
-      <p className="text-xs text-on-surface-variant/60 text-center font-body">
+      <p className="text-xs text-on-surface-variant/80 text-center font-body">
         * הניתוח מבוסס על מחקרים פסיכולוגיים מוכרים ואינו תחליף לאבחון מקצועי
       </p>
     </div>

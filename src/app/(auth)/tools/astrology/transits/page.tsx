@@ -197,7 +197,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
                   {PLANET_NAMES_HE[planet.name] ?? planet.name}
                 </div>
                 <div className="font-label text-xs text-primary mt-1">{planet.sign}</div>
-                <div className="font-label text-xs text-on-surface-variant/60">{planet.degree_in_sign.toFixed(1)}°</div>
+                <div className="font-label text-xs text-on-surface-variant/80">{planet.degree_in_sign.toFixed(1)}°</div>
                 {planet.is_retrograde && (
                   <div className="font-label text-xs text-error mt-1">℞ נסיגה</div>
                 )}
@@ -239,7 +239,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
                       </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-label text-xs text-on-surface-variant/60">{aspect.orb.toFixed(1)}°</span>
+                      <span className="font-label text-xs text-on-surface-variant/80">{aspect.orb.toFixed(1)}°</span>
                       <div className="w-16 h-1.5 bg-surface-container-high rounded-full overflow-hidden">
                         <div
                           className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full"
@@ -338,7 +338,7 @@ export default function TransitsPage() {
                     {...register('targetDate')}
                     className="max-w-xs"
                   />
-                  <p className="font-label text-xs text-on-surface-variant/60">השאר ריק לחישוב על פי תאריך היום</p>
+                  <p className="font-label text-xs text-on-surface-variant/80">השאר ריק לחישוב על פי תאריך היום</p>
                 </div>
 
                 {/* אזהרה אם אין מפת לידה */}

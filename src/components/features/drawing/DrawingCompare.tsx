@@ -75,7 +75,7 @@ function formatDate(isoDate: string): string {
  */
 function KoppitzDelta({ scoreA, scoreB }: { scoreA?: number; scoreB?: number }) {
   if (scoreA === undefined || scoreB === undefined) {
-    return <span className="text-on-surface-variant/60">—</span>
+    return <span className="text-on-surface-variant/80">—</span>
   }
   const delta = scoreB - scoreA
   if (delta === 0) {
@@ -210,7 +210,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
       <Card className="border-outline-variant/5 bg-surface-container">
         <CardContent className="py-8 text-center">
           <p className="text-on-surface-variant">נדרשים לפחות 2 ניתוחים להשוואה</p>
-          <p className="text-sm text-on-surface-variant/60 mt-2 font-body">
+          <p className="text-sm text-on-surface-variant/80 mt-2 font-body">
             בצע ניתוחי ציורים נוספים כדי להשוות בין תוצאות
           </p>
         </CardContent>
@@ -303,7 +303,7 @@ export default function DrawingCompare({ userId: _userId }: DrawingCompareProps)
                   scoreB={responseB.koppitz_score}
                 />
                 {responseA.koppitz_score !== undefined && responseB.koppitz_score !== undefined && (
-                  <span className="text-xs text-on-surface-variant/60 font-body">
+                  <span className="text-xs text-on-surface-variant/80 font-body">
                     ({responseA.koppitz_score} → {responseB.koppitz_score})
                   </span>
                 )}

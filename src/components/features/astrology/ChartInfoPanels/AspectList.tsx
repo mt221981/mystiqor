@@ -54,7 +54,7 @@ export function AspectList({ aspects }: AspectListProps) {
           <CardTitle className="text-base font-headline text-secondary">אספקטים</CardTitle>
         </CardHeader>
         <CardContent>
-          <p className="text-on-surface-variant/60 text-sm text-center py-4" dir="rtl">
+          <p className="text-on-surface-variant/80 text-sm text-center py-4" dir="rtl">
             לא נמצאו אספקטים מרכזיים
           </p>
         </CardContent>

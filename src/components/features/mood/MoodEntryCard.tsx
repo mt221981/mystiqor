@@ -105,7 +105,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
             type="button"
             onClick={() => onDelete(entry.id)}
             className={cn(
-              'rounded-lg p-1.5 text-error/60',
+              'rounded-lg p-1.5 text-error/80',
               'hover:bg-error/10 hover:text-error',
               'transition-colors duration-200',
               'focus:outline-none focus-visible:ring-2 focus-visible:ring-red-500'

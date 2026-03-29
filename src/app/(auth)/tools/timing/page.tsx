@@ -157,7 +157,7 @@ function TimingResults({ result }: TimingResultsProps) {
           {result.bestDays.map((day, i) => (
             <div key={day.date} className="space-y-1">
               <div className="flex items-center gap-3">
-                <span className="text-on-surface-variant/60 text-xs w-4 shrink-0 font-label">{i + 1}.</span>
+                <span className="text-on-surface-variant/80 text-xs w-4 shrink-0 font-label">{i + 1}.</span>
                 <span className="text-on-surface text-sm font-medium w-24 shrink-0 font-label">{formatDate(day.date)}</span>
                 <div className="flex-1 bg-surface-container-high rounded-full h-2">
                   {/* inline style for dynamic score width */}

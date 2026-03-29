@@ -124,7 +124,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
             aria-label="מחק רשומה"
             className={cn(
               'flex h-7 w-7 items-center justify-center rounded-md',
-              'text-error/60 hover:bg-error/10 hover:text-error',
+              'text-error/80 hover:bg-error/10 hover:text-error',
               'transition-colors duration-150',
               'focus:outline-none focus:ring-2 focus:ring-error/40 focus:ring-offset-1'
             )}

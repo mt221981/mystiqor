@@ -173,7 +173,7 @@ export function TarotCardTile({
 
           {/* כפתור הרחב/כווץ */}
           <button
-            className="mt-2 w-full text-center text-xs text-on-surface-variant/60 hover:text-on-surface-variant transition-colors"
+            className="mt-2 w-full text-center text-xs text-on-surface-variant/80 hover:text-on-surface-variant transition-colors"
             onClick={(e) => {
               e.stopPropagation()
               setIsExpanded((prev) => !prev)

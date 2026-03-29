@@ -110,7 +110,7 @@ export function GoalCard({ goal, onEdit, onDelete, onProgressUpdate }: GoalCardP
             size="icon"
             variant="ghost"
             onClick={() => onDelete(goal.id)}
-            className="h-7 w-7 text-error/60 hover:text-error"
+            className="h-7 w-7 text-error/80 hover:text-error"
             aria-label="מחק מטרה"
           >
             <Trash2 className="h-3.5 w-3.5" />

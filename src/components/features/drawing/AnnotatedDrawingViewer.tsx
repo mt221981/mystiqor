@@ -76,7 +76,7 @@ export function AnnotatedDrawingViewer({ imageUrl, features, summary }: Annotate
                       <CheckCircle className="h-3.5 w-3.5 text-tertiary shrink-0 mt-0.5" />
                       <div className="min-w-0">
                         <p className="text-xs font-label font-medium text-on-surface">{feature.name}</p>
-                        <p className="text-xs text-on-surface-variant/60 leading-snug font-body">{feature.significance}</p>
+                        <p className="text-xs text-on-surface-variant/80 leading-snug font-body">{feature.significance}</p>
                       </div>
                     </div>
                   ))}
@@ -97,12 +97,12 @@ export function AnnotatedDrawingViewer({ imageUrl, features, summary }: Annotate
                       <XCircle className="h-3.5 w-3.5 text-error shrink-0 mt-0.5" />
                       <div className="min-w-0">
                         <p className="text-xs font-label font-medium text-on-surface">{feature.name}</p>
-                        <p className="text-xs text-on-surface-variant/60 leading-snug font-body">{feature.significance}</p>
+                        <p className="text-xs text-on-surface-variant/80 leading-snug font-body">{feature.significance}</p>
                       </div>
                     </div>
                   ))}
                   {absentFeatures.length > 5 && (
-                    <p className="text-xs text-on-surface-variant/60 text-center font-body">
+                    <p className="text-xs text-on-surface-variant/80 text-center font-body">
                       ועוד {absentFeatures.length - 5} תכונות נוספות...
                     </p>
                   )}

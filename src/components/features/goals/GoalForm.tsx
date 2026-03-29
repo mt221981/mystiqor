@@ -362,7 +362,7 @@ export function GoalForm({
                     <span className="text-sm text-on-surface-variant">
                       <span className="font-label font-medium text-primary">{analysis.tool_type}</span>
                       {analysis.summary && (
-                        <span className="block truncate text-xs text-on-surface-variant/60">
+                        <span className="block truncate text-xs text-on-surface-variant/80">
                           {analysis.summary.slice(0, 80)}...
                         </span>
                       )}

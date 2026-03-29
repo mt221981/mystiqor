@@ -148,7 +148,7 @@ export function TarotCardMeta({
                     <Badge
                       key={kw}
                       variant="outline"
-                      className="text-xs border-outline-variant/30 text-on-surface-variant/60 font-label"
+                      className="text-xs border-outline-variant/30 text-on-surface-variant/80 font-label"
                     >
                       {kw}
                     </Badge>

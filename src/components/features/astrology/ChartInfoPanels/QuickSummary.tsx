@@ -79,7 +79,7 @@ function SignCard({ label, signKey, borderColor, titleColor }: SignCardData) {
         </p>
 
         {/* תיאור יסוד */}
-        <p className="text-xs font-body text-on-surface-variant/60" dir="rtl">
+        <p className="text-xs font-body text-on-surface-variant/80" dir="rtl">
           {description}
         </p>
       </CardContent>

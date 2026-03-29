@@ -129,7 +129,7 @@ function WeeklySections({
                     </span>
                   ))}
                 </div>
-                <p className="text-xs text-on-surface-variant/60 font-label">
+                <p className="text-xs text-on-surface-variant/80 font-label">
                   זמן פעילות שיא: {usage_analysis.peak_activity_times}
                 </p>
               </div>
