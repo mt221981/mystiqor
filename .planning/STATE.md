@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Phase 21 context gathered
-last_updated: "2026-03-29T09:08:11.770Z"
+stopped_at: Completed 21-01-PLAN.md
+last_updated: "2026-03-29T10:17:05.954Z"
 last_activity: 2026-03-29
 progress:
   total_phases: 4
   completed_phases: 3
-  total_plans: 9
-  completed_plans: 9
+  total_plans: 13
+  completed_plans: 10
   percent: 0
 ---
 
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 18 P04 | 15 | 2 tasks | 1 files |
 | Phase 20 P02 | 7m38s | 2 tasks | 3 files |
 | Phase 20 P03 | 10min | 2 tasks | 1 files |
+| Phase 21-prompt-enrichment P01 | 8min | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -80,6 +81,9 @@ Recent decisions affecting current work:
 - [Phase 20]: Next.js 15+ requires await params in dynamic route handlers — applied to GET /api/blog/[slug]
 - [Phase 20]: Blog seed pattern: loadEnv -> createClient with service key -> upsert with onConflict:'slug'
 - [Phase 20]: Blog detail page uses same prose prose-sm prose-invert pattern as dream page for consistent Markdown rendering
+- [Phase 21-prompt-enrichment]: PersonalContext helper: getPersonalContext(supabase, userId) returns firstName, zodiacSign, lifePathNumber with safe fallbacks — shared by all 21 enrichment routes
+- [Phase 21-prompt-enrichment]: ZODIAC_RANGES lives in personal-context.ts only — removed from daily-insights route (DRY)
+- [Phase 21-prompt-enrichment]: daily-insights systemPrompt uses Kabbalistic language (אור אין-סוף) + personal address (first name, zodiac, life path) as gold standard pattern for all routes
 
 ### Pending Todos
 
@@ -91,6 +95,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T09:08:11.767Z
-Stopped at: Phase 21 context gathered
-Resume file: .planning/phases/21-prompt-enrichment/21-CONTEXT.md
+Last session: 2026-03-29T10:17:05.951Z
+Stopped at: Completed 21-01-PLAN.md
+Resume file: None

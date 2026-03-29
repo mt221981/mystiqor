@@ -19,8 +19,8 @@
 - [x] **BLOG-02**: מאמרי בלוג ב-DB (טבלת blog_posts) ולא hardcoded
 
 ## Prompts & Personality
-- [ ] **PROMPT-01**: כל ה-LLM prompts כוללים פניה אישית (שם המשתמש), שפה רוחנית עמוקה, והתייחסות לדאטה האישית
-- [ ] **PROMPT-02**: תובנות יומיות כוללות התייחסות למזל, מספר חיים, וקלף יום אישי — לא גנרי
+- [x] **PROMPT-01**: כל ה-LLM prompts כוללים פניה אישית (שם המשתמש), שפה רוחנית עמוקה, והתייחסות לדאטה האישית
+- [x] **PROMPT-02**: תובנות יומיות כוללות התייחסות למזל, מספר חיים, וקלף יום אישי — לא גנרי
 
 ## Traceability
 
@@ -36,5 +36,5 @@
 | DREAM-01 | Phase 20 | Pending |
 | BLOG-01 | Phase 20 | Complete |
 | BLOG-02 | Phase 20 | Complete |
-| PROMPT-01 | Phase 21 | Pending |
-| PROMPT-02 | Phase 21 | Pending |
+| PROMPT-01 | Phase 21 | Complete |
+| PROMPT-02 | Phase 21 | Complete |
