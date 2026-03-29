@@ -48,7 +48,7 @@ async function seedBlogPosts(): Promise<void> {
 
   const { error } = await supabase
     .from('blog_posts')
-    .upsert(BLOG_POSTS_SEED as Record<string, unknown>[], { onConflict: 'slug' })
+    .upsert(BLOG_POSTS_SEED as unknown as Record<string, unknown>[], { onConflict: 'slug' })
 
   if (error) {
     console.error('❌ שגיאה בזריעת מאמרים:', error.message)
