@@ -12,9 +12,10 @@ import { Mail, Lock, Eye, EyeOff, Loader2, Wand2 } from 'lucide-react';
 import {
   loginSchema,
   registerSchema,
+  resetPasswordSchema,
 } from '@/lib/validations/auth';
 
-import type { LoginFormData, RegisterFormData } from '@/lib/validations/auth';
+import type { LoginFormData, RegisterFormData, ResetPasswordFormData } from '@/lib/validations/auth';
 
 // ===== ממשקים =====
 
@@ -37,6 +38,12 @@ interface RegisterFormProps {
 /** פרופס של טופס magic link */
 interface MagicLinkFormProps {
   readonly onSubmit: (data: LoginFormData) => Promise<void>;
+  readonly isSubmitting: boolean;
+}
+
+/** פרופס של טופס שכחתי סיסמה */
+interface ForgotPasswordFormProps {
+  readonly onSubmit: (data: ResetPasswordFormData) => Promise<void>;
   readonly isSubmitting: boolean;
 }
 
@@ -264,6 +271,44 @@ export function MagicLinkForm({ onSubmit, isSubmitting }: MagicLinkFormProps) {
           <Wand2 className="h-4 w-4" />
         )}
         שלח קישור קסם
+      </button>
+    </form>
+  );
+}
+
+// ===== טופס שכחתי סיסמה =====
+
+/** טופס שליחת קישור איפוס סיסמה */
+export function ForgotPasswordForm({ onSubmit, isSubmitting }: ForgotPasswordFormProps) {
+  const form = useForm<ResetPasswordFormData>({
+    resolver: zodResolver(resetPasswordSchema),
+    defaultValues: { email: '' },
+  });
+
+  return (
+    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4" noValidate>
+      <p className="text-sm text-muted-foreground">
+        הזן את כתובת האימייל שלך ונשלח לך קישור לאיפוס הסיסמה.
+      </p>
+
+      <InputField
+        id="forgot-email"
+        label="אימייל"
+        type="email"
+        placeholder="your@email.com"
+        autoComplete="email"
+        icon={Mail}
+        error={form.formState.errors.email?.message}
+        registration={form.register('email')}
+      />
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="flex w-full items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-50"
+      >
+        {isSubmitting ? <Loader2 className="h-4 w-4 animate-spin" /> : null}
+        שלח קישור איפוס
       </button>
     </form>
   );
