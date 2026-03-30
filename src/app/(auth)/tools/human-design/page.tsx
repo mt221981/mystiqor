@@ -22,7 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text';
-import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases';
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases';
 import { LocationSearch } from '@/components/forms/LocationSearch';
 import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignCenters';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
@@ -166,7 +166,7 @@ export default function HumanDesignPage() {
 
             <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? (
-                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['human-design'].button} /></>
+                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={getLoadingPhrase('human-design').button} /></>
               ) : (
                 'חשב עיצוב אנושי'
               )}

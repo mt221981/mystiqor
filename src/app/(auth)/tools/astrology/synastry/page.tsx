@@ -16,7 +16,7 @@ import { CheckCircle, AlertTriangle, ChevronDown } from 'lucide-react'
 import { GiHearts } from 'react-icons/gi'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
-import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -361,7 +361,7 @@ export default function SynastryPage() {
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? (
-                    <MysticLoadingText text={MYSTIC_LOADING_PHRASES['synastry'].button} />
+                    <MysticLoadingText text={getLoadingPhrase('synastry').button} />
                   ) : (
                     'חשב סינסטרי'
                   )}

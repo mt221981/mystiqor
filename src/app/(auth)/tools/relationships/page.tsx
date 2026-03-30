@@ -17,7 +17,7 @@ import { Heart, CheckCircle, AlertTriangle, MessageCircle, Brain } from 'lucide-
 import { GiTwoCoins } from 'react-icons/gi'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
-import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -230,7 +230,7 @@ export default function RelationshipsPage() {
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
                   {mutation.isPending ? (
-                    <MysticLoadingText text={MYSTIC_LOADING_PHRASES['relationships'].button} />
+                    <MysticLoadingText text={getLoadingPhrase('relationships').button} />
                   ) : (
                     'נתח יחסים'
                   )}

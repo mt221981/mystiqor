@@ -19,7 +19,7 @@ import { GiOrbital } from 'react-icons/gi'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
-import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -369,7 +369,7 @@ export default function TransitsPage() {
                   {mutation.isPending ? (
                     <span className="flex items-center gap-2">
                       <RotateCcw className="h-4 w-4 animate-spin" />
-                      <MysticLoadingText text={MYSTIC_LOADING_PHRASES['transits'].button} />
+                      <MysticLoadingText text={getLoadingPhrase('transits').button} />
                     </span>
                   ) : (
                     'חשב מעברים נוכחיים'

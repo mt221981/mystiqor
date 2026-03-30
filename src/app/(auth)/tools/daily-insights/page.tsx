@@ -10,7 +10,7 @@ import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
 import { motion, useReducedMotion } from 'framer-motion';
-import { GiStarShining } from 'react-icons/gi';
+import { GiStarSwirl } from 'react-icons/gi';
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
 import { InsightHeroCard } from '@/components/features/daily-insights/InsightHeroCard';
@@ -171,7 +171,7 @@ export default function DailyInsightsPage() {
         <StandardSectionHeader
           title="תובנות יומיות"
           description="תובנה יומית אישית המשלבת אסטרולוגיה, נומרולוגיה וטארוט"
-          icon={<GiStarShining className="h-6 w-6" aria-hidden="true" />}
+          icon={<GiStarSwirl className="h-6 w-6" aria-hidden="true" />}
           breadcrumbs={[
             { label: 'כלים', href: '/tools' },
             { label: 'תובנות יומיות' },
