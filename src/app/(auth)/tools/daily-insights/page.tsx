@@ -9,17 +9,16 @@
 import { useState, useCallback } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { toast } from 'sonner';
-import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
+import { motion, useReducedMotion } from 'framer-motion';
+import { GiStarShining } from 'react-icons/gi';
 
-import { PageHeader } from '@/components/layouts/PageHeader';
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
 import { InsightHeroCard } from '@/components/features/daily-insights/InsightHeroCard';
 import { InsightHistoryList, type HistoryInsight } from '@/components/features/daily-insights/InsightHistoryList';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 import { Switch } from '@/components/ui/switch';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
-import { animations } from '@/lib/animations/presets';
 import { DEFAULT_MODULES, type DailyInsightModules } from '@/lib/validations/daily-insights';
 
 // ===== טיפוסים =====
@@ -124,6 +123,7 @@ function ModuleSelector({ modules, onToggle }: ModuleSelectorProps) {
 /** דף תובנות יומיות */
 export default function DailyInsightsPage() {
   const [modules, setModules] = useState<DailyInsightModules>(DEFAULT_MODULES);
+  const shouldReduceMotion = useReducedMotion();
 
   /** החלפת מצב מודול */
   const handleToggleModule = useCallback((key: keyof DailyInsightModules) => {
@@ -161,15 +161,17 @@ export default function DailyInsightsPage() {
   return (
     <SubscriptionGuard feature="analyses">
       <motion.div
-        {...animations.fadeIn}
         className="space-y-6"
         dir="rtl"
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+        animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: 'easeOut' }}
       >
         {/* כותרת דף */}
-        <PageHeader
+        <StandardSectionHeader
           title="תובנות יומיות"
           description="תובנה יומית אישית המשלבת אסטרולוגיה, נומרולוגיה וטארוט"
-          icon={<Sparkles className="h-5 w-5" aria-hidden="true" />}
+          icon={<GiStarShining className="h-6 w-6" aria-hidden="true" />}
           breadcrumbs={[
             { label: 'כלים', href: '/tools' },
             { label: 'תובנות יומיות' },

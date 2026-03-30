@@ -7,16 +7,18 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { GiHandOfGod } from 'react-icons/gi'
+import { GiHand } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { DEFAULT_LOADING_PHRASE } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -73,6 +75,7 @@ export default function PalmistryPage() {
   const [result, setResult] = useState<PalmistryResult | null>(null)
   const [uploading, setUploading] = useState(false)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -128,11 +131,16 @@ export default function PalmistryPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-3xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="קריאה בכף יד"
         description="ניתוח כף יד מתמונה באמצעות AI — קווי לב, ראש, חיים וגורל"
-        icon={<GiHandOfGod className="h-5 w-5" />}
+        icon={<GiHand className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -163,7 +171,7 @@ export default function PalmistryPage() {
                       accept="image/jpeg,image/png,image/webp"
                       onChange={handleFileUpload}
                       disabled={uploading}
-                      className="block w-full text-sm text-on-surface-variant file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-primary-container file:text-on-primary-container hover:file:opacity-80 cursor-pointer"
+                      className="block w-full text-sm text-on-surface-variant file:ms-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-bold file:bg-primary-container file:text-on-primary-container hover:file:opacity-80 cursor-pointer"
                       aria-label="בחר תמונת כף יד"
                     />
                   </div>
@@ -193,7 +201,11 @@ export default function PalmistryPage() {
                   disabled={mutation.isPending || uploading}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
-                  {mutation.isPending ? 'מנתח...' : 'נתח כף יד'}
+                  {mutation.isPending ? (
+                    <MysticLoadingText text={DEFAULT_LOADING_PHRASE.button} />
+                  ) : (
+                    'נתח כף יד'
+                  )}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -211,18 +223,18 @@ export default function PalmistryPage() {
           <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
             <CardHeader>
               <CardTitle className="text-base text-primary font-headline flex items-center gap-2">
-                <GiHandOfGod className="h-4 w-4" />
+                <GiHand className="h-4 w-4" />
                 קריאה כירומנטית
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{result.interpretation}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

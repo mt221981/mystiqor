@@ -6,14 +6,17 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { Calendar, Star, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { GiHourglass } from 'react-icons/gi'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { DEFAULT_LOADING_PHRASE } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -167,8 +170,8 @@ function TimingResults({ result }: TimingResultsProps) {
                   {day.score}
                 </span>
               </div>
-              <div className="flex flex-wrap gap-1 pr-7">
-                <span className="font-label text-xs text-on-surface-variant ml-1">ירח ב{day.moonSign}</span>
+              <div className="flex flex-wrap gap-1 ps-7">
+                <span className="font-label text-xs text-on-surface-variant me-1">ירח ב{day.moonSign}</span>
                 {day.mercury_retrograde && (
                   <span className="font-label text-xs bg-primary-container/10 text-primary px-2 py-0.5 rounded-full">מרקורי ℞</span>
                 )}
@@ -192,7 +195,7 @@ function TimingResults({ result }: TimingResultsProps) {
         <CardHeader className="pb-2">
           <button
             onClick={() => setShowWorstDays(!showWorstDays)}
-            className="w-full flex items-center justify-between text-base font-headline text-error font-semibold"
+            className="w-full flex items-center justify-between text-base font-headline text-error font-bold"
           >
             <span className="flex items-center gap-2">
               <AlertTriangle className="h-4 w-4" />
@@ -203,7 +206,7 @@ function TimingResults({ result }: TimingResultsProps) {
         </CardHeader>
         {showWorstDays && (
           <CardContent className="space-y-3">
-            {result.worstDays.map((day, i) => (
+            {result.worstDays.map((day) => (
               <div key={day.date} className="space-y-1">
                 <div className="flex items-center gap-3">
                   <span className="text-on-surface text-sm font-medium w-24 shrink-0 font-label">{formatDate(day.date)}</span>
@@ -215,7 +218,7 @@ function TimingResults({ result }: TimingResultsProps) {
                   </span>
                 </div>
                 <div className="flex flex-wrap gap-1">
-                  <span className="font-label text-xs text-on-surface-variant ml-1">ירח ב{day.moonSign}</span>
+                  <span className="font-label text-xs text-on-surface-variant me-1">ירח ב{day.moonSign}</span>
                   {day.unfavorable.slice(0, 2).map((u, j) => (
                     <span key={j} className="font-label text-xs bg-secondary/10 text-secondary px-2 py-0.5 rounded-full">{u}</span>
                   ))}
@@ -234,6 +237,7 @@ function TimingResults({ result }: TimingResultsProps) {
 export default function TimingPage() {
   const [result, setResult] = useState<TimingResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -258,11 +262,17 @@ export default function TimingPage() {
   })
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="כלי תזמון"
         description="מצא את הימים האסטרולוגיים הטובים ביותר לפעילות שלך"
-        icon={<Calendar className="h-5 w-5" />}
+        icon={<GiHourglass className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -294,7 +304,7 @@ export default function TimingPage() {
                         onClick={() => setValue('activityType', type as ActivityType)}
                         className={`bg-primary-container/10 text-primary font-label text-xs px-2 py-1 rounded-full transition-colors ${
                           selectedActivity === type
-                            ? 'bg-primary-container text-on-primary-container font-semibold'
+                            ? 'bg-primary-container text-on-primary-container font-bold'
                             : 'hover:bg-surface-container-high'
                         }`}
                       >
@@ -324,7 +334,11 @@ export default function TimingPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
-                  {mutation.isPending ? 'מחשב תזמון...' : 'חשב ימים מועדפים'}
+                  {mutation.isPending ? (
+                    <MysticLoadingText text={DEFAULT_LOADING_PHRASE.button} />
+                  ) : (
+                    'חשב ימים מועדפים'
+                  )}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -333,6 +347,6 @@ export default function TimingPage() {
       </motion.div>
 
       {result && <TimingResults result={result} />}
-    </div>
+    </motion.div>
   )
 }
