@@ -7,7 +7,7 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,9 @@ import { ChevronDown, ChevronUp, Heart } from 'lucide-react'
 import { GiAbacus } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -160,6 +162,7 @@ async function fetchCompatibility(params: {
 export default function NumerologyPage() {
   const [result, setResult] = useState<NumerologyResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
   const [mainFormValues, setMainFormValues] = useState<FormValues | null>(null)
   const [compatResult, setCompatResult] = useState<CompatibilityApiResponse['data'] | null>(null)
   const [showCompatibility, setShowCompatibility] = useState(false)
@@ -208,8 +211,13 @@ export default function NumerologyPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="נומרולוגיה"
         description="חישוב 5 מספרים נומרולוגיים עבריים מותאמים אישית + פרשנות AI"
         icon={<GiAbacus className="h-5 w-5" />}
@@ -272,7 +280,7 @@ export default function NumerologyPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
-                  {mutation.isPending ? 'מחשב...' : 'חשב מספרים נומרולוגיים'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['numerology'].button} /> : 'חשב מספרים נומרולוגיים'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -336,7 +344,7 @@ export default function NumerologyPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                     <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                   </div>
                 </CardContent>
@@ -443,6 +451,6 @@ export default function NumerologyPage() {
           </RevealItem>
         </ProgressiveReveal>
       )}
-    </div>
+    </motion.div>
   )
 }

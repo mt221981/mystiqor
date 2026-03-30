@@ -12,7 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { Loader2, Plus, X } from 'lucide-react';
 import { GiDreamCatcher } from 'react-icons/gi';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -21,7 +21,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PageHeader } from '@/components/layouts/PageHeader';
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text';
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases';
 import { animations } from '@/lib/animations/presets';
 import { DreamInputSchema } from '@/app/api/tools/dream/route';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
@@ -120,6 +122,7 @@ function TagInput({ label, values, onAdd, onRemove, placeholder }: TagInputProps
 /** דף ניתוח חלומות */
 export default function DreamPage() {
   const { incrementUsage } = useSubscription();
+  const shouldReduceMotion = useReducedMotion();
   const [dreamId, setDreamId] = useState<string | null>(null);
   const [interpretation, setInterpretation] = useState<string | null>(null);
   const [isPolling, setIsPolling] = useState(false);
@@ -212,8 +215,14 @@ export default function DreamPage() {
   }, []);
 
   return (
-    <div className="space-y-8" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="space-y-8"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח חלומות"
         description="תעד את חלומך וקבל פרשנות פסיכולוגית"
         icon={<GiDreamCatcher className="h-5 w-5" />}
@@ -291,7 +300,7 @@ export default function DreamPage() {
 
             <Button type="submit" disabled={isSubmitting || isPolling} className="w-full sm:w-auto bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95">
               {isSubmitting ? (
-                <><Loader2 className="ms-2 h-4 w-4 animate-spin" />שומר חלום...</>
+                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['dream'].button} /></>
               ) : (
                 'שמור ונתח'
               )}
@@ -315,13 +324,13 @@ export default function DreamPage() {
           <Card className="bg-surface-container rounded-xl border border-outline-variant/5 mystic-hover">
             <CardHeader><CardTitle className="font-headline text-primary">ניתוח החלום</CardTitle></CardHeader>
             <CardContent>
-              <div className="prose prose-sm prose-invert max-w-none font-body text-on-surface-variant">
+              <div className="result-heading-glow prose prose-sm prose-invert max-w-none font-body text-on-surface-variant">
                 <ReactMarkdown>{interpretation}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

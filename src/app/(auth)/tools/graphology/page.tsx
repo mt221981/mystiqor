@@ -7,7 +7,7 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,9 @@ import { Printer, Clock, GitCompare, Bell } from 'lucide-react'
 import { GiQuillInk } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -81,6 +83,7 @@ export default function GraphologyPage() {
   const [uploading, setUploading] = useState(false)
   const [activeTab, setActiveTab] = useState<string>('analysis')
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -136,7 +139,13 @@ export default function GraphologyPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-3xl"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
       <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
         <TabsList className="mb-4 bg-surface-container/60">
           <TabsTrigger value="analysis" className="flex items-center gap-1"><GiQuillInk className="h-3 w-3" /> ניתוח</TabsTrigger>
@@ -158,7 +167,7 @@ export default function GraphologyPage() {
         </TabsContent>
 
         <TabsContent value="analysis">
-      <PageHeader
+      <StandardSectionHeader
         title="גרפולוגיה"
         description="ניתוח כתב יד מתמונה — 9 מרכיבים גרפולוגיים עם ציונים, תרשים רדאר ותובנות אישיות"
         icon={<GiQuillInk className="h-5 w-5" />}
@@ -222,7 +231,7 @@ export default function GraphologyPage() {
                   disabled={mutation.isPending || uploading}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
-                  {mutation.isPending ? 'מנתח כתב יד...' : 'נתח כתב יד'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['graphology'].button} /> : 'נתח כתב יד'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -247,13 +256,13 @@ export default function GraphologyPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{result.summary}</ReactMarkdown>
               </div>
               {result.overall_assessment && (
                 <div className="border-t border-outline-variant/20 pt-4">
                   <h3 className="text-sm font-semibold text-primary font-headline mb-2">הערכה כוללת</h3>
-                  <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                     <ReactMarkdown>{result.overall_assessment}</ReactMarkdown>
                   </div>
                 </div>
@@ -305,7 +314,7 @@ export default function GraphologyPage() {
                     <p className="text-xs font-semibold text-primary font-label uppercase tracking-wide">
                       {insight.category}
                     </p>
-                    <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
+                    <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                       <ReactMarkdown>{insight.text}</ReactMarkdown>
                     </div>
                   </div>
@@ -329,6 +338,6 @@ export default function GraphologyPage() {
       )}
         </TabsContent>
       </Tabs>
-    </div>
+    </motion.div>
   )
 }

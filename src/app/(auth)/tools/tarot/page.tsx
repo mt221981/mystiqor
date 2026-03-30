@@ -6,13 +6,15 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { GiCardRandom, GiCrystalBall } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -74,6 +76,7 @@ export default function TarotPage() {
   const { incrementUsage } = useSubscription()
   const [question, setQuestion] = useState('')
   const [result, setResult] = useState<TarotResult | null>(null)
+  const shouldReduceMotion = useReducedMotion()
 
   const mutation = useMutation({
     mutationFn: fetchTarot,
@@ -97,8 +100,13 @@ export default function TarotPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="טארוט"
         description="שליפת קלפים מה-DB + פרשנות AI מותאמת אישית"
         icon={<GiCardRandom className="h-5 w-5" />}
@@ -154,7 +162,7 @@ export default function TarotPage() {
                 disabled={mutation.isPending}
                 className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
               >
-                {mutation.isPending ? 'שולף קלפים...' : 'שלוף קלפים'}
+                {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['tarot'].button} /> : 'שלוף קלפים'}
               </Button>
             </SubscriptionGuard>
           </CardContent>
@@ -203,7 +211,7 @@ export default function TarotPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                     <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                   </div>
                 </CardContent>
@@ -219,6 +227,6 @@ export default function TarotPage() {
         isOpen={detailCard !== null}
         onClose={() => setDetailCard(null)}
       />
-    </div>
+    </motion.div>
   )
 }

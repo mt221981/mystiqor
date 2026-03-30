@@ -9,7 +9,7 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useQuery, useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,7 +17,9 @@ import { z } from 'zod'
 import { toast } from 'sonner'
 import { GiAstrolabe } from 'react-icons/gi'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -133,6 +135,7 @@ async function fetchBirthChart(input: BirthChartFormValues): Promise<BirthChartR
 export default function AstrologyPage() {
   const [result, setResult] = useState<BirthChartResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   // שליפת פרופיל לפיזור ראשוני של הטופס
   const { data: profile } = useQuery({
@@ -182,8 +185,13 @@ export default function AstrologyPage() {
   const moonPlanet = result?.planetDetails.find(p => p.name === 'moon')
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="מפת לידה אסטרולוגית"
         description="חישוב מפת גלגל אסטרולוגית מלאה עם פרשנות AI"
         icon={<GiAstrolabe className="h-5 w-5" />}
@@ -276,7 +284,7 @@ export default function AstrologyPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
-                  {mutation.isPending ? 'מחשב מפת לידה...' : 'חשב מפת לידה'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['astrology'].button} /> : 'חשב מפת לידה'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -334,6 +342,6 @@ export default function AstrologyPage() {
           </Tabs>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
