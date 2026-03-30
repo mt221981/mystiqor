@@ -138,8 +138,8 @@ export function FloatingCoachPanel() {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: '100%', opacity: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="fixed inset-x-0 bottom-0 md:inset-x-auto md:end-4 md:w-96 md:bottom-20 glass-panel rounded-t-2xl md:rounded-2xl border border-border/20 flex flex-col"
-          style={{ zIndex: 'var(--z-panel)', height: '380px' }}
+          className="fixed inset-x-0 bottom-0 md:inset-x-auto md:end-6 md:w-96 md:bottom-24 glass-panel rounded-t-2xl md:rounded-2xl border border-border/20 flex flex-col"
+          style={{ zIndex: 'var(--z-panel)', height: '420px' }}
         >
           {/* כותרת */}
           <div className="flex items-center justify-between px-4 py-3 border-b border-border/20 shrink-0">
