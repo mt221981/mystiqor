@@ -5,7 +5,7 @@
  * כולל תפריט קטגוריות, מצב פעיל, סרגל שימוש חי ותגובתיות למובייל
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import {
@@ -156,6 +156,9 @@ const NAV_SECTIONS: readonly NavSection[] = [
   },
 ] as const;
 
+/** מפתח localStorage לשמירת מצב קטגוריות הסרגל */
+const SIDEBAR_STORAGE_KEY = 'mystiqor-sidebar-sections';
+
 // ===== קומפוננטות פנימיות =====
 
 /** מאפייני קטגוריה מתקפלת */
@@ -303,16 +306,37 @@ function UsageBar() {
 export function Sidebar() {
   const pathname = usePathname();
 
-  /** מצב פתיחת הקטגוריות — כולן פתוחות כברירת מחדל */
-  const [openSections, setOpenSections] = useState<Record<string, boolean>>(
-    () =>
-      Object.fromEntries(NAV_SECTIONS.map((section) => [section.title, true]))
-  );
+  /** מצב פתיחה/סגירה של קטגוריות — נטען מ-localStorage או ברירת מחדל (הכל פתוח) */
+  const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
+    // ברירת מחדל — כל הקטגוריות פתוחות (per D-08)
+    const defaults = Object.fromEntries(
+      NAV_SECTIONS.map((section) => [section.title, true])
+    );
+    if (typeof window === 'undefined') return defaults;
+    try {
+      const stored = localStorage.getItem(SIDEBAR_STORAGE_KEY);
+      if (!stored) return defaults;
+      const parsed = JSON.parse(stored) as Record<string, boolean>;
+      // מיזוג — קטגוריות חדשות שלא בזיכרון יהיו פתוחות
+      return { ...defaults, ...parsed };
+    } catch {
+      return defaults;
+    }
+  });
 
   /** מיתוג פתיחה/סגירה של קטגוריה */
   const toggleSection = useCallback((title: string) => {
     setOpenSections((prev) => ({ ...prev, [title]: !prev[title] }));
   }, []);
+
+  /** שמירת מצב קטגוריות ב-localStorage בכל שינוי (per D-06) */
+  useEffect(() => {
+    try {
+      localStorage.setItem(SIDEBAR_STORAGE_KEY, JSON.stringify(openSections));
+    } catch {
+      // שגיאת כתיבה — localStorage מלא או חסום, ממשיכים בלי שמירה
+    }
+  }, [openSections]);
 
   return (
     <aside
