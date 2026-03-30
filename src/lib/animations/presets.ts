@@ -87,6 +87,14 @@ export const animations = {
     exit: { rotate: 180, opacity: 0 },
   },
 
+  /** אנימציית כניסה לעמוד — fade + drift מלמטה */
+  pageEntry: {
+    initial: { opacity: 0, y: 12 },
+    animate: { opacity: 1, y: 0 },
+    exit: { opacity: 0, y: -8 },
+    transition: { duration: 0.6, ease: 'easeOut' },
+  },
+
   /** קונטיינר עם אנימציית stagger לילדים */
   staggerContainer: {
     animate: {
