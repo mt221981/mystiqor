@@ -7,14 +7,17 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { Heart, CheckCircle, AlertTriangle, MessageCircle, Brain } from 'lucide-react'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { GiTwoCoins } from 'react-icons/gi'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -87,6 +90,7 @@ async function fetchRelationshipAnalysis(input: FormValues): Promise<Relationshi
 export default function RelationshipsPage() {
   const [result, setResult] = useState<RelationshipResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const {
     register,
@@ -151,11 +155,17 @@ export default function RelationshipsPage() {
   )
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח יחסים"
         description="ניתוח תאימות ודינמיקה בין שני אנשים בעזרת אסטרולוגיה ופסיכולוגיה"
-        icon={<Heart className="h-5 w-5" />}
+        icon={<GiTwoCoins className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -194,7 +204,7 @@ export default function RelationshipsPage() {
                         onClick={() => setValue('relationshipType', t.value)}
                         className={`bg-primary-container/10 text-primary font-label text-xs px-2 py-1 rounded-full transition-colors ${
                           selectedType === t.value
-                            ? 'bg-primary-container text-on-primary-container font-semibold'
+                            ? 'bg-primary-container text-on-primary-container font-bold'
                             : 'hover:bg-surface-container-high'
                         }`}
                       >
@@ -219,7 +229,11 @@ export default function RelationshipsPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
-                  {mutation.isPending ? 'מנתח יחסים...' : 'נתח יחסים'}
+                  {mutation.isPending ? (
+                    <MysticLoadingText text={MYSTIC_LOADING_PHRASES['relationships'].button} />
+                  ) : (
+                    'נתח יחסים'
+                  )}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -338,6 +352,6 @@ export default function RelationshipsPage() {
           </Card>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

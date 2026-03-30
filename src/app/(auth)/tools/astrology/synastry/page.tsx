@@ -6,15 +6,17 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { CheckCircle, AlertTriangle, ChevronDown } from 'lucide-react'
-import { GiLovers } from 'react-icons/gi'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { GiHearts } from 'react-icons/gi'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -178,14 +180,14 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-            <GiLovers className="h-4 w-4" />המלצות
+            <GiHearts className="h-4 w-4" />המלצות
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
             {interpretation.recommendations.map((r, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
-                <GiLovers className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
+                <GiHearts className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
               </li>
             ))}
           </ul>
@@ -197,7 +199,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
         <CardHeader className="pb-2">
           <button
             onClick={() => setShowAspects(!showAspects)}
-            className="w-full flex items-center justify-between text-base font-headline text-primary font-semibold"
+            className="w-full flex items-center justify-between text-base font-headline text-primary font-bold"
           >
             <span>אספקטים בין-גלגלות ({inter_aspects.length})</span>
             <ChevronDown className={`h-4 w-4 transition-transform ${showAspects ? 'rotate-180' : ''}`} />
@@ -245,6 +247,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
 export default function SynastryPage() {
   const [result, setResult] = useState<SynastryResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
@@ -269,7 +272,7 @@ export default function SynastryPage() {
     <Card className="border-outline-variant/5 bg-surface-container flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-          <GiLovers className="h-4 w-4" />{title}
+          <GiHearts className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -316,11 +319,17 @@ export default function SynastryPage() {
   )
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-5xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-5xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="סינסטרי"
         description="תאימות אסטרולוגית — ניתוח שני גלגלות לידה ואספקטים בין-גלגלות"
-        icon={<GiLovers className="h-5 w-5" />}
+        icon={<GiHearts className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -351,7 +360,11 @@ export default function SynastryPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
-                  {mutation.isPending ? 'מחשב סינסטרי...' : 'חשב סינסטרי'}
+                  {mutation.isPending ? (
+                    <MysticLoadingText text={MYSTIC_LOADING_PHRASES['synastry'].button} />
+                  ) : (
+                    'חשב סינסטרי'
+                  )}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -366,6 +379,6 @@ export default function SynastryPage() {
           person2Name={result.person2_chart[0] ? 'אדם 2' : 'אדם 2'}
         />
       )}
-    </div>
+    </motion.div>
   )
 }

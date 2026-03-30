@@ -5,12 +5,12 @@
  * טוען אוטומטית את תחזית המזל של המשתמש ומציג אותה ב-DailyForecast
  */
 
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { GiSunRadiations } from 'react-icons/gi'
+import { GiMagnifyingGlass } from 'react-icons/gi'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { DailyForecast } from '@/components/features/astrology/DailyForecast'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
@@ -49,6 +49,8 @@ async function fetchDailyForecast(): Promise<ForecastApiResponse['data']> {
 
 /** דף תחזית יומית אסטרולוגית */
 export default function AstroForecastPage() {
+  const shouldReduceMotion = useReducedMotion()
+
   const {
     data,
     isLoading,
@@ -67,11 +69,17 @@ export default function AstroForecastPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-3xl"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="תחזית יומית"
         description="תחזית אסטרולוגית מותאמת אישית למזל שלך"
-        icon={<GiSunRadiations className="h-5 w-5" />}
+        icon={<GiMagnifyingGlass className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'אסטרולוגיה', href: '/tools/astrology' },
@@ -94,6 +102,6 @@ export default function AstroForecastPage() {
           />
         </SubscriptionGuard>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }
