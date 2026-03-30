@@ -183,13 +183,13 @@ function CollapsibleSection({
   const ChevronIcon = isOpen ? ChevronUp : ChevronDown;
 
   return (
-    <div className="mb-1">
+    <div className="mb-3">
       <button
         type="button"
         onClick={onToggle}
         className={cn(
           'flex w-full items-center justify-between px-3 py-2',
-          'text-xs font-semibold uppercase tracking-wider',
+          'text-sm font-semibold uppercase tracking-wider',
           'text-gold-dim/85 hover:text-gold font-label',
           'transition-colors duration-200'
         )}
@@ -217,15 +217,15 @@ function CollapsibleSection({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2',
-                  'text-sm font-medium transition-all duration-200',
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5',
+                  'text-base font-medium transition-all duration-200',
                   isActive
                     ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20 border border-primary/10'
                     : 'text-on-surface-variant hover:bg-surface-container-high/60 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon className="h-[18px] w-[18px] shrink-0" />
+                <Icon className="h-5 w-5 shrink-0" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -308,9 +308,10 @@ export function Sidebar() {
 
   /** מצב פתיחה/סגירה של קטגוריות — נטען מ-localStorage או ברירת מחדל (הכל פתוח) */
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
-    // ברירת מחדל — כל הקטגוריות פתוחות (per D-08)
+    // ברירת מחדל — רק ראשי וכלים מיסטיים פתוחים, השאר סגורים
+    const DEFAULT_OPEN = new Set(['ראשי', 'כלים מיסטיים']);
     const defaults = Object.fromEntries(
-      NAV_SECTIONS.map((section) => [section.title, true])
+      NAV_SECTIONS.map((section) => [section.title, DEFAULT_OPEN.has(section.title)])
     );
     if (typeof window === 'undefined') return defaults;
     try {

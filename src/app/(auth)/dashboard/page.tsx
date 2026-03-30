@@ -15,8 +15,11 @@ import { createClient } from '@/lib/supabase/client';
 import { CACHE_TIMES, queryKeys } from '@/lib/query/cache-config';
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
+import { motion, useReducedMotion } from 'framer-motion';
+import { GiCrystalBall } from 'react-icons/gi';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
-import { Breadcrumbs } from '@/components/common/Breadcrumbs';
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
+import { animations } from '@/lib/animations/presets';
 import { AnalysesChart, type ChartDataPoint } from '@/components/features/shared/AnalysesChart';
 import { DailyInsightCard } from '@/components/features/dashboard/DailyInsightCard';
 import { BiorhythmChart } from '@/components/features/dashboard/BiorhythmChart';
@@ -276,17 +279,22 @@ export default function DashboardPage() {
     pendingReminders: coreStats?.pendingReminders ?? 0,
   };
 
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <ErrorBoundary>
-      <div className="space-y-6" dir="rtl">
-        {/* פירורי לחם */}
-        <Breadcrumbs items={[{ label: 'לוח בקרה' }]} />
-
-        {/* כותרת */}
-        <div>
-          <h1 className="text-2xl font-bold font-headline text-on-surface">לוח הבקרה</h1>
-          <p className="mt-1 text-on-surface-variant font-body">סיכום הפעילות שלך</p>
-        </div>
+      <motion.div
+        className="space-y-6"
+        dir="rtl"
+        {...(shouldReduceMotion ? {} : animations.pageEntry)}
+      >
+        {/* כותרת אטמוספרית עם זוהר */}
+        <StandardSectionHeader
+          title="לוח הבקרה"
+          description="סיכום הפעילות שלך"
+          icon={<GiCrystalBall className="w-6 h-6" />}
+          breadcrumbs={[{ label: 'לוח בקרה' }]}
+        />
 
         {/* D-01: כרטיס תובנה יומית */}
         <DailyInsightCard birthDate={profile?.birth_date ?? null} />
@@ -296,7 +304,7 @@ export default function DashboardPage() {
 
         {/* D-03/DASH-06: בוחר תקופה */}
         <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold font-headline text-on-surface">גרפים ומגמות</h2>
+          <h2 className="text-xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
           <PeriodSelector value={period} onChange={setPeriod} />
         </div>
 
@@ -305,13 +313,13 @@ export default function DashboardPage() {
 
           {/* D-02/DASH-01: ביוריתם — רחב */}
           <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ביוריתם אישי</h2>
+            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">ביוריתם אישי</h2>
             <BiorhythmChart birthDate={profile?.birth_date ?? null} />
           </div>
 
           {/* D-02/DASH-03: מגמת מצב רוח */}
           <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">מגמת מצב רוח</h2>
+            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">מגמת מצב רוח</h2>
             {isMoodLoading ? (
               <MysticSkeleton className="h-[200px] w-full" />
             ) : (
@@ -321,7 +329,7 @@ export default function DashboardPage() {
 
           {/* D-02/DASH-04: התקדמות יעדים */}
           <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">התקדמות יעדים</h2>
+            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">התקדמות יעדים</h2>
             {isGoalsLoading ? (
               <MysticSkeleton className="h-[200px] w-full" />
             ) : (
@@ -331,7 +339,7 @@ export default function DashboardPage() {
 
           {/* DASH-05: ניתוחים לפי כלי — רחב */}
           <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-sm font-semibold font-headline text-on-surface">ניתוחים לפי כלי</h2>
+            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">ניתוחים לפי כלי</h2>
             {isAnalysesLoading ? (
               <MysticSkeleton className="h-[200px] w-full" />
             ) : (
@@ -340,7 +348,7 @@ export default function DashboardPage() {
           </div>
 
         </div>
-      </div>
+      </motion.div>
     </ErrorBoundary>
   );
 }

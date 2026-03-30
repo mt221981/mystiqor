@@ -8,7 +8,8 @@
 import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Sun, Moon, Menu, Sparkles, User, LogOut, Settings } from 'lucide-react';
+import { usePathname } from 'next/navigation';
+import { Sun, Moon, Menu, Sparkles, User, LogOut, Settings, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useThemeStore } from '@/stores/theme';
 import { signOut } from '@/lib/supabase/auth';
@@ -29,6 +30,10 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const userMenuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const pathname = usePathname();
+
+  /** האם להציג כפתור חזרה — לא בדשבורד או בדף הבית */
+  const showBackButton = pathname !== '/dashboard' && pathname !== '/';
 
   /** סגירת תפריט משתמש בלחיצה מחוץ לאלמנט */
   useEffect(() => {
@@ -80,6 +85,22 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
         >
           <Menu className="h-5 w-5" />
         </button>
+
+        {/* כפתור חזרה — מוצג בכל עמוד חוץ מדשבורד/בית */}
+        {showBackButton && (
+          <button
+            type="button"
+            onClick={() => router.back()}
+            className={cn(
+              'inline-flex items-center justify-center rounded-lg p-2',
+              'text-on-surface-variant hover:text-primary hover:bg-surface-container-high/60',
+              'transition-colors duration-200'
+            )}
+            aria-label="חזרה"
+          >
+            <ArrowRight className="h-5 w-5" />
+          </button>
+        )}
 
         {/* לוגו — מוצג רק במובייל (בדסקטופ הלוגו בסרגל צד) */}
         <Link

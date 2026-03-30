@@ -111,11 +111,11 @@ export function StatCards({ stats, isLoading }: StatCardsProps) {
             aria-label={`${label}: ${format(stats[key])}`}
           >
             {/* ambient glow */}
-            <div className="absolute -bottom-4 -left-4 w-12 h-12 bg-tertiary/5 rounded-full blur-xl" aria-hidden="true" />
+            <div className="absolute -bottom-4 -start-4 w-12 h-12 bg-tertiary/5 rounded-full blur-xl" aria-hidden="true" />
 
             <div className="flex items-start justify-between">
               <div>
-                <p className="font-label text-xs text-on-surface-variant">{label}</p>
+                <p className="font-label text-sm text-on-surface-variant">{label}</p>
                 <p className="mt-1 text-3xl font-headline font-black text-on-surface">
                   {format(stats[key])}
                 </p>
@@ -127,7 +127,7 @@ export function StatCards({ stats, isLoading }: StatCardsProps) {
                 <Icon className="h-5 w-5 text-tertiary" aria-hidden="true" />
               </div>
             </div>
-            <p className="mt-1 font-label text-[10px] text-on-surface-variant">{description}</p>
+            <p className="mt-1 font-label text-xs text-on-surface-variant">{description}</p>
           </div>
         )
       )}

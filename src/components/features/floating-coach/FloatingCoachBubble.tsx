@@ -28,16 +28,16 @@ export function FloatingCoachBubble() {
   return (
     <motion.button
       onClick={toggle}
-      className="fixed bottom-20 md:bottom-6 end-4 md:end-6 w-16 h-16 md:w-[72px] md:h-[72px] rounded-full celestial-glow bg-gradient-to-br from-[#8f2de6] to-[#d4a853] flex items-center justify-center text-primary-foreground cursor-pointer shadow-[0_0_24px_rgba(143,45,230,0.5),0_0_48px_rgba(212,168,83,0.3)] hover:shadow-[0_0_32px_rgba(143,45,230,0.7),0_0_64px_rgba(212,168,83,0.4)] transition-shadow"
+      className="fixed bottom-20 md:bottom-6 end-4 md:end-6 w-[72px] h-[72px] md:w-[88px] md:h-[88px] rounded-full celestial-glow bg-gradient-to-br from-[#8f2de6] to-[#d4a853] flex items-center justify-center text-primary-foreground cursor-pointer ring-2 ring-primary/30 shadow-[0_0_20px_rgba(143,45,230,0.6),0_0_40px_rgba(143,45,230,0.3),0_0_60px_rgba(212,168,83,0.25)] hover:shadow-[0_0_30px_rgba(143,45,230,0.8),0_0_60px_rgba(212,168,83,0.4)] transition-shadow"
       style={{ zIndex: 'var(--z-floating)' }}
-      animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }}
-      transition={{ duration: 4, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
+      animate={shouldReduceMotion ? {} : { scale: [1, 1.08, 1] }}
+      transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
       aria-label="פתח מאמן AI"
       aria-expanded={isOpen}
     >
-      <GiCrystalBall className="w-8 h-8 md:w-9 md:h-9" />
-      {/* תווית צפה מתחת לכדור — רק בדסקטופ */}
-      <span className="absolute -bottom-6 text-[10px] font-label font-medium text-primary whitespace-nowrap hidden md:block">
+      <GiCrystalBall className="w-9 h-9 md:w-10 md:h-10" />
+      {/* תווית צפה מתחת לכדור — תמיד גלויה */}
+      <span className="absolute -bottom-6 text-xs font-label font-medium text-primary whitespace-nowrap drop-shadow-[0_0_8px_rgba(221,184,255,0.5)]">
         מאמן AI
       </span>
     </motion.button>
