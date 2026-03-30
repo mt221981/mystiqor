@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Phase 25 context gathered
-last_updated: "2026-03-30T17:03:40.520Z"
+stopped_at: Completed 25-01-PLAN.md
+last_updated: "2026-03-30T17:42:22.945Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 8
-  completed_plans: 7
+  total_plans: 10
+  completed_plans: 8
   percent: 25
 ---
 
@@ -21,12 +21,12 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 24 — atmospheric-depth-sweep
+**Current focus:** Phase 25 — coach-intelligence-sidebar-polish
 
 ## Current Position
 
-Phase: 24 (atmospheric-depth-sweep) — EXECUTING
-Plan: 3 of 3
+Phase: 25 (coach-intelligence-sidebar-polish) — EXECUTING
+Plan: 2 of 2
 Status: Ready to execute
 Last activity: 2026-03-30
 
@@ -59,6 +59,7 @@ Progress: [██░░░░░░░░] 25% (v1.3)
 | Phase 23 P02 | 2 | 2 tasks | 2 files |
 | Phase 24 P01 | 4min | 2 tasks | 5 files |
 | Phase 24 P03 | 14min | 2 tasks | 12 files |
+| Phase 25 P01 | 2 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -82,6 +83,8 @@ Recent decisions affecting current work:
 - [Phase 24]: getLoadingPhrase helper exported alongside MYSTIC_LOADING_PHRASES for ergonomic null-safe usage in plan 02/03
 - [Phase 24]: Used getLoadingPhrase() null-safe helper instead of direct MYSTIC_LOADING_PHRASES[key] indexing — TypeScript strict Record<string,T> returns T | undefined
 - [Phase 24]: GiStarSwirl used for daily-insights icon — GiStarShining not exported by react-icons/gi
+- [Phase 25]: Per-message analysis fetch uses limit(5) with 3 fields only — lighter than context-builder.ts limit(20) with results (per D-03)
+- [Phase 25]: relativeTimeHebrew implemented inline in messages/route.ts — no external lib, self-contained Hebrew time display
 
 ### Pending Todos
 
@@ -95,6 +98,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T17:03:40.506Z
-Stopped at: Phase 25 context gathered
-Resume file: .planning/phases/25-coach-intelligence-sidebar-polish/25-CONTEXT.md
+Last session: 2026-03-30T17:42:22.942Z
+Stopped at: Completed 25-01-PLAN.md
+Resume file: None
