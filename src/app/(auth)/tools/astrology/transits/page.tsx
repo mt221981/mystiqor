@@ -8,16 +8,18 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { RotateCcw, AlertTriangle } from 'lucide-react'
-import { GiCompass } from 'react-icons/gi'
+import { GiOrbital } from 'react-icons/gi'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -276,6 +278,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
 export default function TransitsPage() {
   const [result, setResult] = useState<TransitsResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit } = useForm<TransitsFormValues>({
     resolver: zodResolver(TransitsFormSchema),
@@ -300,11 +303,16 @@ export default function TransitsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="מעברים פלנטריים"
         description="מיקומי הכוכבים הנוכחיים ואספקטיהם מול מפת הלידה שלך"
-        icon={<GiCompass className="h-5 w-5" />}
+        icon={<GiOrbital className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -361,7 +369,7 @@ export default function TransitsPage() {
                   {mutation.isPending ? (
                     <span className="flex items-center gap-2">
                       <RotateCcw className="h-4 w-4 animate-spin" />
-                      מחשב מעברים...
+                      <MysticLoadingText text={getLoadingPhrase('transits').button} />
                     </span>
                   ) : (
                     'חשב מעברים נוכחיים'
@@ -392,6 +400,6 @@ export default function TransitsPage() {
           <TransitResults result={result} />
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

@@ -11,8 +11,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
 import { Loader2, Info } from 'lucide-react';
-import { GiBodyBalance } from 'react-icons/gi';
-import { motion } from 'framer-motion';
+import { GiDna1 } from 'react-icons/gi';
+import { motion, useReducedMotion } from 'framer-motion';
 import type { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -20,7 +20,9 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { PageHeader } from '@/components/layouts/PageHeader';
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text';
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases';
 import { LocationSearch } from '@/components/forms/LocationSearch';
 import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignCenters';
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
@@ -70,6 +72,7 @@ export default function HumanDesignPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [birthPlaceText, setBirthPlaceText] = useState('');
   const { incrementUsage } = useSubscription();
+  const shouldReduceMotion = useReducedMotion();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(HumanDesignInputSchema),
@@ -108,11 +111,17 @@ export default function HumanDesignPage() {
   }, []);
 
   return (
-    <div className="space-y-8" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="space-y-8"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="עיצוב אנושי"
         description="גלה את מפת האנרגיה האישית שלך"
-        icon={<GiBodyBalance className="h-5 w-5" />}
+        icon={<GiDna1 className="h-6 w-6" />}
         breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'עיצוב אנושי' }]}
       />
 
@@ -157,7 +166,7 @@ export default function HumanDesignPage() {
 
             <Button type="submit" disabled={isLoading} className="w-full sm:w-auto">
               {isLoading ? (
-                <><Loader2 className="ms-2 h-4 w-4 animate-spin" />מחשב...</>
+                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={getLoadingPhrase('human-design').button} /></>
               ) : (
                 'חשב עיצוב אנושי'
               )}
@@ -186,7 +195,7 @@ export default function HumanDesignPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardContent className="space-y-3 pt-6">
               <div className="flex items-center gap-3 flex-wrap">
-                <Badge className={`${TYPE_COLORS[result.type] ?? 'bg-tertiary/10 text-tertiary'} px-3 py-1 rounded-full font-label text-sm font-semibold`}>
+                <Badge className={`${TYPE_COLORS[result.type] ?? 'bg-tertiary/10 text-tertiary'} px-3 py-1 rounded-full font-label text-sm font-bold`}>
                   {result.type}
                 </Badge>
                 <span className="text-sm text-on-surface-variant font-label">פרופיל: {result.profile}</span>
@@ -194,7 +203,7 @@ export default function HumanDesignPage() {
               <p className="text-sm text-on-surface font-body"><span className="font-label font-medium">אוטוריטה:</span> {result.authority}</p>
               <p className="text-sm text-on-surface font-body"><span className="font-label font-medium">אסטרטגיה:</span> {result.strategy}</p>
               {result.description && (
-                <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
+                <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                   <ReactMarkdown>{result.description}</ReactMarkdown>
                 </div>
               )}
@@ -242,6 +251,6 @@ export default function HumanDesignPage() {
           </div>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   );
 }

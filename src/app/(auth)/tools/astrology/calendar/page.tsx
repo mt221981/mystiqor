@@ -6,12 +6,12 @@
  */
 
 import { useState, useCallback } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { GiCalendar } from 'react-icons/gi'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { AstroCalendar } from '@/components/features/astrology/AstroCalendar'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
@@ -71,6 +71,7 @@ export default function AstroCalendarPage() {
   const today = new Date()
   const [currentMonth, setCurrentMonth] = useState(today.getMonth() + 1)
   const [currentYear, setCurrentYear] = useState(today.getFullYear())
+  const shouldReduceMotion = useReducedMotion()
 
   /** עדכון חודש ושנה */
   const handleMonthChange = useCallback((month: number, year: number) => {
@@ -95,11 +96,17 @@ export default function AstroCalendarPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-3xl" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-3xl"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="לוח שנה אסטרולוגי"
         description="אירועים קוסמיים חשובים — ירח מלא, מרקורי רטרוגרד, כניסות מזל"
-        icon={<GiCalendar className="h-5 w-5" />}
+        icon={<GiCalendar className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'אסטרולוגיה', href: '/tools/astrology' },
@@ -125,6 +132,6 @@ export default function AstroCalendarPage() {
           )}
         </SubscriptionGuard>
       </motion.div>
-    </div>
+    </motion.div>
   )
 }

@@ -9,13 +9,14 @@
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import { RefreshCw } from 'lucide-react'
-import { GiMirrorMirror } from 'react-icons/gi'
+import { GiBrain } from 'react-icons/gi'
 import dynamic from 'next/dynamic'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { DEFAULT_LOADING_PHRASE } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -88,6 +89,7 @@ async function fetchPersonalityAnalysis(
 export default function PersonalityPage() {
   const [result, setResult] = useState<PersonalityResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const mutation = useMutation({
     mutationFn: fetchPersonalityAnalysis,
@@ -111,11 +113,17 @@ export default function PersonalityPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח אישיות — חמשת הממדים הגדולים"
         description="גלה את פרופיל האישיות שלך עם מודל OCEAN המוכח מדעית"
-        icon={<GiMirrorMirror className="h-5 w-5" />}
+        icon={<GiBrain className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'ניתוח אישיות' },
@@ -232,7 +240,7 @@ export default function PersonalityPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
                     <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                   </div>
                 </CardContent>
@@ -241,6 +249,6 @@ export default function PersonalityPage() {
           )}
         </ProgressiveReveal>
       )}
-    </div>
+    </motion.div>
   )
 }

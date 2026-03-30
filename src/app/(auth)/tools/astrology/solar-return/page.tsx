@@ -9,16 +9,18 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { RotateCcw } from 'lucide-react'
-import { GiSunRadiations } from 'react-icons/gi'
+import { GiSunrise } from 'react-icons/gi'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
@@ -228,6 +230,7 @@ export default function SolarReturnPage() {
   const [result, setResult] = useState<SolarReturnResult | null>(null)
   const [submittedYear, setSubmittedYear] = useState<number>(currentYear)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const { register, handleSubmit, setValue, watch } = useForm<SolarReturnFormValues>({
     resolver: zodResolver(SolarReturnFormSchema),
@@ -255,11 +258,16 @@ export default function SolarReturnPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="מהפכה שמשית"
         description="תחזית שנתית מלאה מבוססת רגע חזרת השמש למיקום הלידה"
-        icon={<GiSunRadiations className="h-5 w-5" />}
+        icon={<GiSunrise className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -335,7 +343,7 @@ export default function SolarReturnPage() {
                   {mutation.isPending ? (
                     <span className="flex items-center gap-2">
                       <RotateCcw className="h-4 w-4 animate-spin" />
-                      מחשב מהפכה שמשית...
+                      <MysticLoadingText text={getLoadingPhrase('solar-return').button} />
                     </span>
                   ) : (
                     `חשב מהפכה שמשית ${targetYearValue ?? currentYear}`
@@ -367,6 +375,6 @@ export default function SolarReturnPage() {
           <SolarReturnResults result={result} targetYear={submittedYear} />
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
