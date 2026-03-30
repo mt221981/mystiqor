@@ -296,6 +296,14 @@
     border: 1px solid rgba(221, 184, 255, 0.1);
     box-shadow: 0 0 20px rgba(143, 45, 230, 0.08);
   }
+
+  /* זוהר כותרת תוצאות — h2/h3 בפלט ניתוח AI */
+  .result-heading-glow h2,
+  .result-heading-glow h3 {
+    filter:
+      drop-shadow(0 0 8px rgba(221, 184, 255, 0.5))
+      drop-shadow(0 0 16px rgba(212, 168, 83, 0.3));
+  }
 }
 
 /* ===== אנימציות ===== */
@@ -377,6 +385,11 @@
 
   .mystic-hover:hover {
     transform: none !important;
+  }
+
+  .result-heading-glow h2,
+  .result-heading-glow h3 {
+    filter: none;
   }
 
   *,
