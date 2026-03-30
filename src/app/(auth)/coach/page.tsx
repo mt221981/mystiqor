@@ -21,69 +21,18 @@ import { ChatMessage } from '@/components/features/coach/ChatMessage'
 import { ChatInput } from '@/components/features/coach/ChatInput'
 import { QuickActions } from '@/components/features/coach/QuickActions'
 import { JourneysPanel } from '@/components/features/coach/JourneysPanel'
+import {
+  fetchConversations,
+  createConversation,
+  fetchMessages,
+  sendMessage,
+} from '@/services/coach/api'
+import type { Conversation, Message } from '@/services/coach/api'
 
 // ===== טיפוסים =====
 
 /** טאב פעיל בדף */
 type ActiveTab = 'chat' | 'journeys'
-
-/** שורת שיחה */
-interface Conversation {
-  id: string
-  title: string | null
-  last_message_at: string | null
-  message_count: number | null
-  created_at: string | null
-}
-
-/** שורת הודעה */
-interface Message {
-  id?: string
-  role: string
-  content: string
-  created_at?: string | null
-}
-
-// ===== פונקציות API =====
-
-/** שליפת רשימת שיחות */
-async function fetchConversations(): Promise<Conversation[]> {
-  const res = await fetch('/api/coach/conversations')
-  if (!res.ok) throw new Error('שגיאה בטעינת השיחות')
-  const json = (await res.json()) as { data: Conversation[] }
-  return json.data ?? []
-}
-
-/** יצירת שיחה חדשה */
-async function createConversation(): Promise<Conversation> {
-  const res = await fetch('/api/coach/conversations', { method: 'POST' })
-  if (!res.ok) throw new Error('שגיאה ביצירת שיחה')
-  const json = (await res.json()) as { data: Conversation }
-  return json.data
-}
-
-/** שליפת הודעות לשיחה */
-async function fetchMessages(conversationId: string): Promise<Message[]> {
-  const res = await fetch(`/api/coach/messages?conversation_id=${conversationId}`)
-  if (!res.ok) throw new Error('שגיאה בטעינת ההודעות')
-  const json = (await res.json()) as { data: Message[] }
-  return json.data ?? []
-}
-
-/** שליחת הודעה ושמירת תגובה */
-async function sendMessage(data: { conversation_id: string; message: string }): Promise<Message> {
-  const res = await fetch('/api/coach/messages', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  })
-  if (!res.ok) {
-    const err = await res.json().catch(() => ({ error: 'שגיאה בשליחת ההודעה' }))
-    throw new Error((err as { error?: string }).error ?? 'שגיאה בשליחת ההודעה')
-  }
-  const json = (await res.json()) as { data: Message }
-  return json.data
-}
 
 // ===== פונקציות עזר =====
 
