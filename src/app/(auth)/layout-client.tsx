@@ -10,12 +10,24 @@ import { useState } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'sonner';
 
+import dynamic from 'next/dynamic';
 import { defaultQueryOptions } from '@/lib/query/cache-config';
 import { Sidebar } from '@/components/layouts/Sidebar';
 import { Header } from '@/components/layouts/Header';
 import { MobileNav } from '@/components/layouts/MobileNav';
+import { FloatingCoachBubble } from '@/components/features/floating-coach/FloatingCoachBubble';
+import { BottomTabBar } from '@/components/layouts/BottomTabBar';
 
 import type { ReactNode } from 'react';
+
+/** פאנל מאמן AI צף — טעינה דינמית כי הוא כבד ולא נחוץ בטעינה ראשונית */
+const FloatingCoachPanel = dynamic(
+  () =>
+    import('@/components/features/floating-coach/FloatingCoachPanel').then((m) => ({
+      default: m.FloatingCoachPanel,
+    })),
+  { ssr: false }
+);
 
 // ===== ממשקים =====
 
@@ -50,7 +62,7 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
         {/* אזור תוכן ראשי */}
         <div className="flex flex-1 flex-col">
           <Header onMobileMenuOpen={() => setIsMobileNavOpen(true)} />
-          <main className="flex-1 overflow-auto pt-16">
+          <main className="flex-1 overflow-auto pt-16 pb-20 md:pb-0">
             <div className="mx-auto max-w-7xl px-6 py-8 space-y-8">
               {children}
             </div>
@@ -62,6 +74,13 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
           isOpen={isMobileNavOpen}
           onClose={() => setIsMobileNavOpen(false)}
         />
+
+        {/* בועת מאמן AI צפה — מופיעה בכל עמוד מאומת חוץ מ-/coach */}
+        <FloatingCoachBubble />
+        <FloatingCoachPanel />
+
+        {/* טאבים תחתונים — מובייל בלבד */}
+        <BottomTabBar />
       </div>
 
       {/* התראות toast — ממוקם בצד שמאל (נכון עבור RTL) */}
