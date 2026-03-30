@@ -2,14 +2,14 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: v1.2 milestone complete
-stopped_at: Completed 19-02 (מילון אסטרולוגי dictionary page) — phase 19-astrology-knowledge-base fully delivered (19-01 display components + 19-02 dictionary page + sidebar nav).
-last_updated: "2026-03-29T11:53:52.932Z"
+status: Ready to execute
+stopped_at: Completed 23-03 (FloatingCoachBubble + FloatingCoachPanel + layout-client.tsx wiring) — floating coach bubble with breathing animation, mini chat panel with context-aware opener messages, all 3 components mounted in authenticated layout
+last_updated: "2026-03-30T13:30:34.140Z"
 progress:
-  total_phases: 5
+  total_phases: 8
   completed_phases: 1
   total_plans: 17
-  completed_plans: 12
+  completed_plans: 18
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-20)
 ## Current Position
 
 Phase: 02 (core-features) — EXECUTING
-Plan: 3 of 9 complete (next: 02-03 Graphology + Drawing)
+Plan: 4 of 9 complete (next: 02-03 Graphology + Drawing)
 
 ## Phase Completion
 
@@ -74,6 +74,7 @@ Remaining:
 | Phase 01 P08 | — | 2 | 6 |
 | Phase 02 P01 | 21 | 2 | 11 |
 | Phase 02 P02+P04 | — | 4 | 17 |
+| Phase 23 P03 | 3 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -111,6 +112,8 @@ Recent decisions affecting current work:
 - [Phase 19-02]: Dictionary page uses 'use client' — required for shadcn Tabs interactive behavior
 - [Phase 19-02]: Reused existing GiAstrolabe icon in Sidebar — no duplicate import added
 - [Phase 19-02]: Tab defaultValue='signs' — zodiac signs as most common reference entry point
+- [Phase 23]: FloatingCoachPanel loaded via next/dynamic ssr:false — not needed on first paint, saves initial bundle
+- [Phase 23]: Opener messages in FloatingCoachPanel are display-only — not stored in Zustand, not sent to API (per D-12), avoids polluting conversation history
 
 ### Pending Todos
 
@@ -125,6 +128,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-29T00:35:00.000Z
-Stopped at: Completed 19-02 (מילון אסטרולוגי dictionary page) — phase 19-astrology-knowledge-base fully delivered (19-01 display components + 19-02 dictionary page + sidebar nav).
+Last session: 2026-03-30T13:30:34.138Z
+Stopped at: Completed 23-03 (FloatingCoachBubble + FloatingCoachPanel + layout-client.tsx wiring) — floating coach bubble with breathing animation, mini chat panel with context-aware opener messages, all 3 components mounted in authenticated layout
 Resume file: None
