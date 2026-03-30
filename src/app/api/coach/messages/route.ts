@@ -12,6 +12,7 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
+import { TOOL_NAMES } from '@/lib/constants/tool-names'
 
 // ===== סכמת ולידציה =====
 
@@ -44,6 +45,28 @@ interface MessageRow {
 interface HistoryRow {
   role: string
   content: string
+}
+
+/** שורת ניתוח קלה לזריקת הקשר לכל הודעה */
+interface RecentAnalysisRow {
+  tool_type: string
+  summary: string | null
+  created_at: string | null
+}
+
+/** חישוב זמן יחסי בעברית — "לפני X דקות/שעות/ימים" */
+function relativeTimeHebrew(dateStr: string): string {
+  const now = Date.now()
+  const then = new Date(dateStr).getTime()
+  const diffMs = now - then
+  const diffMin = Math.floor(diffMs / 60000)
+  if (diffMin < 1) return 'הרגע'
+  if (diffMin < 60) return `לפני ${diffMin} דקות`
+  const diffHours = Math.floor(diffMin / 60)
+  if (diffHours < 24) return `לפני ${diffHours} שעות`
+  const diffDays = Math.floor(diffHours / 24)
+  if (diffDays === 1) return 'אתמול'
+  return `לפני ${diffDays} ימים`
 }
 
 /**
@@ -150,6 +173,15 @@ export async function POST(request: NextRequest) {
 
     const convRow = conversation as ConversationRow
 
+    // שליפת 5 ניתוחים אחרונים להזרקת הקשר דינמי בכל הודעה (per D-01/D-03)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { data: recentAnalyses } = await (supabase as any)
+      .from('analyses')
+      .select('tool_type, summary, created_at')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(5)
+
     // שמירת הודעת המשתמש
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: insertUserError } = await (supabase as any)
@@ -188,6 +220,18 @@ export async function POST(request: NextRequest) {
     // הוספת זהות הפונה — שם, מזל ומספר חיים (Pitfall 5: COACH_PERSONA לא משתנה)
     if (ctx.firstName) {
       fullSystemPrompt += `\n\n### זהות הפונה:\nשם: ${ctx.firstName}, מזל: ${ctx.zodiacSign}, מספר חיים: ${ctx.lifePathNumber}.\nפנה אליו בשמו. התייחס למזלו ולמספר חייו כשרלוונטי.`
+    }
+
+    // הזרקת ניתוחים אחרונים להקשר — בין זהות הפונה להיסטוריית שיחה (per D-02)
+    const analysisList = recentAnalyses as RecentAnalysisRow[] | null
+    if (analysisList && analysisList.length > 0) {
+      const analysisLines = analysisList.map((a) => {
+        const toolHebrew = TOOL_NAMES[a.tool_type] ?? a.tool_type
+        const summaryText = a.summary ? a.summary.slice(0, 80) : 'ללא סיכום'
+        const timeText = a.created_at ? relativeTimeHebrew(a.created_at) : ''
+        return `- ${toolHebrew}: ${summaryText}${timeText ? ` (${timeText})` : ''}`
+      }).join('\n')
+      fullSystemPrompt += `\n\n### ניתוחים אחרונים בשיחה:\n${analysisLines}\nהשתמש במידע זה כדי לתת ייעוץ מותאם. אם המשתמש שואל "מה עשיתי" — התבסס על הרשימה הזו.`
     }
 
     if (priorList.length > 0) {
