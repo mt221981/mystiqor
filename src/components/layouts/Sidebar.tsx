@@ -77,7 +77,7 @@ interface NavSection {
 
 // ===== קבועי ניווט =====
 
-/** כל קטגוריות הניווט מאורגנות לפי סדר */
+/** כל קטגוריות הניווט מאורגנות לפי סדר — 6 קטגוריות (per D-04/D-05) */
 const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'ראשי',
@@ -100,18 +100,13 @@ const NAV_SECTIONS: readonly NavSection[] = [
     ],
   },
   {
-    title: 'אסטרולוגיה מתקדמת',
+    title: 'עוד כלים',
     items: [
       { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: GiSunRadiations },
       { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: GiCalendar },
       { label: 'מעברים', href: '/tools/astrology/transits', icon: GiCompass },
       { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: GiSunRadiations },
       { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: GiLovers },
-    ],
-  },
-  {
-    title: 'מתקדם',
-    items: [
       { label: 'התאמה', href: '/tools/compatibility', icon: GiHearts },
       { label: 'קריירה', href: '/tools/career', icon: GiBriefcase },
       { label: 'מסמך', href: '/tools/document', icon: GiScrollUnfurled },
