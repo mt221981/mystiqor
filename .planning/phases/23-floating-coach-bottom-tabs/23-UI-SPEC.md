@@ -62,11 +62,10 @@ Exceptions:
 | Role | Size | Weight | Line Height | Font Family | Usage |
 |------|------|--------|-------------|-------------|-------|
 | Body | 16px | 400 (regular) | 1.5 | `font-body` (Heebo) | Panel message bubbles, opener message |
-| Label | 10px | 500 (medium) | 1.2 | `font-label` (Manrope) | Tab bar labels (`text-[10px] font-medium`) |
-| Tab active indicator | 10px | 600 (semibold) | 1.2 | `font-label` (Manrope) | Active tab label |
+| Label | 10px | 500 (medium) | 1.2 | `font-label` (Manrope) | Tab bar labels, both inactive and active (`text-[10px] font-medium`). Active state is differentiated by `text-primary` color and indicator dot — no weight change. |
 | Link / Action | 14px | 500 (medium) | 1.4 | `font-body` (Heebo) | "פתח שיחה מלאה" link; input placeholder |
 
-Weights declared: **400 (regular)** and **500/600 (medium/semibold)**.
+Weights declared: **400 (regular)** and **500 (medium)**.
 Body line height: 1.5. Heading line height: 1.2 (label role).
 
 ---
@@ -183,8 +182,8 @@ Active tab states:
 
 | State | Icon | Label | Indicator |
 |-------|------|-------|-----------|
-| Inactive | `text-muted-foreground` | `text-muted-foreground` | none |
-| Active | `text-primary` + `drop-shadow-[0_0_6px_rgba(221,184,255,0.6)]` | `text-primary font-semibold` | 4px × 4px `rounded-full bg-primary` dot at bottom |
+| Inactive | `text-muted-foreground` | `text-muted-foreground font-medium` | none |
+| Active | `text-primary` + `drop-shadow-[0_0_6px_rgba(221,184,255,0.6)]` | `text-primary font-medium` | 4px × 4px `rounded-full bg-primary` dot at bottom |
 
 Active detection: `pathname === href || (href !== '/dashboard' && pathname.startsWith(href))`
 aria-current: `"page"` on active link.
@@ -343,6 +342,7 @@ Registry vetting gate: not triggered.
 | `persist` middleware on Zustand store | No persistence — state resets on navigation intentionally |
 | shadcn/ui Sheet for panel | Use framer-motion AnimatePresence directly (MobileNav comment indicates Sheet not fully configured) |
 | CSS `@keyframes` for bubble breathing | Use framer-motion `animate` array + `useReducedMotion()` hook |
+| `font-semibold` on active tab label | Use `font-medium` — active state is differentiated by `text-primary` color and indicator dot only |
 
 ---
 
