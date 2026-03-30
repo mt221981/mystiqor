@@ -8,8 +8,10 @@
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { Sparkles, Brain, Calendar, Loader2, Database } from 'lucide-react'
-import { motion } from 'framer-motion'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { motion, useReducedMotion } from 'framer-motion'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { useSubscription } from '@/hooks/useSubscription'
@@ -65,6 +67,7 @@ interface SynthesisAnalysis {
 export default function SynthesisPage() {
   const queryClient = useQueryClient()
   const supabase = createClient()
+  const shouldReduceMotion = useReducedMotion()
 
   // טעינת הסינתזה האחרונה
   const { data: latestSynthesis, isLoading } = useQuery({
@@ -121,8 +124,14 @@ export default function SynthesisPage() {
   })
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-5xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-5xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="סינתזה מיסטית הוליסטית"
         description="ה-AI שלנו מחבר את כל הנקודות מכל הכלים לתמונה אחת שלמה וצלולה"
         icon={<Sparkles className="h-5 w-5" />}
@@ -177,7 +186,9 @@ export default function SynthesisPage() {
               {generateMutation.isPending && generateMutation.variables === 'on_demand' ? (
                 <Loader2 className="w-4 h-4 animate-spin me-2" />
               ) : null}
-              {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור סינתזה'}
+              {generateMutation.isPending && generateMutation.variables === 'on_demand'
+                ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['synthesis']?.button ?? 'מסנתז את הנשמה...'} />
+                : (!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור סינתזה')}
             </Button>
           </div>
 
@@ -201,7 +212,9 @@ export default function SynthesisPage() {
               {generateMutation.isPending && generateMutation.variables === 'weekly' ? (
                 <Loader2 className="w-4 h-4 animate-spin me-2" />
               ) : null}
-              {!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור דוח שבועי'}
+              {generateMutation.isPending && generateMutation.variables === 'weekly'
+                ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['synthesis']?.button ?? 'מסנתז את הנשמה...'} />
+                : (!hasEnoughAnalyses ? 'נדרשים לפחות 2 ניתוחים' : 'צור דוח שבועי')}
             </Button>
           </div>
         </motion.div>
@@ -248,6 +261,6 @@ export default function SynthesisPage() {
           </motion.div>
         )}
       </SubscriptionGuard>
-    </div>
+    </motion.div>
   )
 }

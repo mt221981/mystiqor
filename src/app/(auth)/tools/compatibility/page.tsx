@@ -6,16 +6,18 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { CheckCircle, AlertTriangle } from 'lucide-react'
-import { GiHearts } from 'react-icons/gi'
+import { GiHearts, GiYinYang } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -74,6 +76,7 @@ async function fetchCompatibility(input: FormValues): Promise<CompatibilityResul
 export default function CompatibilityPage() {
   const [result, setResult] = useState<CompatibilityResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
   const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: { compatibilityType: 'romantic' },
@@ -117,11 +120,17 @@ export default function CompatibilityPage() {
   )
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח תאימות"
         description="ניתוח תאימות אסטרולוגי ונומרולוגי בין שני אנשים"
-        icon={<GiHearts className="h-5 w-5" />}
+        icon={<GiYinYang className="h-5 w-5" />}
         breadcrumbs={[{ label: 'דף הבית', href: '/' }, { label: 'כלים', href: '/tools' }, { label: 'תאימות' }]}
       />
 
@@ -147,7 +156,7 @@ export default function CompatibilityPage() {
                   </div>
                 </div>
                 <Button type="submit" disabled={mutation.isPending} className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95">
-                  {mutation.isPending ? 'מנתח תאימות...' : 'נתח תאימות'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['compatibility']?.button ?? 'בוחן את ההתאמה...'} /> : 'נתח תאימות'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -220,13 +229,13 @@ export default function CompatibilityPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader><CardTitle className="text-base text-primary font-headline">עצה לחיזוק הקשר</CardTitle></CardHeader>
             <CardContent>
-              <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
                 <ReactMarkdown>{result.advice}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

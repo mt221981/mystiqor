@@ -6,15 +6,17 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
 import { CheckCircle, AlertTriangle, TrendingUp, Zap } from 'lucide-react'
-import { GiBriefcase } from 'react-icons/gi'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { GiBriefcase, GiStarFormation } from 'react-icons/gi'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -78,6 +80,7 @@ async function fetchCareerGuidance(input: FormValues): Promise<CareerResult> {
 export default function CareerPage() {
   const [result, setResult] = useState<CareerResult | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
 
   const {
     register,
@@ -101,11 +104,17 @@ export default function CareerPage() {
   })
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ייעוץ קריירה"
         description="קבל ייעוץ קריירה מותאם אישית המשלב כישורים, תחומי עניין והקשר אסטרולוגי"
-        icon={<GiBriefcase className="h-5 w-5" />}
+        icon={<GiStarFormation className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -161,7 +170,7 @@ export default function CareerPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold"
                 >
-                  {mutation.isPending ? 'מנתח קריירה...' : 'קבל ייעוץ קריירה'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['career']?.button ?? 'קורא את הנתיב...'} /> : 'קבל ייעוץ קריירה'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -292,6 +301,6 @@ export default function CareerPage() {
           </Card>
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }

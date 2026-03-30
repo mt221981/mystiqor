@@ -6,10 +6,13 @@
  */
 
 import { useState, useRef } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { toast } from 'sonner'
 import { FileText, Upload, CheckSquare, Lightbulb, BookOpen, Loader2, X } from 'lucide-react'
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { GiScrollQuill } from 'react-icons/gi'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
+import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Label } from '@/components/ui/label'
@@ -154,6 +157,7 @@ export default function DocumentPage() {
   const [result, setResult] = useState<DocumentResult | null>(null)
   const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
   const [previewUrl, setPreviewUrl] = useState<string | null>(null)
   const [context, setContext] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -196,11 +200,17 @@ export default function DocumentPage() {
   }
 
   return (
-    <div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl">
-      <PageHeader
+    <motion.div
+      dir="rtl"
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח מסמך"
         description="העלה מסמך או תמונה לקבלת תובנות AI מעמיקות"
-        icon={<FileText className="h-5 w-5" />}
+        icon={<GiScrollQuill className="h-5 w-5" />}
         breadcrumbs={[{ label: 'דף הבית', href: '/' }, { label: 'כלים', href: '/tools' }, { label: 'ניתוח מסמך' }]}
       />
 
@@ -250,7 +260,7 @@ export default function DocumentPage() {
                 </div>
 
                 <Button type="submit" disabled={isLoading || !selectedFile} className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold">
-                  {isLoading ? <><Loader2 className="h-4 w-4 animate-spin ml-2" />מנתח מסמך...</> : 'נתח מסמך'}
+                  {isLoading ? <><Loader2 className="h-4 w-4 animate-spin ml-2" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['document']?.button ?? 'מנתח את המסמך...'} /></> : 'נתח מסמך'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -259,6 +269,6 @@ export default function DocumentPage() {
       </motion.div>
 
       {result && <DocumentResults result={result} />}
-    </div>
+    </motion.div>
   )
 }

@@ -7,13 +7,14 @@
  */
 
 import { useState } from 'react'
-import { motion } from 'framer-motion'
+import { motion, useReducedMotion } from 'framer-motion'
 import { GiPaintBrush } from 'react-icons/gi'
 import dynamic from 'next/dynamic'
 
-import { PageHeader } from '@/components/layouts/PageHeader'
+import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { DrawingAnalysisForm } from '@/components/features/drawing/DrawingAnalysisForm'
 import { animations } from '@/lib/animations/presets'
+import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
 // SubscriptionGuard is applied inside DrawingAnalysisForm — wraps the analysis tab only
 // import type {} from '@/components/features/subscription/SubscriptionGuard'
 
@@ -42,10 +43,17 @@ type TabId = (typeof TABS)[number]['id']
 /** דף כלי ניתוח הציורים */
 export default function DrawingPage() {
   const [activeTab, setActiveTab] = useState<TabId>('analyze')
+  const shouldReduceMotion = useReducedMotion()
 
   return (
-    <div className="container mx-auto px-4 py-6 max-w-4xl" dir="rtl">
-      <PageHeader
+    <motion.div
+      className="container mx-auto px-4 py-6 max-w-4xl"
+      dir="rtl"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, ease: 'easeOut' }}
+    >
+      <StandardSectionHeader
         title="ניתוח ציורים"
         description="ניתוח פסיכולוגי של ציורים (בית-עץ-אדם) — עם מדדי קופיץ ו-FDM"
         icon={<GiPaintBrush className="h-5 w-5" />}
@@ -75,6 +83,7 @@ export default function DrawingPage() {
       </div>
 
       {/* לשונית 1: ניתוח חדש — SubscriptionGuard בתוך DrawingAnalysisForm */}
+      {/* ביטוי טעינה: MYSTIC_LOADING_PHRASES['drawing'].button — משמש ב-DrawingAnalysisForm */}
       {activeTab === 'analyze' && (
         <motion.div
           initial={animations.fadeInUp.initial}
@@ -107,6 +116,6 @@ export default function DrawingPage() {
           <DrawingConceptCards />
         </motion.div>
       )}
-    </div>
+    </motion.div>
   )
 }
