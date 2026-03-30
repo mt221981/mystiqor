@@ -162,7 +162,7 @@ export default function TarotPage() {
                 disabled={mutation.isPending}
                 className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
               >
-                {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['tarot'].button} /> : 'שלוף קלפים'}
+                {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['tarot']?.button ?? 'שולף את הקלפים...'} /> : 'שלוף קלפים'}
               </Button>
             </SubscriptionGuard>
           </CardContent>

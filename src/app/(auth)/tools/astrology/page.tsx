@@ -284,7 +284,7 @@ export default function AstrologyPage() {
                   disabled={mutation.isPending}
                   className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
                 >
-                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['astrology'].button} /> : 'חשב מפת לידה'}
+                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['astrology']?.button ?? 'קורא את הכוכבים...'} /> : 'חשב מפת לידה'}
                 </Button>
               </form>
             </SubscriptionGuard>

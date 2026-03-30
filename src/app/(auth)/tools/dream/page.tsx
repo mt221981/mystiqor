@@ -300,7 +300,7 @@ export default function DreamPage() {
 
             <Button type="submit" disabled={isSubmitting || isPolling} className="w-full sm:w-auto bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95">
               {isSubmitting ? (
-                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['dream'].button} /></>
+                <><Loader2 className="ms-2 h-4 w-4 animate-spin" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['dream']?.button ?? 'מפענח את החלום...'} /></>
               ) : (
                 'שמור ונתח'
               )}
