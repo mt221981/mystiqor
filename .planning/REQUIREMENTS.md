@@ -7,15 +7,15 @@
 
 ### ניגודיות וקריאות (Contrast)
 - [ ] **CONTRAST-01**: כל טקסט משני (variant, muted) קריא על רקע כהה עם יחס ניגודיות WCAG AA (4.5:1 לפחות)
-- [ ] **CONTRAST-02**: כותרות ותוצאות חשובות מציגות זוהר טקסט (text-shadow) סגול/זהב שנותן תחושה שהטקסט "מאיר"
+- [x] **CONTRAST-02**: כותרות ותוצאות חשובות מציגות זוהר טקסט (text-shadow) סגול/זהב שנותן תחושה שהטקסט "מאיר"
 - [x] **CONTRAST-03**: משתמשים שמבקשים prefers-reduced-motion מקבלים חוויה ללא אנימציות
 - [x] **CONTRAST-04**: סקאלת z-index גלובלית מוגדרת (header, nav, floating chat, modals) למניעת התנגשויות
 
 ### אווירה מיסטית (Atmosphere)
-- [ ] **ATMOS-01**: כל עמוד כלי מציג כותרת מיסטית אחידה (StandardSectionHeader) עם סמל, זוהר, וכתובית בעברית
-- [ ] **ATMOS-02**: כניסה לכל עמוד מציגה אנימציית fade+drift (600ms) שנותנת תחושת "הזמנה"
-- [ ] **ATMOS-03**: כל עמוד כלי משתמש באייקונים מיסטיים (react-icons/gi) במקום אייקוני Lucide גנריים בכותרות
-- [ ] **ATMOS-04**: מצבי טעינה מציגים ביטויים מיסטיים בעברית לפי הקשר ("קורא את הכוכבים...", "מפענח את הדפוסים...") במקום "טוען..."
+- [x] **ATMOS-01**: כל עמוד כלי מציג כותרת מיסטית אחידה (StandardSectionHeader) עם סמל, זוהר, וכתובית בעברית
+- [x] **ATMOS-02**: כניסה לכל עמוד מציגה אנימציית fade+drift (600ms) שנותנת תחושת "הזמנה"
+- [x] **ATMOS-03**: כל עמוד כלי משתמש באייקונים מיסטיים (react-icons/gi) במקום אייקוני Lucide גנריים בכותרות
+- [x] **ATMOS-04**: מצבי טעינה מציגים ביטויים מיסטיים בעברית לפי הקשר ("קורא את הכוכבים...", "מפענח את הדפוסים...") במקום "טוען..."
 
 ### מאמן AI בולט (Coach)
 - [ ] **COACH-01**: בועה צפה זוהרת מופיעה בכל עמוד מאומת (מוסתרת בעמוד /coach) ופותחת פאנל צ'אט מיני
@@ -56,13 +56,13 @@
 | REQ | Phase | Status |
 |-----|-------|--------|
 | CONTRAST-01 | Phase 22 | Complete |
-| CONTRAST-02 | Phase 24 | Pending |
+| CONTRAST-02 | Phase 24 | Complete |
 | CONTRAST-03 | Phase 22 | Complete |
 | CONTRAST-04 | Phase 22 | Complete |
-| ATMOS-01 | Phase 24 | Pending |
-| ATMOS-02 | Phase 24 | Pending |
-| ATMOS-03 | Phase 24 | Pending |
-| ATMOS-04 | Phase 24 | Pending |
+| ATMOS-01 | Phase 24 | Complete |
+| ATMOS-02 | Phase 24 | Complete |
+| ATMOS-03 | Phase 24 | Complete |
+| ATMOS-04 | Phase 24 | Complete |
 | COACH-01 | Phase 23 | Pending |
 | COACH-02 | Phase 23 | Pending |
 | COACH-03 | Phase 23 | Pending |

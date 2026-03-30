@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
 status: executing
-stopped_at: Completed 23-02-PLAN.md
-last_updated: "2026-03-30T13:22:22.434Z"
+stopped_at: Completed 24-01-PLAN.md — foundation files
+last_updated: "2026-03-30T14:16:19.203Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
-  completed_phases: 1
-  total_plans: 5
-  completed_plans: 4
+  completed_phases: 2
+  total_plans: 8
+  completed_plans: 6
   percent: 25
 ---
 
@@ -21,11 +21,11 @@ progress:
 See: .planning/PROJECT.md (updated 2026-03-29)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים — אסטרולוגיה, נומרולוגיה, ציורים, גרפולוגיה — עם AI שמסנתז את הכל לתובנות אישיות אחודות.
-**Current focus:** Phase 23 — floating-coach-bottom-tabs
+**Current focus:** Phase 24 — atmospheric-depth-sweep
 
 ## Current Position
 
-Phase: 23 (floating-coach-bottom-tabs) — EXECUTING
+Phase: 24 (atmospheric-depth-sweep) — EXECUTING
 Plan: 2 of 3
 Status: Ready to execute
 Last activity: 2026-03-30
@@ -57,6 +57,7 @@ Progress: [██░░░░░░░░] 25% (v1.3)
 *Updated after each plan completion*
 | Phase 22 P01 | 3 | 2 tasks | 4 files |
 | Phase 23 P02 | 2 | 2 tasks | 2 files |
+| Phase 24 P01 | 4min | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -76,6 +77,8 @@ Recent decisions affecting current work:
 - [Phase 22]: Z-index custom properties added to both :root and .dark blocks — values identical, theme-agnostic
 - [Phase 23]: Used TabDefinition interface to type TABS constant — avoids as const cast on Icon component type
 - [Phase 23]: tools/page.tsx is a Server Component — ToolGrid and PageHeader handle their own hydration as client components
+- [Phase 24]: Typed framer-motion opacity array as number[] instead of as const — readonly tuple incompatible with TargetAndTransition mutable array requirement
+- [Phase 24]: getLoadingPhrase helper exported alongside MYSTIC_LOADING_PHRASES for ergonomic null-safe usage in plan 02/03
 
 ### Pending Todos
 
@@ -89,6 +92,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T13:22:22.431Z
-Stopped at: Completed 23-02-PLAN.md
+Last session: 2026-03-30T14:16:19.200Z
+Stopped at: Completed 24-01-PLAN.md — foundation files
 Resume file: None
