@@ -259,7 +259,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 - [x] 25-01-PLAN.md — Per-message analysis context injection into coach system prompt
-- [ ] 25-02-PLAN.md — Sidebar category reorganization (8 to 6 sections) + localStorage persistence
+- [x] 25-02-PLAN.md — Sidebar category reorganization (8 to 6 sections) + localStorage persistence
 
 ## Progress
 
@@ -280,4 +280,4 @@ Phases execute in numeric order: 13 → 14 → 15 → 16 → 17 → 18 → 19 �
 | 22. Accessibility Foundation | v1.3 | 1/2 | In Progress|  |
 | 23. Floating Coach & Bottom Tabs | v1.3 | 2/3 | In Progress|  |
 | 24. Atmospheric Depth Sweep | v1.3 | 2/3 | In Progress|  |
-| 25. Coach Intelligence & Sidebar Polish | v1.3 | 1/2 | In Progress|  |
+| 25. Coach Intelligence & Sidebar Polish | v1.3 | 2/2 | Complete   | 2026-03-30 |

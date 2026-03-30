@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.1
 milestone_name: UI Polish
-status: executing
-stopped_at: Completed 25-01-PLAN.md
-last_updated: "2026-03-30T17:42:22.945Z"
+status: verifying
+stopped_at: Completed 25-02-PLAN.md
+last_updated: "2026-03-30T17:43:37.060Z"
 last_activity: 2026-03-30
 progress:
   total_phases: 4
-  completed_phases: 2
+  completed_phases: 3
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
   percent: 25
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-03-29)
 
 Phase: 25 (coach-intelligence-sidebar-polish) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-03-30
 
 Progress: [██░░░░░░░░] 25% (v1.3)
@@ -60,6 +60,7 @@ Progress: [██░░░░░░░░] 25% (v1.3)
 | Phase 24 P01 | 4min | 2 tasks | 5 files |
 | Phase 24 P03 | 14min | 2 tasks | 12 files |
 | Phase 25 P01 | 2 | 1 tasks | 1 files |
+| Phase 25 P02 | 8 | 2 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -85,6 +86,8 @@ Recent decisions affecting current work:
 - [Phase 24]: GiStarSwirl used for daily-insights icon — GiStarShining not exported by react-icons/gi
 - [Phase 25]: Per-message analysis fetch uses limit(5) with 3 fields only — lighter than context-builder.ts limit(20) with results (per D-03)
 - [Phase 25]: relativeTimeHebrew implemented inline in messages/route.ts — no external lib, self-contained Hebrew time display
+- [Phase 25]: Used SIDEBAR_STORAGE_KEY constant for localStorage key — single source of truth, prevents typos
+- [Phase 25]: Merge-on-load pattern for sidebar state: {  ...defaults, ...parsed } ensures future categories default open without localStorage reset
 
 ### Pending Todos
 
@@ -98,6 +101,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-03-30T17:42:22.942Z
-Stopped at: Completed 25-01-PLAN.md
+Last session: 2026-03-30T17:43:37.057Z
+Stopped at: Completed 25-02-PLAN.md
 Resume file: None
