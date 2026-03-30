@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { Json } from '@/types/database.generated'
 
@@ -205,6 +206,9 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // שליפת הקשר אישי — שם, מזל, מספר חיים
+    const ctx = await getPersonalContext(supabase, user.id)
+
     // ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = JourneyInputSchema.safeParse(body)
@@ -219,6 +223,11 @@ export async function POST(request: NextRequest) {
 
     // בניית הקשר משתמש מקוצר (מתחת ל-500 טוקנים)
     let userContext = ''
+
+    // הוספת הקשר אישי (שם, מזל, מספר חיים) לראש ההקשר
+    if (ctx.firstName) {
+      userContext = `שם: ${ctx.firstName}, מזל: ${ctx.zodiacSign}, מספר חיים: ${ctx.lifePathNumber}\n`
+    }
 
     try {
       // פרופיל — תאריך לידה
@@ -277,9 +286,15 @@ ${userContext || 'אין הקשר נוסף זמין'}
 כל צעד צריך להיות מפורט עם תיאור של לפחות 200 תווים.
 השתמש בשפה חמה ואישית בעברית.`
 
+    // בניית systemPrompt — זהות מאמן קבלי עם הקשר אישי (קצר: JSON mode לא מופרע)
+    const journeySystemPrompt = ctx.firstName
+      ? `אתה מאמן אישי מיסטי-קבלי שמלווה את ${ctx.firstName} (מזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}) במסע צמיחה. כל צעד מותאם לנשמתו.`
+      : 'אתה מאמן אישי מיסטי-קבלי שמלווה את הפונה במסע צמיחה רוחנית ואישית.'
+
     // קריאת LLM — יצירת מסע אימון
     const llmResponse = await invokeLLM<CoachingJourneyResponse>({
       userId: user.id,
+      systemPrompt: journeySystemPrompt,
       prompt,
       responseSchema: JOURNEY_RESPONSE_SCHEMA,
       zodSchema: CoachingJourneyResponseSchema,

@@ -17,6 +17,7 @@ import { assembleChart, getSign } from '@/services/astrology/chart'
 import { getElementDistribution } from '@/services/astrology/aspects'
 import { buildSolarReturnPrompt } from '@/services/astrology/prompts/solar-return'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { InterpretationInput } from '@/services/astrology/prompts/interpretation'
 
@@ -72,6 +73,9 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // שליפת הקשר אישי — שם, מזל, מספר חיים
+    const ctx = await getPersonalContext(supabase, user.id)
 
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
@@ -240,9 +244,16 @@ export async function POST(request: NextRequest) {
       targetYear,
     })
 
+    // בניית systemPrompt מועשר — אסטרולוג קבלי עם פנייה אישית
+    const solarReturnSystemPrompt = `אתה אסטרולוג קבלי עמוק שמפרש מפות חזרת שמש.
+${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}.` : ''}
+חזרת השמש היא רגע של התחדשות נשמתית — התייחס אליו כאל נתיב חדש בעץ החיים.
+ענה בעברית. שפה חמה, אינטימית, חודרת.`
+
     // שלב 12: קריאת LLM לפרשנות המהפכה השמשית (תחזית שנתית מפורטת)
     const llmResponse = await invokeLLM<string>({
       userId: user.id,
+      systemPrompt: solarReturnSystemPrompt,
       prompt: srPrompt,
       maxTokens: 2000,
     })

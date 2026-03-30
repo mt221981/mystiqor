@@ -14,6 +14,7 @@ import { calculateTransitAspects } from '@/services/astrology/aspects'
 import { getSign } from '@/services/astrology/chart'
 import { buildTransitsPrompt } from '@/services/astrology/prompts/transits'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { InterpretationInput } from '@/services/astrology/prompts/interpretation'
 import type { PlanetPositions } from '@/services/astrology/aspects'
@@ -37,6 +38,9 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // שליפת הקשר אישי — שם, מזל, מספר חיים
+    const ctx = await getPersonalContext(supabase, user.id)
 
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json().catch(() => ({}))
@@ -209,8 +213,15 @@ export async function POST(request: NextRequest) {
       targetDate,
     })
 
+    // בניית systemPrompt מועשר — אסטרולוג קבלי עם פנייה אישית
+    const transitsSystemPrompt = `אתה אסטרולוג קבלי שמפרש מעברים פלנטריים.
+${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}.` : ''}
+כל טרנזיט הוא הזדמנות לעבודה פנימית — קשר בין תנועת הכוכבים לספירות הנשמה.
+ענה בעברית. שפה חמה, עמוקה, מעוררת תובנה.`
+
     const llmResponse = await invokeLLM<string>({
       userId: user.id,
+      systemPrompt: transitsSystemPrompt,
       prompt: transitPrompt,
       maxTokens: 1500,
     })

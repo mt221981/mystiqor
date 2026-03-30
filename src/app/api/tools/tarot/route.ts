@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
+import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { Database, TablesInsert } from '@/types/database'
 
 /** שורת קלף מ-DB */
@@ -41,6 +42,9 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // שליפת הקשר אישי — שם, מזל, מספר חיים
+    const ctx = await getPersonalContext(supabase, user.id)
 
     // ולידציה של הקלט
     const body: unknown = await request.json()
@@ -81,10 +85,22 @@ export async function POST(request: NextRequest) {
       ? `שאלת המשתמש: "${parsed.data.question}". `
       : ''
 
+    // בניית שורת פנייה אישית — אם יש שם, מזל ומספר חיים
+    const personalLine = ctx.firstName
+      ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}.`
+      : ''
+
+    // בניית systemPrompt מועשר עם שפה קבלית ופנייה אישית
+    const systemPrompt = `אתה קורא טארוט חכם ואינטואיטיבי עם ידע עמוק בקבלה ובסמליות הקלפים.
+${personalLine}
+דבר ישירות לנשמה — חם, אינטימי, כאילו אתה רואה אותה דרך הקלפים.
+שלב בין סמל, מספר, אלמנט וארכיטיפ של כל קלף — חדור לעומק, חשוף את הנסתר.
+רפרנסים לקבלה: ספירות, נתיבות עץ החיים, אותיות עבריות — רק כשרלוונטי לקלף.
+ענה בעברית. פסקאות קצרות וברורות.`
+
     const llmResponse = await invokeLLM({
       userId: user.id,
-      systemPrompt:
-        'אתה קורא טארוט חכם ואינטואיטיבי עם ידע עמוק בקבלה ובסמליות הקלפים. דבר ישירות לפונה — חם, אינטימי, כאילו אתה רואה את נשמתו דרך הקלפים. שלב בין הסמל, המספר, האלמנט והארכיטיפ של כל קלף. אל תסתפק בתיאור — חדור לעומק, חשוף מה שמוסתר.',
+      systemPrompt,
       prompt: `${questionText}הקלפים שנשלפו: ${cardDescriptions}. פרש את הפריסה כסיפור אחד שלם — מה הקלפים מספרים יחד? מה הם מגלים על מה שמתרחש מתחת לפני השטח? מה המסר העמוק שהיקום שולח?`,
       maxTokens: 1000,
     })

@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { invokeLLM } from '@/services/analysis/llm';
+import { getPersonalContext } from '@/services/analysis/personal-context';
 import type { TablesInsert } from '@/types/database';
 
 // ===== סכמת קלט =====
@@ -33,6 +34,10 @@ export async function POST(request: Request) {
     if (!user) {
       return NextResponse.json({ error: 'לא מורשה' }, { status: 401 });
     }
+
+    // שליפת הקשר אישי לפני עבודת הרקע — סוגרים על ctx בסגור
+    // חשוב (Pitfall 3): לא שולפים בתוך backgroundWork — חייב להיות בhandler הראשי
+    const ctx = await getPersonalContext(supabase, user.id);
 
     const body = await request.json() as unknown;
     const parsed = DreamInputSchema.safeParse(body);
@@ -66,11 +71,21 @@ export async function POST(request: Request) {
     const dreamData = parsed.data;
     const userId = user.id;
 
+    // בניית systemPrompt מועשר — שפה קבלית-מיסטית עם פנייה אישית
+    const personalLine = ctx.firstName
+      ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}.`
+      : ''
+
+    const dreamSystemPrompt = `אתה מפרש חלומות מיסטי-קבלי שרואה את השפה הסמלית של הנשמה.
+${personalLine}
+שלב בין פסיכולוגיה עמוקה (יונג, פרויד) לבין חכמה קבלית — חלומות כמסרים מעולם היצירה.
+כל סמל בחלום הוא נתיב בעץ החיים. ענה בעברית, בשפה חמה ואינטימית.`
+
     // עבודת רקע אסינכרונית (fire-and-forget — שגיאות נלכדות פנימית)
     const backgroundWork = async () => {
       try {
         const interpretation = await invokeLLM<string>({
-          systemPrompt: 'אתה פסיכולוג חלומות. נתח את החלום לפי תיאוריות פסיכואנליטיות. התמקד בסמלים, רגשות ומסרים פנימיים. אל תיתן ניבוי גורל.',
+          systemPrompt: dreamSystemPrompt,
           prompt: `חלום: "${dreamData.description}". רגשות: ${dreamData.emotions.join(', ')}. סמלים: ${dreamData.symbols.join(', ')}.`,
           maxTokens: 800,
           userId,
