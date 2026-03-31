@@ -56,7 +56,7 @@ export default function DrawingPage() {
       <StandardSectionHeader
         title="ניתוח ציורים"
         description="ניתוח פסיכולוגי של ציורים (בית-עץ-אדם) — עם מדדי קופיץ ו-FDM"
-        icon={<GiPaintBrush className="h-5 w-5" />}
+        icon={<GiPaintBrush className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
