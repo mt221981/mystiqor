@@ -80,12 +80,6 @@ interface NavSection {
 /** כל קטגוריות הניווט מאורגנות לפי סדר — 6 קטגוריות (per D-04/D-05) */
 const NAV_SECTIONS: readonly NavSection[] = [
   {
-    title: 'ראשי',
-    items: [
-      { label: 'דף הבית', href: '/dashboard', icon: Home },
-    ],
-  },
-  {
     title: 'כלים מיסטיים',
     items: [
       { label: 'נומרולוגיה', href: '/tools/numerology', icon: GiAbacus },
@@ -346,8 +340,8 @@ export function Sidebar() {
       )}
       aria-label="ניווט ראשי"
     >
-      {/* לוגו */}
-      <div className="flex flex-col items-center text-center border-b border-primary/15 px-5 py-8 gap-2">
+      {/* לוגו — לחיצה מובילה לדף הבית */}
+      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 px-5 py-8 gap-2 hover:bg-surface-container-high/30 transition-colors">
         <div className="celestial-glow rounded-2xl p-3">
           <GiSparkles className="h-12 w-12 text-gold" />
         </div>
@@ -355,7 +349,7 @@ export function Sidebar() {
           MystiQor
         </span>
         <span className="text-sm text-muted-foreground font-body">המסע המיסטי שלך</span>
-      </div>
+      </Link>
 
       {/* קטגוריות ניווט */}
       <div className="flex-1 overflow-y-auto px-2 py-3 scrollbar-thin">
