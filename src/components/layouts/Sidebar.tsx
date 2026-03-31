@@ -117,7 +117,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'מסע אישי',
     items: [
-      { label: 'מאמן AI', href: '/coach', icon: GiCrystalBall },
+      { label: 'נועה — המאמנת', href: '/coach', icon: GiCrystalBall },
       { label: 'יעדים', href: '/goals', icon: GiTargetArrows },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
       { label: 'יומן', href: '/journal', icon: GiNotebook },
@@ -187,15 +187,15 @@ function CollapsibleSection({
         type="button"
         onClick={onToggle}
         className={cn(
-          'flex w-full items-center justify-between px-3 py-2',
-          'text-base font-bold uppercase tracking-wider',
-          'text-gold hover:text-gold-bright font-label',
+          'flex w-full items-center justify-between px-3 py-3',
+          'text-lg font-bold uppercase tracking-wider',
+          'text-gold hover:text-gold-bright font-label border-b border-gold/10 pb-2',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
       >
         <span>{section.title}</span>
-        <ChevronIcon className="h-3.5 w-3.5" />
+        <ChevronIcon className="h-5 w-5" />
       </button>
 
       <div
@@ -204,7 +204,7 @@ function CollapsibleSection({
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         )}
       >
-        <nav className="flex flex-col gap-0.5 px-2" aria-label={section.title}>
+        <nav className="flex flex-col gap-1 px-2" aria-label={section.title}>
           {section.items.map((item) => {
             const isActive =
               currentPath === item.href ||
@@ -216,15 +216,15 @@ function CollapsibleSection({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5',
-                  'text-base font-medium transition-all duration-200',
+                  'flex items-center gap-4 rounded-lg px-3 py-3',
+                  'text-lg font-medium transition-all duration-200',
                   isActive
                     ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20 border border-primary/10'
                     : 'text-on-surface-variant hover:bg-surface-container-high/60 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon className="h-5 w-5 shrink-0" />
+                <Icon className="h-7 w-7 shrink-0" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -307,10 +307,9 @@ export function Sidebar() {
 
   /** מצב פתיחה/סגירה של קטגוריות — נטען מ-localStorage או ברירת מחדל (הכל פתוח) */
   const [openSections, setOpenSections] = useState<Record<string, boolean>>(() => {
-    // ברירת מחדל — רק ראשי וכלים מיסטיים פתוחים, השאר סגורים
-    const DEFAULT_OPEN = new Set(['ראשי', 'כלים מיסטיים']);
+    // ברירת מחדל — כל הקטגוריות פתוחות לנגישות מלאה
     const defaults = Object.fromEntries(
-      NAV_SECTIONS.map((section) => [section.title, DEFAULT_OPEN.has(section.title)])
+      NAV_SECTIONS.map((section) => [section.title, true])
     );
     if (typeof window === 'undefined') return defaults;
     try {
@@ -341,18 +340,21 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'flex h-full w-72 flex-col',
+        'flex h-full w-80 flex-col',
         'bg-surface/95 glass-panel',
         'border-e border-outline-variant/10'
       )}
       aria-label="ניווט ראשי"
     >
       {/* לוגו */}
-      <div className="flex items-center gap-3 border-b border-primary/15 px-5 py-6">
-        <GiSparkles className="h-8 w-8 text-gold" />
-        <span className="font-headline text-2xl font-bold text-gradient-gold">
+      <div className="flex flex-col items-center text-center border-b border-primary/15 px-5 py-8 gap-2">
+        <div className="celestial-glow rounded-2xl p-3">
+          <GiSparkles className="h-12 w-12 text-gold" />
+        </div>
+        <span className="font-headline text-3xl font-bold text-gradient-gold">
           MystiQor
         </span>
+        <span className="text-sm text-muted-foreground font-body">המסע המיסטי שלך</span>
       </div>
 
       {/* קטגוריות ניווט */}
