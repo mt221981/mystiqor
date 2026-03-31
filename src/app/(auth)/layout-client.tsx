@@ -50,9 +50,9 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
     <QueryClientProvider client={queryClient}>
       <div className="flex min-h-screen bg-surface stars-bg aurora-bg relative" dir="rtl">
         {/* רקע — גלואות צפות מיסטיות */}
-        <div className="fixed top-1/4 -left-20 w-[500px] h-[500px] bg-primary-container/8 rounded-full blur-[120px] -z-10 pointer-events-none animate-[pulse_8s_ease-in-out_infinite]" aria-hidden="true" />
-        <div className="fixed bottom-1/4 -right-20 w-[400px] h-[400px] bg-secondary-container/8 rounded-full blur-[120px] -z-10 pointer-events-none animate-[pulse_12s_ease-in-out_infinite]" aria-hidden="true" />
-        <div className="fixed top-1/2 left-1/3 w-[300px] h-[300px] bg-tertiary/5 rounded-full blur-[100px] -z-10 pointer-events-none animate-[pulse_10s_ease-in-out_infinite]" aria-hidden="true" />
+        <div className="fixed top-1/4 -left-20 w-[500px] h-[500px] bg-primary-container/15 rounded-full blur-[120px] -z-10 pointer-events-none animate-[pulse_8s_ease-in-out_infinite]" aria-hidden="true" />
+        <div className="fixed bottom-1/4 -right-20 w-[400px] h-[400px] bg-secondary-container/15 rounded-full blur-[120px] -z-10 pointer-events-none animate-[pulse_12s_ease-in-out_infinite]" aria-hidden="true" />
+        <div className="fixed top-1/2 left-1/3 w-[300px] h-[300px] bg-tertiary/10 rounded-full blur-[100px] -z-10 pointer-events-none animate-[pulse_10s_ease-in-out_infinite]" aria-hidden="true" />
 
         {/* סרגל צד לדסקטופ — מוסתר במובייל */}
         <div className="hidden md:flex md:w-72 md:shrink-0">

@@ -55,7 +55,7 @@
   .dark {
     --background: 250 45% 8%;          /* #0d0b1e deep cosmic indigo */
     --foreground: 268 25% 92%;         /* #ece6f5 warm lavender white */
-    --card: 252 35% 12%;               /* #181530 deep card */
+    --card: 252 35% 14%;               /* #1e1a38 slightly brighter card */
     --card-foreground: 268 25% 92%;    /* #ece6f5 */
     --popover: 252 35% 12%;            /* #181530 */
     --popover-foreground: 268 25% 92%; /* #ece6f5 */
@@ -64,13 +64,13 @@
     --secondary: 243 100% 88%;         /* #c3c0ff periwinkle */
     --secondary-foreground: 243 100% 32%; /* #1d00a5 */
     --muted: 250 30% 16%;              /* #242040 indigo muted */
-    --muted-foreground: 268 20% 78%;   /* #c4b8d8 */
+    --muted-foreground: 268 20% 82%;   /* #d0c5e2 brighter muted text */
     --accent: 42 65% 58%;              /* #d4a853 mystical gold */
     --accent-foreground: 42 80% 95%;   /* #fdf3dc warm white */
     --destructive: 7 100% 84%;         /* #ffb4ab */
     --destructive-foreground: 0 100% 21%; /* #690005 */
-    --border: 258 25% 22%;             /* #352d55 purple border */
-    --input: 258 25% 22%;              /* #352d55 */
+    --border: 258 30% 28%;             /* #443a6e brighter purple border */
+    --input: 258 30% 28%;              /* #443a6e */
     --ring: 274 100% 86%;              /* #ddb8ff */
     --radius: 0.75rem;
 
@@ -120,55 +120,57 @@
     background: linear-gradient(135deg, #8f2de6 0%, #3626ce 40%, #1a0a4a 80%, #0d0b1e 100%);
   }
 
-  /* ניווט זכוכיתי עם blur — indigo עמוק */
+  /* ניווט זכוכיתי עם blur — indigo עמוק + בורדר בולט */
   .glass-nav {
-    background: rgba(10, 9, 28, 0.85);
+    background: rgba(10, 9, 28, 0.9);
     -webkit-backdrop-filter: blur(20px) saturate(1.5);
     backdrop-filter: blur(20px) saturate(1.5);
-    border-bottom: 1px solid rgba(221, 184, 255, 0.08);
+    border-bottom: 1px solid rgba(221, 184, 255, 0.15);
+    box-shadow: 0 4px 20px rgba(143, 45, 230, 0.1);
   }
 
-  /* פאנל זכוכיתי עם blur — indigo עמוק */
+  /* פאנל זכוכיתי עם blur — indigo עמוק + בורדר בולט */
   .glass-panel {
-    background: rgba(14, 12, 35, 0.8);
+    background: rgba(14, 12, 35, 0.85);
     -webkit-backdrop-filter: blur(20px) saturate(1.4);
     backdrop-filter: blur(20px) saturate(1.4);
-    border: 1px solid rgba(221, 184, 255, 0.06);
+    border: 1px solid rgba(221, 184, 255, 0.15);
+    box-shadow: 0 4px 30px rgba(143, 45, 230, 0.08);
   }
 
-  /* כרטיס מיסטי — זכוכית עם גבול זוהר */
+  /* כרטיס מיסטי — זכוכית עם גבול זוהר בולט */
   .mystic-card {
     background: linear-gradient(
       145deg,
-      rgba(24, 21, 48, 0.9) 0%,
-      rgba(14, 12, 35, 0.95) 100%
+      rgba(30, 25, 60, 0.95) 0%,
+      rgba(18, 15, 42, 0.98) 100%
     );
-    border: 1px solid rgba(221, 184, 255, 0.08);
+    border: 1px solid rgba(221, 184, 255, 0.15);
     box-shadow:
-      0 4px 30px rgba(143, 45, 230, 0.06),
-      inset 0 1px 0 rgba(221, 184, 255, 0.05);
+      0 4px 30px rgba(143, 45, 230, 0.12),
+      inset 0 1px 0 rgba(221, 184, 255, 0.1);
   }
 
-  /* כרטיס מיסטי עם זהב */
+  /* כרטיס מיסטי עם זהב — בולט יותר */
   .mystic-card-gold {
     background: linear-gradient(
       145deg,
-      rgba(24, 21, 48, 0.9) 0%,
-      rgba(20, 18, 40, 0.95) 100%
+      rgba(30, 25, 55, 0.95) 0%,
+      rgba(25, 22, 48, 0.98) 100%
     );
-    border: 1px solid rgba(212, 168, 83, 0.12);
+    border: 1px solid rgba(212, 168, 83, 0.2);
     box-shadow:
-      0 4px 30px rgba(212, 168, 83, 0.06),
-      inset 0 1px 0 rgba(212, 168, 83, 0.08);
+      0 4px 30px rgba(212, 168, 83, 0.1),
+      inset 0 1px 0 rgba(212, 168, 83, 0.12);
   }
 
   /* רקע כוכבים — שכבות רב-ממדיות עם ניצוצות */
   .stars-bg {
     background-image:
-      radial-gradient(circle at 2px 2px, rgba(221, 184, 255, 0.25) 1px, transparent 0),
-      radial-gradient(circle at 1px 1px, rgba(195, 192, 255, 0.15) 1px, transparent 0),
-      radial-gradient(circle at 3px 3px, rgba(212, 168, 83, 0.1) 1px, transparent 0),
-      radial-gradient(circle at 1.5px 1.5px, rgba(78, 222, 163, 0.08) 1px, transparent 0);
+      radial-gradient(circle at 2px 2px, rgba(221, 184, 255, 0.35) 1px, transparent 0),
+      radial-gradient(circle at 1px 1px, rgba(195, 192, 255, 0.22) 1px, transparent 0),
+      radial-gradient(circle at 3px 3px, rgba(212, 168, 83, 0.15) 1px, transparent 0),
+      radial-gradient(circle at 1.5px 1.5px, rgba(78, 222, 163, 0.12) 1px, transparent 0);
     background-size: 40px 40px, 80px 80px, 120px 120px, 200px 200px;
     animation: stars-twinkle 8s ease-in-out infinite alternate;
   }
@@ -181,19 +183,20 @@
       0 0 0 1px rgba(221, 184, 255, 0.05);
   }
 
-  /* זוהר שמימי — הילה מיסטית */
+  /* זוהר שמימי — הילה מיסטית חזקה */
   .celestial-glow {
     box-shadow:
-      0 0 40px rgba(143, 45, 230, 0.25),
-      0 0 80px rgba(54, 38, 206, 0.12),
-      0 0 120px rgba(212, 168, 83, 0.05);
+      0 0 30px rgba(143, 45, 230, 0.35),
+      0 0 60px rgba(54, 38, 206, 0.2),
+      0 0 100px rgba(212, 168, 83, 0.1);
   }
 
-  /* זוהר זהב — לאלמנטים חשובים */
+  /* זוהר זהב — לאלמנטים חשובים — בולט */
   .gold-glow {
     box-shadow:
-      0 0 20px rgba(212, 168, 83, 0.2),
-      0 0 40px rgba(212, 168, 83, 0.1);
+      0 0 20px rgba(212, 168, 83, 0.3),
+      0 0 40px rgba(212, 168, 83, 0.15),
+      0 0 60px rgba(212, 168, 83, 0.08);
   }
 
   /* ✨ אנימציית ניצוצות צפים — עשירה יותר */
