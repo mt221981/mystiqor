@@ -140,7 +140,7 @@ export default function PalmistryPage() {
       <StandardSectionHeader
         title="קריאה בכף יד"
         description="ניתוח כף יד מתמונה באמצעות AI — קווי לב, ראש, חיים וגורל"
-        icon={<GiHand className="h-6 w-6" />}
+        icon={<GiHand className="w-10 h-10" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
