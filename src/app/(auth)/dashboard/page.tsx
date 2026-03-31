@@ -15,10 +15,11 @@ import { createClient } from '@/lib/supabase/client';
 import { CACHE_TIMES, queryKeys } from '@/lib/query/cache-config';
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
+import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { GiCrystalBall } from 'react-icons/gi';
+import { GiCrystalBall, GiSparkles, GiCardRandom, GiAbacus, GiAstrolabe } from 'react-icons/gi';
+import { MessageCircle } from 'lucide-react';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
-import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
 import { animations } from '@/lib/animations/presets';
 import { AnalysesChart, type ChartDataPoint } from '@/components/features/shared/AnalysesChart';
 import { DailyInsightCard } from '@/components/features/dashboard/DailyInsightCard';
@@ -280,74 +281,99 @@ export default function DashboardPage() {
   };
 
   const shouldReduceMotion = useReducedMotion();
+  const motionProps = shouldReduceMotion ? {} : animations.pageEntry;
+  const staggerDelay = (i: number) => shouldReduceMotion ? {} : { initial: { opacity: 0, y: 24 }, animate: { opacity: 1, y: 0 }, transition: { delay: 0.1 * i, duration: 0.5 } };
 
   return (
     <ErrorBoundary>
-      <motion.div
-        className="space-y-6"
-        dir="rtl"
-        {...(shouldReduceMotion ? {} : animations.pageEntry)}
-      >
-        {/* כותרת אטמוספרית עם זוהר */}
-        <StandardSectionHeader
-          title="לוח הבקרה"
-          description="סיכום הפעילות שלך"
-          icon={<GiCrystalBall className="w-6 h-6" />}
-          breadcrumbs={[{ label: 'לוח בקרה' }]}
-        />
+      <motion.div className="space-y-8" dir="rtl" {...motionProps}>
 
-        {/* D-01: כרטיס תובנה יומית */}
-        <DailyInsightCard birthDate={profile?.birth_date ?? null} />
+        {/* ===== באנר ברוכים הבאים — גיבור הדף ===== */}
+        <motion.div
+          className="relative overflow-hidden rounded-2xl bg-gradient-to-bl from-[#1a0a3e] via-[#2d1b69] to-[#0d0b1e] p-8 md:p-12 border border-primary/20"
+          {...staggerDelay(0)}
+        >
+          {/* רקע זוהר */}
+          <div className="absolute top-0 end-0 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none" aria-hidden="true" />
+          <div className="absolute bottom-0 start-0 w-60 h-60 bg-gold/10 rounded-full blur-[80px] pointer-events-none" aria-hidden="true" />
 
-        {/* D-04: 4 כרטיסי סטטיסטיקות — bento grid */}
-        <StatCards stats={stats} isLoading={isStatsLoading} />
+          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            <div className="flex-1">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/30 to-gold/20 ring-1 ring-primary/30">
+                  <GiSparkles className="w-8 h-8 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-3xl md:text-4xl font-headline font-bold text-gradient-gold">
+                    שלום, ברוכים הבאים
+                  </h1>
+                  <p className="text-base text-muted-foreground mt-1">מה תרצה לגלות היום?</p>
+                </div>
+              </div>
 
-        {/* D-03/DASH-06: בוחר תקופה */}
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
-          <PeriodSelector value={period} onChange={setPeriod} />
-        </div>
+              {/* כפתורי גישה מהירה */}
+              <div className="flex flex-wrap gap-3 mt-6">
+                <Link href="/coach" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#8f2de6] to-[#d4a853] text-white font-bold text-base shadow-[0_0_20px_rgba(143,45,230,0.4)] hover:shadow-[0_0_30px_rgba(143,45,230,0.6)] transition-shadow">
+                  <MessageCircle className="w-5 h-5" />
+                  שוחח עם המאמן
+                </Link>
+                <Link href="/tools/tarot" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
+                  <GiCardRandom className="w-5 h-5 text-primary" />
+                  משיכת טארוט
+                </Link>
+                <Link href="/tools/astrology" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
+                  <GiAstrolabe className="w-5 h-5 text-gold" />
+                  מפת לידה
+                </Link>
+                <Link href="/tools/numerology" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
+                  <GiAbacus className="w-5 h-5 text-primary" />
+                  נומרולוגיה
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.div>
 
-        {/* רשת תרשימים — אסימטרית בדסקטופ */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* ===== תובנה יומית ===== */}
+        <motion.div {...staggerDelay(1)}>
+          <DailyInsightCard birthDate={profile?.birth_date ?? null} />
+        </motion.div>
 
-          {/* D-02/DASH-01: ביוריתם — רחב */}
-          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">ביוריתם אישי</h2>
-            <BiorhythmChart birthDate={profile?.birth_date ?? null} />
+        {/* ===== סטטיסטיקות ===== */}
+        <motion.div {...staggerDelay(2)}>
+          <StatCards stats={stats} isLoading={isStatsLoading} />
+        </motion.div>
+
+        {/* ===== גרפים ומגמות ===== */}
+        <motion.div {...staggerDelay(3)}>
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-2xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
+            <PeriodSelector value={period} onChange={setPeriod} />
           </div>
 
-          {/* D-02/DASH-03: מגמת מצב רוח */}
-          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">מגמת מצב רוח</h2>
-            {isMoodLoading ? (
-              <MysticSkeleton className="h-[200px] w-full" />
-            ) : (
-              <MoodTrendChart data={moodTrendData} period={period} />
-            )}
-          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <div className="lg:col-span-2 bg-surface-container rounded-2xl p-6 border border-primary/10 hover:border-primary/20 transition-colors">
+              <h3 className="mb-4 text-xl font-bold font-headline text-foreground">ביוריתם אישי</h3>
+              <BiorhythmChart birthDate={profile?.birth_date ?? null} />
+            </div>
 
-          {/* D-02/DASH-04: התקדמות יעדים */}
-          <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">התקדמות יעדים</h2>
-            {isGoalsLoading ? (
-              <MysticSkeleton className="h-[200px] w-full" />
-            ) : (
-              <GoalsProgressChart data={goalsChartData} />
-            )}
-          </div>
+            <div className="bg-surface-container rounded-2xl p-6 border border-primary/10 hover:border-primary/20 transition-colors">
+              <h3 className="mb-4 text-xl font-bold font-headline text-foreground">מגמת מצב רוח</h3>
+              {isMoodLoading ? <MysticSkeleton className="h-[200px] w-full" /> : <MoodTrendChart data={moodTrendData} period={period} />}
+            </div>
 
-          {/* DASH-05: ניתוחים לפי כלי — רחב */}
-          <div className="lg:col-span-2 bg-surface-container rounded-xl p-6 border border-outline-variant/5 mystic-hover">
-            <h2 className="mb-4 text-lg font-bold font-headline text-on-surface">ניתוחים לפי כלי</h2>
-            {isAnalysesLoading ? (
-              <MysticSkeleton className="h-[200px] w-full" />
-            ) : (
-              <AnalysesChart data={analysesChartData} />
-            )}
-          </div>
+            <div className="bg-surface-container rounded-2xl p-6 border border-primary/10 hover:border-primary/20 transition-colors">
+              <h3 className="mb-4 text-xl font-bold font-headline text-foreground">התקדמות יעדים</h3>
+              {isGoalsLoading ? <MysticSkeleton className="h-[200px] w-full" /> : <GoalsProgressChart data={goalsChartData} />}
+            </div>
 
-        </div>
+            <div className="lg:col-span-2 bg-surface-container rounded-2xl p-6 border border-primary/10 hover:border-primary/20 transition-colors">
+              <h3 className="mb-4 text-xl font-bold font-headline text-foreground">ניתוחים לפי כלי</h3>
+              {isAnalysesLoading ? <MysticSkeleton className="h-[200px] w-full" /> : <AnalysesChart data={analysesChartData} />}
+            </div>
+          </div>
+        </motion.div>
+
       </motion.div>
     </ErrorBoundary>
   );
