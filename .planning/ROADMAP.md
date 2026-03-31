@@ -243,7 +243,7 @@ Plans:
 **Plans**: 3 plans
 Plans:
 - [x] 24-01-PLAN.md — Foundation: StandardSectionHeader + MysticLoadingText + loading phrases + pageEntry preset + result-heading-glow CSS
-- [ ] 24-02-PLAN.md — Migrate batch 1 (11 tool pages: astrology, tarot, numerology, dream, graphology, drawing, synthesis, document, career, compatibility, tools grid)
+- [x] 24-02-PLAN.md — Migrate batch 1 (11 tool pages: astrology, tarot, numerology, dream, graphology, drawing, synthesis, document, career, compatibility, tools grid)
 - [x] 24-03-PLAN.md — Migrate batch 2 (11 tool pages: solar-return, transits, synastry, calendar, forecast, relationships, human-design, palmistry, personality, timing, daily-insights) + AIInterpretation glow
 **UI hint**: yes
 
@@ -279,5 +279,5 @@ Phases execute in numeric order: 13 → 14 → 15 → 16 → 17 → 18 → 19 �
 | 21. Prompt Enrichment & Soul | v1.2 | 4/4 | Complete | 2026-03-29 |
 | 22. Accessibility Foundation | v1.3 | 1/2 | In Progress|  |
 | 23. Floating Coach & Bottom Tabs | v1.3 | 2/3 | In Progress|  |
-| 24. Atmospheric Depth Sweep | v1.3 | 2/3 | In Progress|  |
+| 24. Atmospheric Depth Sweep | v1.3 | 3/3 | Complete   | 2026-03-31 |
 | 25. Coach Intelligence & Sidebar Polish | v1.3 | 2/2 | Complete   | 2026-03-30 |
