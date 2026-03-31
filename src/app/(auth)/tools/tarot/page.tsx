@@ -109,7 +109,7 @@ export default function TarotPage() {
       <StandardSectionHeader
         title="טארוט"
         description="שליפת קלפים מה-DB + פרשנות AI מותאמת אישית"
-        icon={<GiCardRandom className="h-5 w-5" />}
+        icon={<GiCardRandom className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

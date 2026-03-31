@@ -146,6 +146,17 @@ export default function GraphologyPage() {
       animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
+      <StandardSectionHeader
+        title="גרפולוגיה"
+        description="ניתוח כתב יד מתמונה — 9 מרכיבים גרפולוגיים עם ציונים, תרשים רדאר ותובנות אישיות"
+        icon={<GiQuillInk className="w-6 h-6" />}
+        breadcrumbs={[
+          { label: 'דף הבית', href: '/' },
+          { label: 'כלים', href: '/tools' },
+          { label: 'גרפולוגיה' },
+        ]}
+      />
+
       <Tabs value={activeTab} onValueChange={setActiveTab} dir="rtl">
         <TabsList className="mb-4 bg-surface-container/60">
           <TabsTrigger value="analysis" className="flex items-center gap-1"><GiQuillInk className="h-3 w-3" /> ניתוח</TabsTrigger>
@@ -167,16 +178,6 @@ export default function GraphologyPage() {
         </TabsContent>
 
         <TabsContent value="analysis">
-      <StandardSectionHeader
-        title="גרפולוגיה"
-        description="ניתוח כתב יד מתמונה — 9 מרכיבים גרפולוגיים עם ציונים, תרשים רדאר ותובנות אישיות"
-        icon={<GiQuillInk className="h-5 w-5" />}
-        breadcrumbs={[
-          { label: 'דף הבית', href: '/' },
-          { label: 'כלים', href: '/tools' },
-          { label: 'גרפולוגיה' },
-        ]}
-      />
 
       {/* טופס קלט */}
       <motion.div

@@ -192,9 +192,9 @@ export default function AstrologyPage() {
       transition={{ duration: 0.6, ease: 'easeOut' }}
     >
       <StandardSectionHeader
-        title="מפת לידה אסטרולוגית"
+        title="אסטרולוגיה"
         description="חישוב מפת גלגל אסטרולוגית מלאה עם פרשנות AI"
-        icon={<GiAstrolabe className="h-5 w-5" />}
+        icon={<GiAstrolabe className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

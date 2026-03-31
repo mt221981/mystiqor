@@ -220,7 +220,7 @@ export default function NumerologyPage() {
       <StandardSectionHeader
         title="נומרולוגיה"
         description="חישוב 5 מספרים נומרולוגיים עבריים מותאמים אישית + פרשנות AI"
-        icon={<GiAbacus className="h-5 w-5" />}
+        icon={<GiAbacus className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
