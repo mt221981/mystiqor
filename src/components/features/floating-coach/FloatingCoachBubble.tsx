@@ -10,7 +10,7 @@
 
 import { usePathname } from 'next/navigation';
 import { motion, useReducedMotion } from 'framer-motion';
-import { GiCrystalBall } from 'react-icons/gi';
+import { GiSparkles } from 'react-icons/gi';
 import { useFloatingCoachStore } from '@/stores/floating-coach';
 
 /**
@@ -28,16 +28,16 @@ export function FloatingCoachBubble() {
   return (
     <motion.button
       onClick={toggle}
-      className="fixed bottom-20 md:bottom-6 end-4 md:end-6 w-[72px] h-[72px] md:w-[88px] md:h-[88px] rounded-full celestial-glow bg-gradient-to-br from-[#8f2de6] to-[#d4a853] flex items-center justify-center text-primary-foreground cursor-pointer ring-2 ring-primary/30 shadow-[0_0_20px_rgba(143,45,230,0.6),0_0_40px_rgba(143,45,230,0.3),0_0_60px_rgba(212,168,83,0.25)] hover:shadow-[0_0_30px_rgba(143,45,230,0.8),0_0_60px_rgba(212,168,83,0.4)] transition-shadow"
+      className="fixed bottom-20 md:bottom-6 end-4 md:end-6 w-24 h-24 md:w-28 md:h-28 rounded-full celestial-glow bg-gradient-to-br from-[#8f2de6] to-[#d4a853] flex items-center justify-center text-primary-foreground cursor-pointer ring-2 ring-primary/30 shadow-[0_0_20px_rgba(143,45,230,0.6),0_0_40px_rgba(143,45,230,0.3),0_0_60px_rgba(212,168,83,0.25)] hover:shadow-[0_0_30px_rgba(143,45,230,0.8),0_0_60px_rgba(212,168,83,0.4)] transition-shadow"
       style={{ zIndex: 'var(--z-floating)' }}
       animate={shouldReduceMotion ? {} : { scale: [1, 1.08, 1] }}
       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
       aria-label="שוחח עם נועה"
       aria-expanded={isOpen}
     >
-      <GiCrystalBall className="w-9 h-9 md:w-10 md:h-10" />
-      {/* תווית צפה מתחת לכדור — תמיד גלויה */}
-      <span className="absolute -bottom-6 text-xs font-label font-medium text-primary whitespace-nowrap drop-shadow-[0_0_8px_rgba(221,184,255,0.5)]">
+      <GiSparkles className="w-12 h-12 md:w-14 md:h-14" />
+      {/* תווית צפה מעל הכדור — תמיד גלויה */}
+      <span className="absolute -top-7 text-sm font-label font-bold text-primary whitespace-nowrap drop-shadow-[0_0_8px_rgba(221,184,255,0.5)]">
         נועה
       </span>
     </motion.button>
