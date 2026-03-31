@@ -82,7 +82,6 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'ראשי',
     items: [
-      { label: 'לוח בקרה', href: '/dashboard', icon: LayoutDashboard },
       { label: 'דף הבית', href: '/dashboard', icon: Home },
     ],
   },
@@ -189,8 +188,8 @@ function CollapsibleSection({
         onClick={onToggle}
         className={cn(
           'flex w-full items-center justify-between px-3 py-2',
-          'text-sm font-semibold uppercase tracking-wider',
-          'text-gold-dim/85 hover:text-gold font-label',
+          'text-base font-bold uppercase tracking-wider',
+          'text-gold hover:text-gold-bright font-label',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
@@ -342,16 +341,16 @@ export function Sidebar() {
   return (
     <aside
       className={cn(
-        'flex h-full w-64 flex-col',
+        'flex h-full w-72 flex-col',
         'bg-surface/95 glass-panel',
         'border-e border-outline-variant/10'
       )}
       aria-label="ניווט ראשי"
     >
       {/* לוגו */}
-      <div className="flex items-center gap-2.5 border-b border-outline-variant/10 px-4 py-5">
-        <GiSparkles className="h-7 w-7 text-gold" />
-        <span className="font-headline text-xl font-bold text-gradient-gold">
+      <div className="flex items-center gap-3 border-b border-primary/15 px-5 py-6">
+        <GiSparkles className="h-8 w-8 text-gold" />
+        <span className="font-headline text-2xl font-bold text-gradient-gold">
           MystiQor
         </span>
       </div>

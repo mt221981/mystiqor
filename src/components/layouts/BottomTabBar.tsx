@@ -27,7 +27,7 @@ interface TabDefinition {
 /** 5 הטאבים הראשיים לניווט תחתון במובייל */
 const TABS: readonly TabDefinition[] = [
   { label: 'לוח בקרה', href: '/dashboard', Icon: LayoutDashboard },
-  { label: 'מאמן AI', href: '/coach', Icon: GiCrystalBall },
+  { label: 'נועה', href: '/coach', Icon: GiCrystalBall },
   { label: 'תובנות', href: '/daily-insights', Icon: Lightbulb },
   { label: 'כלים', href: '/tools', Icon: Grid2x2 },
   { label: 'פרופיל', href: '/profile', Icon: User },

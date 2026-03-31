@@ -55,7 +55,7 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
         <div className="fixed top-1/2 left-1/3 w-[300px] h-[300px] bg-tertiary/5 rounded-full blur-[100px] -z-10 pointer-events-none animate-[pulse_10s_ease-in-out_infinite]" aria-hidden="true" />
 
         {/* סרגל צד לדסקטופ — מוסתר במובייל */}
-        <div className="hidden md:flex md:w-64 md:shrink-0">
+        <div className="hidden md:flex md:w-72 md:shrink-0">
           <Sidebar />
         </div>
 

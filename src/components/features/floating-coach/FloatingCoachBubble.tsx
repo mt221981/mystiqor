@@ -32,13 +32,13 @@ export function FloatingCoachBubble() {
       style={{ zIndex: 'var(--z-floating)' }}
       animate={shouldReduceMotion ? {} : { scale: [1, 1.08, 1] }}
       transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
-      aria-label="פתח מאמן AI"
+      aria-label="שוחח עם נועה"
       aria-expanded={isOpen}
     >
       <GiCrystalBall className="w-9 h-9 md:w-10 md:h-10" />
       {/* תווית צפה מתחת לכדור — תמיד גלויה */}
       <span className="absolute -bottom-6 text-xs font-label font-medium text-primary whitespace-nowrap drop-shadow-[0_0_8px_rgba(221,184,255,0.5)]">
-        מאמן AI
+        נועה
       </span>
     </motion.button>
   );

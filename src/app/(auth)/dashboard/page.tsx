@@ -315,7 +315,7 @@ export default function DashboardPage() {
               <div className="flex flex-wrap gap-3 mt-6">
                 <Link href="/coach" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#8f2de6] to-[#d4a853] text-white font-bold text-base shadow-[0_0_20px_rgba(143,45,230,0.4)] hover:shadow-[0_0_30px_rgba(143,45,230,0.6)] transition-shadow">
                   <MessageCircle className="w-5 h-5" />
-                  שוחח עם המאמן
+                  שוחח עם נועה המאמנת האישית שלך
                 </Link>
                 <Link href="/tools/tarot" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
                   <GiCardRandom className="w-5 h-5 text-primary" />
