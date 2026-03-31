@@ -83,7 +83,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
     title: 'ראשי',
     items: [
       { label: 'לוח בקרה', href: '/dashboard', icon: LayoutDashboard },
-      { label: 'דף הבית', href: '/', icon: Home },
+      { label: 'דף הבית', href: '/dashboard', icon: Home },
     ],
   },
   {
