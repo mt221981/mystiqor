@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 02-05-PLAN.md (Astrology Birth Chart SVG + API Routes)
-last_updated: "2026-04-02T22:34:29.662Z"
+stopped_at: Completed 02-08-PLAN.md (Compatibility Tool)
+last_updated: "2026-04-02T22:50:30.336Z"
 progress:
   total_phases: 9
   completed_phases: 1
   total_plans: 17
-  completed_plans: 22
+  completed_plans: 24
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-20)
 ## Current Position
 
 Phase: 02 (core-features) — EXECUTING
-Plan: 3 of 9
+Plan: 5 of 9
 
 ## Phase Completion
 
@@ -78,6 +78,8 @@ Remaining:
 | Phase 24 P02 | 21 | 2 tasks | 11 files |
 | Phase 02-core-features P03 | 7 | 2 tasks | 8 files |
 | Phase 02-core-features P05 | 5 | 2 tasks | 2 files |
+| Phase 02-core-features P07 | 6 | 2 tasks | 3 files |
+| Phase 02 P08 | 6 | 1 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -123,6 +125,11 @@ Recent decisions affecting current work:
 - [Phase 02-core-features]: Comparison.tsx uses direct recharts imports (not dynamic) since 'use client' — tests mock via vi.mock
 - [Phase 02-05]: BirthChart SVG components factored into shared utils.ts (getPlanetPosition, SVG constants) — DRY pattern, imported by all 5 sub-components
 - [Phase 02-05]: Interpret API route accepts full chart result (chartData + planets + planetDetails) — builds InterpretationInput for separate/deferred AI calls
+- [Phase 02-07]: READING_TYPES exported from API route for client import — avoids circular dependency, cleaner co-location with schema
+- [Phase 02-07]: Synastry uses LLM-provided compatibility_score instead of element matrix — more nuanced AI-calibrated result
+- [Phase 02-07]: tool_type='astrology' for readings — no new ToolType enum entry needed, consistent with existing schema
+- [Phase 02]: calculateCombinedScore exported as pure function — testable without Supabase/LLM, numerology 40% + astrology 60% weights
+- [Phase 02]: ELEMENT_COMPAT uses Hebrew keys (אש/אדמה/אוויר/מים) matching ZODIAC_SIGNS.element — not English keys as in plan spec
 
 ### Pending Todos
 
@@ -137,6 +144,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-02T22:34:29.660Z
-Stopped at: Completed 02-05-PLAN.md (Astrology Birth Chart SVG + API Routes)
+Last session: 2026-04-02T22:50:30.334Z
+Stopped at: Completed 02-08-PLAN.md (Compatibility Tool)
 Resume file: None
