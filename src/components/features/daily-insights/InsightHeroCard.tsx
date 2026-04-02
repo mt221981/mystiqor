@@ -8,7 +8,7 @@
 
 import ReactMarkdown from 'react-markdown';
 import { motion } from 'framer-motion';
-import { Sparkles, Star, Lightbulb } from 'lucide-react';
+import { GiSparkles, GiStarShuriken, GiLightBulb } from 'react-icons/gi';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { animations } from '@/lib/animations/presets';
@@ -118,7 +118,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
         <CardHeader className="pb-4 p-0 mb-4">
           <div className="flex items-start justify-between gap-3">
             <div className="flex items-start gap-2">
-              <Sparkles className="mt-0.5 h-5 w-5 shrink-0 text-white" aria-hidden="true" />
+              <GiSparkles className="mt-0.5 h-5 w-5 shrink-0 text-white" aria-hidden="true" />
               <h2 className="text-2xl font-headline font-bold leading-snug text-white">
                 {insight.title}
               </h2>
@@ -143,7 +143,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
           {/* קלף טארוט */}
           {tarotCardName && (
             <div className="flex items-center gap-2 rounded-lg border border-yellow-500/20 bg-yellow-950/20 px-3 py-2">
-              <Star className="h-4 w-4 shrink-0 text-yellow-400" aria-hidden="true" />
+              <GiStarShuriken className="h-4 w-4 shrink-0 text-yellow-400" aria-hidden="true" />
               <span className="text-sm font-body text-yellow-200/90">
                 <span className="font-semibold">קלף היום: </span>
                 {tarotCardName}
@@ -155,7 +155,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
           {insight.actionable_tip && (
             <div className="rounded-lg border border-tertiary/20 bg-tertiary/10 p-3">
               <div className="flex items-center gap-2 mb-1.5">
-                <Lightbulb className="h-4 w-4 shrink-0 text-tertiary" aria-hidden="true" />
+                <GiLightBulb className="h-4 w-4 shrink-0 text-tertiary" aria-hidden="true" />
                 <span className="text-xs font-label font-semibold uppercase tracking-wide text-tertiary">
                   טיפ ליום
                 </span>
