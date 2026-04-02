@@ -58,8 +58,55 @@ function avgSpeed(points: StrokePoint[]): number {
 
 // ===== קומפוננטה ראשית =====
 
-/** קנבס ציור דיגיטלי עם עט, מחק, undo, clear וייצוא JPEG */
-export default function DigitalCanvas({ onSave, onCancel }: CanvasProps) {
+// ===== ממשק חדש למטרת תאימות עם plan 02-03 =====
+
+/**
+ * Props לממשק DigitalCanvas המפושט (plan 02-03)
+ * onDataUrl מופעל עם dataURL כאשר המשתמש מסיים לצייר
+ */
+export interface DigitalCanvasProps {
+  readonly onDataUrl: (dataUrl: string) => void
+  readonly drawingType: 'person' | 'tree' | 'house' | 'family' | 'free'
+  readonly width?: number
+  readonly height?: number
+}
+
+/**
+ * הוראות ציור לפי סוג
+ */
+const DRAWING_INSTRUCTIONS: Record<DigitalCanvasProps['drawingType'], string> = {
+  house: 'צייר בית עם גג, קירות, דלת וחלון',
+  tree: 'צייר עץ עם גזע, ענפים ועלים',
+  person: 'צייר דמות אדם שלמה',
+  family: 'צייר את כל בני המשפחה שלך',
+  free: 'ציור חופשי — צייר מה שרוצה',
+}
+
+/**
+ * DigitalCanvas (named export) — מרכיב ציור דיגיטלי מפושט
+ * עוטף את DigitalCanvasInternal עם ממשק onDataUrl
+ */
+export function DigitalCanvas({ onDataUrl, drawingType, width: _width = 600, height: _height = 400 }: DigitalCanvasProps) {
+  const instruction = DRAWING_INSTRUCTIONS[drawingType]
+
+  const handleSaveInternal = (file: File, _metadata: DrawingMetadata) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      onDataUrl(reader.result as string)
+    }
+    reader.readAsDataURL(file)
+  }
+
+  return (
+    <div className="space-y-2" dir="rtl">
+      <p className="text-sm text-on-surface-variant font-body">{instruction}</p>
+      <DigitalCanvasInternal onSave={handleSaveInternal} onCancel={() => onDataUrl('')} />
+    </div>
+  )
+}
+
+/** קנבס ציור דיגיטלי עם עט, מחק, undo, clear וייצוא JPEG — internal implementation */
+function DigitalCanvasInternal({ onSave, onCancel }: CanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const isDrawingRef = useRef(false)
   const currentStrokeRef = useRef<Stroke | null>(null)
@@ -254,3 +301,6 @@ export default function DigitalCanvas({ onSave, onCancel }: CanvasProps) {
     </div>
   )
 }
+
+// ייצוא ברירת מחדל לשימוש קיים (DrawingAnalysisForm)
+export default DigitalCanvasInternal
