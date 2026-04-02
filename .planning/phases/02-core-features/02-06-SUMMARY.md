@@ -146,3 +146,15 @@ None — all planet position calculations use real ephemeris data (astronomy-eng
 ---
 *Phase: 02-core-features*
 *Completed: 2026-04-03*
+
+## Self-Check: PASSED
+
+- FOUND: `src/app/api/tools/astrology/solar-return/route.ts`
+- FOUND: `src/app/(auth)/tools/astrology/solar-return/page.tsx`
+- FOUND: `src/app/api/tools/astrology/transits/route.ts`
+- FOUND: `src/app/(auth)/tools/astrology/transits/page.tsx`
+- FOUND: `.planning/phases/02-core-features/02-06-SUMMARY.md`
+- FOUND commit: `a513a7c feat(02-06): Solar Return API route + page with natal-chart prereq check`
+- FOUND commit: `eee737b feat(02-06): Transits API route (REBUILD) + page with prereq check`
+- FOUND commit: `1285ca6 docs(02-06): complete Solar Return + Transits plan`
+- TypeScript: 0 errors (`npx tsc --noEmit` passed)
