@@ -5,8 +5,7 @@
  * מציג: יעדים פעילים, ציון מצב רוח, יעדים שהושלמו, תזכורות ממתינות
  */
 
-import { SmilePlus, CheckCircle, Bell } from 'lucide-react';
-import { GiTargetArrows } from 'react-icons/gi';
+import { GiTargetArrows, GiFaceToFace, GiStarMedal, GiAlarmClock } from 'react-icons/gi';
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
 // ===== טיפוסים =====
@@ -46,21 +45,21 @@ const STAT_CARD_DEFINITIONS = [
     key: 'currentMoodScore' as const,
     label: 'ציון מצב רוח',
     description: 'ממוצע 7 ימים',
-    Icon: SmilePlus,
+    Icon: GiFaceToFace,
     format: (v: number) => (v > 0 ? `${v.toFixed(1)}/10` : '—'),
   },
   {
     key: 'completedGoals' as const,
     label: 'יעדים שהושלמו',
     description: 'סה״כ שהושלמו',
-    Icon: CheckCircle,
+    Icon: GiStarMedal,
     format: (v: number) => String(v),
   },
   {
     key: 'pendingReminders' as const,
     label: 'תזכורות ממתינות',
     description: 'לא נענו',
-    Icon: Bell,
+    Icon: GiAlarmClock,
     format: (v: number) => String(v),
   },
 ] as const;
