@@ -1,8 +1,8 @@
 'use client'
 
 /**
- * דף תאימות — טופס כפול לשני אנשים + תוצאות ניתוח תאימות
- * מדוע: ממשק ראשי לכלי התאימות — ניתוח אסטרולוגי + נומרולוגי.
+ * דף תאימות — ניתוח תאימות משולב: נומרולוגיה + אסטרולוגיה
+ * Anti-Barnum: כל ציון מבוסס על חישוב ספציפי — לא הכללות גנריות
  */
 
 import { useState } from 'react'
@@ -12,7 +12,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { CheckCircle, AlertTriangle } from 'lucide-react'
 import { GiHearts, GiYinYang } from 'react-icons/gi'
 import ReactMarkdown from 'react-markdown'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
@@ -26,44 +25,71 @@ import { SubscriptionGuard } from '@/components/features/subscription/Subscripti
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 
+// ===== סכמות טפסים =====
+
 const PersonFormSchema = z.object({
-  name: z.string().min(1, 'שם חובה'),
+  fullName: z.string().min(1, 'שם חובה'),
   birthDate: z.string().min(1, 'תאריך לידה חובה'),
   birthTime: z.string().optional(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
 })
+
 const FormSchema = z.object({
   person1: PersonFormSchema,
   person2: PersonFormSchema,
-  compatibilityType: z.enum(['romantic', 'friendship', 'professional', 'family']),
 })
+
 type FormValues = z.infer<typeof FormSchema>
 
-interface CategoryScore { category: string; score: number; description: string }
+// ===== ממשק תוצאות =====
+
+interface NumerologyBreakdown {
+  life_path: number
+  destiny: number
+  soul: number
+  overall: number
+}
+
+interface PersonSigns {
+  sunSign: string
+  moonSign: string
+  risingSign: string
+}
+
 interface CompatibilityResult {
-  overall_score: number
-  category_scores: CategoryScore[]
-  strengths: string[]
-  challenges: string[]
-  advice: string
-  summary: string
+  numerologyScore: number
+  astrologyScore: number
+  totalScore: number
+  numerologyBreakdown: NumerologyBreakdown
+  person1Signs: PersonSigns | null
+  person2Signs: PersonSigns | null
+  interpretation: string
   analysis_id: string | null
 }
 
-const TYPES = [
-  { value: 'romantic' as const, label: 'רומנטי' },
-  { value: 'friendship' as const, label: 'חברות' },
-  { value: 'professional' as const, label: 'מקצועי' },
-  { value: 'family' as const, label: 'משפחתי' },
-]
+// ===== פונקציות שירות =====
 
+/** קריאת API לניתוח תאימות */
 async function fetchCompatibility(input: FormValues): Promise<CompatibilityResult> {
   const res = await fetch('/api/tools/compatibility', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      person1: { name: input.person1.name, birthDate: input.person1.birthDate, ...(input.person1.birthTime ? { birthTime: input.person1.birthTime } : {}) },
-      person2: { name: input.person2.name, birthDate: input.person2.birthDate, ...(input.person2.birthTime ? { birthTime: input.person2.birthTime } : {}) },
-      compatibilityType: input.compatibilityType,
+      person1: {
+        fullName: input.person1.fullName,
+        birthDate: input.person1.birthDate,
+        ...(input.person1.birthTime ? { birthTime: input.person1.birthTime } : {}),
+        ...(input.person1.latitude != null ? { latitude: input.person1.latitude } : {}),
+        ...(input.person1.longitude != null ? { longitude: input.person1.longitude } : {}),
+      },
+      person2: {
+        fullName: input.person2.fullName,
+        birthDate: input.person2.birthDate,
+        ...(input.person2.birthTime ? { birthTime: input.person2.birthTime } : {}),
+        ...(input.person2.latitude != null ? { latitude: input.person2.latitude } : {}),
+        ...(input.person2.longitude != null ? { longitude: input.person2.longitude } : {}),
+      },
     }),
   })
   if (!res.ok) {
@@ -73,27 +99,24 @@ async function fetchCompatibility(input: FormValues): Promise<CompatibilityResul
   return ((await res.json()) as { data: CompatibilityResult }).data
 }
 
-export default function CompatibilityPage() {
-  const [result, setResult] = useState<CompatibilityResult | null>(null)
-  const { incrementUsage } = useSubscription()
-  const shouldReduceMotion = useReducedMotion()
-  const { register, handleSubmit, watch, setValue, formState: { errors } } = useForm<FormValues>({
-    resolver: zodResolver(FormSchema),
-    defaultValues: { compatibilityType: 'romantic' },
-  })
-  const selectedType = watch('compatibilityType')
-  const mutation = useMutation({
-    mutationFn: fetchCompatibility,
-    onSuccess: (data) => {
-      setResult(data)
-      toast.success('הניתוח הושלם')
-      // עדכן שימוש — non-blocking, non-fatal
-      void incrementUsage().catch(() => {})
-    },
-    onError: (err) => { toast.error(err instanceof Error ? err.message : 'שגיאה בניתוח תאימות') },
-  })
+/** מחזיר צבע Tailwind לפי ציון */
+function getScoreColor(score: number): string {
+  if (score >= 75) return 'text-tertiary'
+  if (score >= 50) return 'text-primary'
+  return 'text-on-surface-variant'
+}
 
-  const renderPersonCard = (prefix: 'person1' | 'person2', title: string) => (
+// ===== קומפוננט טופס אדם בודד =====
+
+interface PersonCardProps {
+  prefix: 'person1' | 'person2'
+  title: string
+  register: ReturnType<typeof useForm<FormValues>>['register']
+  errors: ReturnType<typeof useForm<FormValues>>['formState']['errors']
+}
+
+function PersonCard({ prefix, title, register, errors }: PersonCardProps) {
+  return (
     <Card className="border-outline-variant/5 bg-surface-container rounded-xl p-6 flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="font-headline font-semibold text-primary text-lg flex items-center gap-2">
@@ -102,9 +125,9 @@ export default function CompatibilityPage() {
       </CardHeader>
       <CardContent className="space-y-3">
         <div className="space-y-1">
-          <Label className="text-on-surface-variant font-label text-sm">שם</Label>
-          <Input placeholder="שם מלא" {...register(`${prefix}.name`)} />
-          {errors[prefix]?.name && <p className="text-xs text-error">{errors[prefix]?.name?.message}</p>}
+          <Label className="text-on-surface-variant font-label text-sm">שם מלא</Label>
+          <Input placeholder="שם מלא" {...register(`${prefix}.fullName`)} />
+          {errors[prefix]?.fullName && <p className="text-xs text-error">{errors[prefix]?.fullName?.message}</p>}
         </div>
         <div className="space-y-1">
           <Label className="text-on-surface-variant font-label text-sm">תאריך לידה</Label>
@@ -118,6 +141,53 @@ export default function CompatibilityPage() {
       </CardContent>
     </Card>
   )
+}
+
+// ===== קומפוננט מד ציון =====
+
+interface ScoreBarProps {
+  label: string
+  score: number
+  description?: string
+}
+
+function ScoreBar({ label, score, description }: ScoreBarProps) {
+  return (
+    <div className="space-y-1">
+      <div className="flex justify-between text-sm">
+        <span className="text-on-surface font-body">{label}</span>
+        <span className={`font-label font-medium ${getScoreColor(score)}`}>{score}/100</span>
+      </div>
+      <div className="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+        {/* inline style נדרש לרוחב דינמי — אין מקבילה ב-Tailwind לערכי runtime */}
+        <div
+          className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full shadow-[0_0_15px_rgba(143,45,230,0.4)]"
+          style={{ width: `${score}%` }}
+        />
+      </div>
+      {description && (
+        <p className="text-xs text-on-surface-variant font-body">{description}</p>
+      )}
+    </div>
+  )
+}
+
+// ===== דף ראשי =====
+
+export default function CompatibilityPage() {
+  const [result, setResult] = useState<CompatibilityResult | null>(null)
+  const { incrementUsage } = useSubscription()
+  const shouldReduceMotion = useReducedMotion()
+
+  const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
+    resolver: zodResolver(FormSchema),
+  })
+
+  const mutation = useMutation({
+    mutationFn: fetchCompatibility,
+    onSuccess: (data) => { setResult(data); toast.success('הניתוח הושלם'); void incrementUsage().catch(() => {}) },
+    onError: (err) => { toast.error(err instanceof Error ? err.message : 'שגיאה בניתוח תאימות') },
+  })
 
   return (
     <motion.div
@@ -129,34 +199,43 @@ export default function CompatibilityPage() {
     >
       <StandardSectionHeader
         title="ניתוח תאימות"
-        description="ניתוח תאימות אסטרולוגי ונומרולוגי בין שני אנשים"
+        description="ניתוח תאימות אסטרולוגי ונומרולוגי משולב — ציוני אמת, לא הכללות"
         icon={<GiYinYang className="h-5 w-5" />}
-        breadcrumbs={[{ label: 'דף הבית', href: '/' }, { label: 'כלים', href: '/tools' }, { label: 'תאימות' }]}
+        breadcrumbs={[
+          { label: 'דף הבית', href: '/' },
+          { label: 'כלים', href: '/tools' },
+          { label: 'תאימות' },
+        ]}
       />
 
-      <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.4 }} className="mb-6">
+      {/* טופס קלט */}
+      <motion.div
+        initial={animations.fadeInUp.initial}
+        animate={animations.fadeInUp.animate}
+        transition={{ duration: 0.4 }}
+        className="mb-6"
+      >
         <Card className="border-outline-variant/5 bg-surface-container mystic-hover">
-          <CardHeader><CardTitle className="text-lg text-primary font-headline">הזן נתוני לידה</CardTitle></CardHeader>
+          <CardHeader>
+            <CardTitle className="text-lg text-primary font-headline">הזן נתוני לידה</CardTitle>
+          </CardHeader>
           <CardContent>
             <SubscriptionGuard feature="analyses">
               <form onSubmit={handleSubmit((v) => mutation.mutate(v))} className="space-y-6">
+                {/* שני עמודות — אדם 1 + אדם 2 */}
                 <div className="flex flex-col md:flex-row gap-4">
-                  {renderPersonCard('person1', 'אדם 1')}
-                  {renderPersonCard('person2', 'אדם 2')}
+                  <PersonCard prefix="person1" title="אדם 1" register={register} errors={errors} />
+                  <PersonCard prefix="person2" title="אדם 2" register={register} errors={errors} />
                 </div>
-                <div className="space-y-2">
-                  <Label className="text-on-surface-variant font-label">סוג תאימות</Label>
-                  <div className="flex flex-wrap gap-2">
-                    {TYPES.map((t) => (
-                      <button key={t.value} type="button" onClick={() => setValue('compatibilityType', t.value)}
-                        className={`px-4 py-2 rounded-full text-sm font-label font-medium transition-colors ${selectedType === t.value ? 'bg-primary-container text-on-primary-container' : 'bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest border border-outline-variant/20'}`}>
-                        {t.label}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-                <Button type="submit" disabled={mutation.isPending} className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95">
-                  {mutation.isPending ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['compatibility']?.button ?? 'בוחן את ההתאמה...'} /> : 'נתח תאימות'}
+
+                <Button
+                  type="submit"
+                  disabled={mutation.isPending}
+                  className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold py-4 rounded-xl shadow-[0_10px_30px_rgba(143,45,230,0.3)] active:scale-95"
+                >
+                  {mutation.isPending
+                    ? <MysticLoadingText text={MYSTIC_LOADING_PHRASES['compatibility']?.button ?? 'בוחן את ההתאמה...'} />
+                    : 'נתח תאימות'}
                 </Button>
               </form>
             </SubscriptionGuard>
@@ -164,73 +243,46 @@ export default function CompatibilityPage() {
         </Card>
       </motion.div>
 
+      {/* תוצאות */}
       {result && (
-        <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.5, delay: 0.1 }} className="space-y-4">
+        <motion.div
+          initial={animations.fadeInUp.initial}
+          animate={animations.fadeInUp.animate}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="space-y-4"
+        >
           {/* ציון כולל */}
           <Card className="border-outline-variant/5 bg-surface-container text-center mystic-hover">
-            <CardContent className="pt-6">
-              <div className={`text-5xl font-headline font-black text-primary`}>
-                {result.overall_score}%
+            <CardContent className="pt-6 pb-6">
+              <div className={`text-6xl font-headline font-black ${getScoreColor(result.totalScore)}`}>
+                {result.totalScore}<span className="text-2xl text-on-surface-variant font-normal">/100</span>
               </div>
-              <p className="font-label text-xs text-on-surface-variant mt-1">ציון תאימות כולל</p>
-              <p className="text-on-surface text-sm font-body mt-2">{result.summary}</p>
+              <p className="font-label text-sm text-on-surface-variant mt-1">ציון תאימות כולל</p>
+              <p className="text-xs text-on-surface-variant/60 mt-0.5">נומרולוגיה 40% + אסטרולוגיה 60%</p>
             </CardContent>
           </Card>
 
-          {/* ציונים לפי קטגוריה */}
+          {/* פירוט ציוני מימדים */}
           <Card className="border-outline-variant/5 bg-surface-container">
-            <CardHeader><CardTitle className="text-base text-primary font-headline">ניתוח לפי קטגוריות</CardTitle></CardHeader>
-            <CardContent className="space-y-4">
-              {result.category_scores.map((cat, i) => (
-                <div key={i} className="space-y-1">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-on-surface font-body">{cat.category}</span>
-                    <span className="text-primary font-label font-medium">{cat.score}%</span>
-                  </div>
-                  <div className="h-1.5 w-full bg-surface-container rounded-full overflow-hidden">
-                    {/* inline style needed for dynamic width — no Tailwind equivalent for runtime values */}
-                    <div className="h-full bg-gradient-to-l from-primary-container to-secondary-container rounded-full shadow-[0_0_15px_rgba(143,45,230,0.4)]" style={{ width: `${cat.score}%` }} />
-                  </div>
-                  <p className="text-xs text-on-surface-variant font-body">{cat.description}</p>
-                </div>
-              ))}
+            <CardHeader><CardTitle className="text-base text-primary font-headline">פירוט ציונים</CardTitle></CardHeader>
+            <CardContent className="space-y-5">
+              <ScoreBar label="ניתוח נומרולוגי" score={result.numerologyScore}
+                description={`נתיב חיים: ${result.numerologyBreakdown.life_path}/100 · גורל: ${result.numerologyBreakdown.destiny}/100 · נשמה: ${result.numerologyBreakdown.soul}/100`} />
+              <ScoreBar label="ניתוח אסטרולוגי" score={result.astrologyScore}
+                description={result.person1Signs && result.person2Signs
+                  ? `שמש: ${result.person1Signs.sunSign} ↔ ${result.person2Signs.sunSign} · ירח: ${result.person1Signs.moonSign} ↔ ${result.person2Signs.moonSign}`
+                  : 'ציון ברירת מחדל — הזן קואורדינטות לדיוק מלא'} />
             </CardContent>
           </Card>
 
-          {/* חוזקות ואתגרים */}
-          <div className="flex flex-col md:flex-row gap-4">
-            <Card className="border-outline-variant/5 bg-surface-container flex-1">
-              <CardHeader><CardTitle className="text-base text-tertiary font-headline flex items-center gap-2"><CheckCircle className="h-4 w-4" />נקודות חוזקה</CardTitle></CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {result.strengths.map((s, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-on-surface font-body">
-                      <CheckCircle className="h-3 w-3 text-tertiary mt-1 shrink-0" />{s}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-            <Card className="border-outline-variant/5 bg-surface-container flex-1">
-              <CardHeader><CardTitle className="text-base text-primary font-headline flex items-center gap-2"><AlertTriangle className="h-4 w-4" />אתגרים</CardTitle></CardHeader>
-              <CardContent>
-                <ul className="space-y-2">
-                  {result.challenges.map((c, i) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-on-surface font-body">
-                      <AlertTriangle className="h-3 w-3 text-primary mt-1 shrink-0" />{c}
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* עצה */}
+          {/* פרשנות AI */}
           <Card className="border-outline-variant/5 bg-surface-container">
-            <CardHeader><CardTitle className="text-base text-primary font-headline">עצה לחיזוק הקשר</CardTitle></CardHeader>
+            <CardHeader>
+              <CardTitle className="text-base text-primary font-headline">ניתוח מפורט</CardTitle>
+            </CardHeader>
             <CardContent>
               <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
-                <ReactMarkdown>{result.advice}</ReactMarkdown>
+                <ReactMarkdown>{result.interpretation}</ReactMarkdown>
               </div>
             </CardContent>
           </Card>

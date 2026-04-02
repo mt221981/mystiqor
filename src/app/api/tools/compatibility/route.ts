@@ -1,72 +1,143 @@
 /**
- * POST /api/tools/compatibility — ניתוח תאימות בין שני אנשים
- * אימות → ולידציה → invokeLLM (טקסט בלבד) → שמירה ב-analyses → החזרה
+ * POST /api/tools/compatibility — תאימות משולבת: נומרולוגיה + אסטרולוגיה
+ * Anti-Barnum: כל טענה מבוססת על ציון ספציפי שחושב — לא הכללות גנריות
  *
- * מדוע: API עבור כלי התאימות — מנתח נתוני לידה של שני אנשים
- * ומחשב תאימות אסטרולוגית + נומרולוגית משולבת לפי סוג הקשר.
+ * אלגוריתם:
+ *   numerologyScore = calculateNumerologyCompatibility() → overallScore (40% lifePath + 30% destiny + 30% soul)
+ *   astrologyScore  = element compatibility (sun 50% + moon 30% + rising 20%) | fallback=65 ללא קואורדינטות
+ *   totalScore      = numerologyScore * 0.40 + astrologyScore * 0.60 (clamp 0-100)
+ *
+ * Input: { person1: { fullName, birthDate, birthTime?, latitude?, longitude? }, person2: same }
  */
 
 import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
-import { getPersonalContext } from '@/services/analysis/personal-context'
+import { calculateNumerologyCompatibility } from '@/services/numerology/compatibility'
+import { assembleChart, getSign } from '@/services/astrology/chart'
+import { getEphemerisPositions } from '@/services/astrology/ephemeris'
+import { ZODIAC_SIGNS } from '@/lib/constants/astrology'
+import type { ZodiacSignKey } from '@/lib/constants/astrology'
 import type { TablesInsert } from '@/types/database'
 
 // ===== סכמות ולידציה =====
 
 /** סכמת ולידציה לנתוני אדם בודד */
-const PersonSchema = z.object({
-  name: z.string().min(1, 'שם חובה'),
+const PersonCompatSchema = z.object({
+  fullName: z.string().min(1, 'שם חובה').max(100, 'שם ארוך מדי'),
   birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'תאריך לא תקין — נדרש פורמט YYYY-MM-DD'),
-  birthTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
+  birthTime: z.string().regex(/^\d{2}:\d{2}$/).default('12:00'),
+  latitude: z.number().min(-90).max(90).optional(),
+  longitude: z.number().min(-180).max(180).optional(),
 })
 
-/** סכמת ולידציה לקלט ניתוח התאימות */
+/** סכמת ולידציה לקלט כלי התאימות */
 const CompatibilityInputSchema = z.object({
-  person1: PersonSchema,
-  person2: PersonSchema,
-  compatibilityType: z.enum(['romantic', 'friendship', 'professional', 'family']),
+  person1: PersonCompatSchema,
+  person2: PersonCompatSchema,
 })
 
-/** סכמת ולידציה לתגובת ה-LLM */
-const CompatibilityResponseSchema = z.object({
-  overall_score: z.number().min(0).max(100),
-  category_scores: z.array(
-    z.object({
-      category: z.string().min(1),
-      score: z.number().min(0).max(100),
-      description: z.string().min(1),
-    })
-  ).min(1),
-  strengths: z.array(z.string().min(1)).min(1),
-  challenges: z.array(z.string().min(1)).min(1),
-  advice: z.string().min(1),
-  summary: z.string().min(1),
-})
+type PersonCompatInput = z.infer<typeof PersonCompatSchema>
 
-/** טיפוס תגובה מאומתת מה-LLM */
-type CompatibilityResponse = z.infer<typeof CompatibilityResponseSchema>
+// ===== טבלת תאימות יסודות =====
 
-/** מיפוי סוגי תאימות לעברית */
-const COMPATIBILITY_TYPE_LABELS: Record<string, string> = {
-  romantic: 'רומנטית/זוגית',
-  friendship: 'חברות',
-  professional: 'מקצועית/עסקית',
-  family: 'משפחתית',
+/**
+ * ציוני תאימות בין יסודות אסטרולוגיים (0-100)
+ * אש, אדמה, אוויר, מים — לפי תורת ארבעת היסודות
+ */
+const ELEMENT_COMPAT: Record<string, Record<string, number>> = {
+  אש:    { אש: 80, אוויר: 90, אדמה: 50, מים: 60 },
+  אדמה:  { אש: 50, אוויר: 60, אדמה: 85, מים: 90 },
+  אוויר: { אש: 90, אוויר: 80, אדמה: 60, מים: 55 },
+  מים:   { אש: 60, אוויר: 55, אדמה: 90, מים: 85 },
 }
 
-/** POST /api/tools/compatibility — ניתוח תאימות */
+// ===== פונקציות עזר =====
+
+/**
+ * מחזיר את היסוד של מזל נתון מ-ZODIAC_SIGNS
+ * @param sign - שם המזל באנגלית (Aries, Taurus, ...)
+ * @returns היסוד בעברית (אש, אדמה, אוויר, מים) | ריק אם לא נמצא
+ */
+function getElementForSign(sign: string): string {
+  const info = ZODIAC_SIGNS[sign as ZodiacSignKey]
+  return info?.element ?? ''
+}
+
+/**
+ * מחשב ציון תאימות יסודות בין שתי מפות גלגל
+ * sun: 50% + moon: 30% + rising: 20%
+ *
+ * @param sign1Sun - מזל שמש של האדם הראשון
+ * @param sign1Moon - מזל ירח של האדם הראשון
+ * @param sign1Rising - מזל עולה של האדם הראשון
+ * @param sign2Sun - מזל שמש של האדם השני
+ * @param sign2Moon - מזל ירח של האדם השני
+ * @param sign2Rising - מזל עולה של האדם השני
+ * @returns ציון תאימות 0-100
+ */
+function calculateElementScore(
+  sign1Sun: string, sign1Moon: string, sign1Rising: string,
+  sign2Sun: string, sign2Moon: string, sign2Rising: string,
+): number {
+  const sunCompat = ELEMENT_COMPAT[getElementForSign(sign1Sun)]?.[getElementForSign(sign2Sun)] ?? 60
+  const moonCompat = ELEMENT_COMPAT[getElementForSign(sign1Moon)]?.[getElementForSign(sign2Moon)] ?? 60
+  const ascCompat = ELEMENT_COMPAT[getElementForSign(sign1Rising)]?.[getElementForSign(sign2Rising)] ?? 60
+  return Math.round(sunCompat * 0.5 + moonCompat * 0.3 + ascCompat * 0.2)
+}
+
+/**
+ * מחשב ציון תאימות כולל משוקלל: נומרולוגיה 40% + אסטרולוגיה 60%
+ * מוגבל לטווח 0-100 (clamp)
+ * פונקציה טהורה — ניתנת לייבוא ובדיקה
+ *
+ * @param numerologyScore - ציון תאימות נומרולוגי (0-100)
+ * @param astrologyScore - ציון תאימות אסטרולוגי (0-100)
+ * @returns ציון כולל מעוגל ומוגבל לטווח 0-100
+ */
+export function calculateCombinedScore(numerologyScore: number, astrologyScore: number): number {
+  const raw = numerologyScore * 0.40 + astrologyScore * 0.60
+  return Math.min(100, Math.max(0, Math.round(raw)))
+}
+
+/**
+ * מחשב מפת גלגל ומחזיר מזלות עיקריים לצורך ציון יסודות
+ * @param person - נתוני אדם כולל תאריך לידה וקואורדינטות
+ * @returns שמות המזלות { sunSign, moonSign, risingSign } | null אם אין קואורדינטות
+ */
+function getChartSigns(person: PersonCompatInput): {
+  sunSign: string
+  moonSign: string
+  risingSign: string
+} | null {
+  if (person.latitude == null || person.longitude == null) return null
+  try {
+    const datetime = new Date(`${person.birthDate}T${person.birthTime}:00`)
+    const planets = getEphemerisPositions(datetime)
+    const chart = assembleChart(datetime, person.latitude, person.longitude, planets)
+    const sunSign = getSign(planets.sun?.longitude ?? 0)
+    const moonSign = getSign(planets.moon?.longitude ?? 0)
+    const risingSign = getSign(chart.ascendant)
+    return { sunSign, moonSign, risingSign }
+  } catch {
+    return null
+  }
+}
+
+// ===== POST handler =====
+
+/** POST /api/tools/compatibility — ניתוח תאימות משולב */
 export async function POST(request: NextRequest) {
   try {
-    // אימות משתמש
+    // שלב 1: אימות משתמש
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
-    // ולידציה של הקלט
+    // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = CompatibilityInputSchema.safeParse(body)
     if (!parsed.success) {
@@ -76,81 +147,76 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { person1, person2, compatibilityType } = parsed.data
-    const typeLabel = COMPATIBILITY_TYPE_LABELS[compatibilityType] ?? compatibilityType
+    const { person1, person2 } = parsed.data
 
-    // שליפת הקשר האישי של הפונה להעשרת הפרומפט
-    const ctx = await getPersonalContext(supabase, user.id)
-    const personalLine = ctx.firstName
-      ? `הפונה הוא ${ctx.firstName} (מזל ${ctx.zodiacSign}, מספר חיים ${ctx.lifePathNumber}). `
-      : ''
+    // שלב 3: חישוב תאימות נומרולוגית (סינכרוני)
+    const numResult = calculateNumerologyCompatibility(
+      { fullName: person1.fullName, birthDate: person1.birthDate },
+      { fullName: person2.fullName, birthDate: person2.birthDate },
+    )
+    const numerologyScore = numResult.scores.overall
 
-    // בניית הנחיית מערכת בעברית
-    const systemPrompt = personalLine + `אתה אסטרולוג ונומרולוג מומחה. נתח את התאימות בין שני אנשים על בסיס נתוני הלידה שלהם.
+    // שלב 4: חישוב תאימות אסטרולוגית — מקביל לשני האנשים
+    const [charts1, charts2] = await Promise.allSettled([
+      Promise.resolve(getChartSigns(person1)),
+      Promise.resolve(getChartSigns(person2)),
+    ])
 
-סוג תאימות: ${typeLabel}
-אדם 1: ${person1.name}, נולד/ה ${person1.birthDate}${person1.birthTime ? ` בשעה ${person1.birthTime}` : ''}
-אדם 2: ${person2.name}, נולד/ה ${person2.birthDate}${person2.birthTime ? ` בשעה ${person2.birthTime}` : ''}
+    const c1 = charts1.status === 'fulfilled' ? charts1.value : null
+    const c2 = charts2.status === 'fulfilled' ? charts2.value : null
 
-נתח תאימות אסטרולוגית (מזלות שמש, אלמנטים, היבטים) ונומרולוגית (מספרי חיים, מספרי גורל).
-סוג הקשר "${typeLabel}" צריך להנחות את הפוקוס של הניתוח.
+    // חישוב ציון אסטרולוגי — fallback=65 כשאין קואורדינטות
+    const astrologyScore = c1 && c2
+      ? calculateElementScore(
+          c1.sunSign, c1.moonSign, c1.risingSign,
+          c2.sunSign, c2.moonSign, c2.risingSign,
+        )
+      : 65
 
-החזר JSON עם המבנה הבא:
-- overall_score: ציון כולל 0-100
-- category_scores: מערך של { category, score, description } — לפחות 3 קטגוריות (אסטרולוגיה, נומרולוגיה, תקשורת)
-- strengths: מערך מחרוזות — 3-5 נקודות חוזקה של הזוג
-- challenges: מערך מחרוזות — 2-4 אתגרים בקשר
-- advice: עצה כללית לחיזוק הקשר
-- summary: סיכום קצר של התאימות בעברית`
+    // שלב 5: חישוב ציון כולל משוקלל
+    const totalScore = calculateCombinedScore(numerologyScore, astrologyScore)
 
-    /** סכמת responseSchema ל-JSON mode */
-    const responseSchema = {
-      type: 'object',
-      properties: {
-        overall_score: { type: 'number', minimum: 0, maximum: 100 },
-        category_scores: {
-          type: 'array',
-          items: {
-            type: 'object',
-            properties: {
-              category: { type: 'string' },
-              score: { type: 'number' },
-              description: { type: 'string' },
-            },
-          },
-        },
-        strengths: { type: 'array', items: { type: 'string' } },
-        challenges: { type: 'array', items: { type: 'string' } },
-        advice: { type: 'string' },
-        summary: { type: 'string' },
-      },
-    }
+    // שלב 6: Anti-Barnum prompt — כל טענה מבוססת על נתונים ספציפיים שחושבו
+    const p1LifePath = numResult.person1
+    const p2LifePath = numResult.person2
+    const p1SunSign = c1?.sunSign ?? 'לא זמין'
+    const p2SunSign = c2?.sunSign ?? 'לא זמין'
 
-    // קריאת LLM — טקסט בלבד (ללא imageUrls)
-    const llmResponse = await invokeLLM<CompatibilityResponse>({
+    const systemPrompt = `אתה יועץ אסטרולוגיה ונומרולוגיה.
+
+ניתוח זה מבוסס על נתונים ספציפיים שחושבו:
+- ציון נומרולוגי: ${numerologyScore}/100 (בין ${p1LifePath} ו-${p2LifePath})
+  • נתיב חיים: ${numResult.scores.life_path}/100
+  • גורל: ${numResult.scores.destiny}/100
+  • נשמה: ${numResult.scores.soul}/100
+- ציון אסטרולוגי: ${astrologyScore}/100 (יסודות: ${p1SunSign} ו-${p2SunSign})
+- ציון כולל: ${totalScore}/100 (נומרולוגיה 40% + אסטרולוגיה 60%)
+
+אל תיתן הכללות — בסס כל טענה על הנתונים הספציפיים שחושבו.
+ספק ניתוח קצר (3-4 משפטים) המסביר מה הציונים אומרים על הקשר.`
+
+    const llmResponse = await invokeLLM<string>({
       userId: user.id,
       systemPrompt,
-      prompt: 'נתח תאימות בין שני האנשים לפי הנתונים שסיפקתי.',
-      responseSchema,
-      zodSchema: CompatibilityResponseSchema,
-      maxTokens: 2000,
+      prompt: `נתח את התאימות בין ${person1.fullName} ל-${person2.fullName} לפי הנתונים שסיפקתי. היה ספציפי.`,
+      maxTokens: 600,
     })
 
-    // בדיקת תוקף תגובת ה-LLM
-    if (!llmResponse.validationResult?.success) {
-      console.error('[compatibility] LLM validation failed:', llmResponse.validationResult)
-      return NextResponse.json({ error: 'שגיאה בניתוח תאימות — תגובה לא תקינה' }, { status: 500 })
-    }
+    const interpretation = String(llmResponse.data)
 
-    const validatedResult = llmResponse.validationResult.data as CompatibilityResponse
-
-    // שמירת הניתוח ב-DB — tool_type='compatibility' (לא 'numerology_compatibility')
+    // שלב 7: שמירת הניתוח ב-DB
     const row: TablesInsert<'analyses'> = {
       user_id: user.id,
       tool_type: 'compatibility',
-      input_data: JSON.parse(JSON.stringify({ person1, person2, compatibilityType })),
-      results: JSON.parse(JSON.stringify(validatedResult)),
-      summary: validatedResult.summary,
+      input_data: JSON.parse(JSON.stringify({ person1, person2 })),
+      results: JSON.parse(JSON.stringify({
+        numerologyScore,
+        astrologyScore,
+        totalScore,
+        numerologyBreakdown: numResult.scores,
+        interpretation,
+      })),
+      summary: `תאימות ${person1.fullName} ו-${person2.fullName}: ${totalScore}/100`,
     }
     const { data: analysis } = await supabase
       .from('analyses')
@@ -158,9 +224,16 @@ export async function POST(request: NextRequest) {
       .select('id')
       .single()
 
+    // שלב 8: החזרת תוצאה מלאה
     return NextResponse.json({
       data: {
-        ...validatedResult,
+        numerologyScore,
+        astrologyScore,
+        totalScore,
+        numerologyBreakdown: numResult.scores,
+        person1Signs: c1,
+        person2Signs: c2,
+        interpretation,
         analysis_id: analysis?.id ?? null,
       },
     })
