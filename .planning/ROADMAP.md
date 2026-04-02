@@ -88,7 +88,7 @@ Plans:
 Plans:
 - [x] 15-01-PLAN.md — Migrate 5 remaining tool page PageHeaders
 - [x] 15-02-PLAN.md — Migrate StatCards dashboard icons + Header mobile logo
-- [ ] 15-03-PLAN.md — Migrate InsightHeroCard section icons + learn page PageHeaders
+- [x] 15-03-PLAN.md — Migrate InsightHeroCard section icons + learn page PageHeaders
 **UI hint**: yes
 
 ### Phase 16: CSS & Interaction Polish
