@@ -7,7 +7,8 @@
 
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { Sparkles, Brain, Calendar, Loader2, Database } from 'lucide-react'
+import { Brain, Calendar, Loader2, Database } from 'lucide-react'
+import { GiAllSeeingEye } from 'react-icons/gi'
 import { motion, useReducedMotion } from 'framer-motion'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
@@ -134,7 +135,7 @@ export default function SynthesisPage() {
       <StandardSectionHeader
         title="סינתזה מיסטית הוליסטית"
         description="ה-AI שלנו מחבר את כל הנקודות מכל הכלים לתמונה אחת שלמה וצלולה"
-        icon={<Sparkles className="h-5 w-5" />}
+        icon={<GiAllSeeingEye className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

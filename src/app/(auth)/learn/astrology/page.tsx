@@ -9,7 +9,7 @@
 
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { Stars } from 'lucide-react'
+import { GiAstrolabe } from 'react-icons/gi'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { TutorChat, type ChatMessage } from '@/components/features/learn/TutorChat'
@@ -93,7 +93,7 @@ export default function AstrologyTutorPage() {
       <PageHeader
         title="מורה אסטרולוגיה"
         description="שאל שאלות על אסטרולוגיה וקבל הסברים מותאמים אישית"
-        icon={<Stars className="h-6 w-6 text-primary" />}
+        icon={<GiAstrolabe className="h-6 w-6 text-primary" />}
       />
 
       <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">
