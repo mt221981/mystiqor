@@ -113,7 +113,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 13. Onboarding Fix | v1.1 | 0/0 | Not started | - |
 | 14. Typography & Hebrew Localization | v1.1 | 1/1 | Complete | 2026-03-27 |
-| 15. Icons Migration | v1.1 | 2/3 | In Progress|  |
+| 15. Icons Migration | v1.1 | 2/3 | Complete    | 2026-04-02 |
 | 16. CSS & Interaction Polish | v1.1 | 0/0 | Not started | - |
 | 17. Loading & Reveal Animations | v1.1 | 0/0 | Not started | - |
 | 18. Tarot Card Library | v1.2 | 4/4 | Complete | 2026-03-28 |
