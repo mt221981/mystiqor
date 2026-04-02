@@ -3,13 +3,13 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: Ready to execute
-stopped_at: Completed 02-08-PLAN.md (Compatibility Tool)
-last_updated: "2026-04-02T22:50:30.336Z"
+stopped_at: Completed 02-06-PLAN.md (Solar Return + Transits)
+last_updated: "2026-04-02T22:56:11.767Z"
 progress:
   total_phases: 9
   completed_phases: 1
   total_plans: 17
-  completed_plans: 24
+  completed_plans: 25
 ---
 
 # Project State
@@ -24,7 +24,7 @@ See: .planning/PROJECT.md (updated 2026-03-20)
 ## Current Position
 
 Phase: 02 (core-features) — EXECUTING
-Plan: 5 of 9
+Plan: 6 of 9
 
 ## Phase Completion
 
@@ -80,6 +80,7 @@ Remaining:
 | Phase 02-core-features P05 | 5 | 2 tasks | 2 files |
 | Phase 02-core-features P07 | 6 | 2 tasks | 3 files |
 | Phase 02 P08 | 6 | 1 tasks | 3 files |
+| Phase 02-core-features P06 | 30 | 2 tasks | 4 files |
 
 ## Accumulated Context
 
@@ -130,6 +131,9 @@ Recent decisions affecting current work:
 - [Phase 02-07]: tool_type='astrology' for readings — no new ToolType enum entry needed, consistent with existing schema
 - [Phase 02]: calculateCombinedScore exported as pure function — testable without Supabase/LLM, numerology 40% + astrology 60% weights
 - [Phase 02]: ELEMENT_COMPAT uses Hebrew keys (אש/אדמה/אוויר/מים) matching ZODIAC_SIGNS.element — not English keys as in plan spec
+- [Phase 02-core-features]: Solar Return API fetches birth data from profiles table — user does not re-enter birth data in form
+- [Phase 02-core-features]: Transits REBUILD uses astronomy-engine real ephemeris (±1 arcminute) instead of simplified mean motion (±1-2°)
+- [Phase 02-core-features]: Prereq guard pattern: useQuery natal chart check + EmptyState with router.push to /tools/astrology
 
 ### Pending Todos
 
@@ -144,6 +148,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-02T22:50:30.334Z
-Stopped at: Completed 02-08-PLAN.md (Compatibility Tool)
+Last session: 2026-04-02T22:56:11.764Z
+Stopped at: Completed 02-06-PLAN.md (Solar Return + Transits)
 Resume file: None
