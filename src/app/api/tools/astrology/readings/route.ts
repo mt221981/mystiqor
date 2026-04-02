@@ -12,22 +12,7 @@ import { INTERPRETATION_SYSTEM_PROMPT } from '@/services/astrology/prompts/inter
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 
-// ===== הגדרת 8 סוגי קריאות =====
-
-/** 8 סוגי קריאות אסטרולוגיות */
-export const READING_TYPES = [
-  { id: 'birth_chart',   label: 'מפת לידה',         additionalInput: null },
-  { id: 'monthly',       label: 'תחזית חודשית',      additionalInput: 'month' },
-  { id: 'yearly',        label: 'תחזית שנתית',       additionalInput: 'year' },
-  { id: 'transits',      label: 'טרנזיטים',          additionalInput: 'date' },
-  { id: 'compatibility', label: 'תאימות',             additionalInput: 'person2' },
-  { id: 'relationship',  label: 'דינמיקת יחסים',     additionalInput: 'person2' },
-  { id: 'career',        label: 'קריירה',             additionalInput: null },
-  { id: 'question',      label: 'שאלה ספציפית',      additionalInput: 'question' },
-] as const
-
-/** טיפוס מזהי סוג הקריאה */
-export type ReadingTypeId = (typeof READING_TYPES)[number]['id']
+import { READING_TYPES, type ReadingTypeId } from '@/lib/constants/readings'
 
 // ===== סכמות ולידציה =====
 

@@ -23,7 +23,7 @@ import { EmptyState } from '@/components/common/EmptyState'
 import { ReadingCard } from '@/components/features/astrology/ReadingCard'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
-import { READING_TYPES, type ReadingTypeId } from '@/app/api/tools/astrology/readings/route'
+import { READING_TYPES, type ReadingTypeId } from '@/lib/constants/readings'
 
 // ===== טיפוסים =====
 

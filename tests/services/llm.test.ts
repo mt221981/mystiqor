@@ -5,9 +5,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 // Mock OpenAI — לא קוראים ל-API אמיתי בבדיקות
-vi.mock('openai', () => ({
-  default: vi.fn().mockImplementation(() => ({
-    chat: {
+vi.mock('openai', () => {
+  class MockOpenAI {
+    chat = {
       completions: {
         create: vi.fn().mockResolvedValue({
           choices: [{ message: { content: 'תשובת LLM לבדיקה' } }],
@@ -15,9 +15,10 @@ vi.mock('openai', () => ({
           model: 'gpt-4o-mini',
         }),
       },
-    },
-  })),
-}))
+    }
+  }
+  return { default: MockOpenAI }
+})
 
 // Mock sanitizeForLLM — מוודא שנקרא לפני שליחה
 vi.mock('@/lib/utils/sanitize', () => ({
