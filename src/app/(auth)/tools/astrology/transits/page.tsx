@@ -8,8 +8,9 @@
  */
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -27,8 +28,10 @@ import { Label } from '@/components/ui/label'
 import { Badge } from '@/components/ui/badge'
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
+import { EmptyState } from '@/components/common/EmptyState'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
+import { createClient } from '@/lib/supabase/client'
 
 // ===== סכמות ולידציה =====
 
@@ -279,6 +282,25 @@ export default function TransitsPage() {
   const [result, setResult] = useState<TransitsResult | null>(null)
   const { incrementUsage } = useSubscription()
   const shouldReduceMotion = useReducedMotion()
+  const router = useRouter()
+
+  // בדיקת תנאי מוקדם: מפת לידה קיימת (tool_type: 'astrology')
+  const { data: natalChart, isLoading: prereqLoading } = useQuery({
+    queryKey: ['natal-chart-prereq'],
+    queryFn: async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      const { data } = await supabase
+        .from('analyses')
+        .select('results, id')
+        .eq('user_id', user!.id)
+        .eq('tool_type', 'astrology')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      return data
+    },
+  })
 
   const { register, handleSubmit } = useForm<TransitsFormValues>({
     resolver: zodResolver(TransitsFormSchema),
@@ -300,6 +322,17 @@ export default function TransitsPage() {
 
   const onSubmit = (values: TransitsFormValues) => {
     mutation.mutate(values)
+  }
+
+  // תנאי מוקדם: אם אין מפת לידה — הצג מצב ריק עם קישור לאסטרולוגיה
+  if (!prereqLoading && !natalChart) {
+    return (
+      <EmptyState
+        title="נדרשת מפת לידה"
+        description="כדי לחשב מעברים פלנטריים יש צורך במפת לידה קיימת. צור מפת לידה תחילה."
+        action={{ label: 'עבור למפת לידה', onClick: () => router.push('/tools/astrology') }}
+      />
+    )
   }
 
   return (

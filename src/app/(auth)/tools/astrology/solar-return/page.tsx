@@ -9,8 +9,9 @@
 
 import { useState } from 'react'
 import dynamic from 'next/dynamic'
+import { useRouter } from 'next/navigation'
 import { motion, useReducedMotion } from 'framer-motion'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
@@ -29,8 +30,10 @@ import { SubscriptionGuard } from '@/components/features/subscription/Subscripti
 import { AIInterpretation } from '@/components/features/astrology/ChartInfoPanels/AIInterpretation'
 import { PlanetTable } from '@/components/features/astrology/ChartInfoPanels/PlanetTable'
 import { AspectList } from '@/components/features/astrology/ChartInfoPanels/AspectList'
+import { EmptyState } from '@/components/common/EmptyState'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
+import { createClient } from '@/lib/supabase/client'
 import type { ChartData } from '@/services/astrology/chart'
 
 /** BirthChart נטען באופן עצלן — רכיב SVG כבד, SSR לא נתמך */
@@ -231,6 +234,25 @@ export default function SolarReturnPage() {
   const [submittedYear, setSubmittedYear] = useState<number>(currentYear)
   const { incrementUsage } = useSubscription()
   const shouldReduceMotion = useReducedMotion()
+  const router = useRouter()
+
+  // בדיקת תנאי מוקדם: מפת לידה קיימת (tool_type: 'astrology')
+  const { data: natalChart, isLoading: prereqLoading } = useQuery({
+    queryKey: ['natal-chart-prereq'],
+    queryFn: async () => {
+      const supabase = createClient()
+      const { data: { user } } = await supabase.auth.getUser()
+      const { data } = await supabase
+        .from('analyses')
+        .select('results, id')
+        .eq('user_id', user!.id)
+        .eq('tool_type', 'astrology')
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle()
+      return data
+    },
+  })
 
   const { register, handleSubmit, setValue, watch } = useForm<SolarReturnFormValues>({
     resolver: zodResolver(SolarReturnFormSchema),
@@ -255,6 +277,17 @@ export default function SolarReturnPage() {
   const onSubmit = (values: SolarReturnFormValues) => {
     setSubmittedYear(Number(values.targetYear))
     mutation.mutate(values)
+  }
+
+  // תנאי מוקדם: אם אין מפת לידה — הצג מצב ריק עם קישור לאסטרולוגיה
+  if (!prereqLoading && !natalChart) {
+    return (
+      <EmptyState
+        title="נדרשת מפת לידה"
+        description="כדי לחשב מהפכה שמשית יש צורך במפת לידה קיימת. צור מפת לידה תחילה."
+        action={{ label: 'עבור למפת לידה', onClick: () => router.push('/tools/astrology') }}
+      />
+    )
   }
 
   return (
