@@ -12,10 +12,10 @@
 **Requirements:** FIX-01, FIX-02
 **UI hint:** no
 **Depends on:** none
-**Plans:** 1 plan
+**Plans:** 1/1 plans complete
 
 Plans:
-- [ ] 25-01-PLAN.md — Fix BottomTabBar 404 href and add missing PROTECTED_PATHS entries
+- [x] 25-01-PLAN.md — Fix BottomTabBar 404 href and add missing PROTECTED_PATHS entries
 
 ---
 
