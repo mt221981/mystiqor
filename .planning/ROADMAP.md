@@ -12,10 +12,10 @@
 **Requirements:** FIX-01, FIX-02
 **UI hint:** no
 **Depends on:** none
+**Plans:** 1 plan
 
-Tasks:
-1. Fix BottomTabBar href from `/daily-insights` to `/tools/daily-insights` (BottomTabBar.tsx:31)
-2. Add `/notifications`, `/referrals`, `/pricing` to PROTECTED_PATHS in middleware.ts
+Plans:
+- [ ] 25-01-PLAN.md — Fix BottomTabBar 404 href and add missing PROTECTED_PATHS entries
 
 ---
 
