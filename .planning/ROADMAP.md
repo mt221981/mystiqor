@@ -25,10 +25,10 @@ Plans:
 **Requirements:** VER-01
 **UI hint:** no
 **Depends on:** none
+**Plans:** 1 plan
 
-Tasks:
-1. Run verifier against Phase 01 outputs (8 plans, 9 summaries, services, GEMs, schemas, API routes)
-2. Create 01-VERIFICATION.md with observable truths, artifact check, link verification
+Plans:
+- [ ] 26-01-PLAN.md — Verify all Phase 01 must_haves and write 01-VERIFICATION.md
 
 ---
 
