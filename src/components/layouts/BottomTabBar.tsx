@@ -28,7 +28,7 @@ interface TabDefinition {
 const TABS: readonly TabDefinition[] = [
   { label: 'לוח בקרה', href: '/dashboard', Icon: LayoutDashboard },
   { label: 'נועה', href: '/coach', Icon: GiCrystalBall },
-  { label: 'תובנות', href: '/daily-insights', Icon: Lightbulb },
+  { label: 'תובנות', href: '/tools/daily-insights', Icon: Lightbulb },
   { label: 'כלים', href: '/tools', Icon: Grid2x2 },
   { label: 'פרופיל', href: '/profile', Icon: User },
 ] as const;
