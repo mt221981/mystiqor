@@ -312,7 +312,7 @@ export default function GraphologyPage() {
               <CardContent className="space-y-4">
                 {result.insights.map((insight, i) => (
                   <div key={i} className="space-y-1">
-                    <p className="text-xs font-semibold text-primary font-label uppercase tracking-wide">
+                    <p className="text-xs font-semibold text-primary font-label uppercase">
                       {insight.category}
                     </p>
                     <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">

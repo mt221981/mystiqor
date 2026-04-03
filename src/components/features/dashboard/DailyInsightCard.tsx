@@ -150,7 +150,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
       <div className="relative flex items-start justify-between gap-4">
         {/* תוכן */}
         <div className="flex-1 min-w-0">
-          <p className="text-xs font-label font-medium uppercase tracking-wider text-white/70 mb-1">
+          <p className="text-xs font-label font-medium uppercase text-white/70 mb-1">
             תובנה יומית
           </p>
           <h2 className="text-lg font-headline font-bold text-white mb-1">{todayFormatted}</h2>

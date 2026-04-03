@@ -156,7 +156,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
             <div className="rounded-lg border border-tertiary/20 bg-tertiary/10 p-3">
               <div className="flex items-center gap-2 mb-1.5">
                 <GiLightBulb className="h-4 w-4 shrink-0 text-tertiary" aria-hidden="true" />
-                <span className="text-xs font-label font-semibold uppercase tracking-wide text-tertiary">
+                <span className="text-xs font-label font-semibold uppercase text-tertiary">
                   טיפ ליום
                 </span>
               </div>
