@@ -20,6 +20,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   weight: ['300', '400', '500', '600', '700', '800'],
   variable: '--font-headline',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 /** פונט גוף — Inter */
@@ -28,6 +29,7 @@ const inter = Inter({
   weight: ['300', '400', '500', '600'],
   variable: '--font-body',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 /** פונט תוויות — Manrope */
@@ -36,6 +38,7 @@ const manrope = Manrope({
   weight: ['400', '500', '600', '700'],
   variable: '--font-label',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 /** פונט עברי — Heebo */
@@ -44,6 +47,7 @@ const heebo = Heebo({
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-hebrew',
   display: 'swap',
+  adjustFontFallback: true,
 });
 
 // ===== מטא-נתונים =====
