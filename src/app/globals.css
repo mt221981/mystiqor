@@ -111,6 +111,17 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
   }
+
+  /* === טיפוגרפיה עברית גלובלית — D-01, D-02, D-03 === */
+  .font-body {
+    line-height: 1.7;
+    letter-spacing: 0;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .font-label {
+    letter-spacing: 0;
+  }
 }
 
 /* ===== כלי עזר מותאמים — עיצוב קוסמי עשיר ===== */
