@@ -52,7 +52,7 @@ export function PlanetGrid({ className }: PlanetGridProps) {
             </p>
 
             {/* תיאור */}
-            <p className="text-sm text-on-surface-variant font-body leading-relaxed">
+            <p className="text-sm text-on-surface-variant font-body">
               {planet.description}
             </p>
           </div>

@@ -54,7 +54,7 @@ export function NumberCard({
 
         {/* תיאור אופציונלי */}
         {description && (
-          <p className="text-xs font-body text-on-surface-variant leading-relaxed mt-1">
+          <p className="text-xs font-body text-on-surface-variant mt-1">
             {description}
           </p>
         )}

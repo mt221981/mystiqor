@@ -72,7 +72,7 @@ function DocumentResults({ result }: { result: DocumentResult }) {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-label font-medium mb-2">
                 <FileText className="h-3 w-3" />{result.document_type}
               </div>
-              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{result.summary}</p>
+              <p className="text-on-surface-variant text-sm font-body">{result.summary}</p>
             </div>
           </div>
         </CardContent>
@@ -110,7 +110,7 @@ function DocumentResults({ result }: { result: DocumentResult }) {
                   <span className={`font-label text-xs px-2 py-0.5 rounded-full border font-medium ${cat.style}`}>{cat.label}</span>
                   <span className="text-sm text-on-surface font-medium font-label">{insight.title}</span>
                 </div>
-                <p className="font-label text-xs text-on-surface-variant leading-relaxed">{insight.content}</p>
+                <p className="font-label text-xs text-on-surface-variant">{insight.content}</p>
               </div>
             )
           })}

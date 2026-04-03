@@ -41,13 +41,13 @@ export function BarnumEthicsStep({ onNext, onUpdate }: BarnumEthicsStepProps) {
       <h2 className="text-xl font-bold text-foreground">הבנת הניתוחים</h2>
 
       <div className="space-y-3 rounded-xl border border-border bg-card/50 p-5">
-        <p className="text-sm text-foreground leading-relaxed">
+        <p className="text-sm text-foreground">
           ניתוחים מבוססים על 2-3+ נקודות מידע ספציפיות שלך
         </p>
-        <p className="text-sm text-foreground leading-relaxed">
+        <p className="text-sm text-foreground">
           פוטנציאלים — לא גורל. רצון חופשי וסביבה משחקים תפקיד מרכזי
         </p>
-        <p className="text-sm text-foreground leading-relaxed">
+        <p className="text-sm text-foreground">
           מקורות לטענות, סתירות מזוהות, גיבוי מדעי
         </p>
       </div>
@@ -60,7 +60,7 @@ export function BarnumEthicsStep({ onNext, onUpdate }: BarnumEthicsStepProps) {
             onCheckedChange={(checked) => handleBarnumChange(checked === true)}
             className="mt-0.5"
           />
-          <Label htmlFor="barnum-checkbox" className="text-sm leading-relaxed cursor-pointer">
+          <Label htmlFor="barnum-checkbox" className="text-sm cursor-pointer">
             מבין/ה שהניתוחים מצביעים על פוטנציאלים, לא גורל
           </Label>
         </div>
@@ -72,7 +72,7 @@ export function BarnumEthicsStep({ onNext, onUpdate }: BarnumEthicsStepProps) {
             onCheckedChange={(checked) => handleTermsChange(checked === true)}
             className="mt-0.5"
           />
-          <Label htmlFor="terms-checkbox" className="text-sm leading-relaxed cursor-pointer">
+          <Label htmlFor="terms-checkbox" className="text-sm cursor-pointer">
             מסכים/ה לתנאי השימוש
           </Label>
         </div>

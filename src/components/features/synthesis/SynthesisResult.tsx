@@ -179,7 +179,7 @@ function WeeklySections({
         <motion.div variants={itemVariants}>
           <div className="bg-gradient-to-br from-primary-container/10 to-secondary-container/10 rounded-xl p-6 border border-outline-variant/5">
             <h3 className="text-base font-headline font-bold text-on-surface mb-3">סיכום תקופה</h3>
-            <p className="text-on-surface-variant font-body leading-relaxed">{period_summary}</p>
+            <p className="text-on-surface-variant font-body">{period_summary}</p>
           </div>
         </motion.div>
       )}
@@ -211,7 +211,7 @@ export function SynthesisResult({ result }: SynthesisResultProps) {
             פרופיל אישיות משולב
           </h3>
           <div className="space-y-6">
-            <p className="text-on-surface font-body leading-relaxed border-s-4 border-primary/40 ps-4 bg-primary-container/5 py-3 rounded-e-lg">
+            <p className="text-on-surface font-body border-s-4 border-primary/40 ps-4 bg-primary-container/5 py-3 rounded-e-lg">
               {personality_profile.summary}
             </p>
 
@@ -290,7 +290,7 @@ export function SynthesisResult({ result }: SynthesisResultProps) {
                   </span>
                 </div>
                 <p className="text-sm text-on-surface font-body font-medium">{insight.area}</p>
-                <p className="text-xs text-on-surface-variant font-body leading-relaxed">{insight.prediction}</p>
+                <p className="text-xs text-on-surface-variant font-body">{insight.prediction}</p>
               </div>
             ))}
           </div>

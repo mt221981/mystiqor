@@ -189,7 +189,7 @@ export default function CareerPage() {
           {/* סיכום */}
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardContent className="pt-6">
-              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{result.summary}</p>
+              <p className="text-on-surface-variant text-sm font-body">{result.summary}</p>
             </CardContent>
           </Card>
 

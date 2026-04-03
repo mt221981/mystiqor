@@ -142,7 +142,7 @@ function TimingResults({ result }: TimingResultsProps) {
               <span className="text-on-surface-variant text-sm font-label">ירח ב{topDay.moonSign}</span>
             </div>
             {result.interpretation && (
-              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{result.interpretation}</p>
+              <p className="text-on-surface-variant text-sm font-body">{result.interpretation}</p>
             )}
           </CardContent>
         </Card>

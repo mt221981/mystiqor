@@ -94,7 +94,7 @@ export function FDMVisualization({ categories, emotionalIndicators }: FDMVisuali
                   className="flex items-center gap-3"
                 >
                   <div className={`w-2.5 h-2.5 rounded-full shrink-0 ${getIndicatorColor(idx)}`} />
-                  <span className="text-sm text-on-surface leading-relaxed font-body">{indicator}</span>
+                  <span className="text-sm text-on-surface font-body">{indicator}</span>
                 </motion.div>
               ))}
             </div>

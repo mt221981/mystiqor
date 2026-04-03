@@ -211,7 +211,7 @@ export default function TarotPage() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant">
                     <ReactMarkdown>{result.interpretation}</ReactMarkdown>
                   </div>
                 </CardContent>

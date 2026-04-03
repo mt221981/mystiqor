@@ -75,7 +75,7 @@ export function KoppitzIndicators({ indicators }: KoppitzIndicatorsProps) {
                   {SEVERITY_LABELS[indicator.severity]}
                 </Badge>
               </div>
-              <p className="text-xs leading-relaxed font-body opacity-80">
+              <p className="text-xs font-body opacity-80">
                 {indicator.description}
               </p>
             </div>

@@ -139,7 +139,7 @@ function AnalysisCard({
       </CardHeader>
       <CardContent className="space-y-3">
         {/* סיכום */}
-        <p className="text-sm text-on-surface leading-relaxed line-clamp-3 font-body">{response.summary}</p>
+        <p className="text-sm text-on-surface line-clamp-3 font-body">{response.summary}</p>
 
         {/* ציון Koppitz */}
         {response.koppitz_score !== undefined && (

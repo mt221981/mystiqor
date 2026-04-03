@@ -155,7 +155,7 @@ export function GraphologyTimeline({ userId: _userId }: GraphologyTimelineProps)
                         </span>
                       </div>
                     </div>
-                    <p className="text-xs text-on-surface-variant leading-relaxed font-body">
+                    <p className="text-xs text-on-surface-variant font-body">
                       {summaryText}
                     </p>
                   </div>

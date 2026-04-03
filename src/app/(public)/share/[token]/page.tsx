@@ -126,7 +126,7 @@ export default async function SharePage({ params }: SharePageProps) {
         {analysis.summary && (
           <div>
             <h3 className="font-medium mb-2">סיכום</h3>
-            <p className="text-sm text-foreground leading-relaxed">{analysis.summary}</p>
+            <p className="text-sm text-foreground">{analysis.summary}</p>
           </div>
         )}
 

@@ -72,7 +72,7 @@ export function AspectDictionary({ className }: AspectDictionaryProps) {
             </div>
 
             {/* תיאור */}
-            <p className="text-sm text-on-surface font-body leading-relaxed">
+            <p className="text-sm text-on-surface font-body">
               {aspect.description}
             </p>
           </div>

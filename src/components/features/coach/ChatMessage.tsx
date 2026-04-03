@@ -52,7 +52,7 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
       {isUser ? (
         /* הודעת משתמש — גרדיאנט קוסמי, זנב בפינה שמאל תחתון (RTL) */
         <div className="bg-gradient-to-br from-primary-container to-secondary-container rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%]">
-          <p className="text-white font-body text-sm leading-relaxed">{message.content}</p>
+          <p className="text-white font-body text-sm">{message.content}</p>
           {message.created_at && (
             <p className="text-white/70 font-label text-xs mt-1">
               {new Date(message.created_at).toLocaleTimeString('he-IL', {
@@ -67,10 +67,10 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
         <div className="bg-surface-container rounded-2xl rounded-br-sm px-4 py-3 max-w-[80%] border border-outline-variant/10">
           <div
             className="text-on-surface font-body text-sm prose prose-invert max-w-none
-              [&>p]:my-2 [&>p]:leading-relaxed
+              [&>p]:my-2 [&>p]:leading-[1.7]
               [&>ul]:my-2 [&>ul]:mr-4 [&>ul]:list-disc
               [&>ol]:my-2 [&>ol]:mr-4 [&>ol]:list-decimal
-              [&>li]:my-1 [&>li]:leading-relaxed
+              [&>li]:my-1 [&>li]:leading-[1.7]
               [&>h3]:text-base [&>h3]:font-bold [&>h3]:mt-3 [&>h3]:mb-2 [&>h3]:text-primary
               [&>h4]:text-sm [&>h4]:font-bold [&>h4]:mt-2 [&>h4]:mb-1 [&>h4]:text-primary
               [&>strong]:text-on-surface [&>strong]:font-bold

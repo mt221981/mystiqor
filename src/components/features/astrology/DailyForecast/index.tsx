@@ -111,7 +111,7 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
         {content && (
           <CardContent>
             <div className="bg-surface-container-high rounded-lg p-4">
-              <div className="prose prose-sm prose-invert max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="prose prose-sm prose-invert max-w-none text-on-surface-variant font-body">
                 <ReactMarkdown>{content}</ReactMarkdown>
               </div>
             </div>
@@ -138,7 +138,7 @@ export function DailyForecast({ content, forecast, zodiacSign, date, isLoading }
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-on-surface-variant text-sm leading-relaxed font-body">{text}</p>
+                  <p className="text-on-surface-variant text-sm font-body">{text}</p>
                 </CardContent>
               </Card>
             )

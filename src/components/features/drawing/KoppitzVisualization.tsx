@@ -113,7 +113,7 @@ export function KoppitzVisualization({ features, koppitzScore }: KoppitzVisualiz
                     {feature.present ? 'נוכח' : 'נעדר'}
                   </Badge>
                 </div>
-                <p className="text-xs text-on-surface-variant leading-relaxed font-body">
+                <p className="text-xs text-on-surface-variant font-body">
                   {feature.significance}
                 </p>
               </div>

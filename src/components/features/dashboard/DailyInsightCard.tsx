@@ -170,7 +170,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
           </div>
 
           {/* תובנה */}
-          <p className="text-sm text-white/80 font-body leading-relaxed max-w-prose">
+          <p className="text-sm text-white/80 font-body max-w-prose">
             {insightText}
           </p>
         </div>

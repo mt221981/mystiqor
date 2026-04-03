@@ -281,7 +281,7 @@ export default function CompatibilityPage() {
               <CardTitle className="text-base text-primary font-headline">ניתוח מפורט</CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                 <ReactMarkdown>{result.interpretation}</ReactMarkdown>
               </div>
             </CardContent>

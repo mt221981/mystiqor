@@ -269,7 +269,7 @@ export function AstroCalendar({ events, month, year, onMonthChange }: AstroCalen
                         <p className="text-on-surface font-medium font-label text-sm">{event.title}</p>
                       </div>
                       <Badge className={`font-label text-xs ${colors.badge}`}>{event.type}</Badge>
-                      <p className="text-on-surface-variant font-label text-xs leading-relaxed">{event.description}</p>
+                      <p className="text-on-surface-variant font-label text-xs">{event.description}</p>
                     </div>
                   )
                 })}

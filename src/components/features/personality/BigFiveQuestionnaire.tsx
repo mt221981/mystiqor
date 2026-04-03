@@ -122,7 +122,7 @@ export function BigFiveQuestionnaire({ onSubmit, isSubmitting }: BigFiveQuestion
 
                 return (
                   <div key={question.id} className="space-y-3">
-                    <Label className="text-sm font-body font-medium text-on-surface leading-relaxed block">
+                    <Label className="text-sm font-body font-medium text-on-surface block">
                       <span className="font-label text-primary text-sm">{question.id}.</span>{' '}
                       {question.text}
                     </Label>

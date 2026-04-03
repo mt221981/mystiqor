@@ -174,7 +174,7 @@ export default function SynthesisPage() {
                 <Brain className="w-7 h-7 text-white" />
               </div>
               <h2 className="font-headline font-bold text-on-surface text-xl mb-2">סינתזה הוליסטית</h2>
-              <p className="text-on-surface-variant font-body text-sm leading-relaxed">
+              <p className="text-on-surface-variant font-body text-sm">
                 שילוב כל הכלים לפרופיל אישיות מאוחד ותחזית עתידית מקיפה.
               </p>
             </div>
@@ -200,7 +200,7 @@ export default function SynthesisPage() {
                 <Calendar className="w-7 h-7 text-white" />
               </div>
               <h2 className="font-headline font-bold text-on-surface text-xl mb-2">דוח שבועי</h2>
-              <p className="text-on-surface-variant font-body text-sm leading-relaxed">
+              <p className="text-on-surface-variant font-body text-sm">
                 ניתוח דפוסי שימוש, המלצות לשילוב רוחני וסיכום 7 הימים האחרונים.
               </p>
             </div>

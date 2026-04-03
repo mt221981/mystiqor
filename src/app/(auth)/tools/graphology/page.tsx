@@ -257,13 +257,13 @@ export default function GraphologyPage() {
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                 <ReactMarkdown>{result.summary}</ReactMarkdown>
               </div>
               {result.overall_assessment && (
                 <div className="border-t border-outline-variant/20 pt-4">
                   <h3 className="text-sm font-semibold text-primary font-headline mb-2">הערכה כוללת</h3>
-                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                     <ReactMarkdown>{result.overall_assessment}</ReactMarkdown>
                   </div>
                 </div>

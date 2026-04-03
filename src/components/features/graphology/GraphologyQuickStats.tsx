@@ -111,7 +111,7 @@ export function GraphologyQuickStats({ components }: GraphologyQuickStatsProps) 
                 {component.score_1_to_10}/10
               </Badge>
             </div>
-            <p className="text-xs text-on-surface-variant leading-relaxed line-clamp-2 font-body">
+            <p className="text-xs text-on-surface-variant line-clamp-2 font-body">
               {component.description}
             </p>
           </div>
