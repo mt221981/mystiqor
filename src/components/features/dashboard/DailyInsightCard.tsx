@@ -139,7 +139,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
 
   return (
     <div
-      className="nebula-glow rounded-xl p-8 relative overflow-hidden"
+      className="nebula-glow rounded-2xl p-10 md:p-12 relative overflow-hidden"
       dir="rtl"
       role="region"
       aria-label="תובנה יומית"
@@ -153,19 +153,19 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
           <p className="text-xs font-label font-medium uppercase text-white/70 mb-1">
             תובנה יומית
           </p>
-          <h2 className="text-lg font-headline font-bold text-white mb-1">{todayFormatted}</h2>
+          <h2 className="text-2xl font-headline font-bold text-white mb-2">{todayFormatted}</h2>
 
-          <div className="flex items-center gap-4 mb-3">
+          <div className="flex items-center gap-4 mb-4">
             {/* מזל */}
-            <div className="bg-white/10 rounded-lg px-3 py-1.5 backdrop-blur-sm">
-              <span className="text-xs text-white/70">מזל:</span>
-              <span className="text-sm font-headline font-semibold text-white ms-1">{zodiacSign}</span>
+            <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
+              <span className="text-sm text-white/70">מזל:</span>
+              <span className="text-base font-headline font-semibold text-white ms-1">{zodiacSign}</span>
             </div>
 
             {/* מספר יומי */}
-            <div className="bg-white/10 rounded-lg px-3 py-1.5 backdrop-blur-sm">
-              <span className="text-xs text-white/70">מספר יומי:</span>
-              <span className="text-sm font-headline font-semibold text-white ms-1">{numerologyNumber}</span>
+            <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
+              <span className="text-sm text-white/70">מספר יומי:</span>
+              <span className="text-base font-headline font-semibold text-white ms-1">{numerologyNumber}</span>
             </div>
           </div>
 
@@ -177,10 +177,10 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
 
         {/* אייקון */}
         <div
-          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20"
+          className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white/10 ring-1 ring-white/20"
           aria-hidden="true"
         >
-          <GiSparkles className="h-7 w-7 text-white/90" />
+          <GiSparkles className="h-10 w-10 text-white/90" />
         </div>
       </div>
     </div>

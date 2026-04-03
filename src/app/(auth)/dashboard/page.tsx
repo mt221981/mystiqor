@@ -17,17 +17,18 @@ import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 
 import Link from 'next/link';
 import { motion, useReducedMotion } from 'framer-motion';
-import { GiCrystalBall, GiSparkles, GiCardRandom, GiAbacus, GiAstrolabe } from 'react-icons/gi';
-import { MessageCircle } from 'lucide-react';
+import { Sparkles, Smile, BookOpen, HelpCircle } from 'lucide-react';
 import { ErrorBoundary } from '@/components/common/ErrorBoundary';
 import { animations } from '@/lib/animations/presets';
 import { AnalysesChart, type ChartDataPoint } from '@/components/features/shared/AnalysesChart';
 import { DailyInsightCard } from '@/components/features/dashboard/DailyInsightCard';
+import { HeroToolGrid } from '@/components/features/dashboard/HeroToolGrid';
 import { BiorhythmChart } from '@/components/features/dashboard/BiorhythmChart';
 import { MoodTrendChart } from '@/components/features/dashboard/MoodTrendChart';
 import { GoalsProgressChart } from '@/components/features/dashboard/GoalsProgressChart';
 import { PeriodSelector, type Period } from '@/components/features/dashboard/PeriodSelector';
 import { StatCards } from '@/components/features/dashboard/StatCards';
+import { Button } from '@/components/ui/button';
 
 // ===== טיפוסים =====
 
@@ -56,6 +57,7 @@ interface GoalRow {
 /** נתוני פרופיל לדשבורד */
 interface ProfileData {
   readonly birth_date: string | null;
+  readonly full_name: string | null;
 }
 
 // ===== קבועים =====
@@ -134,6 +136,17 @@ function buildGoalsChartData(
   }));
 }
 
+/**
+ * מחזיר ברכה בעברית לפי שעת היום
+ */
+function getHebrewGreeting(): string {
+  const hour = new Date().getHours();
+  if (hour < 12) return 'בוקר טוב';
+  if (hour < 17) return 'צהריים טובים';
+  if (hour < 21) return 'ערב טוב';
+  return 'לילה טוב';
+}
+
 // ===== קומפוננטה =====
 
 /** לוח הבקרה הראשי */
@@ -151,10 +164,10 @@ export default function DashboardPage() {
       if (!user) throw new Error('לא מחובר');
       const { data } = await supabase
         .from('profiles')
-        .select('birth_date')
+        .select('birth_date, full_name')
         .eq('id', user.id)
         .maybeSingle();
-      return { birth_date: data?.birth_date ?? null };
+      return { birth_date: data?.birth_date ?? null, full_name: data?.full_name ?? null };
     },
     staleTime: CACHE_TIMES.LONG,
   });
@@ -288,64 +301,67 @@ export default function DashboardPage() {
     <ErrorBoundary>
       <motion.div className="space-y-8" dir="rtl" {...motionProps}>
 
-        {/* ===== באנר ברוכים הבאים — גיבור הדף ===== */}
-        <motion.div
-          className="relative overflow-hidden rounded-2xl bg-gradient-to-bl from-[#1a0a3e] via-[#2d1b69] to-[#0d0b1e] p-8 md:p-12 border border-primary/20"
-          {...staggerDelay(0)}
-        >
-          {/* רקע זוהר */}
-          <div className="absolute top-0 end-0 w-80 h-80 bg-primary/10 rounded-full blur-[100px] pointer-events-none" aria-hidden="true" />
-          <div className="absolute bottom-0 start-0 w-60 h-60 bg-gold/10 rounded-full blur-[80px] pointer-events-none" aria-hidden="true" />
+        {/* ===== 1. Hero — ברכה אישית ===== */}
+        <motion.div className="text-center space-y-4" {...staggerDelay(0)}>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+            <Sparkles className="w-4 h-4" />
+            <span>המסע שלך מתחיל כאן</span>
+          </div>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-thin tracking-tight text-foreground font-headline">
+            {getHebrewGreeting()},{' '}
+            <span className="font-bold text-gradient-gold">
+              {profile?.full_name?.split(' ')[0] ?? 'חבר'}
+            </span>
+          </h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto font-body">
+            היום הוא הזדמנות חדשה להכיר את עצמך קצת יותר לעומק.
+          </p>
+        </motion.div>
 
-          <div className="relative flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
-            <div className="flex-1">
-              <div className="flex items-center gap-3 mb-4">
-                <div className="flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary/30 to-gold/20 ring-1 ring-primary/30">
-                  <GiSparkles className="w-8 h-8 text-primary" />
-                </div>
-                <div>
-                  <h1 className="text-3xl md:text-4xl font-headline font-bold text-gradient-gold">
-                    שלום, ברוכים הבאים
-                  </h1>
-                  <p className="text-base text-muted-foreground mt-1">מה תרצה לגלות היום?</p>
-                </div>
-              </div>
+        {/* ===== 2. גריד 6 כלים עיקריים ===== */}
+        <motion.div {...staggerDelay(1)}>
+          <HeroToolGrid />
+        </motion.div>
 
-              {/* כפתורי גישה מהירה */}
-              <div className="flex flex-wrap gap-3 mt-6">
-                <Link href="/coach" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#8f2de6] to-[#d4a853] text-white font-bold text-base shadow-[0_0_20px_rgba(143,45,230,0.4)] hover:shadow-[0_0_30px_rgba(143,45,230,0.6)] transition-shadow">
-                  <MessageCircle className="w-5 h-5" />
-                  שוחח עם נועה המאמנת האישית שלך
-                </Link>
-                <Link href="/tools/tarot" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
-                  <GiCardRandom className="w-5 h-5 text-primary" />
-                  משיכת טארוט
-                </Link>
-                <Link href="/tools/astrology" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
-                  <GiAstrolabe className="w-5 h-5 text-gold" />
-                  מפת לידה
-                </Link>
-                <Link href="/tools/numerology" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-surface-container-high/80 text-foreground font-bold text-base border border-primary/20 hover:border-primary/40 transition-colors">
-                  <GiAbacus className="w-5 h-5 text-primary" />
-                  נומרולוגיה
-                </Link>
-              </div>
+        {/* ===== 3. תובנה יומית עם זוהר ===== */}
+        <motion.div {...staggerDelay(2)} className="max-w-2xl mx-auto w-full">
+          <div className="relative group">
+            <div className="absolute -inset-1 bg-gradient-to-r from-primary-container to-gold rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000" aria-hidden="true" />
+            <div className="relative bg-surface-container rounded-[1.75rem] overflow-hidden shadow-2xl border border-outline-variant/10">
+              <DailyInsightCard birthDate={profile?.birth_date ?? null} />
             </div>
           </div>
         </motion.div>
 
-        {/* ===== תובנה יומית ===== */}
-        <motion.div {...staggerDelay(1)}>
-          <DailyInsightCard birthDate={profile?.birth_date ?? null} />
+        {/* ===== 4. כפתורי פעולה מהירים ===== */}
+        <motion.div {...staggerDelay(3)} className="flex flex-wrap justify-center gap-4">
+          <Link href="/mood">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-primary hover:border-primary/50 transition-all gap-2">
+              <Smile className="w-4 h-4" />
+              <span>איך אני מרגיש?</span>
+            </Button>
+          </Link>
+          <Link href="/journal">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-blue-400 hover:border-blue-500/50 transition-all gap-2">
+              <BookOpen className="w-4 h-4" />
+              <span>יומן אישי</span>
+            </Button>
+          </Link>
+          <Link href="/coach">
+            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-gold hover:border-gold/50 transition-all gap-2">
+              <HelpCircle className="w-4 h-4" />
+              <span>שאל שאלה</span>
+            </Button>
+          </Link>
         </motion.div>
 
-        {/* ===== סטטיסטיקות ===== */}
-        <motion.div {...staggerDelay(2)}>
+        {/* ===== 5. סטטיסטיקות ===== */}
+        <motion.div {...staggerDelay(4)}>
           <StatCards stats={stats} isLoading={isStatsLoading} />
         </motion.div>
 
-        {/* ===== גרפים ומגמות ===== */}
-        <motion.div {...staggerDelay(3)}>
+        {/* ===== 6. גרפים ומגמות ===== */}
+        <motion.div {...staggerDelay(5)}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
             <PeriodSelector value={period} onChange={setPeriod} />

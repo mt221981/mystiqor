@@ -24,6 +24,9 @@ export interface SubscriptionGuardProps {
  * עוטף תוכן שדורש מנוי — אם למשתמש אין גישה, מציג כרטיס שדרוג
  */
 export function SubscriptionGuard({ feature, children, fallback }: SubscriptionGuardProps) {
+  // פתיחת כל הכלים — ללא בדיקת מנוי (להחזיר כשמנויים פעילים)
+  return <>{children}</>;
+
   const { canUseFeature, planInfo, isLoading } = useSubscription();
 
   if (isLoading) {
