@@ -307,7 +307,7 @@ export default function DashboardPage() {
             <Sparkles className="w-4 h-4" />
             <span>המסע שלך מתחיל כאן</span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-thin tracking-tight text-foreground font-headline">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-thin text-foreground font-headline">
             {getHebrewGreeting()},{' '}
             <span className="font-bold text-gradient-gold">
               {profile?.full_name?.split(' ')[0] ?? 'חבר'}
