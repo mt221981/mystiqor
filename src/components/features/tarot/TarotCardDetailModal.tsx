@@ -11,7 +11,6 @@ import {
   DialogHeader,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { GlassCard } from '@/components/ui/glass-card'
 import { Badge } from '@/components/ui/badge'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { TarotCardMeta } from './TarotCardMeta'
@@ -80,25 +79,25 @@ export function TarotCardDetailModal({
                 </div>
 
                 {/* משמעות ישרה */}
-                <GlassCard variant="gold" className="p-4">
+                <div className="mystic-card-gold rounded-xl p-4">
                   <h4 className="mb-1 text-xs font-label font-semibold text-accent">
                     משמעות ישרה
                   </h4>
                   <p className="text-sm font-body text-on-surface">
                     {card.meaning_upright}
                   </p>
-                </GlassCard>
+                </div>
 
                 {/* משמעות הפוכה */}
                 {card.meaning_reversed && (
-                  <GlassCard variant="default" className="p-4">
+                  <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-4">
                     <h4 className="mb-1 text-xs font-label font-semibold text-on-surface-variant">
                       משמעות הפוכה
                     </h4>
                     <p className="text-sm font-body text-on-surface-variant">
                       {card.meaning_reversed}
                     </p>
-                  </GlassCard>
+                  </div>
                 )}
 
                 {/* מטא-דאטה עשירה — תמיד מורחבת במודל */}
