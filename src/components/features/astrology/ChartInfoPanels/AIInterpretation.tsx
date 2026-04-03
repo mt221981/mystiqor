@@ -61,7 +61,7 @@ export function AIInterpretation({ interpretation, isLoading = false }: AIInterp
           <div>
             {/* תוכן Markdown עם RTL */}
             <div
-              className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant leading-relaxed"
+              className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant"
               dir="rtl"
             >
               <ReactMarkdown>{displayText}</ReactMarkdown>

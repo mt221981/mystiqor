@@ -44,7 +44,7 @@ function AnalysisColumn({ analysis }: { analysis: AnalysisWithResults }) {
 
       {/* סיכום */}
       {analysis.summary && (
-        <p className="font-body text-sm text-on-surface-variant leading-relaxed">
+        <p className="font-body text-sm text-on-surface-variant">
           {analysis.summary}
         </p>
       )}
@@ -52,7 +52,7 @@ function AnalysisColumn({ analysis }: { analysis: AnalysisWithResults }) {
       {/* תוצאות מפורטות */}
       <div className="bg-surface-container-high rounded-lg p-3 flex-1">
         <p className="font-label text-xs text-on-surface-variant mb-2">תוצאות מפורטות</p>
-        <pre className="font-body text-xs text-on-surface-variant overflow-auto max-h-96 whitespace-pre-wrap break-words leading-relaxed">
+        <pre className="font-body text-xs text-on-surface-variant overflow-auto max-h-96 whitespace-pre-wrap break-words">
           {JSON.stringify(analysis.results, null, 2)}
         </pre>
       </div>

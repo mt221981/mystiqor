@@ -136,7 +136,7 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
           {/* תוכן בפורמט Markdown */}
           <div className="prose prose-sm prose-invert max-w-none font-body text-white/80
             prose-headings:text-white prose-strong:text-white
-            prose-p:leading-relaxed">
+            prose-p:leading-[1.7]">
             <ReactMarkdown>{insight.content}</ReactMarkdown>
           </div>
 
@@ -156,11 +156,11 @@ export function InsightHeroCard({ insight, isLoading }: InsightHeroCardProps) {
             <div className="rounded-lg border border-tertiary/20 bg-tertiary/10 p-3">
               <div className="flex items-center gap-2 mb-1.5">
                 <GiLightBulb className="h-4 w-4 shrink-0 text-tertiary" aria-hidden="true" />
-                <span className="text-xs font-label font-semibold uppercase tracking-wide text-tertiary">
+                <span className="text-xs font-label font-semibold uppercase text-tertiary">
                   טיפ ליום
                 </span>
               </div>
-              <p className="text-sm font-body text-tertiary/90 leading-relaxed">
+              <p className="text-sm font-body text-tertiary/90">
                 {insight.actionable_tip}
               </p>
             </div>

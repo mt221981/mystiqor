@@ -136,7 +136,7 @@ export function JournalEntryCard({ entry, onEdit, onDelete }: JournalEntryCardPr
 
       {/* תצוגת תוכן מקוצרת */}
       {entry.title && (
-        <p className="font-body mb-3 text-sm text-on-surface-variant leading-relaxed">{contentPreview}</p>
+        <p className="font-body mb-3 text-sm text-on-surface-variant">{contentPreview}</p>
       )}
 
       {/* תחתית הכרטיס — מצב רוח + אנרגיה + הכרת תודה */}

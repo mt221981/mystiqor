@@ -101,7 +101,7 @@ export default function DrawingConceptCards() {
                 </div>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-on-surface leading-relaxed font-body">{card.description}</p>
+                <p className="text-sm text-on-surface font-body">{card.description}</p>
               </CardContent>
             </Card>
           )

@@ -84,7 +84,7 @@ export function TarotCardDetailModal({
                   <h4 className="mb-1 text-xs font-label font-semibold text-accent">
                     משמעות ישרה
                   </h4>
-                  <p className="text-sm font-body text-on-surface leading-relaxed">
+                  <p className="text-sm font-body text-on-surface">
                     {card.meaning_upright}
                   </p>
                 </GlassCard>
@@ -95,7 +95,7 @@ export function TarotCardDetailModal({
                     <h4 className="mb-1 text-xs font-label font-semibold text-on-surface-variant">
                       משמעות הפוכה
                     </h4>
-                    <p className="text-sm font-body text-on-surface-variant leading-relaxed">
+                    <p className="text-sm font-body text-on-surface-variant">
                       {card.meaning_reversed}
                     </p>
                   </GlassCard>

@@ -284,7 +284,7 @@ export function DrawingAnalysisForm() {
                 {result.insights.map((insight, idx) => (
                   <div key={idx} className="p-3 rounded-lg bg-surface-container-high/50 border border-outline-variant/20">
                     <p className="text-xs font-label font-medium text-primary mb-1">{insight.category}</p>
-                    <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+                    <div className="prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                       <ReactMarkdown>{insight.text}</ReactMarkdown>
                     </div>
                   </div>

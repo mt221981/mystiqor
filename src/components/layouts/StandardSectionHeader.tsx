@@ -102,7 +102,7 @@ export function StandardSectionHeader({
 
         {/* טקסט */}
         <div>
-          <h1 className="text-2xl font-headline font-bold tracking-tight text-gradient-gold">
+          <h1 className="text-2xl font-headline font-bold text-gradient-gold">
             {title}
           </h1>
           {description && (

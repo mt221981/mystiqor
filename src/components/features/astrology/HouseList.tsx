@@ -40,7 +40,7 @@ export function HouseList({ className }: HouseListProps) {
               <p className="text-sm text-on-surface-variant font-label mb-2">
                 {house.meaning}
               </p>
-              <p className="text-sm text-on-surface font-body leading-relaxed">
+              <p className="text-sm text-on-surface font-body">
                 {house.description}
               </p>
             </AccordionContent>

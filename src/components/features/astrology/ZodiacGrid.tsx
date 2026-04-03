@@ -57,7 +57,7 @@ export function ZodiacGrid({ className }: ZodiacGridProps) {
             </Badge>
 
             {/* תיאור */}
-            <p className="text-xs text-on-surface-variant font-body leading-relaxed line-clamp-3">
+            <p className="text-xs text-on-surface-variant font-body line-clamp-3">
               {sign.description}
             </p>
           </div>

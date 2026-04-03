@@ -157,7 +157,7 @@ export function MoodEntryCard({ entry, onDelete }: MoodEntryCardProps) {
 
       {/* הערות */}
       {entry.notes && (
-        <p className="font-body mt-3 text-sm text-on-surface-variant leading-relaxed">
+        <p className="font-body mt-3 text-sm text-on-surface-variant">
           {entry.notes}
         </p>
       )}

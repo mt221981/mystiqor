@@ -70,7 +70,7 @@ export function ExplainableInsight({ insight, showProvenance = true }: Explainab
         </CardHeader>
 
         <CardContent className="space-y-4">
-          <p className="text-muted-foreground leading-relaxed">{content}</p>
+          <p className="text-muted-foreground">{content}</p>
 
           {/* תגיות */}
           {tags.length > 0 && (

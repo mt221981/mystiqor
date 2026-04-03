@@ -158,7 +158,7 @@ function JourneyStepItem({
             </span>
           </div>
 
-          <p className="mb-2 line-clamp-2 text-xs leading-relaxed text-on-surface-variant">
+          <p className="mb-2 line-clamp-2 text-xs text-on-surface-variant">
             {step.description}
           </p>
 

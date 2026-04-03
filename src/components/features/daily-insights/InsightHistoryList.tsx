@@ -128,7 +128,7 @@ function InsightHistoryItem({ insight }: InsightHistoryItemProps) {
 
               {/* תצוגה מקוצרת */}
               {!isExpanded && (
-                <p className="text-xs font-body text-on-surface-variant leading-relaxed">
+                <p className="text-xs font-body text-on-surface-variant">
                   {truncateText(insight.content)}
                 </p>
               )}
@@ -157,7 +157,7 @@ function InsightHistoryItem({ insight }: InsightHistoryItemProps) {
               className="overflow-hidden"
             >
               <div className="mt-3 pt-3 border-t border-outline-variant/20 space-y-3">
-                <p className="text-sm font-body text-on-surface leading-relaxed whitespace-pre-wrap">
+                <p className="text-sm font-body text-on-surface whitespace-pre-wrap">
                   {insight.content}
                 </p>
 

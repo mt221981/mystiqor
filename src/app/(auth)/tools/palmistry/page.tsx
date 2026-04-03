@@ -228,7 +228,7 @@ export default function PalmistryPage() {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant leading-relaxed font-body">
+              <div className="result-heading-glow prose prose-invert prose-sm max-w-none text-on-surface-variant font-body">
                 <ReactMarkdown>{result.interpretation}</ReactMarkdown>
               </div>
             </CardContent>

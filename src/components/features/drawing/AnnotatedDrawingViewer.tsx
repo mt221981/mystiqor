@@ -57,7 +57,7 @@ export function AnnotatedDrawingViewer({ imageUrl, features, summary }: Annotate
 
             {/* סיכום כללי מתחת לתמונה */}
             <div className="mt-3 bg-primary-container/10 border border-primary/20 rounded-xl p-4">
-              <p className="text-sm text-on-surface leading-relaxed font-body">{summary}</p>
+              <p className="text-sm text-on-surface font-body">{summary}</p>
             </div>
           </div>
 

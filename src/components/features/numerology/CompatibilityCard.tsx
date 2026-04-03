@@ -126,7 +126,7 @@ export function CompatibilityCard({ result, isLoading = false }: CompatibilityCa
         {/* תיאור טקסטואלי */}
         {result.analysis && (
           <div className="rounded-lg bg-primary/5 border border-outline-variant/20 p-3">
-            <p className="text-sm font-body text-on-surface-variant leading-relaxed">{result.analysis}</p>
+            <p className="text-sm font-body text-on-surface-variant">{result.analysis}</p>
           </div>
         )}
       </CardContent>

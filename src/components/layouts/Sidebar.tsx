@@ -182,7 +182,7 @@ function CollapsibleSection({
         onClick={onToggle}
         className={cn(
           'flex w-full items-center justify-between px-3 py-3',
-          'text-lg font-bold uppercase tracking-wider',
+          'text-lg font-bold uppercase',
           'text-gold hover:text-gold-bright font-label border-b border-gold/10 pb-2',
           'transition-colors duration-200'
         )}

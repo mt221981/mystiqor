@@ -94,7 +94,7 @@ export function ReadingCard({
 
       <CardContent className="space-y-4">
         {/* סיכום — תמיד גלוי */}
-        <div className="text-sm text-on-surface-variant leading-relaxed font-body">
+        <div className="text-sm text-on-surface-variant font-body">
           <ReactMarkdown>{summary}</ReactMarkdown>
         </div>
 
@@ -111,7 +111,7 @@ export function ReadingCard({
                   {section.title}
                 </AccordionTrigger>
                 <AccordionContent className="pb-3">
-                  <div className="text-sm text-on-surface-variant leading-relaxed font-body prose prose-sm prose-invert max-w-none">
+                  <div className="text-sm text-on-surface-variant font-body prose prose-sm prose-invert max-w-none">
                     <ReactMarkdown>{section.content}</ReactMarkdown>
                   </div>
                 </AccordionContent>

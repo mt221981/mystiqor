@@ -158,7 +158,7 @@ export function FloatingCoachPanel() {
             {messages.length === 0 ? (
               /* הודעת פתיחה — לא מחנות, לא ל-API */
               <div className="bg-surface-container rounded-2xl rounded-br-sm px-4 py-3 max-w-[85%] border border-border/20">
-                <p className="text-sm text-foreground leading-relaxed">{openerMessage}</p>
+                <p className="text-sm text-foreground">{openerMessage}</p>
               </div>
             ) : (
               messages.map((msg, idx) => (

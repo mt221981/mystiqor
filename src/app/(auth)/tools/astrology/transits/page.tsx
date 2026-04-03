@@ -266,7 +266,7 @@ function TransitResults({ result }: { result: TransitsResult }) {
           <CardTitle className="text-base font-headline text-primary">פרשנות AI</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="text-sm text-on-surface-variant leading-relaxed whitespace-pre-wrap font-body">
+          <div className="text-sm text-on-surface-variant whitespace-pre-wrap font-body">
             {result.interpretation}
           </div>
         </CardContent>

@@ -116,7 +116,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
             {interpretation.compatibility_score}%
           </div>
           <p className="text-on-surface-variant text-sm mt-1 font-label">ציון תאימות — {person1Name} & {person2Name}</p>
-          <p className="text-on-surface-variant text-sm mt-3 leading-relaxed max-w-lg mx-auto font-body">{interpretation.summary}</p>
+          <p className="text-on-surface-variant text-sm mt-3 max-w-lg mx-auto font-body">{interpretation.summary}</p>
         </CardContent>
       </Card>
 
@@ -134,7 +134,7 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-on-surface-variant text-sm leading-relaxed font-body">{card.content}</p>
+              <p className="text-on-surface-variant text-sm font-body">{card.content}</p>
             </CardContent>
           </Card>
         ))}
