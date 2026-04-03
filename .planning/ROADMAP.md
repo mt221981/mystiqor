@@ -38,9 +38,9 @@ Plans:
 **Requirements:** AUDIT-01, AUDIT-02, AUDIT-03
 **UI hint:** no
 **Depends on:** Phase 25
+**Plans:** 3 plans
 
-Tasks:
-1. Audit current state of first-pass phases 15, 16, 17, 19, 23, 24 — determine completeness per phase
-2. Decide keep/remove for each orphaned component (NebulaButton, GlassInput, ExplainableInsight, AnalysisHistory, ToolPageHero, BirthDataForm, useMobile, signOut action)
-3. Wire or document-as-deferred: rule-engine.ts (GEM 3), usePageTracking/useToolEvent (analytics)
-4. Create verification reports for each first-pass phase
+Plans:
+- [ ] 27-01-PLAN.md — Delete all 11 orphaned files and update TarotCardDetailModal
+- [ ] 27-02-PLAN.md — Create VERIFICATION.md for phases 15, 16, 17
+- [ ] 27-03-PLAN.md — Create VERIFICATION.md for phases 19, 23, 24
