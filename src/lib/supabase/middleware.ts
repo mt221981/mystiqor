@@ -26,6 +26,10 @@ const PROTECTED_PATHS = [
   '/learn',
   '/analytics',
   '/blog',
+  // Phase 25 — missing protected paths (middleware redirect UX)
+  '/notifications',
+  '/referrals',
+  '/pricing',
 ];
 
 /**
