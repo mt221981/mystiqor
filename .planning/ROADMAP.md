@@ -38,9 +38,9 @@ Plans:
 **Requirements:** AUDIT-01, AUDIT-02, AUDIT-03
 **UI hint:** no
 **Depends on:** Phase 25
-**Plans:** 3 plans
+**Plans:** 1/3 plans executed
 
 Plans:
-- [ ] 27-01-PLAN.md — Delete all 11 orphaned files and update TarotCardDetailModal
+- [x] 27-01-PLAN.md — Delete all 11 orphaned files and update TarotCardDetailModal
 - [ ] 27-02-PLAN.md — Create VERIFICATION.md for phases 15, 16, 17
 - [ ] 27-03-PLAN.md — Create VERIFICATION.md for phases 19, 23, 24
