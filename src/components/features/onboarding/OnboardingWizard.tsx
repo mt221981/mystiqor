@@ -152,7 +152,7 @@ export function OnboardingWizard() {
 
       toast.success('ברוך הבא! הפרופיל נשמר בהצלחה');
       reset();
-      router.push('/dashboard');
+      router.push('/tools');
     } catch (error) {
       const message = error instanceof Error ? error.message : 'שגיאה בשמירת הפרופיל. נסה שוב';
       toast.error(message);
