@@ -1,7 +1,7 @@
 # Requirements — v1.3 Full Platform
 
 **Source:** Research (STACK.md, FEATURES.md, ARCHITECTURE.md, PITFALLS.md) + user scoping session
-**Coverage:** 0/38 satisfied
+**Coverage:** 0/37 satisfied
 
 ## Mystical Features
 
@@ -74,40 +74,40 @@
 
 | REQ-ID | Description | Phase | Status | Checked |
 |--------|-------------|-------|--------|---------|
-| MYST-01 | Mystic Synthesis unified profile | TBD | Pending | [ ] |
-| MYST-02 | Synthesis partial data handling | TBD | Pending | [ ] |
-| MYST-03 | Big Five LLM questionnaire | TBD | Pending | [ ] |
-| MYST-04 | Big Five OCEAN display | TBD | Pending | [ ] |
-| MYST-05 | Document analyzer upload + AI | TBD | Pending | [ ] |
-| MYST-06 | Daily insight auto-generation | TBD | Pending | [ ] |
-| MYST-07 | Daily insight cron idempotency | TBD | Pending | [ ] |
-| MYST-08 | Daily insight CRON_SECRET auth | TBD | Pending | [ ] |
-| JOUR-01 | AI Coach real-time chat | TBD | Pending | [ ] |
-| JOUR-02 | Coach prompt length cap | TBD | Pending | [ ] |
-| JOUR-03 | Coaching journeys | TBD | Pending | [ ] |
-| JOUR-04 | FloatingCoachBubble mounted | TBD | Pending | [ ] |
-| JOUR-05 | Journal free-text entries | TBD | Pending | [ ] |
-| JOUR-06 | Journal AI insights on demand | TBD | Pending | [ ] |
-| JOUR-07 | Journal RLS privacy | TBD | Pending | [ ] |
-| PAY-01 | Stripe Checkout subscription | TBD | Pending | [ ] |
-| PAY-02 | Stripe webhook lifecycle | TBD | Pending | [ ] |
-| PAY-03 | Webhook signature + idempotency | TBD | Pending | [ ] |
-| PAY-04 | Subscription cancellation | TBD | Pending | [ ] |
-| PAY-05 | Monthly usage reset cron | TBD | Pending | [ ] |
-| PAY-06 | Welcome email on onboarding | TBD | Pending | [ ] |
-| PAY-07 | Payment failed email | TBD | Pending | [ ] |
-| PAY-08 | Usage limit warning email | TBD | Pending | [ ] |
-| PAY-09 | Profile view + edit | TBD | Pending | [ ] |
-| PAY-10 | Settings management | TBD | Pending | [ ] |
-| PAY-11 | Guest profiles | TBD | Pending | [ ] |
-| REF-01 | Referral code generation | TBD | Pending | [ ] |
-| REF-02 | Referral bonus | TBD | Pending | [ ] |
-| REF-03 | Notifications management | TBD | Pending | [ ] |
-| REF-04 | Notification types | TBD | Pending | [ ] |
-| INFRA-01 | Analytics dashboard | TBD | Pending | [ ] |
-| INFRA-02 | Analytics DB indexes | TBD | Pending | [ ] |
-| INFRA-03 | Lighthouse > 90 | TBD | Pending | [ ] |
-| INFRA-04 | WCAG 2.1 AA | TBD | Pending | [ ] |
-| INFRA-05 | Core service tests | TBD | Pending | [ ] |
-| INFRA-06 | BASE44 data migration | TBD | Pending | [ ] |
-| INFRA-07 | Tech debt resolution | TBD | Pending | [ ] |
+| MYST-01 | Mystic Synthesis unified profile | Phase 33 | Pending | [ ] |
+| MYST-02 | Synthesis partial data handling | Phase 33 | Pending | [ ] |
+| MYST-03 | Big Five LLM questionnaire | Phase 33 | Pending | [ ] |
+| MYST-04 | Big Five OCEAN display | Phase 33 | Pending | [ ] |
+| MYST-05 | Document analyzer upload + AI | Phase 35 | Pending | [ ] |
+| MYST-06 | Daily insight auto-generation | Phase 30 | Pending | [ ] |
+| MYST-07 | Daily insight cron idempotency | Phase 30 | Pending | [ ] |
+| MYST-08 | Daily insight CRON_SECRET auth | Phase 30 | Pending | [ ] |
+| JOUR-01 | AI Coach real-time chat | Phase 31 | Pending | [ ] |
+| JOUR-02 | Coach prompt length cap | Phase 31 | Pending | [ ] |
+| JOUR-03 | Coaching journeys | Phase 31 | Pending | [ ] |
+| JOUR-04 | FloatingCoachBubble mounted | Phase 31 | Pending | [ ] |
+| JOUR-05 | Journal free-text entries | Phase 32 | Pending | [ ] |
+| JOUR-06 | Journal AI insights on demand | Phase 32 | Pending | [ ] |
+| JOUR-07 | Journal RLS privacy | Phase 32 | Pending | [ ] |
+| PAY-01 | Stripe Checkout subscription | Phase 29 | Pending | [ ] |
+| PAY-02 | Stripe webhook lifecycle | Phase 29 | Pending | [ ] |
+| PAY-03 | Webhook signature + idempotency | Phase 29 | Pending | [ ] |
+| PAY-04 | Subscription cancellation | Phase 29 | Pending | [ ] |
+| PAY-05 | Monthly usage reset cron | Phase 28 | Pending | [ ] |
+| PAY-06 | Welcome email on onboarding | Phase 36 | Pending | [ ] |
+| PAY-07 | Payment failed email | Phase 36 | Pending | [ ] |
+| PAY-08 | Usage limit warning email | Phase 36 | Pending | [ ] |
+| PAY-09 | Profile view + edit | Phase 36 | Pending | [ ] |
+| PAY-10 | Settings management | Phase 36 | Pending | [ ] |
+| PAY-11 | Guest profiles | Phase 35 | Pending | [ ] |
+| REF-01 | Referral code generation | Phase 35 | Pending | [ ] |
+| REF-02 | Referral bonus | Phase 35 | Pending | [ ] |
+| REF-03 | Notifications management | Phase 36 | Pending | [ ] |
+| REF-04 | Notification types | Phase 36 | Pending | [ ] |
+| INFRA-01 | Analytics dashboard | Phase 34 | Pending | [ ] |
+| INFRA-02 | Analytics DB indexes | Phase 34 | Pending | [ ] |
+| INFRA-03 | Lighthouse > 90 | Phase 37 | Pending | [ ] |
+| INFRA-04 | WCAG 2.1 AA | Phase 37 | Pending | [ ] |
+| INFRA-05 | Core service tests | Phase 38 | Pending | [ ] |
+| INFRA-06 | BASE44 data migration | Phase 39 | Pending | [ ] |
+| INFRA-07 | Tech debt resolution | Phase 28 | Pending | [ ] |

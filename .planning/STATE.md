@@ -2,11 +2,11 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Full Platform
-status: Defining requirements
-stopped_at: null
+status: Ready to plan
+stopped_at: roadmap created — ready for plan-phase 28
 last_updated: "2026-04-04T00:00:00.000Z"
 progress:
-  total_phases: 0
+  total_phases: 12
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -16,81 +16,19 @@ progress:
 
 ## Project Reference
 
-See: .planning/PROJECT.md (updated 2026-03-20)
+See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core value:** Every user gets personalized mystical insights grounded in their specific data — not generic content. Anti-Barnum by design.
-**Current focus:** Milestone v1.3 — Full Platform (defining requirements)
+**Current focus:** Milestone v1.3 — Full Platform (Phase 28 ready to plan)
 
 ## Current Position
 
-Phase: Not started (defining requirements)
-Plan: —
-Status: Defining requirements
-Last activity: 2026-04-04 — Milestone v1.3 started
+Phase: 28 of 39 (Infrastructure Wiring)
+Plan: — (not yet planned)
+Status: Ready to plan
+Last activity: 2026-04-04 — v1.3 roadmap created, 12 phases, 37 requirements mapped
 
-## Phase Completion
-
-### Phase 1: Core Infrastructure — COMPLETE (8/8 plans, 2026-03-20)
-
-All services, hooks, form components, and API route handlers delivered:
-
-- 01-01: vitest, DB migrations (20 tables), openai/resend packages
-- 01-02: Hebrew gematria (GEM 2), numerology services, rule engine (GEM 3)
-- 01-03: Geocode, LLM wrapper, solar return VSOP87 (GEM 1), aspects (GEM 14)
-- 01-04: Astrology prompts (GEM 12), drawing analysis, email services, auth signOut
-- 01-05: 5 Zod schemas, onboarding Zustand store, analytics hooks
-- 01-06: useSubscription hook (GEM 7), FormInput, LocationSearch, BirthDataForm
-- 01-07: SubscriptionGuard, ExplainableInsight (GEM 9), ToolGrid, AnalysisHistory
-- 01-08: 6 API routes (geocode, upload, subscription, analysis CRUD)
-
-### Phase 2: Core Features — IN PROGRESS (3/9 plans)
-
-Completed:
-
-- 02-01: OnboardingWizard (GEM 13 Barnum), Dashboard (Recharts), Home page
-- 02-02: Numerology (NumberCard + API), Palmistry (vision AI), Tarot (DB seed + API)
-- 02-04: Human Design (9-center SVG), Dream Analysis (async fire-and-forget)
-
-Remaining:
-
-- 02-03: Graphology + Drawing Analysis
-- 02-05: Astrology birth chart (SVG split)
-- 02-06: Solar Return + Transits
-- 02-07: Synastry + Readings
-- 02-08: Compatibility
-- 02-09: Human verification checkpoint
-
-## Performance Metrics
-
-**Velocity:**
-
-| Plan | Duration (min) | Tasks | Files |
-|------|---------------|-------|-------|
-| Phase 01 P01 | 14 | 3 | 12 |
-| Phase 01 P02 | 20 | 2 | 6 |
-| Phase 01 P03 | 45 | 2 | 6 |
-| Phase 01 P04 | 20 | 2 | 9 |
-| Phase 01 P05 | 45 | 2 | 8 |
-| Phase 01 P06 | — | 2 | 4 |
-| Phase 01 P07 | — | 2 | 7 |
-| Phase 01 P08 | — | 2 | 6 |
-| Phase 02 P01 | 21 | 2 | 11 |
-| Phase 02 P02+P04 | — | 4 | 17 |
-| Phase 23 P03 | 3 | 2 tasks | 3 files |
-| Phase 24 P02 | 21 | 2 tasks | 11 files |
-| Phase 02-core-features P03 | 7 | 2 tasks | 8 files |
-| Phase 02-core-features P05 | 5 | 2 tasks | 2 files |
-| Phase 02-core-features P07 | 6 | 2 tasks | 3 files |
-| Phase 02 P08 | 6 | 1 tasks | 3 files |
-| Phase 02-core-features P06 | 30 | 2 tasks | 4 files |
-| Phase 02-core-features P10 | 5 | 2 tasks | 2 files |
-| Phase 14 P01 | 5 | 2 tasks | 2 files |
-| Phase 14 P02 | 6 | 2 tasks | 52 files |
-| Phase 25 P01 | 1 | 2 tasks | 2 files |
-| Phase 26 P01 | 25 | 2 tasks | 1 files |
-| Phase 27 P01 | 4 | 1 tasks | 12 files |
-| Phase 27 P02 | 7 | 3 tasks | 3 files |
-| Phase 27 P03 | 10 | 3 tasks | 3 files |
+Progress: [░░░░░░░░░░] 0% (0/TBD plans complete)
 
 ## Accumulated Context
 
@@ -99,66 +37,12 @@ Remaining:
 Decisions are logged in PROJECT.md Key Decisions table.
 Recent decisions affecting current work:
 
-- Phase 0: Next.js 16 App Router confirmed, shadcn/ui + Tailwind RTL working
-- Phase 0: 6/14 GEMs migrated (5, 6, 7, 8, 10, 11); remaining GEMs 1, 2, 3, 4, 9, 12, 13, 14 target Phase 1-4
-- Phase 0: Supabase client/server/admin/middleware all configured
-- [Phase 01]: reduceToSingleDigit(29) returns 11: master number check applied after each digit sum iteration
-- [Phase 01]: Rule engine evaluateCondition uses strict === only — original GEM 3 had loose == operators; replaced with explicit numeric coercion
-- [Phase 01]: Use '@' (without trailing slash) in vitest alias — standard vite form, correctly resolves @/services/foo imports
-- [Phase 01]: Exclude tests/ from tsconfig.json — test files checked by vitest not tsc, prevents false failures from service stubs not yet built
-- [Phase 01]: RLS on ALL 20 tables including system tables — public READ policy for rulebook/tarot_cards/blog_posts, ownership policies for user tables
-- [Phase 01 P03]: normalize = ((deg % 360) + 360) % 360 — applied once before binary search loop, not inside comparison (Pitfall 2 avoidance)
-- [Phase 01 P03]: LLM wrapper uses gpt-4o for vision (imageUrls present) and gpt-4o-mini for text — cost efficiency
-- [Phase 01 P03]: OpenAI client instantiated per-call (not module-level singleton) — allows env var injection in tests
-- [Phase 01 P04]: GEM 12 prompt split into INTERPRETATION_SYSTEM_PROMPT constant + buildInterpretationPrompt — reusable across solar-return and transits prompts
-- [Phase 01 P04]: PlanetPositions interface defined inline in transits.ts — not promoted to types/astrology.ts to avoid scope creep
-- [Phase 01 P04]: extractDrawingFeatures returns DEFAULT_DRAWING_FEATURES with console.warn — correct Phase 1 placeholder, Vision API is Phase 2 scope
-- [Phase 01 P04]: Header.tsx logout handler made async — required for await signOut()
-- [Phase 02 P01]: BarnumEthicsStep split into dedicated file — GEM 13 logic isolated as testable named export
-- [Phase 02 P01]: OnboardingWizard split into 4 files (wizard/steps/barnum/preferences) — 300-line compliance
-- [Phase 02 P01]: Home page is authenticated-only — anonymous users redirect to /login, no public landing
-- [Phase 02 P01]: aria-checked set as string literal ('true'/'false') — ARIA spec requires string, not boolean
-- [Phase 02 P01]: onboarding store extended with gender/focusAreas/aiSuggestionsEnabled — plan interface required these fields but store was missing them
-- [Phase 02 P02]: tarot_cards table schema uses name_he/name_en/meaning_upright/meaning_reversed — not name/name_english/description as in plan interfaces
-- [Phase 02 P02]: drawCards extracted as pure function in tarot route — enables unit testing without Supabase mock
-- [Phase 02 P02]: NumberCard uses @/lib/utils (root cn function) matching shadcn component pattern
-- [Hardening]: 003_schema_fixes.sql uses idempotent patterns (IF NOT EXISTS / OR REPLACE / DO blocks) — safe to reapply
-- [Hardening]: increment_usage() uses SELECT FOR UPDATE — prevents race conditions under concurrent subscription usage
-- [Hardening]: UsageRPCResultSchema replaces unsafe `as` type assertion — Zod safeParse for RPC result validation
-- [Phase 19-02]: Dictionary page uses 'use client' — required for shadcn Tabs interactive behavior
-- [Phase 19-02]: Reused existing GiAstrolabe icon in Sidebar — no duplicate import added
-- [Phase 19-02]: Tab defaultValue='signs' — zodiac signs as most common reference entry point
-- [Phase 23]: FloatingCoachPanel loaded via next/dynamic ssr:false — not needed on first paint, saves initial bundle
-- [Phase 23]: Opener messages in FloatingCoachPanel are display-only — not stored in Zustand, not sent to API (per D-12), avoids polluting conversation history
-- [Phase 24]: MYSTIC_LOADING_PHRASES optional chaining pattern — key?.button ?? fallback — satisfies TS2532 on Record<string,V> access while keeping literal key reference for traceability
-- [Phase 24]: tools/page.tsx converted to client component — StandardSectionHeader uses useReducedMotion (client-only framer-motion hook)
-- [Phase 02-core-features]: DigitalCanvas adapter pattern: named export wraps internal implementation, preserves default export for backward compatibility
-- [Phase 02-core-features]: Comparison.tsx uses direct recharts imports (not dynamic) since 'use client' — tests mock via vi.mock
-- [Phase 02-05]: BirthChart SVG components factored into shared utils.ts (getPlanetPosition, SVG constants) — DRY pattern, imported by all 5 sub-components
-- [Phase 02-05]: Interpret API route accepts full chart result (chartData + planets + planetDetails) — builds InterpretationInput for separate/deferred AI calls
-- [Phase 02-07]: READING_TYPES exported from API route for client import — avoids circular dependency, cleaner co-location with schema
-- [Phase 02-07]: Synastry uses LLM-provided compatibility_score instead of element matrix — more nuanced AI-calibrated result
-- [Phase 02-07]: tool_type='astrology' for readings — no new ToolType enum entry needed, consistent with existing schema
-- [Phase 02]: calculateCombinedScore exported as pure function — testable without Supabase/LLM, numerology 40% + astrology 60% weights
-- [Phase 02]: ELEMENT_COMPAT uses Hebrew keys (אש/אדמה/אוויר/מים) matching ZODIAC_SIGNS.element — not English keys as in plan spec
-- [Phase 02-core-features]: Solar Return API fetches birth data from profiles table — user does not re-enter birth data in form
-- [Phase 02-core-features]: Transits REBUILD uses astronomy-engine real ephemeris (±1 arcminute) instead of simplified mean motion (±1-2°)
-- [Phase 02-core-features]: Prereq guard pattern: useQuery natal chart check + EmptyState with router.push to /tools/astrology
-- [Phase 02-core-features]: OnboardingWizard router.push target changed from /dashboard to /tools — aligns with server-side onboarding page redirect and ONBR-01 spec
-- [Phase 02-core-features]: Public home page at / now renders ToolGrid for authenticated users as server component wrapping client subtree (ONBR-03)
-- [Phase 14]: Hebrew typography rules applied via global .font-body/.font-label CSS selectors in @layer base — eliminates per-component overrides
-- [Phase 14]: adjustFontFallback: true on all 4 next/font/google declarations — auto-generates size-adjusted fallback fonts for CLS prevention
-- [Phase 14]: Per-component tracking/leading-relaxed overrides removed — global CSS cascade now governs all Hebrew typography without per-component utility class interference
-- [Phase 25]: BottomTabBar Insights tab href corrected from /daily-insights to /tools/daily-insights — aligns with Sidebar which already used correct path
-- [Phase 25]: PROTECTED_PATHS extended with /notifications, /referrals, /pricing — ensures ?next= redirect-back UX works for all protected routes, not just layout guard
-- [Phase 26]: Phase 01 infrastructure gap from v1.2-MILESTONE-AUDIT.md formally closed — 46/46 truths VERIFIED, SubscriptionGuard.test.tsx the only missing artifact
-- [Phase 26]: extractDrawingFeatures PLACEHOLDER in drawing/analysis.ts is intentional per Plan 01-04 design — Vision API is Phase 2 scope, not a blocking stub
-- [Phase 27]: TarotCardDetailModal: GlassCard replaced with plain divs using mystic-card-gold and bg-surface-container classes (D-06)
-- [Phase 27]: JSDoc provenance comments in categories.ts/tool-names.ts referencing BASE44 file names are not imports — left untouched
-- [Phase 27]: Phase 15 human-design uses GiDna1 not GiBodyBalance — both valid react-icons/gi, migration complete
-- [Phase 27]: Phase 16 dashboard mystic-hover SUPERSEDED by Phase 14 redesign — CSS class still active in 14 tool pages
-- [Phase 27]: Phase 19 19-01-SUMMARY.md git object error documented — components verified by disk presence and import inspection
-- [Phase 27]: Phase 24 StandardSectionHeader adoption is 23/22 (exceeds spec) — astrology/readings was bonus adoption not in 24-02 or 24-03 scope
+- [Phase 27]: Phase 15 human-design uses GiDna1, TarotCardDetailModal uses mystic-card-gold
+- [Phase 27]: Phase 16 dashboard mystic-hover superseded by Phase 14 redesign
+- [Phase 26]: extractDrawingFeatures PLACEHOLDER is intentional — Vision API is Phase 2 scope
+- [Phase 25]: BottomTabBar Insights tab href corrected to /tools/daily-insights
+- [v1.3 start]: Goals and mood tracker deferred to v2.0 — not in v1.3 scope
+- [v1.3 start]: Stripe webhook raw body via request.text() — DO NOT refactor existing handler
 
 ### Pending Todos
 
@@ -166,13 +50,14 @@ None yet.
 
 ### Blockers/Concerns
 
-- Phase 1: GEM 1 (VSOP87 solar return) RESOLVED — migrated with binary search porting from JS to TypeScript
-- Phase 1: Real ephemeris for transits (TOOL-04) is a rebuild from mocked data — no source logic to migrate
-- Phase 4: Stripe webhook secret and Resend API key needed in .env.local before Phase 4 testing
-- Infrastructure Hardening: 003_schema_fixes.sql created but NOT applied to Supabase (skip-db). Run `npx supabase db push` when ready.
+- Stripe Price IDs (`STRIPE_PRICE_BASIC`, `STRIPE_PRICE_PREMIUM`) must be confirmed in Stripe dashboard before Phase 29
+- Resend domain DNS for `masapnima.co.il` must be verified before Phase 36 email testing (allow 24-48h propagation)
+- BASE44 data export format unknown — run `/gsd:research-phase` before Phase 39 execution
+- `003_schema_fixes.sql` created but NOT applied to Supabase — run `npx supabase db push` when ready
+- `CRON_SECRET` and `NEXT_PUBLIC_APP_URL` env vars must be added before Phase 28 testing
 
 ## Session Continuity
 
-Last session: 2026-04-03T15:21:05.079Z
-Stopped at: Completed 27-03-PLAN.md — verification reports for phases 19, 23, 24 created
+Last session: 2026-04-04
+Stopped at: ROADMAP.md + STATE.md created for v1.3, REQUIREMENTS.md traceability updated
 Resume file: None
