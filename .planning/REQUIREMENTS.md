@@ -53,7 +53,7 @@
 - [ ] **INFRA-04**: All pages pass WCAG 2.1 AA accessibility audit
 - [ ] **INFRA-05**: Core services have unit test coverage (numerology, astrology, compatibility, subscription)
 - [ ] **INFRA-06**: Data migration script imports BASE44 user data into Supabase with ID mapping
-- [ ] **INFRA-07**: Tech debt resolved: missing SubscriptionGuard.test.tsx, empty summary one-liners, human verification items from audit
+- [x] **INFRA-07**: Tech debt resolved: missing SubscriptionGuard.test.tsx, empty summary one-liners, human verification items from audit
 
 ## Future Requirements (Deferred to v2.0)
 

@@ -52,8 +52,8 @@ Phases 1–27 are complete. See previous milestone summaries in MILESTONES.md.
 **Plans**: 3 plans
 Plans:
 - [ ] 28-01-PLAN.md — Vercel cron infrastructure (vercel.json + reset-usage route + daily-insights skeleton)
-- [ ] 28-02-PLAN.md — Subscription cancel route + SubscriptionGuard tests
-- [ ] 28-03-PLAN.md — Tech debt closure (INFRA-07 audit and formal disposition)
+- [x] 28-02-PLAN.md — Subscription cancel route + SubscriptionGuard tests
+- [x] 28-03-PLAN.md — Tech debt closure (INFRA-07 audit and formal disposition)
 **UI hint**: no
 
 ### Phase 29: Stripe End-to-End
@@ -193,7 +193,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1–27 (previous) | v1.0–v1.2 | — | Complete | 2026-03-29 |
-| 28. Infrastructure Wiring | v1.3 | 0/3 | Planned | - |
+| 28. Infrastructure Wiring | v1.3 | 2/3 | In Progress|  |
 | 29. Stripe End-to-End | v1.3 | 0/TBD | Not started | - |
 | 30. Daily Insights | v1.3 | 0/TBD | Not started | - |
 | 31. AI Coach Hardening | v1.3 | 0/TBD | Not started | - |
