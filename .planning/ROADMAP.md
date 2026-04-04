@@ -193,7 +193,7 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1–27 (previous) | v1.0–v1.2 | — | Complete | 2026-03-29 |
-| 28. Infrastructure Wiring | v1.3 | 3/3 | Complete   | 2026-04-04 |
+| 28. Infrastructure Wiring | v1.3 | 3/3 | Complete    | 2026-04-04 |
 | 29. Stripe End-to-End | v1.3 | 0/TBD | Not started | - |
 | 30. Daily Insights | v1.3 | 0/TBD | Not started | - |
 | 31. AI Coach Hardening | v1.3 | 0/TBD | Not started | - |
