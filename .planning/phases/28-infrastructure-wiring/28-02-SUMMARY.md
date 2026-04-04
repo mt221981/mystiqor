@@ -78,7 +78,7 @@ Created `tests/components/SubscriptionGuard.test.tsx` with 6 test cases:
 
 | Task | Hash | Message |
 |------|------|---------|
-| 1 | ad95468 | feat(28-02): create subscription cancel API route |
+| 1 | 5aa48d2 | feat(28-02): create subscription cancel API route |
 | 2 | 936ace0 | test(28-02): add SubscriptionGuard unit tests — closes INFRA-07 |
 
 ## Deviations from Plan
