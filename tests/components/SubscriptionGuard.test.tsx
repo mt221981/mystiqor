@@ -2,10 +2,8 @@
  * בדיקות יחידה לרכיב SubscriptionGuard
  * INFRA-07: SubscriptionGuard.test.tsx — מכסה רינדור ילדים, fallback, וטעינה
  *
- * הערה על הרכיב: שורה 28 ב-SubscriptionGuard.tsx מכילה return מוקדם
- * `return <>{children}</>` שעוקף את כל לוגיקת המנוי (כוונתי לפיתוח —
- * כל הכלים פתוחים). בדיקות 1 ו-5 עוברות כרגע.
- * בדיקות 2, 3, 4, 6 מדוגמנות כ-it.skip עד שה-return המוקדם יוסר בסביבת production.
+ * Phase 29: ה-return המוקדם הוסר — SubscriptionGuard פעיל לחלוטין.
+ * כל הבדיקות פעילות (ללא it.skip).
  */
 
 import { describe, it, expect, vi, beforeEach } from 'vitest';
@@ -77,9 +75,8 @@ describe('SubscriptionGuard', () => {
 
   /**
    * בדיקה 2: מציג skeleton טעינה כשהמנוי נטען
-   * Re-enable when early return is removed from SubscriptionGuard (line 28)
    */
-  it.skip('shows loading skeleton when subscription is loading', () => {
+  it('shows loading skeleton when subscription is loading', () => {
     mockUseSubscription.mockReturnValue({
       ...defaultMock,
       isLoading: true,
@@ -99,9 +96,8 @@ describe('SubscriptionGuard', () => {
 
   /**
    * בדיקה 3: מציג כרטיס שדרוג כשגישה לתכונה נדחתה (ללא fallback)
-   * Re-enable when early return is removed from SubscriptionGuard (line 28)
    */
-  it.skip('shows upgrade card when feature access is denied and no fallback provided', () => {
+  it('shows upgrade card when feature access is denied and no fallback provided', () => {
     mockUseSubscription.mockReturnValue({
       ...defaultMock,
       canUseFeature: vi.fn(() => false),
@@ -121,9 +117,8 @@ describe('SubscriptionGuard', () => {
 
   /**
    * בדיקה 4: מציג fallback מותאם כשגישה נדחתה ויש fallback prop
-   * Re-enable when early return is removed from SubscriptionGuard (line 28)
    */
-  it.skip('shows custom fallback when provided and access is denied', () => {
+  it('shows custom fallback when provided and access is denied', () => {
     mockUseSubscription.mockReturnValue({
       ...defaultMock,
       canUseFeature: vi.fn(() => false),
@@ -145,13 +140,9 @@ describe('SubscriptionGuard', () => {
   });
 
   /**
-   * בדיקה 5: בדיקת regression — הרכיב תמיד מרנדר ילדים (return מוקדם קיים)
-   * תיעוד של ה-bypass המכוון בסביבת פיתוח
-   * עוברת כרגע בגלל ה-return המוקדם בשורה 28
+   * בדיקה 5: הגארד חוסם גישה כשאין הרשאה (Phase 29 — bypass הוסר)
    */
-  it('always renders children due to development bypass (early return on line 28)', () => {
-    // גם עם canUseFeature שמחזיר false וisLoading=false,
-    // ה-return המוקדם בשורה 28 גורם לילדים להיות מרונדרים תמיד
+  it('blocks children when feature access is denied', () => {
     mockUseSubscription.mockReturnValue({
       ...defaultMock,
       canUseFeature: vi.fn(() => false),
@@ -164,15 +155,14 @@ describe('SubscriptionGuard', () => {
       </SubscriptionGuard>
     );
 
-    // ה-bypass המכוון — כל הילדים מרונדרים ללא בדיקת מנוי
-    expect(screen.getByText('תוכן מוגן תמיד')).toBeInTheDocument();
+    // ילדים לא מרונדרים כשאין הרשאה
+    expect(screen.queryByText('תוכן מוגן תמיד')).not.toBeInTheDocument();
   });
 
   /**
    * בדיקה 6: כפתור שדרוג מפנה לדף pricing
-   * Re-enable when early return is removed from SubscriptionGuard (line 28)
    */
-  it.skip('upgrade link points to /pricing page', () => {
+  it('upgrade link points to /pricing page', () => {
     mockUseSubscription.mockReturnValue({
       ...defaultMock,
       canUseFeature: vi.fn(() => false),
