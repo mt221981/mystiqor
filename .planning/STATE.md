@@ -2,9 +2,9 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Full Platform
-status: executing
-stopped_at: Completed 28-03-PLAN.md — INFRA-07 tech debt closure
-last_updated: "2026-04-04T19:04:08.537Z"
+status: verifying
+stopped_at: Completed 28-02-PLAN.md
+last_updated: "2026-04-04T19:05:26.297Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 12
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-04)
 
 Phase: 28 (infrastructure-wiring) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-04
 
 Progress: [░░░░░░░░░░] 0% (0/TBD plans complete)
@@ -46,6 +46,9 @@ Recent decisions affecting current work:
 - [v1.3 start]: Goals and mood tracker deferred to v2.0 — not in v1.3 scope
 - [v1.3 start]: Stripe webhook raw body via request.text() — DO NOT refactor existing handler
 - [Phase 28-infrastructure-wiring]: UI visual checks, mobile responsiveness, Stripe payment flow, AI Coach chat, Daily insights, Email delivery deferred to target phases (29/30/31/36/37); Tool analysis and data persistence verified by inspection; Empty summary one-liners closed as N/A for v1.3
+- [Phase 28-infrastructure-wiring]: cancel_at_period_end=true for soft subscription cancellation (user keeps paid period)
+- [Phase 28-infrastructure-wiring]: it.skip pattern to document SubscriptionGuard gated behavior pending early return removal
+- [Phase 28-01]: CRON_SECRET auth uses authorization header with Bearer scheme — matches Vercel official cron docs pattern
 
 ### Pending Todos
 
@@ -61,6 +64,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-04T19:03:51.237Z
-Stopped at: Completed 28-03-PLAN.md — INFRA-07 tech debt closure
+Last session: 2026-04-04T19:04:53.318Z
+Stopped at: Completed 28-02-PLAN.md
 Resume file: None
