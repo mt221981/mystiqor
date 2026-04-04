@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Full Platform
-status: verifying
-stopped_at: Completed 28-01-PLAN.md
-last_updated: "2026-04-04T19:11:36.013Z"
+status: executing
+stopped_at: Completed 29-01-PLAN.md
+last_updated: "2026-04-04T19:49:58.196Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 12
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
+  total_plans: 5
+  completed_plans: 4
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-04)
 
 **Core value:** Every user gets personalized mystical insights grounded in their specific data — not generic content. Anti-Barnum by design.
-**Current focus:** Phase 28 — infrastructure-wiring
+**Current focus:** Phase 29 — stripe-end-to-end
 
 ## Current Position
 
-Phase: 29
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 29 (stripe-end-to-end) — EXECUTING
+Plan: 2 of 2
+Status: Ready to execute
 Last activity: 2026-04-04
 
 Progress: [░░░░░░░░░░] 0% (0/TBD plans complete)
@@ -50,6 +50,9 @@ Recent decisions affecting current work:
 - [Phase 28-infrastructure-wiring]: it.skip pattern to document SubscriptionGuard gated behavior pending early return removal
 - [Phase 28-01]: CRON_SECRET auth uses authorization header with Bearer scheme — matches Vercel official cron docs pattern
 - [Phase 28-01]: daily-insights skeleton logs per user rather than calling LLM — Phase 30 adds actual generation
+- [Phase 29-stripe-end-to-end]: SubscriptionGuard early return bypass removed — guard is now live and gates premium features
+- [Phase 29-stripe-end-to-end]: Cancel button hidden when cancel_at_period_end=true to avoid duplicate cancellation attempts
+- [Phase 29-stripe-end-to-end]: Success page invalidateQueries fires on useEffect mount — ensures fresh plan data immediately after Stripe redirect
 
 ### Pending Todos
 
@@ -65,6 +68,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-04T19:05:54.515Z
-Stopped at: Completed 28-01-PLAN.md
+Last session: 2026-04-04T19:49:58.193Z
+Stopped at: Completed 29-01-PLAN.md
 Resume file: None
