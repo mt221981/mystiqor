@@ -1,5 +1,34 @@
 # Milestones
 
+## v1.1 UI Polish (Shipped: 2026-04-02)
+
+**Phases completed:** 5 phases, 7 plans | **Timeline:** 9 days (2026-03-25 - 2026-04-02)
+**Requirements:** 16/16 satisfied
+
+**Key accomplishments:**
+
+- Fixed OnboardingWizard Zustand hydration bug — new users can complete all 4 steps and reach dashboard
+- Heebo Hebrew font propagated to all text (including SVG) + English display terms replaced with Hebrew across 7 files
+- All icons migrated to react-icons/gi thematic set — tool pages, dashboard StatCards, header, InsightHeroCard, learn pages
+- GlassCard mystic/gold variants + NebulaButton gold + mystic-hover on 16 tool pages + text-gradient-gold titles
+- MysticSkeleton shimmer loading + ProgressiveReveal stagger animation across 21 files
+
+---
+
+## v1.2 Rich Content & Soul (Shipped: 2026-03-29)
+
+**Phases completed:** 4 phases, 13 plans | **Timeline:** 2 days (2026-03-28 - 2026-03-29)
+**Requirements:** 5/5 satisfied
+
+**Key accomplishments:**
+
+- 78 tarot cards with rich metadata (Kabbalah, astrology, numerology, archetypes) + 4 spread layouts + sync script + UI components
+- Astrology knowledge base — 12 zodiac signs, 10 planets, 12 houses, 7 aspects with full Hebrew descriptions and dictionary display
+- Dream emotion 12-emoji toggle grid + 3 rich Hebrew blog articles seeded from DB with detail pages
+- All 21 LLM prompts enriched with personalization (name, zodiac, life path, Kabbalistic tone) via tiered DEEP/MEDIUM/BASIC system
+
+---
+
 ## v1.3 Mystical UX & Coach Prominence (Shipped: 2026-04-01)
 
 **Phases completed:** 4 phases, 10 plans | **Timeline:** 3 days (2026-03-29 - 2026-04-01)
@@ -15,6 +44,7 @@
 - Per-message coach context injection (5 recent analyses with Hebrew tool names + relative time) + sidebar reorganized from 8 to 6 categories with localStorage persistence
 
 **Tech debt accepted:**
+
 - 3 phases missing VERIFICATION.md (code verified by integration checker)
 - 2 child components (DrawingAnalysisForm, BigFiveQuestionnaire) bypass MysticLoadingText pulse animation
 
