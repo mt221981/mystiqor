@@ -8,6 +8,8 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useQueryClient } from '@tanstack/react-query';
+import { toast } from 'sonner';
 import { useSubscription } from '@/hooks/useSubscription';
 import { UsageBar } from './UsageBar';
 import { PlanCard } from './PlanCard';
@@ -41,9 +43,12 @@ const STATUS_BADGE_CLASS: Record<string, string> = {
 /** SubscriptionManagement — תצוגת ניהול מנוי מלאה */
 export function SubscriptionManagement() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { subscription, planInfo, isLoading } = useSubscription();
   const [isPortalLoading, setIsPortalLoading] = useState(false);
   const [portalError, setPortalError] = useState<string | null>(null);
+  const [isCancelLoading, setIsCancelLoading] = useState(false);
+  const [showCancelConfirm, setShowCancelConfirm] = useState(false);
 
   /**
    * פותח את פורטל הניהול של Stripe ומנתב את המשתמש
@@ -64,6 +69,28 @@ export function SubscriptionManagement() {
       setPortalError('שגיאת תקשורת. נסה שוב.');
     } finally {
       setIsPortalLoading(false);
+    }
+  }
+
+  /**
+   * מבטל את המנוי הנוכחי בסוף תקופת החיוב
+   */
+  async function handleCancelSubscription() {
+    setIsCancelLoading(true);
+    try {
+      const res = await fetch('/api/subscription/cancel', { method: 'POST' });
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({ error: 'שגיאה' }));
+        toast.error((data as { error?: string }).error ?? 'שגיאה בביטול המנוי');
+        return;
+      }
+      await queryClient.invalidateQueries({ queryKey: ['subscription'] });
+      toast.success('המנוי יבוטל בסוף התקופה הנוכחית');
+    } catch {
+      toast.error('שגיאת תקשורת. נסה שוב.');
+    } finally {
+      setIsCancelLoading(false);
+      setShowCancelConfirm(false);
     }
   }
 
@@ -140,25 +167,68 @@ export function SubscriptionManagement() {
             </Button>
           </Link>
         ) : (
-          /* משתמש בתשלום — כפתור ניהול חשבון ב-Stripe */
-          <Button
-            onClick={handleManageAccount}
-            disabled={isPortalLoading}
-            variant="outline"
-            className="w-full gap-2 border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high rounded-xl"
-          >
-            {isPortalLoading ? (
-              <>
-                <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
-                פותח ניהול חשבון...
-              </>
-            ) : (
-              <>
-                <ExternalLink className="h-4 w-4" />
-                ניהול חשבון
-              </>
+          /* משתמש בתשלום — כפתורי ניהול חשבון וביטול */
+          <div className="space-y-3">
+            <Button
+              onClick={handleManageAccount}
+              disabled={isPortalLoading}
+              variant="outline"
+              className="w-full gap-2 border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high rounded-xl"
+            >
+              {isPortalLoading ? (
+                <>
+                  <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                  פותח ניהול חשבון...
+                </>
+              ) : (
+                <>
+                  <ExternalLink className="h-4 w-4" />
+                  ניהול חשבון
+                </>
+              )}
+            </Button>
+
+            {/* כפתור ביטול מנוי — מוסתר אם ביטול כבר ממתין */}
+            {!subscription.cancel_at_period_end && (
+              showCancelConfirm ? (
+                <div className="rounded-lg border border-error/20 bg-error/5 p-4 space-y-3">
+                  <p className="text-sm text-on-surface font-body">
+                    האם אתה בטוח? המנוי ימשיך עד סוף התקופה הנוכחית.
+                  </p>
+                  <div className="flex gap-2">
+                    <Button
+                      onClick={handleCancelSubscription}
+                      disabled={isCancelLoading}
+                      variant="destructive"
+                      className="flex-1 rounded-xl"
+                    >
+                      {isCancelLoading ? (
+                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+                      ) : (
+                        'אשר ביטול'
+                      )}
+                    </Button>
+                    <Button
+                      onClick={() => setShowCancelConfirm(false)}
+                      disabled={isCancelLoading}
+                      variant="outline"
+                      className="flex-1 rounded-xl border-outline-variant/20"
+                    >
+                      חזור
+                    </Button>
+                  </div>
+                </div>
+              ) : (
+                <Button
+                  onClick={() => setShowCancelConfirm(true)}
+                  variant="outline"
+                  className="w-full rounded-xl text-error border-error/30 hover:bg-error/10"
+                >
+                  בטל מנוי
+                </Button>
+              )
             )}
-          </Button>
+          </div>
         )}
       </div>
 
