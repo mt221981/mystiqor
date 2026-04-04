@@ -66,7 +66,10 @@ Plans:
   3. Webhook handler rejects requests with invalid Stripe signature (returns 400)
   4. User can cancel their subscription — status changes to `cancelled` in Supabase and SubscriptionGuard shows downgrade notice
   5. No duplicate subscription rows created on Stripe webhook retry (idempotency confirmed via processed_webhook_events check)
-**Plans**: TBD
+**Plans**: 2 plans
+Plans:
+- [ ] 29-01-PLAN.md — Activate SubscriptionGuard, add cancel button, wire success page cache invalidation
+- [ ] 29-02-PLAN.md — End-to-end verification of all PAY requirements (build + code inspection)
 **UI hint**: no
 
 ### Phase 30: Daily Insights
@@ -194,7 +197,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 1–27 (previous) | v1.0–v1.2 | — | Complete | 2026-03-29 |
 | 28. Infrastructure Wiring | v1.3 | 3/3 | Complete    | 2026-04-04 |
-| 29. Stripe End-to-End | v1.3 | 0/TBD | Not started | - |
+| 29. Stripe End-to-End | v1.3 | 0/2 | Not started | - |
 | 30. Daily Insights | v1.3 | 0/TBD | Not started | - |
 | 31. AI Coach Hardening | v1.3 | 0/TBD | Not started | - |
 | 32. Journal | v1.3 | 0/TBD | Not started | - |
