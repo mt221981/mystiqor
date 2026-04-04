@@ -34,28 +34,27 @@ Every user gets personalized mystical insights grounded in their specific data (
 - ✓ Human Design tool (9-center SVG + LLM simulation) — Phase 2
 - ✓ Dream Analysis tool (async fire-and-forget) — Phase 2
 
-### Active
+### Active (v1.3 — Full Platform)
 
-- [ ] 8 remaining mystical tool pages: Astrology (birth chart, solar return, transits, synastry, readings), Graphology, Drawing, Compatibility
+- [ ] Mystic synthesis (multi-tool personality profile)
+- [ ] Personality analysis (Big Five)
+- [ ] Document analyzer
+- [ ] Daily insights generation (cron)
 - [ ] AI Coach (real-time chat + coaching journeys)
 - [ ] Goals management with AI recommendations
 - [ ] Mood tracker with auto AI analysis
 - [ ] Journal with on-demand AI insights
-- [ ] Daily insights generation (cron)
-- [ ] Mystic synthesis (multi-tool personality profile)
-- [ ] Personality analysis (Big Five)
-- [ ] Document analyzer
 - [ ] Stripe integration (checkout, webhooks, subscription management)
 - [ ] Email notifications (welcome, payment failed, usage limit)
 - [ ] Profile + settings + guest profiles
 - [ ] Referral system
 - [ ] Notifications management
-- [ ] Learning (Astrology tutor, Drawing tutor, Blog, Tutorials)
 - [ ] Analytics dashboard
 - [ ] Performance optimization (Lighthouse > 90)
 - [ ] Accessibility audit
 - [ ] Test suite (core services)
 - [ ] Data migration from BASE44
+- [ ] Tech debt fixes (missing tests, empty summaries, human verification items)
 
 ### Out of Scope
 
@@ -64,6 +63,10 @@ Every user gets personalized mystical insights grounded in their specific data (
 - Admin panel — Use Supabase Studio
 - Social features (friends, groups) — Future v3.0
 - Marketplace — Future business model expansion
+
+### Deferred (v2.0)
+
+- Learning (Astrology tutor, Drawing tutor, Blog, Tutorials)
 
 ## Context
 
@@ -97,5 +100,33 @@ Every user gets personalized mystical insights grounded in their specific data (
 | Anti-Barnum approach | Ethical AI, builds trust, educates users | ✓ Implemented (GEM 13) |
 | VSOP87 for Solar Return | Accurate astronomical calculations (±0.01°) | ✓ Migrated (GEM 1) |
 
+## Current Milestone: v1.3 Full Platform
+
+**Goal:** השלמת כל הפיצ'רים, תשלומים, תשתית ותיקונים — מוכן לפרודקשן
+
+**Target features:**
+- פיצ'רים מיסטיים: סינתזה, אישיות Big Five, מנתח מסמכים, תובנות יומיות
+- מסע אישי: AI Coach, מטרות, מצב רוח, יומן
+- תשלומים וחשבון: Stripe, אימייל, פרופיל, הפניות, התראות
+- תשתית: אנליטיקס, ביצועים, נגישות, טסטים, מיגרציה
+- תיקונים: tech debt מ-v1.2
+
+## Evolution
+
+This document evolves at phase transitions and milestone boundaries.
+
+**After each phase transition** (via `/gsd:transition`):
+1. Requirements invalidated? → Move to Out of Scope with reason
+2. Requirements validated? → Move to Validated with phase reference
+3. New requirements emerged? → Add to Active
+4. Decisions to log? → Add to Key Decisions
+5. "What This Is" still accurate? → Update if drifted
+
+**After each milestone** (via `/gsd:complete-milestone`):
+1. Full review of all sections
+2. Core Value check — still the right priority?
+3. Audit Out of Scope — reasons still valid?
+4. Update Context with current state
+
 ---
-*Last updated: 2026-03-22 after Phase 1 completion + Phase 2 progress sync*
+*Last updated: 2026-04-04 — Milestone v1.3 started*
