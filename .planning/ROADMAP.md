@@ -49,7 +49,11 @@ Phases 1–27 are complete. See previous milestone summaries in MILESTONES.md.
   3. POST `/api/subscription/cancel` cancels a subscription via Stripe and updates the subscriptions table
   4. SubscriptionGuard.test.tsx exists with passing tests — the only artifact flagged as missing from the Phase 26 verification
   5. All INFRA-07 tech debt items (empty summary one-liners, human verification items) are resolved or formally deferred
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 28-01-PLAN.md — Vercel cron infrastructure (vercel.json + reset-usage route + daily-insights skeleton)
+- [ ] 28-02-PLAN.md — Subscription cancel route + SubscriptionGuard tests
+- [ ] 28-03-PLAN.md — Tech debt closure (INFRA-07 audit and formal disposition)
 **UI hint**: no
 
 ### Phase 29: Stripe End-to-End
@@ -189,7 +193,7 @@ Phases 1–27 are complete. See previous milestone summaries in MILESTONES.md.
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 1–27 (previous) | v1.0–v1.2 | — | Complete | 2026-03-29 |
-| 28. Infrastructure Wiring | v1.3 | 0/TBD | Not started | - |
+| 28. Infrastructure Wiring | v1.3 | 0/3 | Planned | - |
 | 29. Stripe End-to-End | v1.3 | 0/TBD | Not started | - |
 | 30. Daily Insights | v1.3 | 0/TBD | Not started | - |
 | 31. AI Coach Hardening | v1.3 | 0/TBD | Not started | - |
