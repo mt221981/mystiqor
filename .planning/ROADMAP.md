@@ -23,7 +23,7 @@ Phases 1–27 are complete. See previous milestone summaries in MILESTONES.md.
 **Milestone Goal:** Complete all features, payments, infrastructure, and quality work — production ready.
 
 - [x] **Phase 28: Infrastructure Wiring** - vercel.json, cron routes, subscription cancel, tech debt (completed 2026-04-04)
-- [ ] **Phase 29: Stripe End-to-End** - checkout, webhooks, cancellation, usage reset
+- [x] **Phase 29: Stripe End-to-End** - checkout, webhooks, cancellation, usage reset (completed 2026-04-04)
 - [ ] **Phase 30: Daily Insights** - cron generation at 06:00 UTC, page, feedback
 - [ ] **Phase 31: AI Coach Hardening** - prompt overflow guard, coaching journeys, FloatingCoachBubble
 - [ ] **Phase 32: Journal** - free-text entries, on-demand AI insights, RLS
@@ -69,7 +69,7 @@ Plans:
 **Plans**: 2 plans
 Plans:
 - [x] 29-01-PLAN.md — Activate SubscriptionGuard, add cancel button, wire success page cache invalidation
-- [ ] 29-02-PLAN.md — End-to-end verification of all PAY requirements (build + code inspection)
+- [x] 29-02-PLAN.md — End-to-end verification of all PAY requirements (build + code inspection)
 **UI hint**: no
 
 ### Phase 30: Daily Insights
@@ -197,7 +197,7 @@ Plans:
 |-------|-----------|----------------|--------|-----------|
 | 1–27 (previous) | v1.0–v1.2 | — | Complete | 2026-03-29 |
 | 28. Infrastructure Wiring | v1.3 | 3/3 | Complete    | 2026-04-04 |
-| 29. Stripe End-to-End | v1.3 | 1/2 | In Progress|  |
+| 29. Stripe End-to-End | v1.3 | 2/2 | Complete   | 2026-04-04 |
 | 30. Daily Insights | v1.3 | 0/TBD | Not started | - |
 | 31. AI Coach Hardening | v1.3 | 0/TBD | Not started | - |
 | 32. Journal | v1.3 | 0/TBD | Not started | - |

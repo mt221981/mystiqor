@@ -27,8 +27,8 @@
 ## Payments & Account
 
 - [x] **PAY-01**: User can subscribe to a paid plan via Stripe Checkout
-- [ ] **PAY-02**: Stripe webhooks handle subscription lifecycle events (created, updated, cancelled, payment failed)
-- [ ] **PAY-03**: Stripe webhook handler verifies signatures and processes events idempotently
+- [x] **PAY-02**: Stripe webhooks handle subscription lifecycle events (created, updated, cancelled, payment failed)
+- [x] **PAY-03**: Stripe webhook handler verifies signatures and processes events idempotently
 - [x] **PAY-04**: User can cancel their subscription (via Stripe Customer Portal or cancel route)
 - [x] **PAY-05**: Monthly usage counter resets via cron job using existing reset_monthly_usage() function
 - [ ] **PAY-06**: User receives welcome email after completing onboarding

@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.3
 milestone_name: Full Platform
-status: executing
-stopped_at: Completed 29-01-PLAN.md
-last_updated: "2026-04-04T19:49:58.196Z"
+status: verifying
+stopped_at: Completed 29-02-PLAN.md
+last_updated: "2026-04-04T19:57:50.060Z"
 last_activity: 2026-04-04
 progress:
   total_phases: 12
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 5
-  completed_plans: 4
+  completed_plans: 5
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-04)
 
 Phase: 29 (stripe-end-to-end) — EXECUTING
 Plan: 2 of 2
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-04
 
 Progress: [░░░░░░░░░░] 0% (0/TBD plans complete)
@@ -53,6 +53,8 @@ Recent decisions affecting current work:
 - [Phase 29-stripe-end-to-end]: SubscriptionGuard early return bypass removed — guard is now live and gates premium features
 - [Phase 29-stripe-end-to-end]: Cancel button hidden when cancel_at_period_end=true to avoid duplicate cancellation attempts
 - [Phase 29-stripe-end-to-end]: Success page invalidateQueries fires on useEffect mount — ensures fresh plan data immediately after Stripe redirect
+- [Phase 29-stripe-end-to-end]: SC-2 uses checkout.session.completed (not customer.subscription.created) — Checkout-based flows carry metadata only on checkout event, per Stripe best practice
+- [Phase 29-stripe-end-to-end]: All PAY-01 through PAY-04 requirements verified PASS — Phase 29 Stripe E2E complete
 
 ### Pending Todos
 
@@ -68,6 +70,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-04T19:49:58.193Z
-Stopped at: Completed 29-01-PLAN.md
+Last session: 2026-04-04T19:57:50.058Z
+Stopped at: Completed 29-02-PLAN.md
 Resume file: None
