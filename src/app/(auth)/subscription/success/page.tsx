@@ -6,11 +6,12 @@
 
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useQueryClient } from '@tanstack/react-query';
 
 // ===== קומפוננטה פנימית =====
 
@@ -18,6 +19,12 @@ import { Button } from '@/components/ui/button';
 function SuccessPageContent() {
   const searchParams = useSearchParams();
   const sessionId = searchParams.get('session_id');
+  const queryClient = useQueryClient();
+
+  /** מרענן את נתוני המנוי מיד לאחר חזרה מ-Stripe Checkout */
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: ['subscription'] });
+  }, [queryClient]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4 py-12">
