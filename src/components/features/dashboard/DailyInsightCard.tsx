@@ -6,7 +6,7 @@
  * אין קריאת LLM — חישוב דטרמיניסטי בלבד (LLM יגיע ב-Phase 4)
  */
 
-import { GiSparkles } from 'react-icons/gi';
+import { Sparkles } from 'lucide-react';
 
 // ===== טיפוסים =====
 
@@ -180,7 +180,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
           className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white/10 ring-1 ring-white/20"
           aria-hidden="true"
         >
-          <GiSparkles className="h-10 w-10 text-white/90" />
+          <Sparkles className="h-10 w-10 text-white/90" />
         </div>
       </div>
     </div>

@@ -2,7 +2,7 @@
 
 /** עמוד מילון אסטרולוגי — מזלות, כוכבים, בתים ואספקטים בטאבים */
 
-import { GiAstrolabe } from 'react-icons/gi'
+import { Orbit } from 'lucide-react'
 
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
@@ -21,7 +21,7 @@ export default function AstrologyDictionaryPage() {
       <PageHeader
         title="מילון אסטרולוגי"
         description="מדריך עיון מלא — מזלות, כוכבים, בתים ואספקטים"
-        icon={<GiAstrolabe className="h-5 w-5" />}
+        icon={<Orbit className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'למידה', href: '/learn/tutorials' },
           { label: 'מילון אסטרולוגי' },

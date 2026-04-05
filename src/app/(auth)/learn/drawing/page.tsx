@@ -10,7 +10,7 @@
 
 import { useState, useCallback } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { GiPaintBrush } from 'react-icons/gi'
+import { Palette } from 'lucide-react'
 import { toast } from 'sonner'
 import { PageHeader } from '@/components/layouts/PageHeader'
 import { TutorChat, type ChatMessage } from '@/components/features/learn/TutorChat'
@@ -93,7 +93,7 @@ export default function DrawingTutorPage() {
       <PageHeader
         title="מורה ציור ואמנות"
         description="שאל שאלות על ניתוח ציורים וקבל הסברים מותאמים אישית"
-        icon={<GiPaintBrush className="h-6 w-6 text-primary" />}
+        icon={<Palette className="h-6 w-6 text-primary" />}
       />
 
       <div className="bg-surface-container rounded-xl border border-outline-variant/5 p-5">

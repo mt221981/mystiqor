@@ -7,7 +7,7 @@ import { useQuery } from '@tanstack/react-query';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { motion } from 'framer-motion';
-import { GiSpellBook } from 'react-icons/gi';
+import { BookMarked } from 'lucide-react';
 import { PageHeader } from '@/components/layouts/PageHeader';
 import { MysticSkeleton } from '@/components/ui/mystic-skeleton';
 import { animations } from '@/lib/animations/presets';
@@ -56,7 +56,7 @@ export default function BlogPostPage() {
   if (isError || !post) {
     return (
       <div className="flex flex-col items-center gap-4 py-16 text-on-surface-variant" dir="rtl">
-        <GiSpellBook className="h-12 w-12 opacity-30" />
+        <BookMarked className="h-12 w-12 opacity-30" />
         <p className="font-body text-lg">המאמר לא נמצא</p>
         <a href="/learn/blog" className="text-primary hover:text-primary-fixed font-label text-sm">
           חזרה לבלוג
@@ -71,7 +71,7 @@ export default function BlogPostPage() {
       <PageHeader
         title={post.title}
         description={post.excerpt ?? ''}
-        icon={<GiSpellBook className="h-5 w-5" />}
+        icon={<BookMarked className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'למידה', href: '/learn/tutorials' },
           { label: 'בלוג', href: '/learn/blog' },
