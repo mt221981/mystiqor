@@ -18,9 +18,9 @@
 
 ### Icons
 
-- [ ] **ICON-01**: סמלים קטנים חדשים ומובנים לסיידבר -- ברורים, ייחודיים לכל כלי, עקביים בסגנון
+- [x] **ICON-01**: סמלים קטנים חדשים ומובנים לסיידבר -- ברורים, ייחודיים לכל כלי, עקביים בסגנון
 - [ ] **ICON-02**: סמלים קטנים בעמודי כלים (headers) -- תואמים לסט הסיידבר
-- [ ] **ICON-03**: אין כפילויות ויזואליות -- כל כלי עם סמל ייחודי ומזוהה
+- [x] **ICON-03**: אין כפילויות ויזואליות -- כל כלי עם סמל ייחודי ומזוהה
 
 ## Out of Scope
 
@@ -39,9 +39,9 @@
 | SIDE-03 | Phase 27 | Pending |
 | DASH-01 | Phase 28 | Pending |
 | DASH-02 | Phase 28 | Pending |
-| ICON-01 | Phase 26 | Pending |
+| ICON-01 | Phase 26 | Complete |
 | ICON-02 | Phase 26 | Pending |
-| ICON-03 | Phase 26 | Pending |
+| ICON-03 | Phase 26 | Complete |
 
 **Coverage:**
 - v1.4 requirements: 8 total
