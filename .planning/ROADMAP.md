@@ -66,7 +66,11 @@ See .planning/milestones/v1.3-ROADMAP.md for full details.
   2. אותם סמלים מופיעים בכותרות עמודי הכלים (headers) -- עקביות מלאה בין סיידבר לעמוד
   3. הסמלים נראים מקצועיים ואחידים בסגנון (לא מיקס של ספריות שונות)
   4. אין רגרסיה -- כל מקום שהשתמש בסמל gi קודם עכשיו מציג את הסמל החדש
-**Plans**: TBD
+**Plans**: 3 plans
+Plans:
+- [ ] 26-01-PLAN.md -- Centralized icon mapping + shared infrastructure migration (8 files)
+- [ ] 26-02-PLAN.md -- Tool page icon migration (17 files)
+- [ ] 26-03-PLAN.md -- Remaining files + react-icons removal + final verification (12 files + cleanup)
 **UI hint**: yes
 
 ### Phase 27: Holistic Sidebar Redesign
@@ -100,6 +104,6 @@ Phases execute in numeric order: 26 → 27 → 28
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 26. Icon System Overhaul | v1.4 | 0/TBD | Not started | - |
+| 26. Icon System Overhaul | v1.4 | 0/3 | Planned | - |
 | 27. Holistic Sidebar Redesign | v1.4 | 0/TBD | Not started | - |
 | 28. Dashboard Tool Cards | v1.4 | 0/TBD | Not started | - |
