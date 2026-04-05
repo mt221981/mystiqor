@@ -8,7 +8,7 @@
 
 import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
-import { GiPaintBrush } from 'react-icons/gi'
+import { Palette } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
@@ -56,7 +56,7 @@ export default function DrawingPage() {
       <StandardSectionHeader
         title="ניתוח ציורים"
         description="ניתוח פסיכולוגי של ציורים (בית-עץ-אדם) — עם מדדי קופיץ ו-FDM"
-        icon={<GiPaintBrush className="w-6 h-6" />}
+        icon={<Palette className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

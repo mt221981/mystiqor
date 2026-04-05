@@ -9,7 +9,7 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { GiCardRandom, GiCrystalBall } from 'react-icons/gi'
+import { Layers, Gem } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
@@ -109,7 +109,7 @@ export default function TarotPage() {
       <StandardSectionHeader
         title="טארוט"
         description="שליפת קלפים מה-DB + פרשנות AI מותאמת אישית"
-        icon={<GiCardRandom className="w-6 h-6" />}
+        icon={<Layers className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -172,7 +172,7 @@ export default function TarotPage() {
       {/* מצב ריק — לפני שליפה */}
       {!result && !mutation.isPending && (
         <EmptyState
-          icon={<GiCrystalBall className="h-12 w-12" />}
+          icon={<Gem className="h-12 w-12" />}
           title="בחר פריסה ושאל את הקלפים"
           description='בחר סוג פריסה, הכנס שאלה (אופציונלי), ולחץ על "שלוף קלפים" לקבל תשובה'
         />
@@ -206,7 +206,7 @@ export default function TarotPage() {
               <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
                 <CardHeader>
                   <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                    <GiCardRandom className="h-4 w-4" />
+                    <Layers className="h-4 w-4" />
                     פרשנות AI
                   </CardTitle>
                 </CardHeader>

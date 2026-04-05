@@ -12,7 +12,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { GiHearts, GiYinYang } from 'react-icons/gi'
+import { Heart, CircleDot } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
@@ -120,7 +120,7 @@ function PersonCard({ prefix, title, register, errors }: PersonCardProps) {
     <Card className="border-outline-variant/5 bg-surface-container rounded-xl p-6 flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="font-headline font-semibold text-primary text-lg flex items-center gap-2">
-          <GiHearts className="h-4 w-4" />{title}
+          <Heart className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -200,7 +200,7 @@ export default function CompatibilityPage() {
       <StandardSectionHeader
         title="ניתוח תאימות"
         description="ניתוח תאימות אסטרולוגי ונומרולוגי משולב — ציוני אמת, לא הכללות"
-        icon={<GiYinYang className="h-5 w-5" />}
+        icon={<CircleDot className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

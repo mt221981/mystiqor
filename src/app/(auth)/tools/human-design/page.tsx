@@ -10,8 +10,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactMarkdown from 'react-markdown';
 import { toast } from 'sonner';
-import { Loader2, Info } from 'lucide-react';
-import { GiDna1 } from 'react-icons/gi';
+import { Loader2, Info, Dna } from 'lucide-react';
 import { motion, useReducedMotion } from 'framer-motion';
 import type { z } from 'zod';
 
@@ -121,7 +120,7 @@ export default function HumanDesignPage() {
       <StandardSectionHeader
         title="עיצוב אנושי"
         description="גלה את מפת האנרגיה האישית שלך"
-        icon={<GiDna1 className="h-6 w-6" />}
+        icon={<Dna className="h-6 w-6" />}
         breadcrumbs={[{ label: 'כלים', href: '/tools' }, { label: 'עיצוב אנושי' }]}
       />
 

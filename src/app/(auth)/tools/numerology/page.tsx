@@ -13,8 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { ChevronDown, ChevronUp, Heart } from 'lucide-react'
-import { GiAbacus } from 'react-icons/gi'
+import { ChevronDown, ChevronUp, Heart, Hash } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
@@ -53,6 +52,16 @@ type CompatibilityFormValues = z.infer<typeof CompatibilityFormSchema>
 
 // ===== טיפוס תוצאה =====
 
+/** פרשנויות AI לכל מספר בנפרד */
+interface NumberInterpretations {
+  life_path: string
+  destiny: string
+  soul: string
+  personality: string
+  personal_year: string
+  synthesis: string
+}
+
 /** מבנה תוצאת API נומרולוגיה */
 interface NumerologyResult {
   name: string
@@ -62,6 +71,7 @@ interface NumerologyResult {
   personality: number
   personal_year: number
   interpretation: string
+  interpretations?: NumberInterpretations
   analysis_id: string | null
 }
 
@@ -220,7 +230,7 @@ export default function NumerologyPage() {
       <StandardSectionHeader
         title="נומרולוגיה"
         description="חישוב 5 מספרים נומרולוגיים עבריים מותאמים אישית + פרשנות AI"
-        icon={<GiAbacus className="w-6 h-6" />}
+        icon={<Hash className="w-6 h-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -298,9 +308,11 @@ export default function NumerologyPage() {
                 {NUMBER_CARD_DEFS.map(({ key, label, color }) => (
                   <NumberCard
                     key={key}
+                    numberKey={key}
                     label={label}
                     value={result[key]}
                     color={color}
+                    personalInterpretation={result.interpretations?.[key]}
                   />
                 ))}
               </div>
@@ -339,7 +351,7 @@ export default function NumerologyPage() {
               <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
                 <CardHeader>
                   <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                    <GiAbacus className="h-4 w-4" />
+                    <Hash className="h-4 w-4" />
                     פרשנות AI מותאמת אישית
                   </CardTitle>
                 </CardHeader>
