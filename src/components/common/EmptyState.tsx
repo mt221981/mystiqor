@@ -7,7 +7,7 @@
  */
 
 import { motion } from 'framer-motion';
-import { GiCrystalBall } from 'react-icons/gi';
+import { Gem } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 
 import type { ReactNode } from 'react';
@@ -66,7 +66,7 @@ export function EmptyState({
           'h-16 w-16 bg-primary-container/20 text-primary'
         )}
       >
-        {icon ?? <GiCrystalBall className="h-8 w-8" />}
+        {icon ?? <Gem className="h-8 w-8" />}
       </div>
 
       {/* כותרת */}

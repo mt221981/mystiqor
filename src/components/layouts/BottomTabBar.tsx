@@ -3,14 +3,13 @@
 /**
  * סרגל טאבים תחתון — ניווט ראשי למובייל עם 5 טאבים
  * מוצג רק במובייל (md:hidden), ממוקם בתחתית המסך עם glass effect
- * כולל זיהוי מצב פעיל, נקודת אינדיקטור וסמל GiCrystalBall עבור מאמן AI
+ * כולל זיהוי מצב פעיל, נקודת אינדיקטור וסמל Sparkles עבור מאמן AI
  */
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils/cn';
-import { LayoutDashboard, Lightbulb, Grid2x2, User } from 'lucide-react';
-import { GiCrystalBall } from 'react-icons/gi';
+import { LayoutDashboard, Lightbulb, Grid2x2, User, Sparkles } from 'lucide-react';
 
 // ===== קבועי ניווט =====
 
@@ -27,7 +26,7 @@ interface TabDefinition {
 /** 5 הטאבים הראשיים לניווט תחתון במובייל */
 const TABS: readonly TabDefinition[] = [
   { label: 'לוח בקרה', href: '/dashboard', Icon: LayoutDashboard },
-  { label: 'נועה', href: '/coach', Icon: GiCrystalBall },
+  { label: 'נועה', href: '/coach', Icon: Sparkles },
   { label: 'תובנות', href: '/tools/daily-insights', Icon: Lightbulb },
   { label: 'כלים', href: '/tools', Icon: Grid2x2 },
   { label: 'פרופיל', href: '/profile', Icon: User },

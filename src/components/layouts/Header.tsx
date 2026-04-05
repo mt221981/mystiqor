@@ -9,8 +9,7 @@ import { useState, useCallback, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { usePathname } from 'next/navigation';
-import { Sun, Moon, Menu, User, LogOut, Settings, ArrowRight } from 'lucide-react';
-import { GiSparkles } from 'react-icons/gi';
+import { Sun, Moon, Menu, User, LogOut, Settings, ArrowRight, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useThemeStore } from '@/stores/theme';
 import { signOut } from '@/lib/supabase/auth';
@@ -109,7 +108,7 @@ export function Header({ onMobileMenuOpen }: HeaderProps) {
           className="flex items-center gap-2 md:hidden"
           aria-label="מיסטיקור — דף הבית"
         >
-          <GiSparkles className="h-5 w-5 text-primary" />
+          <Sparkles className="h-5 w-5 text-primary" />
           <span className="font-headline text-xl font-bold text-primary">
             MystiQor
           </span>
