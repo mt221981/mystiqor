@@ -7,34 +7,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import {
-  GiCrystalBall,
-  GiAbacus,
-  GiAstrolabe,
-  GiQuillInk,
-  GiPaintBrush,
-  GiHandOfGod,
-  GiCardRandom,
-  GiBodyBalance,
-  GiDreamCatcher,
-  GiSunRadiations,
-  GiCalendar,
-  GiCompass,
-  GiLovers,
-  GiHearts,
-  GiBriefcase,
-  GiScrollUnfurled,
-  GiAllSeeingEye,
-  GiMirrorMirror,
-  GiSparkles,
-  GiTargetArrows,
-  GiNotebook,
-  GiLightBulb,
-  GiGraduateCap,
-  GiNewspaper,
-  GiMountainRoad,
-} from 'react-icons/gi';
 import {
   LayoutDashboard,
   Home,
@@ -51,6 +25,30 @@ import {
   History,
   BarChart3,
   GitCompare,
+  Hash,
+  Orbit,
+  PenTool,
+  Palette,
+  Hand,
+  Layers,
+  Dna,
+  Moon,
+  SunDim,
+  CalendarDays,
+  Sunrise,
+  HeartHandshake,
+  Heart,
+  Compass,
+  FileSearch,
+  Users,
+  Merge,
+  Brain,
+  Sparkles,
+  Target,
+  NotebookPen,
+  Sun,
+  GraduationCap,
+  Newspaper,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -63,7 +61,7 @@ interface NavItem {
   readonly label: string;
   /** נתיב הקישור */
   readonly href: string;
-  /** אייקון — תומך גם ב-lucide וגם ב-react-icons */
+  /** אייקון Lucide */
   readonly icon: React.ComponentType<{ className?: string }>;
 }
 
@@ -82,50 +80,50 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'כלים מיסטיים',
     items: [
-      { label: 'נומרולוגיה', href: '/tools/numerology', icon: GiAbacus },
-      { label: 'אסטרולוגיה', href: '/tools/astrology', icon: GiAstrolabe },
-      { label: 'גרפולוגיה', href: '/tools/graphology', icon: GiQuillInk },
-      { label: 'ציור', href: '/tools/drawing', icon: GiPaintBrush },
-      { label: 'קריאה בכף יד', href: '/tools/palmistry', icon: GiHandOfGod },
-      { label: 'טארוט', href: '/tools/tarot', icon: GiCardRandom },
-      { label: 'עיצוב אנושי', href: '/tools/human-design', icon: GiBodyBalance },
-      { label: 'חלומות', href: '/tools/dream', icon: GiDreamCatcher },
+      { label: 'נומרולוגיה', href: '/tools/numerology', icon: Hash },
+      { label: 'אסטרולוגיה', href: '/tools/astrology', icon: Orbit },
+      { label: 'גרפולוגיה', href: '/tools/graphology', icon: PenTool },
+      { label: 'ציור', href: '/tools/drawing', icon: Palette },
+      { label: 'קריאה בכף יד', href: '/tools/palmistry', icon: Hand },
+      { label: 'טארוט', href: '/tools/tarot', icon: Layers },
+      { label: 'עיצוב אנושי', href: '/tools/human-design', icon: Dna },
+      { label: 'חלומות', href: '/tools/dream', icon: Moon },
     ],
   },
   {
     title: 'עוד כלים',
     items: [
-      { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: GiSunRadiations },
-      { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: GiCalendar },
-      { label: 'מעברים', href: '/tools/astrology/transits', icon: GiCompass },
-      { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: GiSunRadiations },
-      { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: GiLovers },
-      { label: 'התאמה', href: '/tools/compatibility', icon: GiHearts },
-      { label: 'קריירה', href: '/tools/career', icon: GiBriefcase },
-      { label: 'מסמך', href: '/tools/document', icon: GiScrollUnfurled },
-      { label: 'מערכות יחסים', href: '/tools/relationships', icon: GiLovers },
-      { label: 'סינתזה', href: '/tools/synthesis', icon: GiAllSeeingEye },
-      { label: 'אישיות', href: '/tools/personality', icon: GiMirrorMirror },
+      { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: SunDim },
+      { label: 'לוח אסטרולוגי', href: '/tools/astrology/calendar', icon: CalendarDays },
+      { label: 'מעברים', href: '/tools/astrology/transits', icon: Orbit },
+      { label: 'חזרת שמש', href: '/tools/astrology/solar-return', icon: Sunrise },
+      { label: 'סינסטרי', href: '/tools/astrology/synastry', icon: HeartHandshake },
+      { label: 'התאמה', href: '/tools/compatibility', icon: Heart },
+      { label: 'קריירה', href: '/tools/career', icon: Compass },
+      { label: 'מסמך', href: '/tools/document', icon: FileSearch },
+      { label: 'מערכות יחסים', href: '/tools/relationships', icon: Users },
+      { label: 'סינתזה', href: '/tools/synthesis', icon: Merge },
+      { label: 'אישיות', href: '/tools/personality', icon: Brain },
     ],
   },
   {
     title: 'מסע אישי',
     items: [
-      { label: 'נועה — המאמנת', href: '/coach', icon: GiCrystalBall },
-      { label: 'יעדים', href: '/goals', icon: GiTargetArrows },
+      { label: 'נועה — המאמנת', href: '/coach', icon: Sparkles },
+      { label: 'יעדים', href: '/goals', icon: Target },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
-      { label: 'יומן', href: '/journal', icon: GiNotebook },
-      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: GiLightBulb },
+      { label: 'יומן', href: '/journal', icon: NotebookPen },
+      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: Sun },
     ],
   },
   {
     title: 'למידה',
     items: [
-      { label: 'מדריכים', href: '/learn/tutorials', icon: GiGraduateCap },
-      { label: 'בלוג', href: '/learn/blog', icon: GiNewspaper },
-      { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: GiAstrolabe },
-      { label: 'מילון אסטרולוגי', href: '/learn/astrology/dictionary', icon: GiAstrolabe },
-      { label: 'מורה ציור', href: '/learn/drawing', icon: GiPaintBrush },
+      { label: 'מדריכים', href: '/learn/tutorials', icon: GraduationCap },
+      { label: 'בלוג', href: '/learn/blog', icon: Newspaper },
+      { label: 'מורה אסטרולוגיה', href: '/learn/astrology', icon: Orbit },
+      { label: 'מילון אסטרולוגי', href: '/learn/astrology/dictionary', icon: Orbit },
+      { label: 'מורה ציור', href: '/learn/drawing', icon: Palette },
     ],
   },
   {
@@ -341,14 +339,9 @@ export function Sidebar() {
       aria-label="ניווט ראשי"
     >
       {/* לוגו — לחיצה מובילה לדף הבית */}
-      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 px-5 py-8 gap-2 hover:bg-surface-container-high/30 transition-colors">
-        <div className="celestial-glow rounded-2xl p-3">
-          <GiSparkles className="h-12 w-12 text-gold" />
-        </div>
-        <span className="font-headline text-3xl font-bold text-gradient-gold">
-          MystiQor
-        </span>
-        <span className="text-sm text-muted-foreground font-body">המסע המיסטי שלך</span>
+      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 px-4 py-5 gap-0 hover:bg-surface-container-high/30 transition-colors">
+        <Image src="/images/brand/logo.png" alt="MystiQor" width={200} height={100} className="w-44 h-auto object-contain blend-luminous -mb-1" style={{ maskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)' }} />
+        <span className="text-xs text-muted-foreground/70 font-body">המסע המיסטי שלך</span>
       </Link>
 
       {/* קטגוריות ניווט */}
