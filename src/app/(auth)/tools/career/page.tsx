@@ -12,8 +12,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { CheckCircle, AlertTriangle, TrendingUp, Zap } from 'lucide-react'
-import { GiBriefcase, GiStarFormation } from 'react-icons/gi'
+import { CheckCircle, AlertTriangle, TrendingUp, Zap, Compass, Star } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
@@ -114,7 +113,7 @@ export default function CareerPage() {
       <StandardSectionHeader
         title="ייעוץ קריירה"
         description="קבל ייעוץ קריירה מותאם אישית המשלב כישורים, תחומי עניין והקשר אסטרולוגי"
-        icon={<GiStarFormation className="h-5 w-5" />}
+        icon={<Star className="h-5 w-5" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
@@ -197,7 +196,7 @@ export default function CareerPage() {
           <Card className="border-outline-variant/5 bg-surface-container">
             <CardHeader>
               <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                <GiBriefcase className="h-4 w-4" />
+                <Compass className="h-4 w-4" />
                 תחומים מומלצים
               </CardTitle>
             </CardHeader>

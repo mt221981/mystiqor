@@ -11,8 +11,7 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
-import { RefreshCw } from 'lucide-react'
-import { GiBrain } from 'react-icons/gi'
+import { RefreshCw, Brain } from 'lucide-react'
 import dynamic from 'next/dynamic'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
@@ -123,7 +122,7 @@ export default function PersonalityPage() {
       <StandardSectionHeader
         title="ניתוח אישיות — חמשת הממדים הגדולים"
         description="גלה את פרופיל האישיות שלך עם מודל OCEAN המוכח מדעית"
-        icon={<GiBrain className="h-6 w-6" />}
+        icon={<Brain className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'ניתוח אישיות' },

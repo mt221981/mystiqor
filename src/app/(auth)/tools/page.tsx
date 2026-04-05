@@ -5,7 +5,7 @@
  */
 
 import { motion, useReducedMotion } from 'framer-motion';
-import { GiSpellBook } from 'react-icons/gi';
+import { BookMarked } from 'lucide-react';
 
 import { ToolGrid } from '@/components/features/shared/ToolGrid';
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader';
@@ -21,7 +21,7 @@ export default function ToolsPage() {
       <StandardSectionHeader
         title="הכלים המיסטיים"
         description="בחר כלי וגלה את עצמך"
-        icon={<GiSpellBook className="w-6 h-6" />}
+        icon={<BookMarked className="w-6 h-6" />}
       />
 
       {/* רשת כלים */}

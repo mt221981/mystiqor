@@ -8,8 +8,7 @@
 import { useState, useRef } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { toast } from 'sonner'
-import { FileText, Upload, CheckSquare, Lightbulb, BookOpen, Loader2, X } from 'lucide-react'
-import { GiScrollQuill } from 'react-icons/gi'
+import { FileText, Upload, CheckSquare, Lightbulb, BookOpen, Loader2, X, FileSearch } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { MYSTIC_LOADING_PHRASES } from '@/lib/constants/mystic-loading-phrases'
@@ -210,7 +209,7 @@ export default function DocumentPage() {
       <StandardSectionHeader
         title="ניתוח מסמך"
         description="העלה מסמך או תמונה לקבלת תובנות AI מעמיקות"
-        icon={<GiScrollQuill className="h-5 w-5" />}
+        icon={<FileSearch className="h-5 w-5" />}
         breadcrumbs={[{ label: 'דף הבית', href: '/' }, { label: 'כלים', href: '/tools' }, { label: 'ניתוח מסמך' }]}
       />
 

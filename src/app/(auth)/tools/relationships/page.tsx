@@ -13,8 +13,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Heart, CheckCircle, AlertTriangle, MessageCircle, Brain } from 'lucide-react'
-import { GiTwoCoins } from 'react-icons/gi'
+import { Heart, CheckCircle, AlertTriangle, MessageCircle, Brain, Users } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
@@ -165,7 +164,7 @@ export default function RelationshipsPage() {
       <StandardSectionHeader
         title="ניתוח יחסים"
         description="ניתוח תאימות ודינמיקה בין שני אנשים בעזרת אסטרולוגיה ופסיכולוגיה"
-        icon={<GiTwoCoins className="h-6 w-6" />}
+        icon={<Users className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

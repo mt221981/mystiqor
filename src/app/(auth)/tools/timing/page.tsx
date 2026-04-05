@@ -12,8 +12,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { Calendar, Star, AlertTriangle, ChevronDown, ChevronUp } from 'lucide-react'
-import { GiHourglass } from 'react-icons/gi'
+import { Calendar, Star, AlertTriangle, ChevronDown, ChevronUp, Clock } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { DEFAULT_LOADING_PHRASE } from '@/lib/constants/mystic-loading-phrases'
@@ -272,7 +271,7 @@ export default function TimingPage() {
       <StandardSectionHeader
         title="כלי תזמון"
         description="מצא את הימים האסטרולוגיים הטובים ביותר לפעילות שלך"
-        icon={<GiHourglass className="h-6 w-6" />}
+        icon={<Clock className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
