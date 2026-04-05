@@ -16,8 +16,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { RotateCcw } from 'lucide-react'
-import { GiSunrise } from 'react-icons/gi'
+import { RotateCcw, Sunrise } from 'lucide-react'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
@@ -300,7 +299,7 @@ export default function SolarReturnPage() {
       <StandardSectionHeader
         title="מהפכה שמשית"
         description="תחזית שנתית מלאה מבוססת רגע חזרת השמש למיקום הלידה"
-        icon={<GiSunrise className="h-6 w-6" />}
+        icon={<Sunrise className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

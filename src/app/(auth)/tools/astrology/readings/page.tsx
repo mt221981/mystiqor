@@ -9,8 +9,7 @@ import { useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { GiSpellBook } from 'react-icons/gi'
-import { BookOpen } from 'lucide-react'
+import { BookOpen, BookMarked } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { Button } from '@/components/ui/button'
@@ -165,14 +164,14 @@ export default function ReadingsPage() {
 
   if (noNatal) return (
     <div className="container mx-auto px-4 py-6 max-w-4xl" dir="rtl">
-      <StandardSectionHeader title="קריאות אסטרולוגיות" description="8 סוגי קריאות מותאמות אישית" icon={<GiSpellBook className="h-6 w-6" />} breadcrumbs={HEADER_BREADCRUMBS} />
-      <EmptyState icon={<GiSpellBook className="h-8 w-8" />} title="נדרשת מפת לידה" description="כדי לקבל קריאה אסטרולוגית אישית, יש לחשב תחילה מפת לידה" action={{ label: 'לחישוב מפת לידה', onClick: () => { window.location.href = '/tools/astrology' } }} />
+      <StandardSectionHeader title="קריאות אסטרולוגיות" description="8 סוגי קריאות מותאמות אישית" icon={<BookMarked className="h-6 w-6" />} breadcrumbs={HEADER_BREADCRUMBS} />
+      <EmptyState icon={<BookMarked className="h-8 w-8" />} title="נדרשת מפת לידה" description="כדי לקבל קריאה אסטרולוגית אישית, יש לחשב תחילה מפת לידה" action={{ label: 'לחישוב מפת לידה', onClick: () => { window.location.href = '/tools/astrology' } }} />
     </div>
   )
 
   return (
     <motion.div dir="rtl" className="container mx-auto px-4 py-6 max-w-4xl" initial={shouldReduceMotion ? false : { opacity: 0, y: 12 }} animate={shouldReduceMotion ? false : { opacity: 1, y: 0 }} transition={{ duration: 0.6, ease: 'easeOut' }}>
-      <StandardSectionHeader title="קריאות אסטרולוגיות" description="8 סוגי קריאות מותאמות אישית לפי מפת הלידה שלך" icon={<GiSpellBook className="h-6 w-6" />} breadcrumbs={HEADER_BREADCRUMBS} />
+      <StandardSectionHeader title="קריאות אסטרולוגיות" description="8 סוגי קריאות מותאמות אישית לפי מפת הלידה שלך" icon={<BookMarked className="h-6 w-6" />} breadcrumbs={HEADER_BREADCRUMBS} />
 
       <motion.div initial={animations.fadeInUp.initial} animate={animations.fadeInUp.animate} transition={{ duration: 0.4 }} className="mb-6">
         <Card className="border-outline-variant/5 bg-surface-container mystic-hover">

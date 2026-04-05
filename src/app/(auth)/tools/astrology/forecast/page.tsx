@@ -8,7 +8,7 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
-import { GiMagnifyingGlass } from 'react-icons/gi'
+import { Search } from 'lucide-react'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { DailyForecast } from '@/components/features/astrology/DailyForecast'
@@ -79,7 +79,7 @@ export default function AstroForecastPage() {
       <StandardSectionHeader
         title="תחזית יומית"
         description="תחזית אסטרולוגית מותאמת אישית למזל שלך"
-        icon={<GiMagnifyingGlass className="h-6 w-6" />}
+        icon={<Search className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'כלים', href: '/tools' },
           { label: 'אסטרולוגיה', href: '/tools/astrology' },

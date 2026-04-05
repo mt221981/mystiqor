@@ -12,8 +12,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { CheckCircle, AlertTriangle, ChevronDown } from 'lucide-react'
-import { GiHearts } from 'react-icons/gi'
+import { CheckCircle, AlertTriangle, ChevronDown, HeartHandshake } from 'lucide-react'
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
 import { getLoadingPhrase } from '@/lib/constants/mystic-loading-phrases'
@@ -180,14 +179,14 @@ function SynastryResults({ result, person1Name, person2Name }: SynastryResultsPr
       <Card className="border-outline-variant/5 bg-surface-container">
         <CardHeader className="pb-2">
           <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-            <GiHearts className="h-4 w-4" />המלצות
+            <HeartHandshake className="h-4 w-4" />המלצות
           </CardTitle>
         </CardHeader>
         <CardContent>
           <ul className="space-y-2">
             {interpretation.recommendations.map((r, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-on-surface-variant font-body">
-                <GiHearts className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
+                <HeartHandshake className="h-3 w-3 text-primary mt-1 shrink-0" />{r}
               </li>
             ))}
           </ul>
@@ -272,7 +271,7 @@ export default function SynastryPage() {
     <Card className="border-outline-variant/5 bg-surface-container flex-1">
       <CardHeader className="pb-3">
         <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-          <GiHearts className="h-4 w-4" />{title}
+          <HeartHandshake className="h-4 w-4" />{title}
         </CardTitle>
       </CardHeader>
       <CardContent className="space-y-3">
@@ -329,7 +328,7 @@ export default function SynastryPage() {
       <StandardSectionHeader
         title="סינסטרי"
         description="תאימות אסטרולוגית — ניתוח שני גלגלות לידה ואספקטים בין-גלגלות"
-        icon={<GiHearts className="h-6 w-6" />}
+        icon={<HeartHandshake className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },

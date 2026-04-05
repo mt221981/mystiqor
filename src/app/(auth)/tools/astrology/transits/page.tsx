@@ -15,8 +15,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
-import { RotateCcw, AlertTriangle } from 'lucide-react'
-import { GiOrbital } from 'react-icons/gi'
+import { RotateCcw, AlertTriangle, Orbit } from 'lucide-react'
 
 import { StandardSectionHeader } from '@/components/layouts/StandardSectionHeader'
 import { MysticLoadingText } from '@/components/ui/mystic-loading-text'
@@ -345,7 +344,7 @@ export default function TransitsPage() {
       <StandardSectionHeader
         title="מעברים פלנטריים"
         description="מיקומי הכוכבים הנוכחיים ואספקטיהם מול מפת הלידה שלך"
-        icon={<GiOrbital className="h-6 w-6" />}
+        icon={<Orbit className="h-6 w-6" />}
         breadcrumbs={[
           { label: 'דף הבית', href: '/' },
           { label: 'כלים', href: '/tools' },
