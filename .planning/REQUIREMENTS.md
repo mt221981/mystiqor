@@ -38,21 +38,21 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| STAB-01 | Pending | Pending |
-| STAB-02 | Pending | Pending |
-| STAB-03 | Pending | Pending |
-| STAB-04 | Pending | Pending |
-| STAB-05 | Pending | Pending |
-| A11Y-01 | Pending | Pending |
-| A11Y-02 | Pending | Pending |
-| A11Y-03 | Pending | Pending |
-| UX-01 | Pending | Pending |
-| UX-02 | Pending | Pending |
+| STAB-01 | Phase 31 | Pending |
+| STAB-02 | Phase 31 | Pending |
+| STAB-03 | Phase 31 | Pending |
+| STAB-04 | Phase 31 | Pending |
+| STAB-05 | Phase 31 | Pending |
+| A11Y-01 | Phase 32 | Pending |
+| A11Y-02 | Phase 32 | Pending |
+| A11Y-03 | Phase 32 | Pending |
+| UX-01 | Phase 32 | Pending |
+| UX-02 | Phase 32 | Pending |
 
 **Coverage:**
 - v1.5 requirements: 10 total
-- Mapped to phases: 0
-- Unmapped: 10
+- Mapped to phases: 10
+- Unmapped: 0
 
 ---
-*Requirements defined: 2026-04-07*
+*Requirements defined: 2026-04-07 | Traceability updated: 2026-04-07*

@@ -2,12 +2,12 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: System Hardening
-status: planning
-stopped_at: Defining requirements
-last_updated: "2026-04-07T14:00:00Z"
+status: ready_to_plan
+stopped_at: Roadmap created — Phase 31 ready to plan
+last_updated: "2026-04-07T14:30:00Z"
 last_activity: 2026-04-07
 progress:
-  total_phases: 0
+  total_phases: 2
   completed_phases: 0
   total_plans: 0
   completed_plans: 0
@@ -21,51 +21,43 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-07)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים -- עם AI שמסנתז תובנות אחודות
-**Current focus:** v1.5 System Hardening — defining requirements
+**Current focus:** v1.5 System Hardening — Phase 31: Backend Stability
 
 ## Current Position
 
-Phase: Not started (defining requirements)
+Phase: 31 of 32 (Backend Stability)
 Plan: —
-Status: Defining requirements
-Last activity: 2026-04-07 — Milestone v1.5 started
+Status: Ready to plan
+Last activity: 2026-04-07 — Roadmap created for v1.5 (2 phases, 10 requirements)
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
-**Velocity (v1.3 reference):**
+**Velocity (v1.4 reference):**
 
-- Total plans completed (v1.3): 10
-- Average duration: ~9 min/plan
-- Total execution time: ~1.5 hours
+- Total plans completed (v1.4): 7
+- Average duration: ~5 min/plan
+- Total execution time: ~35 min
 
-**By Phase (v1.3):**
+**By Phase (v1.4):**
 
 | Phase | Plans | Avg/Plan |
 |-------|-------|----------|
-| 22. Accessibility | 3 | ~8 min |
-| 23. Coach & Tabs | 3 | ~9 min |
-| 24. Atmospheric | 2 | ~10 min |
-| 25. Coach Intel | 2 | ~9 min |
-| Phase 26 P01 | 5min | 3 tasks | 8 files |
-| Phase 26 P02 | 5min | 2 tasks | 17 files |
-| Phase 26 P03 | 5min | 3 tasks | 14 files |
+| 26. Icon System Core | 3 | ~5 min |
+| 27. Sidebar Redesign | 1 | ~5 min |
+| 28. Dashboard Cards | 1 | ~5 min |
+| 30. Gap Closure | 2 | ~5 min |
 
 ## Accumulated Context
 
 ### Decisions
 
 All decisions logged in PROJECT.md Key Decisions table.
-v1.4-specific: Icons before sidebar (icons are consumed by sidebar navigation).
 
-- [Phase 26]: Centralized tool-icons.ts as single source of truth for 17 tool-to-Lucide-icon mappings
-- [Phase 26]: Tool pages import Lucide icons directly from lucide-react for JSX elements, not via tool-icons.ts
-- [Phase 26]: Direct Lucide imports for JSX in page files; HeartHandshake for synastry distinction; react-icons fully removed
-
-### Roadmap Evolution
-
-- Phase 29 added: UI Rebuild — Faithful BASE44 Design Recreation
+- [v1.5 Roadmap]: 2-phase structure chosen over 3 — STAB-01/02/03/04/05 all backend, A11Y+UX all frontend; no artificial split needed
+- [Phase 26]: Centralized tool-icons.ts as single source of truth for Lucide mappings
+- [Phase 26]: react-icons fully removed, 100% Lucide coverage
 
 ### Pending Todos
 
@@ -77,6 +69,6 @@ None active.
 
 ## Session Continuity
 
-Last session: 2026-04-05T22:25:26.002Z
-Stopped at: Completed 26-03-PLAN.md
+Last session: 2026-04-07
+Stopped at: v1.5 roadmap written — ROADMAP.md, STATE.md, REQUIREMENTS.md updated
 Resume file: None
