@@ -14,6 +14,18 @@ import type { TablesInsert } from '@/types/database';
 import { zodValidationError } from '@/lib/utils/api-error';
 import { checkUsageQuota } from '@/lib/utils/usage-guard';
 
+/** JSON schema for dream LLM response — JSON mode */
+const DREAM_RESPONSE_JSON_SCHEMA = {
+  type: 'object',
+  properties: { interpretation: { type: 'string' } },
+  required: ['interpretation'],
+} as const
+
+/** Zod schema — validates non-empty dream interpretation */
+const DreamSimpleSchema = z.object({
+  interpretation: z.string().min(10, 'תגובת AI קצרה מדי'),
+})
+
 // ===== סכמת קלט =====
 
 /** סכמת בדיקת קלט לדף ניתוח חלומות */
@@ -90,12 +102,25 @@ ${personalLine}
     // עבודת רקע אסינכרונית (fire-and-forget — שגיאות נלכדות פנימית)
     const backgroundWork = async () => {
       try {
-        const interpretation = await invokeLLM<string>({
+        const interpretation = await invokeLLM<{ interpretation: string }>({
           systemPrompt: dreamSystemPrompt,
-          prompt: `חלום: "${dreamData.description}". רגשות: ${dreamData.emotions.join(', ')}. סמלים: ${dreamData.symbols.join(', ')}.`,
+          prompt: `חלום: "${dreamData.description}". רגשות: ${dreamData.emotions.join(', ')}. סמלים: ${dreamData.symbols.join(', ')}.\n\nענה בפורמט JSON עם שדה "interpretation" בלבד.`,
           maxTokens: 800,
           userId,
+          responseSchema: DREAM_RESPONSE_JSON_SCHEMA,
+          zodSchema: DreamSimpleSchema,
         });
+
+        // ולידציית תגובת LLM — STAB-04
+        if (interpretation.validationResult && !interpretation.validationResult.success) {
+          const updateSupabase2 = await createClient()
+          await updateSupabase2
+            .from('dreams')
+            .update({ ai_interpretation: 'לא ניתן לנתח את החלום כרגע — נסה שוב' })
+            .eq('id', dreamId)
+          return
+        }
+
         // עדכון רשומת החלום עם הפרשנות
         const updateSupabase = await createClient();
 
@@ -109,7 +134,7 @@ ${personalLine}
             emotions: dreamData.emotions,
             symbols: dreamData.symbols,
           })),
-          results: JSON.parse(JSON.stringify({ interpretation: interpretation.data, dream_id: dreamId })),
+          results: JSON.parse(JSON.stringify({ interpretation: interpretation.data.interpretation, dream_id: dreamId })),
           summary: `פרשנות חלום: ${dreamData.title}`,
         }
         const { error: insertError } = await updateSupabase
@@ -128,7 +153,7 @@ ${personalLine}
 
         await updateSupabase
           .from('dreams')
-          .update({ ai_interpretation: interpretation.data })
+          .update({ ai_interpretation: interpretation.data.interpretation })
           .eq('id', dreamId);
       } catch {
         // לכידה שקטה — כשלון בעבודת הרקע לא אמור להשפיע על המשתמש

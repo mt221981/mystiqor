@@ -18,6 +18,18 @@ import { checkUsageQuota } from '@/lib/utils/usage-guard'
 /** שורת קלף מ-DB */
 type TarotCardRow = Database['public']['Tables']['tarot_cards']['Row']
 
+/** JSON schema for tarot LLM response — JSON mode switch */
+const TAROT_RESPONSE_JSON_SCHEMA = {
+  type: 'object',
+  properties: { interpretation: { type: 'string' } },
+  required: ['interpretation'],
+} as const
+
+/** Zod schema — validates non-empty interpretation string */
+const TarotSimpleSchema = z.object({
+  interpretation: z.string().min(10, 'תגובת AI קצרה מדי'),
+})
+
 /** סכמת ולידציה לקלט טארוט */
 const TarotInputSchema = z.object({
   spreadCount: z.union([z.literal(1), z.literal(3), z.literal(5), z.literal(10)]).default(3),
@@ -104,11 +116,20 @@ ${personalLine}
     const llmResponse = await invokeLLM({
       userId: user.id,
       systemPrompt,
-      prompt: `${questionText}הקלפים שנשלפו: ${cardDescriptions}. פרש את הפריסה כסיפור אחד שלם — מה הקלפים מספרים יחד? מה הם מגלים על מה שמתרחש מתחת לפני השטח? מה המסר העמוק שהיקום שולח?`,
+      prompt: `${questionText}הקלפים שנשלפו: ${cardDescriptions}. פרש את הפריסה כסיפור אחד שלם — מה הקלפים מספרים יחד? מה הם מגלים על מה שמתרחש מתחת לפני השטח? מה המסר העמוק שהיקום שולח?\n\nענה בפורמט JSON עם שדה "interpretation" בלבד.`,
       maxTokens: 1000,
+      responseSchema: TAROT_RESPONSE_JSON_SCHEMA,
+      zodSchema: TarotSimpleSchema,
     })
 
-    const aiText = String(llmResponse.data)
+    if (llmResponse.validationResult && !llmResponse.validationResult.success) {
+      return NextResponse.json(
+        { error: 'תגובת ה-AI לא תקינה — נסה שוב' },
+        { status: 500 }
+      )
+    }
+
+    const aiText = (llmResponse.data as { interpretation: string }).interpretation
 
     // שמירת הניתוח ב-DB — JSON.parse(JSON.stringify(...)) ממיר לטיפוס Json תואם
     const row: TablesInsert<'analyses'> = {

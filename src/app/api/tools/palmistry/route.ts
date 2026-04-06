@@ -13,6 +13,14 @@ import { invokeLLM } from '@/services/analysis/llm'
 import type { TablesInsert } from '@/types/database'
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
+import { PalmistryResponseSchema } from '@/services/analysis/response-schemas'
+
+/** JSON schema for palmistry LLM response — JSON mode for vision */
+const PALMISTRY_RESPONSE_JSON_SCHEMA = {
+  type: 'object',
+  properties: { interpretation: { type: 'string' } },
+  required: ['interpretation'],
+} as const
 
 /** סכמת ולידציה לקלט קריאה בכף יד */
 const PalmistryInputSchema = z.object({
@@ -55,11 +63,20 @@ export async function POST(request: NextRequest) {
 
 כתוב פרשנות מעמיקה ב-4-5 פסקאות בעברית.
 הדגש כוחות ופוטנציאלים. היה ספציפי לכף היד שרואים בתמונה.`,
-      prompt: 'נתח את כף היד בתמונה ותן פרשנות כירומנטית מלאה.',
+      prompt: 'נתח את כף היד בתמונה ותן פרשנות כירומנטית מלאה. ענה בפורמט JSON עם שדה "interpretation" בלבד.',
       maxTokens: 1200,
+      responseSchema: PALMISTRY_RESPONSE_JSON_SCHEMA,
+      zodSchema: PalmistryResponseSchema,
     })
 
-    const aiText = String(llmResponse.data)
+    if (llmResponse.validationResult && !llmResponse.validationResult.success) {
+      return NextResponse.json(
+        { error: 'תגובת ה-AI לא תקינה — נסה שוב' },
+        { status: 500 }
+      )
+    }
+
+    const aiText = (llmResponse.data as { interpretation: string }).interpretation
 
     // שמירת הניתוח ב-DB — JSON.parse(JSON.stringify(...)) ממיר לטיפוס Json תואם
     const row: TablesInsert<'analyses'> = {
