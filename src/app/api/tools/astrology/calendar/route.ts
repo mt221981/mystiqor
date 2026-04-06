@@ -12,6 +12,8 @@ import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -57,6 +59,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // ולידציה של query params
     const { searchParams } = new URL(request.url)
     const parsed = CalendarQuerySchema.safeParse({
@@ -65,10 +71,7 @@ export async function GET(request: NextRequest) {
     })
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'פרמטרים לא תקינים — נדרש month (1-12) ו-year (2020-2030)', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('פרמטרים לא תקינים — נדרש month (1-12) ו-year (2020-2030)', parsed.error.flatten())
     }
 
     const { month, year } = parsed.data

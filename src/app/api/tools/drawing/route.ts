@@ -14,6 +14,8 @@ import { getPersonalContext } from '@/services/analysis/personal-context'
 import { buildDrawingAnalysisPrompt } from '@/services/drawing/analysis'
 import { DrawingResponseSchema, type DrawingResponse } from '@/services/analysis/response-schemas/drawing'
 import type { TablesInsert } from '@/types/database'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 /** סכמת ולידציה לקלט ניתוח ציורים */
 const DrawingInputSchema = z.object({
@@ -73,14 +75,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = DrawingInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { imageUrl, drawingType } = parsed.data

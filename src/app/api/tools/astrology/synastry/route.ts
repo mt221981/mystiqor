@@ -16,6 +16,8 @@ import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { PlanetPositions } from '@/services/astrology/aspects'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -24,8 +26,8 @@ const SynastryPersonSchema = z.object({
   name: z.string().min(1, 'שם חובה'),
   birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'תאריך לא תקין — נדרש פורמט YYYY-MM-DD'),
   birthTime: z.string().regex(/^\d{2}:\d{2}$/).optional(),
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
+  latitude: z.coerce.number().min(-90).max(90),
+  longitude: z.coerce.number().min(-180).max(180),
 })
 
 /** סכמת ולידציה לקלט הסינסטרי */
@@ -114,7 +116,8 @@ function buildPersonChart(
   lat: number,
   lon: number
 ): PersonChartData {
-  const time = birthTime ?? '12:00'
+  const rawTime = birthTime ?? '12:00'
+  const time = rawTime.split(':').slice(0, 2).join(':')
   const datetime = new Date(`${birthDate}T${time}:00`)
   const planets = getEphemerisPositions(datetime)
   const chartData = assembleChart(datetime, lat, lon, planets)
@@ -155,14 +158,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = SynastryInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { person1, person2 } = parsed.data

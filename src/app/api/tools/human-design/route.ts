@@ -11,6 +11,8 @@ import { invokeLLM } from '@/services/analysis/llm';
 import { getPersonalContext } from '@/services/analysis/personal-context';
 import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { TablesInsert } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
+import { checkUsageQuota } from '@/lib/utils/usage-guard';
 
 // re-export so legacy imports continue to work
 export { HumanDesignInputSchema };
@@ -45,10 +47,14 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'לא מורשה' }, { status: 401 });
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     const body = await request.json() as unknown;
     const parsed = HumanDesignInputSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+      return zodValidationError('קלט לא תקין', parsed.error.flatten());
     }
 
     const { birthDate, birthTime, birthPlace } = parsed.data;

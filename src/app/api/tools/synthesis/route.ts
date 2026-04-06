@@ -12,6 +12,8 @@ import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import type { TablesInsert } from '@/types/database'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -141,14 +143,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = SynthesisInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const synthesisType = parsed.data.type

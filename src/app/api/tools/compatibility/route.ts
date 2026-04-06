@@ -20,6 +20,8 @@ import { getEphemerisPositions } from '@/services/astrology/ephemeris'
 import { ZODIAC_SIGNS } from '@/lib/constants/astrology'
 import type { ZodiacSignKey } from '@/lib/constants/astrology'
 import type { TablesInsert } from '@/types/database'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -28,8 +30,8 @@ const PersonCompatSchema = z.object({
   fullName: z.string().min(1, 'שם חובה').max(100, 'שם ארוך מדי'),
   birthDate: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'תאריך לא תקין — נדרש פורמט YYYY-MM-DD'),
   birthTime: z.string().regex(/^\d{2}:\d{2}$/).default('12:00'),
-  latitude: z.number().min(-90).max(90).optional(),
-  longitude: z.number().min(-180).max(180).optional(),
+  latitude: z.coerce.number().min(-90).max(90).optional(),
+  longitude: z.coerce.number().min(-180).max(180).optional(),
 })
 
 /** סכמת ולידציה לקלט כלי התאימות */
@@ -113,7 +115,8 @@ function getChartSigns(person: PersonCompatInput): {
 } | null {
   if (person.latitude == null || person.longitude == null) return null
   try {
-    const datetime = new Date(`${person.birthDate}T${person.birthTime}:00`)
+    const normalizedTime = person.birthTime.split(':').slice(0, 2).join(':')
+    const datetime = new Date(`${person.birthDate}T${normalizedTime}:00`)
     const planets = getEphemerisPositions(datetime)
     const chart = assembleChart(datetime, person.latitude, person.longitude, planets)
     const sunSign = getSign(planets.sun?.longitude ?? 0)
@@ -137,14 +140,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = CompatibilityInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { person1, person2 } = parsed.data

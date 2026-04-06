@@ -20,6 +20,8 @@ import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { InterpretationInput } from '@/services/astrology/prompts/interpretation'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -74,6 +76,10 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שליפת הקשר אישי — שם, מזל, מספר חיים
     const ctx = await getPersonalContext(supabase, user.id)
 
@@ -81,10 +87,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json()
     const parsed = InputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { targetYear } = parsed.data

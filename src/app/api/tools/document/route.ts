@@ -12,6 +12,7 @@ import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== קבועים =====
 
@@ -80,6 +81,10 @@ export async function POST(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
 
     // קריאת FormData
     const formData = await request.formData()

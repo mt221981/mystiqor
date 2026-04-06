@@ -14,6 +14,7 @@ import { ZODIAC_SIGNS } from '@/lib/constants/astrology'
 import type { ZodiacSignKey } from '@/lib/constants/astrology'
 import type { TablesInsert } from '@/types/database'
 import { getPersonalContext } from '@/services/analysis/personal-context'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== חישוב מזל לפי תאריך לידה =====
 
@@ -82,6 +83,10 @@ export async function GET() {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
 
     // שליפת הקשר אישי — שם ומספר חיים לייחוד הפרומפט (המזל כבר מחושב מהפרופיל)
     const ctx = await getPersonalContext(supabase, user.id)

@@ -11,6 +11,8 @@ import { createClient } from '@/lib/supabase/server';
 import { invokeLLM } from '@/services/analysis/llm';
 import { getPersonalContext } from '@/services/analysis/personal-context';
 import type { TablesInsert } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
+import { checkUsageQuota } from '@/lib/utils/usage-guard';
 
 // ===== סכמת קלט =====
 
@@ -35,6 +37,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'לא מורשה' }, { status: 401 });
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שליפת הקשר אישי לפני עבודת הרקע — סוגרים על ctx בסגור
     // חשוב (Pitfall 3): לא שולפים בתוך backgroundWork — חייב להיות בhandler הראשי
     const ctx = await getPersonalContext(supabase, user.id);
@@ -42,7 +48,7 @@ export async function POST(request: Request) {
     const body = await request.json() as unknown;
     const parsed = DreamInputSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: parsed.error.flatten() }, { status: 400 });
+      return zodValidationError('קלט לא תקין', parsed.error.flatten());
     }
 
     // שלב 1: שמירת חלום מיידית עם ai_interpretation=null

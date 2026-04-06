@@ -12,6 +12,8 @@ import { buildInterpretationPrompt, INTERPRETATION_SYSTEM_PROMPT } from '@/servi
 import { invokeLLM } from '@/services/analysis/llm'
 import { getSign } from '@/services/astrology/chart'
 import { getElementDistribution } from '@/services/astrology/aspects'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -70,14 +72,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = InterpretInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { chartData, planets, planetDetails, analysisId } = parsed.data

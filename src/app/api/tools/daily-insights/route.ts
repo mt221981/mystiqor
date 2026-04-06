@@ -13,6 +13,7 @@ import { reduceToSingleDigit } from '@/services/numerology/calculations'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import { DailyInsightModulesSchema, DEFAULT_MODULES, type DailyInsightModules } from '@/lib/validations/daily-insights'
 import type { TablesInsert } from '@/types/database'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== פונקציות עזר =====
 
@@ -98,6 +99,10 @@ export async function GET(request: NextRequest) {
     if (!user) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
+
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
 
     const { searchParams } = new URL(request.url)
 

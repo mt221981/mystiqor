@@ -16,6 +16,8 @@ import { buildInterpretationPrompt, INTERPRETATION_SYSTEM_PROMPT } from '@/servi
 import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 // ===== סכמות ולידציה =====
 
@@ -25,10 +27,10 @@ const InputSchema = z.object({
   birthDate: z.string().min(1, 'תאריך לידה חובה'),
   /** שעת לידה בפורמט HH:mm — ברירת מחדל 12:00 */
   birthTime: z.string().default('12:00'),
-  /** קו רוחב של מקום הלידה — ברירת מחדל ירושלים */
-  latitude: z.number().default(31.7683),
-  /** קו אורך של מקום הלידה — ברירת מחדל ירושלים */
-  longitude: z.number().default(35.2137),
+  /** קו רוחב של מקום הלידה — ברירת מחדל ירושלים (coerce כי הפרונט שולח string) */
+  latitude: z.coerce.number().min(-90).max(90).default(31.7683),
+  /** קו אורך של מקום הלידה — ברירת מחדל ירושלים (coerce כי הפרונט שולח string) */
+  longitude: z.coerce.number().min(-180).max(180).default(35.2137),
   /** שם מלא של הנולד */
   fullName: z.string().min(1, 'שם מלא חובה'),
 })
@@ -76,14 +78,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שלב 2: ולידציה של הקלט
     const body: unknown = await request.json()
     const parsed = InputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { birthDate, birthTime, latitude, longitude, fullName } = parsed.data
@@ -92,7 +95,13 @@ export async function POST(request: NextRequest) {
     const ctx = await getPersonalContext(supabase, user.id)
 
     // שלב 4: חישוב מיקומי כוכבים באמצעות astronomy-engine (ephemeris אמיתי)
-    const datetime = new Date(`${birthDate}T${birthTime}:00`)
+    // נרמול birthTime — Supabase TIME מחזיר HH:mm:ss, צריך HH:mm
+    const normalizedTime = birthTime.split(':').slice(0, 2).join(':')
+    const datetime = new Date(`${birthDate}T${normalizedTime}:00`)
+    if (isNaN(datetime.getTime())) {
+      console.error('[birth-chart] Invalid date:', { birthDate, birthTime })
+      return NextResponse.json({ error: 'תאריך או שעת לידה לא תקינים' }, { status: 400 })
+    }
     const planets = getEphemerisPositions(datetime)
     const planetsWithRetrograde = getEphemerisPositionsWithRetrograde(datetime)
 
@@ -201,7 +210,8 @@ export async function POST(request: NextRequest) {
         analysis_id: analysis?.id ?? null,
       },
     })
-  } catch {
+  } catch (error) {
+    console.error('[birth-chart] POST error:', error instanceof Error ? error.message : error, error instanceof Error ? error.stack : '')
     return NextResponse.json({ error: 'שגיאה בחישוב מפת הלידה' }, { status: 500 })
   }
 }

@@ -13,6 +13,8 @@ import { invokeLLM } from '@/services/analysis/llm'
 import { NumerologyCompatibilitySchema } from '@/lib/validations/numerology'
 import type { TablesInsert } from '@/types/database'
 import { getPersonalContext } from '@/services/analysis/personal-context'
+import { zodValidationError } from '@/lib/utils/api-error'
+import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 /** POST /api/tools/numerology/compatibility — תאימות נומרולוגית + פרשנות AI */
 export async function POST(request: NextRequest) {
@@ -24,14 +26,15 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
+    // בדיקת מכסת שימוש — STAB-01
+    const guard = await checkUsageQuota(supabase, user.id)
+    if (!guard.allowed) return guard.response
+
     // שלב 2: ולידציה של הקלט עם Zod
     const body: unknown = await request.json()
     const parsed = NumerologyCompatibilitySchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { person1, person2 } = parsed.data
