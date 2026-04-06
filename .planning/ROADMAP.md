@@ -83,7 +83,9 @@ Plans:
   3. קטגוריות ניווט עם hover states ו-active states ברורים -- המשתמש יודע איפה הוא נמצא
   4. הסמלים החדשים (מפאזה 26) משולבים בטבעיות ליד שמות הקטגוריות
   5. הסיידבר נראה הוליסטי ומזמין -- לא UI טכני אלא חלק מהחוויה המיסטית
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 27-01-PLAN.md -- Holistic sidebar visual redesign (Sidebar.tsx styling + visual checkpoint)
 **UI hint**: yes
 
 ### Phase 28: Dashboard Tool Cards
@@ -105,5 +107,5 @@ Phases execute in numeric order: 26 → 27 → 28
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 26. Icon System Overhaul | v1.4 | 3/3 | Complete   | 2026-04-05 |
-| 27. Holistic Sidebar Redesign | v1.4 | 0/TBD | Not started | - |
+| 27. Holistic Sidebar Redesign | v1.4 | 0/1 | Not started | - |
 | 28. Dashboard Tool Cards | v1.4 | 0/TBD | Not started | - |
