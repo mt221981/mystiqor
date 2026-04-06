@@ -211,7 +211,7 @@ function CollapsibleSection({
                   'flex items-center gap-3 rounded-md px-3 py-2',
                   'text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-primary/10 text-primary border-s-2 border-s-primary'
+                    ? 'bg-gradient-to-r from-primary-container/80 to-secondary-container/80 text-on-primary shadow-sm shadow-primary-container/20 border-s-2 border-s-primary'
                     : 'text-on-surface-variant hover:bg-white/5 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
