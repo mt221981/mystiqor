@@ -42,7 +42,7 @@ See .planning/milestones/v1.3-ROADMAP.md for full details.
 
 - [x] **Phase 22: Accessibility Foundation** - ניגודיות WCAG AA, z-index גלובלי, reduced-motion
 - [x] **Phase 23: Floating Coach & Bottom Tabs** - בועה צפה בכל עמוד + טאבים תחתונים ב-mobile
-- [x] **Phase 24: Atmospheric Depth Sweep** - כותרות מיסטיות, אנימציות כניסה, טעינה מיסטית, טקסט זוהר
+- [x] **Phase 24: Atmospheric Depth Sweep** - כותרות מיסטיות, אנימציות כניסה, טעינה מי��טית, טקסט זוהר
 - [x] **Phase 25: Coach Intelligence & Sidebar Polish** - הקשר דינמי במאמן + ארגון מחדש של סרגל הצד
 
 </details>
@@ -53,12 +53,12 @@ See .planning/milestones/v1.3-ROADMAP.md for full details.
 
 - [x] **Phase 26: Icon System Overhaul** - סמלים קטנים חדשים ומובנים לכל כלי -- ייחודיים, עקביים, ללא כפילויות (completed 2026-04-05)
 - [ ] **Phase 27: Holistic Sidebar Redesign** - סיידבר משולב טבעי -- לוגו, מרווחים, ניווט נקי עם הסמלים החדשים
-- [ ] **Phase 28: Dashboard Tool Cards** - שמות כלים ותיאורים מתחת לתמונות ב-HeroToolGrid
+- [ ] **Phase 28: Dashboard Tool Cards** - שמות כלים ותיאורים מת��ת לתמונות ב-HeroToolGrid
 
 ## Phase Details
 
 ### Phase 26: Icon System Overhaul
-**Goal**: כל כלי באפליקציה מזוהה בסמל קטן ייחודי, ברור ועקבי בסגנון -- מחליף את react-icons/gi הגנרי
+**Goal**: כל כלי באפליקציה מזוהה בסמל קטן ייחודי, ברור וע��בי בסגנון -- מחל��ף את react-icons/gi הגנרי
 **Depends on**: Nothing (first phase in v1.4)
 **Requirements**: ICON-01, ICON-02, ICON-03
 **Success Criteria** (what must be TRUE):
@@ -95,7 +95,7 @@ Plans:
 **Success Criteria** (what must be TRUE):
   1. כל כרטיס כלי ב-HeroToolGrid מציג את שם הכלי בעברית מתחת לתמונה
   2. כל כרטיס מציג תיאור קצר (שורה-שתיים) שמסביר מה הכלי עושה
-  3. התמונה, השם והתיאור משתלבים כיחידה ויזואלית אחת -- לא שלושה אלמנטים נפרדים
+  3. התמונה, השם והתיאור משתלבי�� כיחידה ויזואלית אחת -- לא שלושה אלמנטים נפרדים
 **Plans**: TBD
 **UI hint**: yes
 
@@ -109,3 +109,18 @@ Phases execute in numeric order: 26 → 27 → 28
 | 26. Icon System Overhaul | v1.4 | 3/3 | Complete   | 2026-04-05 |
 | 27. Holistic Sidebar Redesign | v1.4 | 0/1 | Not started | - |
 | 28. Dashboard Tool Cards | v1.4 | 0/TBD | Not started | - |
+
+### Phase 29: UI Rebuild — Faithful BASE44 Design Recreation
+**Goal**: יישור ויזואלי נאמן ל-BASE44 -- שמות כלים ותיאורים על כרטיסי HeroToolCard, גרדיאנט סגול-ורוד בברכה, active state דרמטי בסיידבר
+**Depends on:** Phase 28
+**Requirements**: DASH-01, DASH-02, SIDE-03
+**Success Criteria** (what must be TRUE):
+  1. כל כרטיס כלי ב-HeroToolGrid מציג שם ותיאור עם tool-card-fade overlay
+  2. הברכה בדשבורד מציגה גרדיאנט סגול-ורוד על שם המשתמש (נאמן ל-BASE44)
+  3. פריט ניווט פעיל בסיידבר בולט בצורה דרמטית עם גרדיאנט (לא רק bg-primary/10)
+  4. אין רגרסיה -- כל הפונקציונליות הקיימת נשמרת
+**Plans**: 2 plans
+Plans:
+- [ ] 29-01-PLAN.md -- HeroToolCard name overlay + dashboard hero gradient alignment
+- [ ] 29-02-PLAN.md -- Sidebar active state dramatic gradient enhancement
+**UI hint**: yes
