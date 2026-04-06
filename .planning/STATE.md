@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: System Hardening
-status: ready_to_plan
-stopped_at: Roadmap created — Phase 31 ready to plan
-last_updated: "2026-04-07T14:30:00Z"
-last_activity: 2026-04-07
+status: planning
+stopped_at: Completed 31-01-PLAN.md (LLM Service Hardening)
+last_updated: "2026-04-06T23:18:32.069Z"
+last_activity: 2026-04-07 — Roadmap created for v1.5 (2 phases, 10 requirements)
 progress:
   total_phases: 2
   completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  total_plans: 3
+  completed_plans: 1
+  percent: 33
 ---
 
 # Project State
@@ -48,6 +48,7 @@ Progress: [░░░░░░░░░░] 0%
 | 27. Sidebar Redesign | 1 | ~5 min |
 | 28. Dashboard Cards | 1 | ~5 min |
 | 30. Gap Closure | 2 | ~5 min |
+| Phase 31 P01 | 1 | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -58,6 +59,8 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [v1.5 Roadmap]: 2-phase structure chosen over 3 — STAB-01/02/03/04/05 all backend, A11Y+UX all frontend; no artificial split needed
 - [Phase 26]: Centralized tool-icons.ts as single source of truth for Lucide mappings
 - [Phase 26]: react-icons fully removed, 100% Lucide coverage
+- [Phase 31]: Used OpenAI SDK constructor timeout/maxRetries — no custom retry loop needed (SDK handles exponential backoff)
+- [Phase 31]: Mapped 5 typed OpenAI error classes to distinct Hebrew messages — raw error codes never reach client
 
 ### Pending Todos
 
@@ -69,6 +72,6 @@ None active.
 
 ## Session Continuity
 
-Last session: 2026-04-07
-Stopped at: v1.5 roadmap written — ROADMAP.md, STATE.md, REQUIREMENTS.md updated
+Last session: 2026-04-06T23:18:32.066Z
+Stopped at: Completed 31-01-PLAN.md (LLM Service Hardening)
 Resume file: None

@@ -73,7 +73,7 @@ See .planning/milestones/v1.4-ROADMAP.md for full details.
 **Plans**: 3 plans
 
 Plans:
-- [ ] 31-01-PLAN.md — LLM service hardening: timeout/retry + Hebrew error mapping (llm.ts only)
+- [x] 31-01-PLAN.md — LLM service hardening: timeout/retry + Hebrew error mapping (llm.ts only)
 - [ ] 31-02-PLAN.md — Usage guard + DB insert error handling (new helper + all 24 routes)
 - [ ] 31-03-PLAN.md — Zod LLM response validation for tarot, palmistry, dream
 
@@ -94,5 +94,5 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 31. Backend Stability | v1.5 | 0/3 | Planned | - |
+| 31. Backend Stability | v1.5 | 1/3 | In Progress|  |
 | 32. Frontend Accessibility & UX | v1.5 | 0/TBD | Not started | - |
