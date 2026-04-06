@@ -6,6 +6,13 @@
  */
 
 import OpenAI from 'openai'
+import {
+  APIConnectionTimeoutError,
+  APIConnectionError,
+  RateLimitError,
+  InternalServerError as OpenAIInternalServerError,
+  AuthenticationError,
+} from 'openai'
 import type { z } from 'zod'
 import { sanitizeForLLM } from '@/lib/utils/sanitize'
 import { forceToString } from '@/lib/utils/llm-response'
@@ -59,7 +66,15 @@ export async function invokeLLM<T = unknown>(request: LLMRequest): Promise<LLMRe
       ? sanitizeForLLM(request.systemPrompt)
       : undefined
 
-    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY })
+    const apiKey = process.env.OPENAI_API_KEY?.trim()
+    if (!apiKey) {
+      throw new Error('OPENAI_API_KEY לא מוגדר')
+    }
+    const openai = new OpenAI({
+      apiKey,
+      timeout: 9_000,   // 9 שניות לפי דרישת STAB-02
+      maxRetries: 2,    // 2 ניסיונות חוזרים עם backoff — סה"כ 3 ניסיונות
+    })
 
     // בניית system message — כולל הוראת JSON אם יש סכמה
     let systemContent = safeSystemPrompt ?? 'אתה עוזר מועיל.'
@@ -137,12 +152,28 @@ export async function invokeLLM<T = unknown>(request: LLMRequest): Promise<LLMRe
       ...(validationResult ? { validationResult } : {}),
     }
   } catch (error) {
-    // שגיאות JSON parsing — מחזירים שגיאה ברורה
+    // SyntaxError — JSON parsing failed
     if (error instanceof SyntaxError) {
-      throw new Error('שגיאה בפרסור תשובת LLM — התשובה אינה JSON תקין')
+      throw new Error('שגיאה בפרסור תשובת AI — תגובה לא תקינה התקבלה')
     }
-    // כל שאר השגיאות — שומרים את ההודעה המקורית
+    // שגיאות OpenAI מטיפוסים ידועים — מיפוי לעברית (STAB-03)
+    if (error instanceof APIConnectionTimeoutError) {
+      throw new Error('שרת ה-AI לא הגיב בזמן — נסה שוב בעוד מספר שניות')
+    }
+    if (error instanceof APIConnectionError) {
+      throw new Error('בעיית חיבור לשרת AI — בדוק את החיבור לאינטרנט ונסה שוב')
+    }
+    if (error instanceof RateLimitError) {
+      throw new Error('שרת ה-AI עמוס כרגע — נסה שוב בעוד מספר דקות')
+    }
+    if (error instanceof OpenAIInternalServerError) {
+      throw new Error('שגיאה זמנית בשרת AI — נסה שוב בעוד מספר דקות')
+    }
+    if (error instanceof AuthenticationError) {
+      throw new Error('שגיאת הגדרות שרת — צור קשר עם התמיכה')
+    }
+    // שגיאה לא ידועה — שולחים הודעה כללית
     const message = error instanceof Error ? error.message : 'שגיאה לא צפויה'
-    throw new Error(`שגיאה בקריאה ל-LLM: ${message}`)
+    throw new Error(`שגיאה בקריאה ל-AI: ${message}`)
   }
 }
