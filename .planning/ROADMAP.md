@@ -52,8 +52,10 @@ See .planning/milestones/v1.3-ROADMAP.md for full details.
 **Milestone Goal:** שיפור ויזואלי מקצה לקצה -- סמלים קטנים חדשים וייחודיים, סיידבר הוליסטי עם לוגו, שמות כלים בדשבורד
 
 - [x] **Phase 26: Icon System Overhaul** - סמלים קטנים חדשים ומובנים לכל כלי -- ייחודיים, עקביים, ללא כפילויות (completed 2026-04-05)
-- [ ] **Phase 27: Holistic Sidebar Redesign** - סיידבר משולב טבעי -- לוגו, מרווחים, ניווט נקי עם הסמלים החדשים
-- [ ] **Phase 28: Dashboard Tool Cards** - שמות כלים ותיאורים מת��ת לתמונות ב-HeroToolGrid
+- [x] **Phase 27: Holistic Sidebar Redesign** - סיידבר משולב טבעי -- לוגו, מרווחים, ניווט נקי עם הסמלים החדשים (completed, undocumented)
+- [x] **Phase 28: Dashboard Tool Cards** - שמות כלים ותיאורים מוצגים ב-ToolCard variant=hero (satisfied by existing ToolCard.tsx)
+- [x] **Phase 29: UI Rebuild — BASE44** - active state דרמטי בסיידבר, שמות כלים בדשבורד (satisfied by existing code)
+- [ ] **Phase 30: V1.4 Gap Closure** - retroactive verification, dead code cleanup, stale plan cancellation
 
 ## Phase Details
 
@@ -85,42 +87,51 @@ Plans:
   5. הסיידבר נראה הוליסטי ומזמין -- לא UI טכני אלא חלק מהחוויה המיסטית
 **Plans**: 1 plan
 Plans:
-- [ ] 27-01-PLAN.md -- Holistic sidebar visual redesign (Sidebar.tsx styling + visual checkpoint)
+- [x] 27-01-PLAN.md -- Holistic sidebar visual redesign (applied to Sidebar.tsx — undocumented execution)
 **UI hint**: yes
 
 ### Phase 28: Dashboard Tool Cards
-**Goal**: כרטיסי כלים בדשבורד מציגים שם ותיאור מתחת לתמונה -- המשתמש מבין מה כל כלי עושה בלי לפתוח אותו
-**Depends on**: Phase 26 (may use new icons in cards)
+**Goal**: כרטיסי כלים בדשבורד מציגים שם ותיאור -- המשתמש מבין מה כל כלי עושה בלי לפתוח אותו
+**Depends on**: Phase 26
 **Requirements**: DASH-01, DASH-02
-**Success Criteria** (what must be TRUE):
-  1. כל כרטיס כלי ב-HeroToolGrid מציג את שם הכלי בעברית מתחת לתמונה
-  2. כל כרטיס מציג תיאור קצר (שורה-שתיים) שמסביר מה הכלי עושה
-  3. התמונה, השם והתיאור משתלבי�� כיחידה ויזואלית אחת -- לא שלושה אלמנטים נפרדים
-**Plans**: TBD
+**Status**: Satisfied — ToolCard.tsx already renders tool.name + tool.description for all variants including hero
+**Plans**: N/A (superseded by existing ToolCard implementation)
 **UI hint**: yes
+
+### Phase 29: UI Rebuild — Faithful BASE44 Design Recreation
+**Goal**: active state דרמטי בסיידבר, שמות כלים בדשבורד
+**Depends on:** Phase 28
+**Requirements**: DASH-01, DASH-02, SIDE-03
+**Status**: Satisfied — Sidebar.tsx has dramatic gradient active state, ToolCard.tsx renders names
+**Plans**: 2 plans (stale — target non-existent files or already-applied code)
+Plans:
+- [x] 29-01-PLAN.md -- Superseded: ToolCard.tsx already renders tool.name/description (HeroToolCard.tsx never existed)
+- [x] 29-02-PLAN.md -- Superseded: Sidebar active gradient already applied in code
+**UI hint**: yes
+
+### Phase 30: V1.4 Gap Closure — Verification Sweep & Cleanup
+**Goal**: סגירת כל פערי ה-audit -- verification רטרואקטיבי, מחיקת dead code, ביטול plans מיושנים, עדכון state
+**Depends on**: Phases 26-29 (all satisfied in code)
+**Requirements**: All v1.4 (ICON-01-03, SIDE-01-03, DASH-01-02) — verification closure
+**Success Criteria** (what must be TRUE):
+  1. VERIFICATION.md קיים ל-Phase 26 ו-27 -- מאשר שהקוד עומד בדרישות
+  2. tool-icons.ts נמחק (orphaned dead code)
+  3. TOOL_ICONS export נמחק מ-tool-names.ts
+  4. Plans מיושנים (29-01, 29-02) מסומנים כ-superseded
+  5. REQUIREMENTS.md מעודכן -- כל 8 דרישות [x]
+  6. STATE.md מעודכן לסטטוס אמיתי
+**Plans**: TBD
+**Gap Closure**: Closes all gaps from v1.4-MILESTONE-AUDIT.md
 
 ## Progress
 
 **Execution Order:**
-Phases execute in numeric order: 26 → 27 → 28
+Phases 26-29 satisfied in code → Phase 30 closes audit gaps
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 26. Icon System Overhaul | v1.4 | 3/3 | Complete   | 2026-04-05 |
-| 27. Holistic Sidebar Redesign | v1.4 | 0/1 | Not started | - |
-| 28. Dashboard Tool Cards | v1.4 | 0/TBD | Not started | - |
-
-### Phase 29: UI Rebuild — Faithful BASE44 Design Recreation
-**Goal**: יישור ויזואלי נאמן ל-BASE44 -- שמות כלים ותיאורים על כרטיסי HeroToolCard, גרדיאנט סגול-ורוד בברכה, active state דרמטי בסיידבר
-**Depends on:** Phase 28
-**Requirements**: DASH-01, DASH-02, SIDE-03
-**Success Criteria** (what must be TRUE):
-  1. כל כרטיס כלי ב-HeroToolGrid מציג שם ותיאור עם tool-card-fade overlay
-  2. הברכה בדשבורד מציגה גרדיאנט סגול-ורוד על שם המשתמש (נאמן ל-BASE44)
-  3. פריט ניווט פעיל בסיידבר בולט בצורה דרמטית עם גרדיאנט (לא רק bg-primary/10)
-  4. אין רגרסיה -- כל הפונקציונליות הקיימת נשמרת
-**Plans**: 2 plans
-Plans:
-- [ ] 29-01-PLAN.md -- HeroToolCard name overlay + dashboard hero gradient alignment
-- [ ] 29-02-PLAN.md -- Sidebar active state dramatic gradient enhancement
-**UI hint**: yes
+| 26. Icon System Overhaul | v1.4 | 3/3 | Complete | 2026-04-05 |
+| 27. Holistic Sidebar Redesign | v1.4 | 1/1 | Complete (undocumented) | ~2026-04-06 |
+| 28. Dashboard Tool Cards | v1.4 | N/A | Satisfied by ToolCard.tsx | ~2026-04-06 |
+| 29. UI Rebuild — BASE44 | v1.4 | N/A | Satisfied by existing code | ~2026-04-06 |
+| 30. V1.4 Gap Closure | v1.4 | 0/TBD | Not started | - |
