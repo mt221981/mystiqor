@@ -520,22 +520,16 @@ const aiText = (llmResponse.data as { interpretation: string }).interpretation
 
 ---
 
-## Open Questions
+## Open Questions (RESOLVED)
 
 1. **Tarot prompt restructuring vs minimal schema**
-   - What we know: `TarotResponseSchema` expects `{ summary, cards_drawn, reading_type, insights }` which the current prompt doesn't return
-   - What's unclear: Should the planner adopt the existing full schema (requiring prompt restructure) or use a simple `{ interpretation: string }` wrapper?
-   - Recommendation: Use the minimal `{ interpretation: string }` approach for STAB-04 (only validates non-empty, non-malformed). The existing `TarotResponseSchema` is designed for a more structured future flow.
+   - RESOLVED: Plan 03 uses minimal `{ interpretation: z.string().min(10) }` schema — validates non-empty without requiring prompt restructure.
 
 2. **Dream backgroundWork Zod validation outcome**
-   - What we know: If Zod fails in the background task, the `ai_interpretation` currently stays null (catch block swallows errors)
-   - What's unclear: Should a Zod failure in backgroundWork update `ai_interpretation` with a Hebrew error string so the polling UI can show something?
-   - Recommendation: On Zod failure, update `ai_interpretation` to a Hebrew fallback string like `"לא ניתן לנתח את החלום כרגע — נסה שוב"` so the user gets feedback from the polling UI.
+   - RESOLVED: Plan 03 Task 2 sets Hebrew fallback string on Zod failure so polling UI shows feedback.
 
-3. **Does increment_usage need to be called from tool routes after the quota guard?**
-   - What we know: Currently, `POST /api/subscription/usage` is the only caller of `increment_usage` RPC. It's not clear if client-side code calls this route after each tool submission.
-   - What's unclear: Whether tool routes should also call `increment_usage` (atomic counter) server-side, or whether the client-side call to `/api/subscription/usage` is sufficient.
-   - Recommendation: This is out of scope for Phase 31 (STAB-01 only checks; it doesn't increment). The existing `/api/subscription/usage` route + client call handles the increment. The guard just reads.
+3. **Does increment_usage need to be called from tool routes?**
+   - RESOLVED: Out of scope for Phase 31. The existing client-side call to `/api/subscription/usage` handles increment. The guard only reads.
 
 ---
 
