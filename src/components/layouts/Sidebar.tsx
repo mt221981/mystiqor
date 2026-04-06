@@ -174,20 +174,20 @@ function CollapsibleSection({
   const ChevronIcon = isOpen ? ChevronUp : ChevronDown;
 
   return (
-    <div className="mb-3">
+    <div className="mb-1 border-b border-outline-variant/5 pb-2">
       <button
         type="button"
         onClick={onToggle}
         className={cn(
-          'flex w-full items-center justify-between px-3 py-3',
-          'text-lg font-bold uppercase',
-          'text-gold hover:text-gold-bright font-label border-b border-gold/10 pb-2',
+          'flex w-full items-center justify-between px-3 py-2',
+          'text-sm font-semibold uppercase tracking-wider',
+          'text-on-surface-variant/60 hover:text-on-surface-variant/80 font-label',
           'transition-colors duration-200'
         )}
         aria-expanded={isOpen}
       >
         <span>{section.title}</span>
-        <ChevronIcon className="h-5 w-5" />
+        <ChevronIcon className="h-4 w-4" />
       </button>
 
       <div
@@ -208,15 +208,15 @@ function CollapsibleSection({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-4 rounded-lg px-3 py-3',
-                  'text-lg font-medium transition-all duration-200',
+                  'flex items-center gap-3 rounded-md px-3 py-2',
+                  'text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-primary-container/20 text-primary shadow-sm shadow-primary-container/20 border border-primary/10'
-                    : 'text-on-surface-variant hover:bg-surface-container-high/60 hover:text-on-surface'
+                    ? 'bg-primary/10 text-primary border-s-2 border-s-primary'
+                    : 'text-on-surface-variant hover:bg-white/5 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
               >
-                <Icon className="h-7 w-7 shrink-0" />
+                <Icon className="h-5 w-5 shrink-0" />
                 <span>{item.label}</span>
               </Link>
             );
@@ -333,14 +333,14 @@ export function Sidebar() {
     <aside
       className={cn(
         'flex h-full w-80 flex-col',
-        'bg-surface/95 glass-panel',
+        'bg-surface/60 backdrop-blur-md',
         'border-e border-outline-variant/10'
       )}
       aria-label="ניווט ראשי"
     >
       {/* לוגו — לחיצה מובילה לדף הבית */}
-      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 px-4 py-5 gap-0 hover:bg-surface-container-high/30 transition-colors">
-        <Image src="/images/brand/logo.png" alt="MystiQor" width={200} height={100} className="w-44 h-auto object-contain blend-luminous -mb-1" style={{ maskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)' }} />
+      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 py-4 px-3 gap-0 hover:bg-surface-container-high/30 transition-colors">
+        <Image src="/images/brand/logo.png" alt="MystiQor" width={200} height={100} className="w-40 h-auto object-contain blend-luminous -mb-1" style={{ maskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)' }} />
         <span className="text-xs text-muted-foreground/70 font-body">המסע המיסטי שלך</span>
       </Link>
 
