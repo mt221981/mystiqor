@@ -303,13 +303,13 @@ export default function DashboardPage() {
 
         {/* ===== 1. Hero — ברכה אישית ===== */}
         <motion.div className="text-center space-y-4" {...staggerDelay(0)}>
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-300 text-sm font-medium">
             <Sparkles className="w-4 h-4" />
             <span>המסע שלך מתחיל כאן</span>
           </div>
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-thin text-foreground font-headline">
             {getHebrewGreeting()},{' '}
-            <span className="font-bold text-gradient-gold">
+            <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">
               {profile?.full_name?.split(' ')[0] ?? 'חבר'}
             </span>
           </h1>
