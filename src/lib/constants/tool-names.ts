@@ -26,27 +26,3 @@ export const TOOL_NAMES: Record<string, string> = {
   synthesis: 'סינתזה',
 } as const;
 
-/**
- * מיפוי מזהה כלי לשם אייקון מ-lucide-react.
- * ניתן להשתמש בזה לטעינה דינמית של אייקונים לפי כלי.
- */
-export const TOOL_ICONS: Record<string, string> = {
-  numerology: 'Hash',
-  astrology: 'Stars',
-  palmistry: 'Hand',
-  graphology: 'PenTool',
-  tarot: 'Layers',
-  drawing: 'Palette',
-  dream: 'Moon',
-  career: 'Briefcase',
-  compatibility: 'Heart',
-  synastry: 'Heart',
-  solar_return: 'Sparkles',
-  transits: 'Brain',
-  human_design: 'Fingerprint',
-  personality: 'Brain',
-  document: 'FileText',
-  question: 'HelpCircle',
-  relationship: 'Heart',
-  synthesis: 'Sparkles',
-} as const;
