@@ -70,7 +70,12 @@ See .planning/milestones/v1.4-ROADMAP.md for full details.
   3. שגיאות OpenAI (rate limit, timeout, invalid response) מופיעות בעברית ידידותית — לא קוד גולמי באנגלית
   4. תגובת LLM מעוותת בכלי tarot, palmistry, dream נחסמת על ידי ולידציית Zod ולא מוצגת למשתמש
   5. כשל ב-DB insert מדווח למשתמש בטוסט עברי — ניתוח לא נעלם בשקט
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 31-01-PLAN.md — LLM service hardening: timeout/retry + Hebrew error mapping (llm.ts only)
+- [ ] 31-02-PLAN.md — Usage guard + DB insert error handling (new helper + all 24 routes)
+- [ ] 31-03-PLAN.md — Zod LLM response validation for tarot, palmistry, dream
 
 ### Phase 32: Frontend Accessibility & UX
 **Goal**: ממשק המשתמש נגיש, קריא ו-RTL-תקין בכל הרזולוציות — דפים ריקים מנחים, טפסים עובדים במובייל
@@ -89,5 +94,5 @@ See .planning/milestones/v1.4-ROADMAP.md for full details.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 31. Backend Stability | v1.5 | 0/TBD | Not started | - |
+| 31. Backend Stability | v1.5 | 0/3 | Planned | - |
 | 32. Frontend Accessibility & UX | v1.5 | 0/TBD | Not started | - |
