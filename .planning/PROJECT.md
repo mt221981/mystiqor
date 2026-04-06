@@ -10,19 +10,22 @@ MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת �
 
 ## Current State
 
-**All milestones shipped** (v1.0 - v1.3, 2026-03-25 to 2026-04-02)
+**All milestones shipped** (v1.0 - v1.4, 2026-03-25 to 2026-04-07)
 
 - v1.0: 12 phases, 66 plans — full MVP with 16 tools, AI coach, Stripe, PWA
 - v1.1: 5 phases, 7 plans — onboarding fix, Hebrew typography, icon migration, CSS polish, animations
 - v1.2: 4 phases, 13 plans — rich content layer + personalized AI soul
 - v1.3: 4 phases, 10 plans — atmospheric UX, floating coach, mobile tabs, accessibility
+- v1.4: 5 phases, 7 plans — Lucide icon system, holistic sidebar, dashboard tool cards
 - 344 source files, ~48,600 LOC TypeScript
+- Unified Lucide icon system across sidebar (29 icons) and 17 tool page headers
+- Holistic sidebar with backdrop-blur, MystiQorLogo SVG, dramatic gradient active state
+- Dashboard ToolCard renders tool.name + tool.description for hero and grid variants
 - Floating AI coach bubble on every page with breathing animation + context-aware opener messages
-- 22 tool pages with atmospheric StandardSectionHeader, pageEntry animation, mystical Hebrew loading, glowing AI headings
+- 22 tool pages with atmospheric StandardSectionHeader, pageEntry animation, mystical Hebrew loading
 - WCAG AA contrast on all secondary text + global z-index scale + prefers-reduced-motion
-- Mobile bottom tab bar (5 tabs) + sidebar reorganized from 8 to 6 categories with localStorage persistence
-- Per-message coach context injection (5 recent analyses with tool names + time)
-- All 15/15 v1.3 requirements satisfied
+- Mobile bottom tab bar (5 tabs) + sidebar reorganized from 8 to 6 categories
+- All 8/8 v1.4 requirements satisfied
 
 ## Requirements
 
@@ -71,15 +74,17 @@ MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת �
 - ✓ **Atmospheric UX** — StandardSectionHeader with glow, pageEntry animation, mystical Hebrew loading phrases, glowing AI headings on all 22 tool pages — v1.3
 - ✓ **Sidebar Polish** — Categories merged from 8 to 6, localStorage persistence for collapse state — v1.3
 
-### Active (v1.4 UI Polish & Visual Identity)
+### Validated (v1.4)
 
-- [ ] **SIDE-01**: סיידבר משולב בצורה הוליסטית וטבעית — עיצוב, מרווחים, שילוב לוגו
-- [ ] **DASH-01**: שמות כלים מוצגים מעל/מתחת לתמונות בדשבורד HeroToolGrid
-- [ ] **ICON-01**: סמלים קטנים חדשים ומובנים — להחליף react-icons/gi בסיידבר ובעמודי כלים
+- ✓ **Icon System** — 36 files migrated to Lucide, react-icons fully removed, centralized tool-icons mapping — v1.4
+- ✓ **Sidebar** — Holistic redesign with backdrop-blur, MystiQorLogo SVG, dramatic gradient active state, hover states — v1.4
+- ✓ **Dashboard Cards** — ToolCard renders tool.name + tool.description for all variants — v1.4
 
-## Current Milestone: v1.4 UI Polish & Visual Identity
+### Active
 
-**Goal:** שיפור ויזואלי מקצה לקצה — סיידבר הוליסטי, שמות כלים בדשבורד, סמלים קטנים חדשים
+(No active requirements — planning next milestone)
+
+## Current Milestone: Planning Next
 
 ### Out of Scope
 
@@ -106,6 +111,7 @@ MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת �
 - Rate limiting only on usage route, not individual tool LLM endpoints
 - DrawingAnalysisForm + BigFiveQuestionnaire bypass MysticLoadingText pulse animation (cosmetic)
 - 3 phases (22, 23, 25) missing VERIFICATION.md (code verified by integration checker)
+- Dual icon libraries: lucide-react (sidebar/headers) + @phosphor-icons/react (dashboard cards)
 
 ## Constraints
 
@@ -137,6 +143,9 @@ MystiQor היא פלטפורמה מקיפה לניתוח אישי המשלבת �
 | Shared coach API service | services/coach/api.ts consumed by both full page and floating panel | ✓ Good |
 | StandardSectionHeader | Single atmospheric header component for all 22 tool pages — DRY, consistent | ✓ Good |
 | Per-message context injection | Coach fetches 5 recent analyses on every POST — always up-to-date | ✓ Good |
+| Lucide for nav, Phosphor for cards | Lucide icons in sidebar/headers, Phosphor duotone in dashboard cards — each suited to its context | — Pending |
+| Unified ToolCard with variants | Single ToolCard component with hero/grid variants instead of separate HeroToolCard | ✓ Good |
+| Retroactive verification | Gap closure phase (30) to verify code-complete requirements without re-executing | ✓ Good |
 
 ## Evolution
 
@@ -156,4 +165,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-06 after v1.4 milestone start*
+*Last updated: 2026-04-07 after v1.4 milestone complete*

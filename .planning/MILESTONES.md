@@ -1,5 +1,18 @@
 # Milestones
 
+## v1.4 UI Polish & Visual Identity (Shipped: 2026-04-06)
+
+**Phases completed:** 3 phases, 6 plans, 8 tasks
+
+**Key accomplishments:**
+
+- Centralized tool-icons.ts mapping with 17 Lucide icons and 7 shared infrastructure files migrated from react-icons/gi
+- All 17 tool page files migrated from react-icons/gi to lucide-react -- each header icon now matches the centralized sidebar mapping
+- Migrated final 12 files (astrology sub-pages, learn pages, insight components) and fully removed react-icons dependency -- 100% Lucide coverage
+- Retroactive summary created during Phase 30 gap closure. Phase 27 was applied to Sidebar.tsx but execution was not formally tracked.
+
+---
+
 ## v1.1 UI Polish (Shipped: 2026-04-02)
 
 **Phases completed:** 5 phases, 7 plans | **Timeline:** 9 days (2026-03-25 - 2026-04-02)
