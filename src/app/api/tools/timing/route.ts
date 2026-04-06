@@ -176,11 +176,19 @@ export async function POST(request: NextRequest) {
       summary: `תזמון ${activityLabel}: יום טוב — ${topDay?.date ?? 'N/A'} (${topDay?.score ?? 0}/100)`,
     }
 
-    const { data: analysis } = await supabase
+    const { data: analysis, error: insertError } = await supabase
       .from('analyses')
       .insert(row)
       .select('id')
       .single()
+
+    if (insertError) {
+      console.error('[timing] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      )
+    }
 
     // שלב 10: החזרה
     return NextResponse.json({

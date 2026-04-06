@@ -278,11 +278,19 @@ ${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodi
       summary: `מהפכה שמשית ${targetYear} — שמש ב${srSun?.sign ?? 'N/A'}, עולה ב${srAscendantSign}`,
     }
 
-    const { data: analysis } = await supabase
+    const { data: analysis, error: insertError } = await supabase
       .from('analyses')
       .insert(row)
       .select('id')
       .single()
+
+    if (insertError) {
+      console.error('[astrology/solar-return] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      )
+    }
 
     // שלב 14: החזרת תוצאה מלאה
     return NextResponse.json({

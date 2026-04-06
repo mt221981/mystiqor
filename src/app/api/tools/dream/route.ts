@@ -98,6 +98,34 @@ ${personalLine}
         });
         // עדכון רשומת החלום עם הפרשנות
         const updateSupabase = await createClient();
+
+        // שמירת ניתוח ב-analyses — STAB-05
+        const analysisRow: TablesInsert<'analyses'> = {
+          user_id: userId,
+          tool_type: 'dream',
+          input_data: JSON.parse(JSON.stringify({
+            title: dreamData.title,
+            description: dreamData.description,
+            emotions: dreamData.emotions,
+            symbols: dreamData.symbols,
+          })),
+          results: JSON.parse(JSON.stringify({ interpretation: interpretation.data, dream_id: dreamId })),
+          summary: `פרשנות חלום: ${dreamData.title}`,
+        }
+        const { error: insertError } = await updateSupabase
+          .from('analyses')
+          .insert(analysisRow)
+          .select('id')
+          .single()
+
+        if (insertError) {
+          console.error('[dream] שגיאת שמירת ניתוח:', insertError)
+          await updateSupabase.from('dreams').update({
+            ai_interpretation: 'לא ניתן לשמור את הניתוח — נסה שוב'
+          }).eq('id', dreamId)
+          return
+        }
+
         await updateSupabase
           .from('dreams')
           .update({ ai_interpretation: interpretation.data })

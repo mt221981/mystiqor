@@ -291,7 +291,19 @@ ${analyses.map((a) => `- ${a.tool_type}: ${a.summary ?? JSON.stringify(a.results
       summary: result.personality_profile.summary.slice(0, 500),
     }
 
-    const { data: analysis } = await supabase.from('analyses').insert(row).select('id').single()
+    const { data: analysis, error: insertError } = await supabase
+      .from('analyses')
+      .insert(row)
+      .select('id')
+      .single()
+
+    if (insertError) {
+      console.error('[synthesis] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      )
+    }
 
     return NextResponse.json({
       data: {

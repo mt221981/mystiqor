@@ -102,15 +102,18 @@ export async function POST(request: Request) {
       summary: `Human Design: ${hdData.type} | ${hdData.profile}`,
     };
 
-    const { data: savedAnalysis, error: saveError } = await supabase
+    const { data: savedAnalysis, error: insertError } = await supabase
       .from('analyses')
       .insert(row)
       .select('id')
       .single();
 
-    if (saveError) {
-      // אם שמירה נכשלה, עדיין מחזירים תוצאה — לא חוסמים את המשתמש
-      return NextResponse.json({ data: hdData });
+    if (insertError) {
+      console.error('[human-design] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({

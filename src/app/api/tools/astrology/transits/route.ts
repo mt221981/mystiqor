@@ -251,11 +251,19 @@ ${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${ctx.zodi
       summary: `מעברים ל-${targetDate.toLocaleDateString('he-IL')} — ${transitAspects.length} אספקטים פעילים`,
     }
 
-    const { data: analysis } = await supabase
+    const { data: analysis, error: insertError } = await supabase
       .from('analyses')
       .insert(row)
       .select('id')
       .single()
+
+    if (insertError) {
+      console.error('[astrology/transits] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      )
+    }
 
     // שלב 13: החזרת תוצאה מלאה
     return NextResponse.json({

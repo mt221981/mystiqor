@@ -269,11 +269,19 @@ export async function POST(request: NextRequest) {
       summary: `סינסטרי ${chart1Data.name} & ${chart2Data.name} — ציון תאימות: ${interpretation.compatibility_score}%`,
     }
 
-    const { data: analysis } = await supabase
+    const { data: analysis, error: insertError } = await supabase
       .from('analyses')
       .insert(row)
       .select('id')
       .single()
+
+    if (insertError) {
+      console.error('[astrology/synastry] שגיאת שמירת ניתוח:', insertError)
+      return NextResponse.json(
+        { error: 'הניתוח הושלם אך לא נשמר — אנא נסה שוב' },
+        { status: 500 }
+      )
+    }
 
     // שלב 9: החזרה
     return NextResponse.json({
