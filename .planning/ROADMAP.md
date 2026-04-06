@@ -55,7 +55,7 @@ See .planning/milestones/v1.4-ROADMAP.md for full details.
 
 **Milestone Goal:** הפיכת המערכת ליציבה, חסינה ונגישה — שימוש מבוקר, LLM עמיד, UX נגיש
 
-- [ ] **Phase 31: Backend Stability** - בדיקת מכסה, timeout/retry, תרגום שגיאות, Zod LLM validation, DB error handling
+- [x] **Phase 31: Backend Stability** - בדיקת מכסה, timeout/retry, תרגום שגיאות, Zod LLM validation, DB error handling (completed 2026-04-06)
 - [ ] **Phase 32: Frontend Accessibility & UX** - RTL margins, contrast, aria-labels, empty states, mobile forms
 
 ## Phase Details
@@ -75,7 +75,7 @@ See .planning/milestones/v1.4-ROADMAP.md for full details.
 Plans:
 - [x] 31-01-PLAN.md — LLM service hardening: timeout/retry + Hebrew error mapping (llm.ts only)
 - [x] 31-02-PLAN.md — Usage guard + DB insert error handling (new helper + all 24 routes)
-- [ ] 31-03-PLAN.md — Zod LLM response validation for tarot, palmistry, dream
+- [x] 31-03-PLAN.md — Zod LLM response validation for tarot, palmistry, dream
 
 ### Phase 32: Frontend Accessibility & UX
 **Goal**: ממשק המשתמש נגיש, קריא ו-RTL-תקין בכל הרזולוציות — דפים ריקים מנחים, טפסים עובדים במובייל
@@ -94,5 +94,5 @@ Plans:
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 31. Backend Stability | v1.5 | 2/3 | In Progress|  |
+| 31. Backend Stability | v1.5 | 3/3 | Complete   | 2026-04-06 |
 | 32. Frontend Accessibility & UX | v1.5 | 0/TBD | Not started | - |

@@ -10,7 +10,7 @@
 - [x] **STAB-01**: בדיקת מכסת שימוש וסטטוס מנוי לפני כל קריאת LLM — משתמש שעבר מכסה או עם מנוי לא פעיל מקבל הודעה ברורה ולא צורך OpenAI
 - [x] **STAB-02**: timeout של 9 שניות + retry עם backoff (2 ניסיונות) על קריאות OpenAI — שגיאות זמניות לא מפילות ניתוח
 - [x] **STAB-03**: שגיאות OpenAI מתורגמות להודעות עבריות ברורות למשתמש — לא "rate_limit_exceeded" גולמי
-- [ ] **STAB-04**: ולידציית תגובת LLM עם Zod Schema בכלי tarot, palmistry, dream — תגובה מעוותת לא מגיעה למשתמש
+- [x] **STAB-04**: ולידציית תגובת LLM עם Zod Schema בכלי tarot, palmistry, dream — תגובה מעוותת לא מגיעה למשתמש
 - [x] **STAB-05**: כל insert לDB נבדק לשגיאה — ניתוח שלא נשמר מדווח למשתמש במקום להיעלם בשקט
 
 ### Accessibility
@@ -41,7 +41,7 @@
 | STAB-01 | Phase 31 | Complete |
 | STAB-02 | Phase 31 | Complete |
 | STAB-03 | Phase 31 | Complete |
-| STAB-04 | Phase 31 | Pending |
+| STAB-04 | Phase 31 | Complete |
 | STAB-05 | Phase 31 | Complete |
 | A11Y-01 | Phase 32 | Pending |
 | A11Y-02 | Phase 32 | Pending |

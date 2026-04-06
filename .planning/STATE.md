@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: System Hardening
 status: planning
-stopped_at: Completed 31-02-PLAN.md
-last_updated: "2026-04-06T23:29:30.364Z"
+stopped_at: Completed 31-03-PLAN.md
+last_updated: "2026-04-06T23:34:21.343Z"
 last_activity: 2026-04-07 — Roadmap created for v1.5 (2 phases, 10 requirements)
 progress:
   total_phases: 2
-  completed_phases: 0
+  completed_phases: 1
   total_plans: 3
-  completed_plans: 2
-  percent: 67
+  completed_plans: 3
+  percent: 100
 ---
 
 # Project State
@@ -50,6 +50,7 @@ Progress: [░░░░░░░░░░] 0%
 | 30. Gap Closure | 2 | ~5 min |
 | Phase 31 P01 | 1 | 1 tasks | 1 files |
 | Phase 31 P02 | 11 | 3 tasks | 25 files |
+| Phase 31 P03 | 2 | 2 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -65,6 +66,8 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 31]: Used discriminated union UsageGuardResult so guard errors preserve HTTP status codes (402/403/429) — not throw
 - [Phase 31]: Read subscriptions table directly in guard helper (no server-to-server HTTP to /api/subscription/usage)
 - [Phase 31]: dream backgroundWork: added full analyses insert with error check and Hebrew fallback on failure
+- [Phase 31]: Minimal { interpretation: string } Zod wrapper for tarot/palmistry/dream — avoids prompt restructuring while enforcing non-empty LLM responses
+- [Phase 31]: dream backgroundWork validation failure writes Hebrew fallback to ai_interpretation instead of null — polling UI shows feedback
 
 ### Pending Todos
 
@@ -76,6 +79,6 @@ None active.
 
 ## Session Continuity
 
-Last session: 2026-04-06T23:29:30.362Z
-Stopped at: Completed 31-02-PLAN.md
+Last session: 2026-04-06T23:34:21.341Z
+Stopped at: Completed 31-03-PLAN.md
 Resume file: None
