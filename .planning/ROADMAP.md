@@ -79,7 +79,9 @@ See .planning/milestones/v1.5-ROADMAP.md for full details.
   2. User can edit the pre-filled values before submitting (values are not locked)
   3. User with an incomplete profile sees empty fields (no crash, no error)
   4. Pre-fill works across all tools that have the relevant fields (astrology, numerology, compatibility, etc.)
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 33-01-PLAN.md — Create useProfileDefaults hook + wire into numerology, compatibility, synastry, human-design
 **UI hint**: yes
 
 ### Phase 34: Rich Numerology Display
@@ -110,6 +112,6 @@ See .planning/milestones/v1.5-ROADMAP.md for full details.
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
-| 33. Profile Auto-Fill | v1.6 | 0/TBD | Not started | - |
+| 33. Profile Auto-Fill | v1.6 | 0/1 | Not started | - |
 | 34. Rich Numerology Display | v1.6 | 0/TBD | Not started | - |
 | 35. Journey Prominence | v1.6 | 0/TBD | Not started | - |
