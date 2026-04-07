@@ -73,7 +73,7 @@ interface AdditionalFieldsProps {
 /** שדות קלט נוספים — מרנדר בהתאם לסוג הקריאה */
 function AdditionalFields({ additionalInput, month, setMonth, year, setYear, date, setDate, person2Name, setPerson2Name, question, setQuestion }: AdditionalFieldsProps) {
   if (additionalInput === 'month') return (
-    <div className="grid grid-cols-2 gap-3">
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
       <div className="space-y-1">
         <Label className="text-sm text-on-surface-variant font-label">חודש</Label>
         <Input type="number" min={1} max={12} value={month} onChange={e => setMonth(e.target.value)} dir="ltr" className="text-center" />

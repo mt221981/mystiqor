@@ -13,6 +13,7 @@ import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import { TOOL_NAMES } from '@/lib/constants/tool-names'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 // ===== סכמת ולידציה =====
 
@@ -97,8 +98,7 @@ export async function GET(request: NextRequest) {
     }
 
     // ולידציה שהשיחה שייכת למשתמש — הטבלה קיימת ב-DB
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: conv, error: convError } = await (supabase as any)
+    const { data: conv, error: convError } = await supabase
       .from('conversations')
       .select('id')
       .eq('id', conversationId)
@@ -110,8 +110,7 @@ export async function GET(request: NextRequest) {
     }
 
     // שליפת ההודעות
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: messages, error } = await (supabase as any)
+    const { data: messages, error } = await supabase
       .from('coaching_messages')
       .select('id, role, content, created_at')
       .eq('conversation_id', conversationId)
@@ -147,10 +146,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json()
     const parsed = SendMessageSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { conversation_id: conversationId, message } = parsed.data
@@ -159,8 +155,7 @@ export async function POST(request: NextRequest) {
     const ctx = await getPersonalContext(supabase, user.id)
 
     // שליפת השיחה לאימות בעלות והקשר
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: conversation, error: convError } = await (supabase as any)
+    const { data: conversation, error: convError } = await supabase
       .from('conversations')
       .select('context, message_count')
       .eq('id', conversationId)
@@ -174,8 +169,7 @@ export async function POST(request: NextRequest) {
     const convRow = conversation as ConversationRow
 
     // שליפת 5 ניתוחים אחרונים להזרקת הקשר דינמי בכל הודעה (per D-01/D-03)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: recentAnalyses } = await (supabase as any)
+    const { data: recentAnalyses } = await supabase
       .from('analyses')
       .select('tool_type, summary, created_at')
       .eq('user_id', user.id)
@@ -183,8 +177,7 @@ export async function POST(request: NextRequest) {
       .limit(5)
 
     // שמירת הודעת המשתמש
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error: insertUserError } = await (supabase as any)
+    const { error: insertUserError } = await supabase
       .from('coaching_messages')
       .insert({
         user_id: user.id,
@@ -198,14 +191,13 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'שגיאה בשמירת ההודעה' }, { status: 500 })
     }
 
-    // שליפת היסטוריית השיחה (20 הודעות אחרונות)
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: priorMessages } = await (supabase as any)
+    // שליפת היסטוריית השיחה (10 הודעות אחרונות — מוגבל לחלון הקשר)
+    const { data: priorMessages } = await supabase
       .from('coaching_messages')
       .select('role, content')
       .eq('conversation_id', conversationId)
       .order('created_at', { ascending: true })
-      .limit(20)
+      .limit(10)
 
     const priorList = (priorMessages as HistoryRow[]) ?? []
 
@@ -252,8 +244,7 @@ export async function POST(request: NextRequest) {
     const replyText = typeof response.data === 'string' ? response.data : String(response.data)
 
     // שמירת תגובת המאמן
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { error: insertAssistantError } = await (supabase as any)
+    const { error: insertAssistantError } = await supabase
       .from('coaching_messages')
       .insert({
         user_id: user.id,
@@ -269,8 +260,7 @@ export async function POST(request: NextRequest) {
 
     // עדכון מטא-דאטה של השיחה
     const currentCount = (convRow.message_count ?? 0) + 2
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await (supabase as any)
+    await supabase
       .from('conversations')
       .update({
         last_message_at: new Date().toISOString(),

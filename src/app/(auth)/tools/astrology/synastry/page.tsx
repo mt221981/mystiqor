@@ -289,7 +289,7 @@ export default function SynastryPage() {
           <Label className="text-on-surface-variant text-sm font-label">שעת לידה (אופציונלי)</Label>
           <Input type="time" dir="ltr" {...register(`${prefix}.birthTime`)} />
         </div>
-        <div className="grid grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div className="space-y-1">
             <Label className="text-on-surface-variant text-sm font-label">קו רוחב</Label>
             <Input

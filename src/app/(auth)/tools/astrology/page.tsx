@@ -232,7 +232,7 @@ export default function AstrologyPage() {
                 </div>
 
                 {/* תאריך ושעת לידה */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="birthDate" className="font-label text-on-surface-variant">תאריך לידה</Label>
                     <Input id="birthDate" type="date" {...register('birthDate')} />
@@ -250,7 +250,7 @@ export default function AstrologyPage() {
                 </div>
 
                 {/* קואורדינטות */}
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div className="space-y-1">
                     <Label htmlFor="latitude" className="font-label text-on-surface-variant">קו רוחב</Label>
                     <Input
@@ -300,9 +300,11 @@ export default function AstrologyPage() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="space-y-6"
         >
-          {/* SVG מפת הגלגל */}
+          {/* SVG מפת הגלגל — מוגבל לרוחב מקסימלי כדי לא לשלוט על כל הדף */}
           <Card className="border-outline-variant/5 bg-surface-container p-4 rounded-xl mystic-hover">
-            <BirthChart planets={result.planets} chartData={result.chartData} />
+            <div className="max-w-[500px] mx-auto">
+              <BirthChart planets={result.planets} chartData={result.chartData} />
+            </div>
           </Card>
 
           {/* תקציר מהיר — שמש/ירח/עולה */}
