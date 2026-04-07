@@ -9,6 +9,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { z } from 'zod'
 import { createClient } from '@/lib/supabase/server'
 import type { Json } from '@/types/database.generated'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 // ===== ממשקי טיפוסים =====
 
@@ -61,10 +62,7 @@ export async function PATCH(
     const body: unknown = await request.json()
     const parsed = PatchStepSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { step_number: stepNumber } = parsed.data

@@ -7,6 +7,7 @@ import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { onboardingCompleteSchema } from '@/lib/validations/profile';
 import { sendWelcomeEmail } from '@/services/email/welcome';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 import type { NextRequest } from 'next/server';
 
@@ -45,10 +46,7 @@ export async function POST(request: NextRequest) {
     const parsed = onboardingCompleteSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten().fieldErrors },
-        { status: 400 }
-      );
+      return zodValidationError('קלט לא תקין', parsed.error.flatten());
     }
 
     const {

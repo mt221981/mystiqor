@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { GoalCreateSchema } from '@/lib/validations/goals';
 import { z } from 'zod';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** סכמת ולידציה לפרמטרי query */
 const GoalQuerySchema = z.object({
@@ -29,10 +30,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const parsed = GoalCreateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     const { data, error } = await supabase

@@ -7,6 +7,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** סכמת אימות חלקית לעדכון פרופיל אורח */
 const GuestProfileUpdateSchema = z.object({
@@ -59,10 +60,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
     const body = await request.json();
     const parsed = GuestProfileUpdateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     // עדכון עם guard על user_id — מניעת עריכת פרופילים של משתמשים אחרים

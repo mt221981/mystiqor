@@ -7,6 +7,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** מגבלת פרופילים אורחים לפי תוכנית מנוי */
 const GUEST_LIMITS: Record<string, number> = {
@@ -86,10 +87,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const parsed = GuestProfileSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     // ספירת פרופילים אורחים קיימים

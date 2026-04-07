@@ -16,7 +16,7 @@ import type { TablesInsert } from '@/types/database'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
-export const maxDuration = 30
+export const maxDuration = 60
 
 // ===== חישוב מזל לפי תאריך לידה =====
 

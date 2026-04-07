@@ -72,8 +72,8 @@ export async function invokeLLM<T = unknown>(request: LLMRequest): Promise<LLMRe
     }
     const openai = new OpenAI({
       apiKey,
-      timeout: 9_000,   // 9 שניות לפי דרישת STAB-02
-      maxRetries: 2,    // 2 ניסיונות חוזרים עם backoff — סה"כ 3 ניסיונות
+      timeout: 55_000,   // 55 שניות — מספיק לתגובות LLM ארוכות
+      maxRetries: 1,    // ניסיון חוזר אחד עם backoff — סה"כ 2 ניסיונות
     })
 
     // בניית system message — כולל הוראת JSON אם יש סכמה

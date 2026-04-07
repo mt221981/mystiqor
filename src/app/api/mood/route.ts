@@ -8,6 +8,7 @@ import { subDays, subMonths } from 'date-fns';
 import { createClient } from '@/lib/supabase/server';
 import { MoodCreateSchema } from '@/lib/validations/mood';
 import type { TablesInsert } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** ערכי תקופה תקינים לפילטור */
 const PERIOD_VALUES = ['daily', 'weekly', 'monthly'] as const;
@@ -47,10 +48,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json();
     const parsed = MoodCreateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     // שמירה ב-DB

@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { ShareAnalysisSchema, ShareTokenSchema } from '@/lib/validations/analysis'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 /** יצירת קישור שיתוף לניתוח — מחייב אימות ובעלות על הניתוח */
 export async function POST(request: NextRequest) {
@@ -23,10 +24,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     const parsed = ShareAnalysisSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten())
     }
 
     const { analysis_id } = parsed.data

@@ -8,6 +8,7 @@
 
 import { createServerClient } from '@supabase/ssr';
 import { NextResponse, type NextRequest } from 'next/server';
+import { checkRateLimit, llmRateLimit, uploadRateLimit } from '@/lib/rate-limit';
 
 /** נתיבים מוגנים שדורשים אימות — מידלוור מפנה ל-login אם לא מחובר */
 const PROTECTED_PATHS = [
@@ -68,6 +69,43 @@ export async function updateSession(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // הגבלת קצב על נקודות קצה רגישות (POST בלבד)
+  if (user && request.method === 'POST') {
+    const path = request.nextUrl.pathname;
+    const isToolRoute = path.startsWith('/api/tools/');
+    const isCoachMessage = path === '/api/coach/messages';
+    const isUpload = path === '/api/upload' || path === '/api/upload/presign';
+    const isCheckout = path === '/api/subscription/checkout';
+
+    if (isToolRoute || isCoachMessage) {
+      const allowed = await checkRateLimit(llmRateLimit, user.id);
+      if (!allowed) {
+        return NextResponse.json(
+          { error: 'חריגה ממגבלת הבקשות — נסה שוב בעוד דקה' },
+          { status: 429 }
+        );
+      }
+    }
+    if (isUpload) {
+      const allowed = await checkRateLimit(uploadRateLimit, user.id);
+      if (!allowed) {
+        return NextResponse.json(
+          { error: 'חריגה ממגבלת העלאות — נסה שוב בעוד דקה' },
+          { status: 429 }
+        );
+      }
+    }
+    if (isCheckout) {
+      const allowed = await checkRateLimit(uploadRateLimit, user.id);
+      if (!allowed) {
+        return NextResponse.json(
+          { error: 'חריגה ממגבלת בקשות תשלום — נסה שוב בעוד דקה' },
+          { status: 429 }
+        );
+      }
+    }
+  }
 
   // בדיקה אם הנתיב הנוכחי מוגן
   const isProtected = PROTECTED_PATHS.some((p) =>

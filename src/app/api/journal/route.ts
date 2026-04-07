@@ -6,6 +6,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { JournalCreateSchema } from '@/lib/validations/journal';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** יצירת רשומת יומן חדשה */
 export async function POST(request: NextRequest) {
@@ -19,10 +20,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json() as unknown;
     const parsed = JournalCreateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     const { data, error } = await supabase

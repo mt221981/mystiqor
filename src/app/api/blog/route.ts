@@ -9,6 +9,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { BlogQuerySchema } from '@/lib/validations/learning';
 import type { Tables } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** שורת פוסט בלוג */
 type BlogPostRow = Tables<'blog_posts'>;
@@ -38,10 +39,7 @@ export async function GET(request: NextRequest) {
     });
 
     if (!parseResult.success) {
-      return NextResponse.json(
-        { error: 'פרמטרי שאילתה לא תקינים', details: parseResult.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('פרמטרי שאילתה לא תקינים', parseResult.error.flatten());
     }
 
     const { category, search, limit, offset } = parseResult.data;

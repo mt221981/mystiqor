@@ -15,7 +15,7 @@ import type { Database, TablesInsert } from '@/types/database'
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
-export const maxDuration = 30
+export const maxDuration = 60
 
 /** שורת קלף מ-DB */
 type TarotCardRow = Database['public']['Tables']['tarot_cards']['Row']

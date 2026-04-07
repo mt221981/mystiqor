@@ -7,6 +7,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { profileSchema } from '@/lib/validations/profile';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** שליפת פרופיל המשתמש הנוכחי */
 export async function GET() {
@@ -47,10 +48,7 @@ export async function PATCH(request: NextRequest) {
     // partial — לא כל השדות חובה בעת עריכה
     const parsed = profileSchema.partial().safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     const { data, error } = await supabase

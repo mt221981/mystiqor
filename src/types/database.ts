@@ -550,6 +550,38 @@ export interface Database {
         Relationships: never[];
       };
 
+      /** שיחות מאמן AI - שיחות מאומתות עם הקשר מותאם */
+      conversations: {
+        Row: {
+          id: string;
+          user_id: string;
+          title: string | null;
+          context: Json;
+          message_count: number | null;
+          last_message_at: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          title?: string | null;
+          context?: Json;
+          message_count?: number;
+          last_message_at?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          title?: string | null;
+          context?: Json;
+          message_count?: number;
+          last_message_at?: string | null;
+          created_at?: string;
+        };
+        Relationships: never[];
+      };
+
       /** מסעות אימון - תהליכי ליווי אישי מובנים */
       coaching_journeys: {
         Row: {

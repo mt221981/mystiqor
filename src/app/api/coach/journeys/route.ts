@@ -13,6 +13,7 @@ import { invokeLLM } from '@/services/analysis/llm'
 import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import type { Json } from '@/types/database.generated'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 // ===== ממשקי טיפוסים =====
 
@@ -213,10 +214,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json()
     const parsed = JourneyInputSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { focus_area: focusArea } = parsed.data

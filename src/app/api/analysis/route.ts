@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { AnalysisCreateSchema, AnalysisQuerySchema } from '@/lib/validations/analysis';
 import type { TablesInsert } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** יצירת ניתוח חדש */
 export async function POST(request: NextRequest) {
@@ -20,7 +21,7 @@ export async function POST(request: NextRequest) {
     const body = await request.json();
     const parsed = AnalysisCreateSchema.safeParse(body);
     if (!parsed.success) {
-      return NextResponse.json({ error: 'נתונים לא תקינים', details: parsed.error.flatten() }, { status: 400 });
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     const row: TablesInsert<'analyses'> = {

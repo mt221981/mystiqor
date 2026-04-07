@@ -68,13 +68,13 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
           <div
             className="text-on-surface font-body text-sm prose prose-invert max-w-none
               [&>p]:my-2 [&>p]:leading-[1.7]
-              [&>ul]:my-2 [&>ul]:mr-4 [&>ul]:list-disc
-              [&>ol]:my-2 [&>ol]:mr-4 [&>ol]:list-decimal
+              [&>ul]:my-2 [&>ul]:ms-4 [&>ul]:list-disc
+              [&>ol]:my-2 [&>ol]:ms-4 [&>ol]:list-decimal
               [&>li]:my-1 [&>li]:leading-[1.7]
               [&>h3]:text-base [&>h3]:font-bold [&>h3]:mt-3 [&>h3]:mb-2 [&>h3]:text-primary
               [&>h4]:text-sm [&>h4]:font-bold [&>h4]:mt-2 [&>h4]:mb-1 [&>h4]:text-primary
               [&>strong]:text-on-surface [&>strong]:font-bold
-              [&>blockquote]:border-r-4 [&>blockquote]:border-primary/40 [&>blockquote]:pr-4 [&>blockquote]:italic [&>blockquote]:text-on-surface-variant"
+              [&>blockquote]:border-s-4 [&>blockquote]:border-primary/40 [&>blockquote]:ps-4 [&>blockquote]:italic [&>blockquote]:text-on-surface-variant"
           >
             <ReactMarkdown remarkPlugins={[remarkGfm]}>
               {message.content}

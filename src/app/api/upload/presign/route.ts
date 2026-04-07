@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@/lib/supabase/server'
 import { z } from 'zod'
 import { ALLOWED_TYPES, MAX_FILE_SIZE } from '@/lib/utils/file-validation'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 /** סכמת ולידציה לבקשת presign */
 const PresignRequestSchema = z.object({
@@ -26,10 +27,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json()
     const parsed = PresignRequestSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const ext = parsed.data.filename.split('.').pop() ?? 'bin'

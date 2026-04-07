@@ -23,9 +23,9 @@ const config: Config = {
         full: '9999px',
       },
       fontFamily: {
-        headline: ['var(--font-headline)', 'Plus Jakarta Sans', 'sans-serif'],
-        body: ['var(--font-hebrew)', 'Heebo', 'var(--font-body)', 'Inter', 'sans-serif'],
-        label: ['var(--font-label)', 'Manrope', 'sans-serif'],
+        headline: ['var(--font-headline)', 'Noto Sans Hebrew', 'sans-serif'],
+        body: ['var(--font-hebrew)', 'Noto Sans Hebrew', 'var(--font-body)', 'Inter', 'sans-serif'],
+        label: ['var(--font-hebrew)', 'Noto Sans Hebrew', 'var(--font-label)', 'Manrope', 'sans-serif'],
       },
       colors: {
         // ===== shadcn/ui CSS-variable colors — נשמרים לתאימות עם קומפוננטות קיימות =====
@@ -111,15 +111,15 @@ const config: Config = {
         'on-tertiary-fixed': '#002113',
         'on-tertiary-fixed-variant': '#005236',
 
-        // Surface & Background (רקעים כהים — cosmic deep indigo)
-        surface: '#0d0b1e',
-        'surface-dim': '#08071a',
-        'surface-bright': '#2a2650',
-        'surface-container-lowest': '#080718',
-        'surface-container-low': '#121030',
-        'surface-container': '#181538',
-        'surface-container-high': '#222048',
-        'surface-container-highest': '#2c2a55',
+        // Surface & Background (רקעים כהים — near-black cosmic)
+        surface: '#0a0816',
+        'surface-dim': '#060512',
+        'surface-bright': '#231f45',
+        'surface-container-lowest': '#050410',
+        'surface-container-low': '#0e0c25',
+        'surface-container': '#13102c',
+        'surface-container-high': '#1c1940',
+        'surface-container-highest': '#252250',
         'surface-tint': '#ddb8ff',
         'surface-variant': '#2c2a55',
         'on-surface': '#ece6f5',

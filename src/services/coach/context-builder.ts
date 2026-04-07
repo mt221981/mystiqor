@@ -7,17 +7,17 @@
  */
 
 import type { SupabaseClient } from '@supabase/supabase-js'
+import type { Database } from '@/types/database'
 
 /**
  * בונה מחרוזת הקשר קומפקטית (מתחת ל-2000 טוקן) עבור המאמן ה-AI
  * מביא נתוני פרופיל, ניתוחים, מטרות ומצב רוח במקביל
  *
  * @param userId - מזהה המשתמש
- * @param supabase - קליינט Supabase (שרת) — generic לתמיכה בשני סוגי Database
+ * @param supabase - קליינט Supabase (שרת)
  * @returns מחרוזת הקשר בעברית
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export async function buildCoachingContext(userId: string, supabase: SupabaseClient<any>): Promise<string> {
+export async function buildCoachingContext(userId: string, supabase: SupabaseClient<Database>): Promise<string> {
   // שליפת כל הנתונים במקביל — פרופיל, ניתוחים, מטרות ומצב רוח
   const [profileResult, analysesResult, goalsResult, moodResult] = await Promise.all([
     supabase

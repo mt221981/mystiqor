@@ -8,6 +8,7 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 import type { NextRequest } from 'next/server';
 
@@ -86,10 +87,7 @@ export async function POST(request: NextRequest) {
     const parsed = ReminderSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     const { message, scheduled_date, type, is_recurring, recurrence_rule } = parsed.data;

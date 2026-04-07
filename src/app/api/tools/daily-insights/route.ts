@@ -15,7 +15,7 @@ import { DailyInsightModulesSchema, DEFAULT_MODULES, type DailyInsightModules } 
 import type { TablesInsert } from '@/types/database'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
-export const maxDuration = 30
+export const maxDuration = 60
 
 // ===== פונקציות עזר =====
 

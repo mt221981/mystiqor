@@ -7,8 +7,8 @@
 
 import { useState, useCallback, useEffect } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { usePathname } from 'next/navigation';
+import { MystiQorLogo } from '@/components/brand/MystiQorLogo';
 import {
   LayoutDashboard,
   Home,
@@ -211,7 +211,7 @@ function CollapsibleSection({
                   'flex items-center gap-3 rounded-md px-3 py-2',
                   'text-sm font-medium transition-all duration-200',
                   isActive
-                    ? 'bg-gradient-to-r from-primary-container/80 to-secondary-container/80 text-on-primary shadow-sm shadow-primary-container/20 border-s-2 border-s-primary'
+                    ? 'bg-gradient-to-r from-primary-container/80 to-secondary-container/80 text-white shadow-sm shadow-primary-container/20 border-s-2 border-s-primary'
                     : 'text-on-surface-variant hover:bg-white/5 hover:text-on-surface'
                 )}
                 aria-current={isActive ? 'page' : undefined}
@@ -339,9 +339,8 @@ export function Sidebar() {
       aria-label="ניווט ראשי"
     >
       {/* לוגו — לחיצה מובילה לדף הבית */}
-      <Link href="/dashboard" className="flex flex-col items-center text-center border-b border-primary/15 py-4 px-3 gap-0 hover:bg-surface-container-high/30 transition-colors">
-        <Image src="/images/brand/logo.png" alt="MystiQor" width={200} height={100} className="w-40 h-auto object-contain blend-luminous -mb-1" style={{ maskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)', WebkitMaskImage: 'radial-gradient(ellipse 95% 80% at center, black 50%, transparent 100%)' }} />
-        <span className="text-xs text-muted-foreground/70 font-body">המסע המיסטי שלך</span>
+      <Link href="/dashboard" className="flex items-center justify-center border-b border-border/20 py-6 px-3 hover:bg-surface-container-high/20 transition-colors">
+        <MystiQorLogo variant="full" size="md" />
       </Link>
 
       {/* קטגוריות ניווט */}

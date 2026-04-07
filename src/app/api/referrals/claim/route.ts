@@ -8,6 +8,7 @@ import { z } from 'zod';
 import { createClient } from '@/lib/supabase/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 import { sendReferralAcceptedEmail } from '@/services/email/referral-accepted';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 import type { NextRequest } from 'next/server';
 
@@ -45,10 +46,7 @@ export async function POST(request: NextRequest) {
     const parsed = ClaimReferralSchema.safeParse(body);
 
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten().fieldErrors },
-        { status: 400 }
-      );
+      return zodValidationError('קלט לא תקין', parsed.error.flatten());
     }
 
     const { code, email } = parsed.data;

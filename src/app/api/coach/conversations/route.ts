@@ -36,9 +36,8 @@ export async function GET(_request: NextRequest) {
       return NextResponse.json({ error: 'לא מחובר' }, { status: 401 })
     }
 
-    // שליפת שיחות — הטבלה conversations קיימת ב-DB אך לא ב-database.ts
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: conversations, error } = await (supabase as any)
+    // שליפת שיחות
+    const { data: conversations, error } = await supabase
       .from('conversations')
       .select('*')
       .eq('user_id', user.id)
@@ -83,12 +82,10 @@ export async function POST(request: NextRequest) {
     }
 
     // בניית הקשר מותאם אישית מנתוני המשתמש
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const contextText = await buildCoachingContext(user.id, supabase as any)
+    const contextText = await buildCoachingContext(user.id, supabase)
 
-    // יצירת השיחה — הטבלה conversations קיימת ב-DB אך לא ב-database.ts
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: conversation, error } = await (supabase as any)
+    // יצירת השיחה
+    const { data: conversation, error } = await supabase
       .from('conversations')
       .insert({
         user_id: user.id,

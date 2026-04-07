@@ -16,7 +16,7 @@ import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 import { READING_TYPES, type ReadingTypeId } from '@/lib/constants/readings'
 
-export const maxDuration = 30
+export const maxDuration = 60
 
 // ===== סכמות ולידציה =====
 

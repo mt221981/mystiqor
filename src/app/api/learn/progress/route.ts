@@ -10,6 +10,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { LearningProgressSchema } from '@/lib/validations/learning';
 import type { Tables } from '@/types/database';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** שורת התקדמות למידה */
 type LearningProgressRow = Tables<'learning_progress'>;
@@ -82,10 +83,7 @@ export async function POST(request: NextRequest) {
 
     const parseResult = LearningProgressSchema.safeParse(body);
     if (!parseResult.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parseResult.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parseResult.error.flatten());
     }
 
     const { discipline, topic, completed, quiz_score } = parseResult.data;

@@ -14,7 +14,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 /** מגבלת זמן ריצה — 300 שניות לייצור תובנות עבור משתמשים רבים */
-export const maxDuration = 300;
+export const maxDuration = 600;
 
 /**
  * GET /api/cron/daily-insights

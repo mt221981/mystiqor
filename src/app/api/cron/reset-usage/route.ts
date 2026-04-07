@@ -14,7 +14,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { createAdminClient } from '@/lib/supabase/admin';
 
 /** מגבלת זמן ריצה — 30 שניות מספיקות לקריאת RPC בודדת */
-export const maxDuration = 30;
+export const maxDuration = 60;
 
 /**
  * GET /api/cron/reset-usage

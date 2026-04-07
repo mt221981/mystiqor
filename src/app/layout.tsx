@@ -3,7 +3,7 @@
  * כל דפי האפליקציה יורשים מלייאאוט זה
  */
 
-import { Plus_Jakarta_Sans, Inter, Manrope, Heebo } from 'next/font/google';
+import { Noto_Sans_Hebrew, Inter, Manrope } from 'next/font/google';
 import Script from 'next/script';
 
 import './globals.css';
@@ -14,11 +14,11 @@ import { cn } from '@/lib/utils';
 
 // ===== פונטים =====
 
-/** פונט כותרות — Plus Jakarta Sans */
-const plusJakartaSans = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-headline',
+/** פונט עברי ראשי — Noto Sans Hebrew (כותרות + גוף) */
+const notoSansHebrew = Noto_Sans_Hebrew({
+  subsets: ['hebrew', 'latin'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  variable: '--font-hebrew',
   display: 'swap',
   adjustFontFallback: true,
 });
@@ -41,11 +41,11 @@ const manrope = Manrope({
   adjustFontFallback: true,
 });
 
-/** פונט עברי — Heebo */
-const heebo = Heebo({
+/** פונט כותרות — Noto Sans Hebrew (אותו פונט, variable נפרד לכותרות) */
+const notoHeadline = Noto_Sans_Hebrew({
   subsets: ['hebrew', 'latin'],
-  weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-hebrew',
+  weight: ['600', '700', '800', '900'],
+  variable: '--font-headline',
   display: 'swap',
   adjustFontFallback: true,
 });
@@ -103,7 +103,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
     <html
       lang="he"
       dir="rtl"
-      className={cn('dark', plusJakartaSans.variable, inter.variable, manrope.variable, heebo.variable)}
+      className={cn('dark', notoSansHebrew.variable, notoHeadline.variable, inter.variable, manrope.variable)}
       suppressHydrationWarning
     >
       <head>

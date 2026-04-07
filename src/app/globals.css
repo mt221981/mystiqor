@@ -2,9 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-/* גודל בסיס מוגדל — נגישות למבוגרים */
+/* גודל בסיס — 21px מובייל, 23px דסקטופ */
 html {
-  font-size: 18px;
+  font-size: 21px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 23px;
+  }
+}
+/* מינימום גודל גופן למובייל — מונע טקסט קטן מדי */
+body {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 @layer base {
@@ -58,24 +68,24 @@ html {
   }
 
   .dark {
-    --background: 250 45% 8%;          /* #0d0b1e deep cosmic indigo */
-    --foreground: 268 25% 92%;         /* #ece6f5 warm lavender white */
-    --card: 252 35% 14%;               /* #1e1a38 slightly brighter card */
-    --card-foreground: 268 25% 92%;    /* #ece6f5 */
-    --popover: 252 35% 12%;            /* #181530 */
-    --popover-foreground: 268 25% 92%; /* #ece6f5 */
+    --background: 260 40% 5%;          /* #0a0816 near-black cosmic */
+    --foreground: 270 20% 93%;         /* #eee8f5 warm lavender white */
+    --card: 258 35% 10%;               /* #15112e deeper card */
+    --card-foreground: 270 20% 93%;    /* #eee8f5 */
+    --popover: 258 35% 8%;             /* #110e28 */
+    --popover-foreground: 270 20% 93%; /* #eee8f5 */
     --primary: 274 100% 86%;           /* #ddb8ff lavender */
     --primary-foreground: 274 100% 25%; /* #490080 */
     --secondary: 243 100% 88%;         /* #c3c0ff periwinkle */
     --secondary-foreground: 243 100% 32%; /* #1d00a5 */
-    --muted: 250 30% 16%;              /* #242040 indigo muted */
-    --muted-foreground: 268 20% 82%;   /* #d0c5e2 brighter muted text */
+    --muted: 258 30% 12%;              /* #1c1833 deeper muted */
+    --muted-foreground: 270 18% 75%;   /* #c4b8d6 refined hierarchy */
     --accent: 42 65% 58%;              /* #d4a853 mystical gold */
     --accent-foreground: 42 80% 95%;   /* #fdf3dc warm white */
     --destructive: 7 100% 84%;         /* #ffb4ab */
     --destructive-foreground: 0 100% 21%; /* #690005 */
-    --border: 258 30% 28%;             /* #443a6e brighter purple border */
-    --input: 258 30% 28%;              /* #443a6e */
+    --border: 260 25% 22%;             /* #372f55 subtler border */
+    --input: 260 25% 22%;              /* #372f55 */
     --ring: 274 100% 86%;              /* #ddb8ff */
     --radius: 0.75rem;
 
@@ -96,13 +106,13 @@ html {
     --chart-3: 155 69% 59%;            /* #4edea3 */
     --chart-4: 42 65% 58%;             /* #d4a853 gold */
     --chart-5: 7 100% 84%;             /* #ffb4ab */
-    --sidebar-background: 252 45% 7%;  /* #0a0918 deeper sidebar */
-    --sidebar-foreground: 268 25% 92%;
+    --sidebar-background: 260 45% 4%;  /* #080614 near-pure black */
+    --sidebar-foreground: 270 20% 93%;
     --sidebar-primary: 274 100% 86%;
     --sidebar-primary-foreground: 274 100% 25%;
-    --sidebar-accent: 250 30% 16%;
-    --sidebar-accent-foreground: 268 25% 92%;
-    --sidebar-border: 258 25% 18%;
+    --sidebar-accent: 258 30% 12%;
+    --sidebar-accent-foreground: 270 20% 93%;
+    --sidebar-border: 260 20% 14%;     /* #231e3a subtle */
     --sidebar-ring: 274 100% 86%;
   }
 
@@ -127,6 +137,12 @@ html {
   .font-label {
     letter-spacing: 0;
   }
+}
+
+/* ===== focus-visible גלובלי — נגישות ===== */
+:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
 }
 
 /* ===== כלי עזר מותאמים — עיצוב קוסמי עשיר ===== */
@@ -284,6 +300,16 @@ html {
     animation: shimmer-rotate 6s linear infinite;
     pointer-events: none;
     z-index: -1;
+  }
+
+  /* שכבת דעיכה לכרטיסי כלים — תמונה נמסה לכהה בתחתית */
+  .tool-card-fade {
+    background: linear-gradient(to bottom, transparent 20%, rgba(13,11,30,0.5) 50%, rgba(13,11,30,0.95) 75%, rgba(13,11,30,1) 100%);
+  }
+
+  /* blend mode למיזוג תמונות זוהרות על רקע כהה — פיקסלים כהים הופכים שקופים */
+  .blend-luminous {
+    mix-blend-mode: screen;
   }
 
   /* גרדיאנט טקסט זהוב */

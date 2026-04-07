@@ -7,6 +7,7 @@ import { NextResponse, type NextRequest } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
 import { GoalUpdateSchema } from '@/lib/validations/goals';
 import type { Json } from '@/types/database.generated';
+import { zodValidationError } from '@/lib/utils/api-error';
 
 /** פרמטרים של route */
 interface RouteParams {
@@ -33,10 +34,7 @@ export async function PATCH(request: NextRequest, { params }: RouteParams) {
 
     const parsed = GoalUpdateSchema.safeParse(restBody);
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'נתונים לא תקינים', details: parsed.error.flatten() },
-        { status: 400 }
-      );
+      return zodValidationError('נתונים לא תקינים', parsed.error.flatten());
     }
 
     /** בנה אובייקט עדכון */

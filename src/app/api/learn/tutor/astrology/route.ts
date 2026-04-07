@@ -10,6 +10,7 @@ import { createClient } from '@/lib/supabase/server'
 import { invokeLLM } from '@/services/analysis/llm'
 import { TutorMessageSchema } from '@/lib/validations/tutor'
 import { getPersonalContext } from '@/services/analysis/personal-context'
+import { zodValidationError } from '@/lib/utils/api-error'
 
 /** מידע על ניתוח אסטרולוגי של המשתמש */
 interface AnalysisRow {
@@ -47,10 +48,7 @@ export async function POST(request: NextRequest) {
     const body: unknown = await request.json()
     const parsed = TutorMessageSchema.safeParse(body)
     if (!parsed.success) {
-      return NextResponse.json(
-        { error: 'קלט לא תקין', details: parsed.error.flatten() },
-        { status: 400 }
-      )
+      return zodValidationError('קלט לא תקין', parsed.error.flatten())
     }
 
     const { message } = parsed.data
@@ -68,8 +66,7 @@ export async function POST(request: NextRequest) {
       .limit(3)
 
     // שליפת התקדמות לימודית של המשתמש בתחום אסטרולוגיה
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const { data: progress } = await (supabase as any)
+    const { data: progress } = await supabase
       .from('learning_progress')
       .select('topic, completed, level')
       .eq('user_id', user.id)
