@@ -14,6 +14,8 @@ import { getPersonalContext } from '@/services/analysis/personal-context'
 import type { TablesInsert } from '@/types/database'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
+export const maxDuration = 30
+
 // ===== קבועים =====
 
 /** סוגי קבצים מותרים */

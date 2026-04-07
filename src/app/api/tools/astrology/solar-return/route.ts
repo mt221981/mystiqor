@@ -23,6 +23,8 @@ import type { InterpretationInput } from '@/services/astrology/prompts/interpret
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
+export const maxDuration = 30
+
 // ===== סכמות ולידציה =====
 
 /** סכמת ולידציה לקלט מהפכה שמשית */

@@ -16,6 +16,8 @@ import type { TablesInsert } from '@/types/database'
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
+export const maxDuration = 30
+
 /** סכמת ולידציה לקלט שאלון Big Five */
 const PersonalityInputSchema = z.object({
   answers: z

@@ -22,6 +22,8 @@ import type { DayScore } from '@/services/astrology/timing'
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
+export const maxDuration = 30
+
 // ===== סכמות ולידציה =====
 
 /** סכמת ולידציה לקלט כלי התזמון */

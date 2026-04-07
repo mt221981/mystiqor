@@ -15,6 +15,8 @@ import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 import { PalmistryResponseSchema } from '@/services/analysis/response-schemas'
 
+export const maxDuration = 30
+
 /** JSON schema for palmistry LLM response — JSON mode for vision */
 const PALMISTRY_RESPONSE_JSON_SCHEMA = {
   type: 'object',

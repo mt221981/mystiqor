@@ -14,6 +14,8 @@ import type { TablesInsert } from '@/types/database';
 import { zodValidationError } from '@/lib/utils/api-error';
 import { checkUsageQuota } from '@/lib/utils/usage-guard';
 
+export const maxDuration = 30
+
 /** JSON schema for dream LLM response — JSON mode */
 const DREAM_RESPONSE_JSON_SCHEMA = {
   type: 'object',

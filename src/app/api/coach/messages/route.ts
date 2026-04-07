@@ -15,6 +15,8 @@ import { getPersonalContext } from '@/services/analysis/personal-context'
 import { TOOL_NAMES } from '@/lib/constants/tool-names'
 import { zodValidationError } from '@/lib/utils/api-error'
 
+export const maxDuration = 30
+
 // ===== סכמת ולידציה =====
 
 /** סכמת ולידציה להודעה נשלחת */

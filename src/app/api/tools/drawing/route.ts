@@ -17,6 +17,8 @@ import type { TablesInsert } from '@/types/database'
 import { zodValidationError } from '@/lib/utils/api-error'
 import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
+export const maxDuration = 30
+
 /** סכמת ולידציה לקלט ניתוח ציורים */
 const DrawingInputSchema = z.object({
   imageUrl: z.string().url('כתובת URL לא תקינה'),

@@ -16,6 +16,8 @@ import { checkUsageQuota } from '@/lib/utils/usage-guard'
 
 import { READING_TYPES, type ReadingTypeId } from '@/lib/constants/readings'
 
+export const maxDuration = 30
+
 // ===== סכמות ולידציה =====
 
 /** סכמת ולידציה לקלט קריאה אסטרולוגית */
