@@ -21,6 +21,7 @@ import { ChatMessage } from '@/components/features/coach/ChatMessage'
 import { ChatInput } from '@/components/features/coach/ChatInput'
 import { QuickActions } from '@/components/features/coach/QuickActions'
 import { JourneysPanel } from '@/components/features/coach/JourneysPanel'
+import { EmptyState } from '@/components/common/EmptyState'
 import {
   fetchConversations,
   createConversation,
@@ -280,7 +281,14 @@ export default function CoachPage() {
               </div>
 
               <div className="flex-1 overflow-y-auto p-4 space-y-4" style={{ maxHeight: '450px' }}>
-                {!activeConversationId ? (
+                {conversations.length === 0 && !activeConversationId ? (
+                  <EmptyState
+                    icon={<MessageCircle className="h-8 w-8" />}
+                    title="ברוכים הבאים למאמן"
+                    description="התחל שיחה ראשונה עם המאמן המיסטי שלך"
+                    action={{ label: 'התחל שיחה ראשונה', onClick: () => createMutation.mutate() }}
+                  />
+                ) : !activeConversationId ? (
                   <div className="flex flex-col items-center justify-center h-full gap-6 py-12">
                     <MessageCircle className="w-16 h-16 text-primary/20" />
                     <p className="text-on-surface-variant text-center font-body">

@@ -18,6 +18,7 @@ import { formatDate } from '@/lib/utils/dates';
 import { TOOL_NAMES } from '@/lib/constants/tool-names';
 import { HistoryFilters } from '@/components/features/history/HistoryFilters';
 import { AnalysisCard, type AnalysisCardData } from '@/components/features/history/AnalysisCard';
+import { EmptyState } from '@/components/common/EmptyState';
 import { CACHE_TIMES } from '@/lib/query/cache-config';
 
 /** תגובת API ניתוחים */
@@ -300,12 +301,12 @@ export default function HistoryPage() {
 
       {/* מצב ריק */}
       {isEmpty && !isError && (
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <History className="h-12 w-12 text-on-surface-variant/40 mb-4" />
-          <p className="font-body text-on-surface-variant">
-            אין ניתוחים עדיין. התחל להשתמש בכלים כדי לראות היסטוריה.
-          </p>
-        </div>
+        <EmptyState
+          icon={<History className="h-8 w-8" />}
+          title="אין ניתוחים עדיין"
+          description="השתמש בכלים כדי לייצר ניתוחים — הם יופיעו כאן"
+          action={{ label: 'עבור לכלים', onClick: () => router.push('/tools') }}
+        />
       )}
 
       {/* תצוגת רשת */}
