@@ -93,7 +93,9 @@ Plans:
   2. The AI synthesis section renders as a scroll (מגילה) visual component after the cards, not as plain text
   3. The AI synthesis uses 3000 tokens (deeper than previous limit), producing noticeably longer and richer interpretation
   4. The visual cards and scroll layout are styled consistently with the MD3 dark cosmic design system
-**Plans**: TBD
+**Plans**: 1 plan
+Plans:
+- [ ] 34-01-PLAN.md — Enrich NumberCard face + MysticScroll component + maxTokens 3000
 **UI hint**: yes
 
 ### Phase 35: Journey Prominence
@@ -113,5 +115,5 @@ Plans:
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 33. Profile Auto-Fill | v1.6 | 0/1 | Not started | - |
-| 34. Rich Numerology Display | v1.6 | 0/TBD | Not started | - |
+| 34. Rich Numerology Display | v1.6 | 0/1 | Not started | - |
 | 35. Journey Prominence | v1.6 | 0/TBD | Not started | - |
