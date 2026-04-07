@@ -1,17 +1,17 @@
 ---
 gsd_state_version: 1.0
-milestone: v1.5
-milestone_name: System Hardening
-status: archived
-stopped_at: Milestone v1.5 complete
-last_updated: "2026-04-07T18:00:00Z"
+milestone: v1.6
+milestone_name: Enriched Experience
+status: planning
+stopped_at: Defining requirements
+last_updated: "2026-04-07T19:00:00Z"
 last_activity: 2026-04-07
 progress:
-  total_phases: 2
-  completed_phases: 2
-  total_plans: 4
-  completed_plans: 4
-  percent: 100
+  total_phases: 0
+  completed_phases: 0
+  total_plans: 0
+  completed_plans: 0
+  percent: 0
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-07)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים -- עם AI שמסנתז תובנות אחודות
-**Current focus:** v1.5 System Hardening — Phase 32: Frontend Accessibility & UX
+**Current focus:** v1.6 Enriched Experience — defining requirements
 
 ## Current Position
 
-Phase: 32 of 32 (Frontend Accessibility & UX)
-Plan: 1 of 1 complete
-Status: Phase 32 complete
-Last activity: 2026-04-07
+Phase: Not started (defining requirements)
+Plan: —
+Status: Defining requirements
+Last activity: 2026-04-07 — Milestone v1.6 started
 
-Progress: [██████████] 100%
+Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
