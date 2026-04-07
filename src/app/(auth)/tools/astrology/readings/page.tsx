@@ -106,7 +106,7 @@ function AdditionalFields({ additionalInput, month, setMonth, year, setYear, dat
     <div className="space-y-1">
       <Label className="text-sm text-on-surface-variant font-label">שאלה ספציפית</Label>
       <Textarea value={question} onChange={e => setQuestion(e.target.value)} placeholder="כתוב את שאלתך..." maxLength={500} rows={3} className="resize-none" />
-      <p className="text-xs text-on-surface-variant/60 text-end font-label">{question.length}/500</p>
+      <p className="text-xs text-on-surface-variant text-end font-label">{question.length}/500</p>
     </div>
   )
   return null

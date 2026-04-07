@@ -161,9 +161,11 @@ export default function CoachPage() {
 
       <SubscriptionGuard feature="analyses">
         {/* ===== בורר טאבים ===== */}
-        <div className="mt-4 flex gap-2 border-b border-outline-variant/20 pb-0">
+        <div role="tablist" aria-label="ניווט מאמן" className="mt-4 flex gap-2 border-b border-outline-variant/20 pb-0">
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === 'chat' ? 'true' : 'false'}
             onClick={() => setActiveTab('chat')}
             className={`flex items-center gap-2 px-4 py-2 font-label text-sm transition-colors border-b-2 -mb-px ${
               activeTab === 'chat'
@@ -176,6 +178,8 @@ export default function CoachPage() {
           </button>
           <button
             type="button"
+            role="tab"
+            aria-selected={activeTab === 'journeys' ? 'true' : 'false'}
             onClick={() => setActiveTab('journeys')}
             className={`flex items-center gap-2 px-4 py-2 font-label text-sm transition-colors border-b-2 -mb-px ${
               activeTab === 'journeys'
@@ -262,6 +266,7 @@ export default function CoachPage() {
                 <Button
                   variant="ghost"
                   size="sm"
+                  aria-label={showSidebar ? 'סגור רשימת שיחות' : 'פתח רשימת שיחות'}
                   className="md:hidden text-on-surface-variant hover:text-on-surface"
                   onClick={() => setShowSidebar((prev) => !prev)}
                 >

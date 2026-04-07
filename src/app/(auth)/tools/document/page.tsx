@@ -237,7 +237,7 @@ export default function DocumentPage() {
                       <div className="flex items-center justify-center gap-2">
                         <FileText className="h-5 w-5 text-tertiary" />
                         <span className="font-label text-sm text-tertiary font-medium">{selectedFile.name}</span>
-                        <button type="button" onClick={(e) => { e.stopPropagation(); handleRemoveFile() }} className="text-on-surface-variant hover:text-error">
+                        <button type="button" aria-label="הסר קובץ" onClick={(e) => { e.stopPropagation(); handleRemoveFile() }} className="text-on-surface-variant hover:text-error">
                           <X className="h-4 w-4" />
                         </button>
                       </div>

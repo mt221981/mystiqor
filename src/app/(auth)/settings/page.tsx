@@ -152,11 +152,11 @@ export default function SettingsPage() {
         </div>
 
         {/* ===== הגדרות התראות (placeholder) ===== */}
-        <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5 opacity-60">
+        <div className="bg-surface-container rounded-xl p-6 border border-outline-variant/5">
           <h2 className="font-label text-sm text-on-surface font-medium flex items-center gap-2 mb-4">
             <Bell className="h-4 w-4 text-on-surface-variant" />
             הגדרות התראות
-            <span className="font-label text-xs font-normal text-on-surface-variant mr-auto">
+            <span className="font-label text-xs font-normal text-on-surface-variant ms-auto">
               בקרוב
             </span>
           </h2>

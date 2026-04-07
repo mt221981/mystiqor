@@ -71,7 +71,7 @@ export function AnalysisCard({ analysis, selected = false, onSelect }: AnalysisC
           {formatRelativeDate(analysis.created_at)}
         </span>
         {confidenceText && (
-          <span className="font-label text-xs text-on-surface-variant opacity-60">
+          <span className="font-label text-xs text-on-surface-variant">
             {confidenceText}
           </span>
         )}
