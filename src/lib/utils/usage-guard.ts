@@ -38,15 +38,10 @@ export async function checkUsageQuota(
     .eq('user_id', userId)
     .single()
 
-  // מנוי לא נמצא — מצב חריג (משתמש ללא מנוי)
+  // מנוי לא נמצא — משתמש חדש שלא עבר onboarding, או free tier ללא שורת מנוי
+  // מאפשרים גישה כדי לא לחסום משתמשים חדשים
   if (!sub) {
-    return {
-      allowed: false,
-      response: NextResponse.json(
-        { error: 'לא נמצא מנוי — אנא צור קשר עם התמיכה' },
-        { status: 403 }
-      ),
-    }
+    return { allowed: true }
   }
 
   // מנוי לא פעיל — בוטל, פג, בפיגור
