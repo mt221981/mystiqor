@@ -115,7 +115,7 @@ export default function ReferralsPage() {
           <Gift className="h-5 w-5 text-primary mt-0.5 shrink-0" />
           <div className="text-sm text-on-surface-variant font-body">
             <p className="font-label font-medium text-on-surface mb-1">איך זה עובד?</p>
-            <ol className="list-decimal list-inside space-y-1 pr-1">
+            <ol className="list-decimal list-inside space-y-1 pe-1">
               <li>צור קוד הפניה אישי</li>
               <li>שתף את הקישור עם חברים</li>
               <li>כשחבר נרשם — תקבל 5 ניתוחים בונוס</li>

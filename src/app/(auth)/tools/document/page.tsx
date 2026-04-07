@@ -259,7 +259,7 @@ export default function DocumentPage() {
                 </div>
 
                 <Button type="submit" disabled={isLoading || !selectedFile} className="w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold">
-                  {isLoading ? <><Loader2 className="h-4 w-4 animate-spin ml-2" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['document']?.button ?? 'מנתח את המסמך...'} /></> : 'נתח מסמך'}
+                  {isLoading ? <><Loader2 className="h-4 w-4 animate-spin ms-2" /><MysticLoadingText text={MYSTIC_LOADING_PHRASES['document']?.button ?? 'מנתח את המסמך...'} /></> : 'נתח מסמך'}
                 </Button>
               </form>
             </SubscriptionGuard>

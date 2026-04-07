@@ -140,7 +140,7 @@ export function JournalEntryForm({
       <div className="space-y-2">
         <Label htmlFor="content" className="text-sm font-medium">
           {mode === 'quick' ? 'מה עובר עליך?' : 'תוכן הרשומה'}
-          <span className="text-destructive mr-1">*</span>
+          <span className="text-destructive me-1">*</span>
         </Label>
         <Textarea
           id="content"
@@ -180,7 +180,7 @@ export function JournalEntryForm({
                   <Label className="text-sm font-medium">
                     רמת אנרגיה (אופציונלי)
                     {field.value !== undefined && (
-                      <span className="mr-2 text-primary">{field.value}/10</span>
+                      <span className="me-2 text-primary">{field.value}/10</span>
                     )}
                   </Label>
                   <Slider

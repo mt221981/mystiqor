@@ -209,9 +209,9 @@ export default function CoachPage() {
                 className="mb-3 w-full bg-gradient-to-br from-primary-container to-secondary-container text-white font-headline font-bold hover:opacity-90 active:scale-95"
               >
                 {createMutation.isPending ? (
-                  <Loader2 className="w-4 h-4 animate-spin ml-2" />
+                  <Loader2 className="w-4 h-4 animate-spin ms-2" />
                 ) : (
-                  <Plus className="w-4 h-4 ml-2" />
+                  <Plus className="w-4 h-4 ms-2" />
                 )}
                 שיחה חדשה
               </Button>

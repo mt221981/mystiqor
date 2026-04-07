@@ -123,7 +123,7 @@ export default function SettingsPage() {
                     : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high'
                 }
               >
-                <Moon className="h-4 w-4 ml-1.5" />
+                <Moon className="h-4 w-4 ms-1.5" />
                 כהה
               </Button>
               <Button
@@ -136,7 +136,7 @@ export default function SettingsPage() {
                     : 'border-outline-variant/20 text-on-surface-variant hover:bg-surface-container-high'
                 }
               >
-                <Sun className="h-4 w-4 ml-1.5" />
+                <Sun className="h-4 w-4 ms-1.5" />
                 בהיר
               </Button>
               <Button

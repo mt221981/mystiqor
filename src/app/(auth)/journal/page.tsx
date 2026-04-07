@@ -221,7 +221,7 @@ function JournalPageContent() {
             disabled={isMutating}
             className="border-outline-variant/20 hover:border-primary/40"
           >
-            <Plus className="h-4 w-4 ml-1" aria-hidden="true" />
+            <Plus className="h-4 w-4 ms-1" aria-hidden="true" />
             רשומה מהירה
           </Button>
           <Button
@@ -229,7 +229,7 @@ function JournalPageContent() {
             onClick={() => handleNewEntry('full')}
             disabled={isMutating}
           >
-            <Plus className="h-4 w-4 ml-1" aria-hidden="true" />
+            <Plus className="h-4 w-4 ms-1" aria-hidden="true" />
             רשומה חדשה
           </Button>
         </div>
