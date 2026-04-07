@@ -87,12 +87,14 @@ Plans:
   3. כל כפתור, טאב ואלמנט אינטראקטיבי קורא נכון עם screen reader — aria-label בעברית
   4. דפי קואצ', מטרות והיסטוריה מראים empty state עם CTA ברור כשאין נתונים — לא מסך ריק
   5. טופס כלשהו עם שדות מרובים מוצג בעמודה אחת במובייל וקואצ' לא שולח יותר מ-10 הודעות לקונטקסט
-**Plans**: TBD
-**UI hint**: yes
+**Plans**: 1 plan
+
+Plans:
+- [ ] 32-01-PLAN.md — RTL sweep + contrast/ARIA + empty states + mobile forms + coach context limit
 
 ## Progress
 
 | Phase | Milestone | Plans Complete | Status | Completed |
 |-------|-----------|----------------|--------|-----------|
 | 31. Backend Stability | v1.5 | 3/3 | Complete   | 2026-04-06 |
-| 32. Frontend Accessibility & UX | v1.5 | 0/TBD | Not started | - |
+| 32. Frontend Accessibility & UX | v1.5 | 0/1 | Not started | - |
