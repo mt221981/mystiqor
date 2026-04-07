@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: System Hardening
-status: executing
-stopped_at: Completed 32-01-PLAN.md
-last_updated: "2026-04-07T05:03:00Z"
+status: archived
+stopped_at: Milestone v1.5 complete
+last_updated: "2026-04-07T18:00:00Z"
 last_activity: 2026-04-07
 progress:
   total_phases: 2
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 4
   completed_plans: 4
-  percent: 67
+  percent: 100
 ---
 
 # Project State
@@ -28,7 +28,7 @@ See: .planning/PROJECT.md (updated 2026-04-07)
 Phase: 32 of 32 (Frontend Accessibility & UX)
 Plan: 1 of 1 complete
 Status: Phase 32 complete
-Last activity: 2026-04-07 — Completed 32-01 RTL sweep, WCAG AA contrast, ARIA roles, empty states, mobile forms, coach context limit
+Last activity: 2026-04-07
 
 Progress: [██████████] 100%
 

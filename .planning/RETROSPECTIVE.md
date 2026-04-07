@@ -43,16 +43,56 @@ Living retrospective across milestones. Captures what worked, what didn't, and p
 
 ---
 
-## Cross-Milestone Trends
+## Milestone: v1.5 — System Hardening
 
-| Metric | v1.0 | v1.1 | v1.2 | v1.3 | v1.4 |
-|--------|------|------|------|------|------|
-| Phases | 12 | 5 | 4 | 4 | 5 |
-| Plans | 66 | 7 | 13 | 10 | 7 |
-| Requirements | 50+ | 16 | 5 | 15 | 8 |
-| Duration | ~14 days | ~3 days | ~3 days | ~2 days | ~3 days |
+**Shipped:** 2026-04-07
+**Phases:** 2 | **Plans:** 4
 
-**Trend:** Milestones are getting smaller and more focused. v1.4 had the fewest plans (7) but still shipped 8 requirements, partly because existing code already satisfied some requirements.
+### What Was Built
+- Usage quota guard (checkUsageQuota) wired into all 24 tool routes before LLM calls
+- OpenAI timeout 9s + retry 2x + 5 typed Hebrew error mappings in llm.ts
+- Zod LLM response validation on tarot, palmistry, dream
+- DB insert error handling on 22 routes — no more silent data loss
+- RTL margin sweep (12 fixes), WCAG AA contrast (3 fixes), ARIA roles on coach tabs
+- EmptyState with CTA for coach + history, mobile-responsive form grids
+
+### What Worked
+- **2-phase structure** — Backend (STAB) vs Frontend (A11Y+UX) split was clean. No cross-phase dependencies, both phases could focus independently.
+- **Research-driven planning** — Researcher found exact file/line targets before planner ran. Phase 31 researcher counted all 24 routes and identified 6 OpenAI error classes from installed SDK.
+- **Plan checker caught real issues** — Blocker in 31-02 (missing daily-insights from frontmatter) would have caused executor to miss a file. Blocker in 32-01 (settings badge already exists) prevented double-insertion.
+- **OpenAI SDK native features** — timeout + maxRetries on constructor = zero custom code. SDK handles exponential backoff automatically.
+
+### What Was Inefficient
+- **SUMMARY frontmatter missing requirements_completed** — All 4 summaries lacked this field, making 3-source cross-reference fall back to 2 sources. Executor should populate this.
+- **Plan 31-02 scope** — 24 routes in one task is at the limit. Worked because pattern was mechanical, but a single executor context handling 24 file edits is fragile.
+
+### Patterns Established
+- **Usage guard as shared helper** — `checkUsageQuota()` with discriminated union return type. Clean pattern for pre-LLM validation.
+- **Hebrew error mapping via instanceof** — OpenAI SDK typed errors make this reliable without string matching.
+- **Contrast verification workflow** — Check tailwind.config.ts hex values, compute ratio, record in RESEARCH.md before planning.
+
+### Key Lessons
+- OpenAI SDK v4 has built-in timeout/retry — always check SDK capabilities before writing custom code
+- Plan checker is worth the time — caught 4 blockers across 2 phases that would have caused executor failures
+- When touching 20+ files with same pattern, verify with grep count after each task
+
+### Cost Observations
+- Model mix: ~80% sonnet (research/planning/execution), ~20% opus (orchestration)
+- Sessions: 1 (entire milestone in single session)
+- Notable: v1.5 was the fastest milestone — 2 phases, 4 plans, ~20 min total execution
 
 ---
-*Last updated: 2026-04-07 after v1.4*
+
+## Cross-Milestone Trends
+
+| Metric | v1.0 | v1.1 | v1.2 | v1.3 | v1.4 | v1.5 |
+|--------|------|------|------|------|------|------|
+| Phases | 12 | 5 | 4 | 4 | 5 | 2 |
+| Plans | 66 | 7 | 13 | 10 | 7 | 4 |
+| Requirements | 50+ | 16 | 5 | 15 | 8 | 10 |
+| Duration | ~14 days | ~3 days | ~3 days | ~2 days | ~3 days | ~1 day |
+
+**Trend:** v1.5 is the smallest milestone yet (2 phases, 4 plans) but delivered 10 requirements — all hardening, no new features. The research → plan → check → execute pipeline is now well-calibrated for both feature and hardening work.
+
+---
+*Last updated: 2026-04-07 after v1.5*

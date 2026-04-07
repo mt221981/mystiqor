@@ -1,5 +1,18 @@
 # Milestones
 
+## v1.5 System Hardening (Shipped: 2026-04-07)
+
+**Phases completed:** 2 phases, 4 plans, 9 tasks
+
+**Key accomplishments:**
+
+- One-liner:
+- 1. [Rule 1 - Bug] human-design already had saveError check but returned data on failure
+- One-liner:
+- One-liner:
+
+---
+
 ## v1.4 UI Polish & Visual Identity (Shipped: 2026-04-06)
 
 **Phases completed:** 3 phases, 6 plans, 8 tasks
