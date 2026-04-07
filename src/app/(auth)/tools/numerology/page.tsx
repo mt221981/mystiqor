@@ -30,6 +30,7 @@ import { SubscriptionGuard } from '@/components/features/subscription/Subscripti
 import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
+import { useProfileDefaults } from '@/hooks/useProfileDefaults'
 import type { CompatibilityResult } from '@/types/numerology'
 
 // ===== סכמת ולידציה =====
@@ -177,8 +178,13 @@ export default function NumerologyPage() {
   const [compatResult, setCompatResult] = useState<CompatibilityApiResponse['data'] | null>(null)
   const [showCompatibility, setShowCompatibility] = useState(false)
 
+  const { defaults } = useProfileDefaults()
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
+    values: defaults
+      ? { fullName: defaults.fullName, birthDate: defaults.birthDate }
+      : undefined,
   })
 
   const compatForm = useForm<CompatibilityFormValues>({

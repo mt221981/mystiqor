@@ -24,6 +24,7 @@ import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
+import { useProfileDefaults } from '@/hooks/useProfileDefaults'
 
 // ===== סכמות טפסים =====
 
@@ -179,8 +180,22 @@ export default function CompatibilityPage() {
   const { incrementUsage } = useSubscription()
   const shouldReduceMotion = useReducedMotion()
 
+  const { defaults } = useProfileDefaults()
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
+    values: defaults
+      ? {
+          person1: {
+            fullName: defaults.fullName,
+            birthDate: defaults.birthDate,
+            birthTime: defaults.birthTime || undefined,
+            latitude: defaults.latitude ?? undefined,
+            longitude: defaults.longitude ?? undefined,
+          },
+          person2: { fullName: '', birthDate: '' },
+        }
+      : undefined,
   })
 
   const mutation = useMutation({

@@ -23,6 +23,7 @@ import { Label } from '@/components/ui/label'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
+import { useProfileDefaults } from '@/hooks/useProfileDefaults'
 
 // ===== סכמות ולידציה =====
 
@@ -248,12 +249,22 @@ export default function SynastryPage() {
   const { incrementUsage } = useSubscription()
   const shouldReduceMotion = useReducedMotion()
 
+  const { defaults } = useProfileDefaults()
+
   const { register, handleSubmit, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
-    defaultValues: {
-      person1: { latitude: 31.7683, longitude: 35.2137, locationName: 'ירושלים' },
-      person2: { latitude: 31.7683, longitude: 35.2137, locationName: 'ירושלים' },
-    },
+    values: defaults
+      ? {
+          person1: {
+            name: defaults.fullName,
+            birthDate: defaults.birthDate,
+            birthTime: defaults.birthTime || undefined,
+            latitude: defaults.latitude ?? 31.7683,
+            longitude: defaults.longitude ?? 35.2137,
+          },
+          person2: { name: '', birthDate: '', latitude: 31.7683, longitude: 35.2137 },
+        }
+      : undefined,
   })
 
   const mutation = useMutation({

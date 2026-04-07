@@ -5,7 +5,7 @@
  * משתמש בסימולציית LLM עם גילוי נאות מפורש על אי-דיוק
  */
 
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import ReactMarkdown from 'react-markdown';
@@ -27,6 +27,7 @@ import { HumanDesignCenters } from '@/components/features/astrology/HumanDesignC
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard';
 import { animations } from '@/lib/animations/presets';
 import { useSubscription } from '@/hooks/useSubscription';
+import { useProfileDefaults } from '@/hooks/useProfileDefaults';
 import { HumanDesignInputSchema } from '@/lib/validations/human-design';
 import type { GeocodingResult } from '@/components/forms/LocationSearch';
 
@@ -71,11 +72,23 @@ export default function HumanDesignPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [birthPlaceText, setBirthPlaceText] = useState('');
   const { incrementUsage } = useSubscription();
+  const { defaults } = useProfileDefaults();
   const shouldReduceMotion = useReducedMotion();
 
   const { register, handleSubmit, setValue, formState: { errors } } = useForm<FormValues>({
     resolver: zodResolver(HumanDesignInputSchema),
+    values: defaults
+      ? { birthDate: defaults.birthDate, birthTime: defaults.birthTime, birthPlace: defaults.birthPlace }
+      : undefined,
   });
+
+  /** סנכרון מקום הלידה מהפרופיל — מעדכן גם שדה הטופס וגם ה-state של LocationSearch */
+  useEffect(() => {
+    if (defaults?.birthPlace) {
+      setValue('birthPlace', defaults.birthPlace, { shouldValidate: false });
+      setBirthPlaceText(defaults.birthPlace);
+    }
+  }, [defaults?.birthPlace, setValue]);
 
   /** טיפול בבחירת מיקום מ-LocationSearch */
   const handleLocationSelect = useCallback((geo: GeocodingResult) => {
