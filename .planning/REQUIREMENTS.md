@@ -15,14 +15,14 @@
 
 ### Accessibility
 
-- [ ] **A11Y-01**: כל margins/paddings ב-RTL משתמשים ב-ms/me/ps/pe — לא ml/mr/pl/pr
-- [ ] **A11Y-02**: כל טקסט משני עומד ב-WCAG AA contrast (4.5:1) — לא opacity-40/60 על רקע כהה
-- [ ] **A11Y-03**: כל כפתור, טאב ואלמנט אינטראקטיבי כולל aria-label בעברית
+- [x] **A11Y-01**: כל margins/paddings ב-RTL משתמשים ב-ms/me/ps/pe — לא ml/mr/pl/pr
+- [x] **A11Y-02**: כל טקסט משני עומד ב-WCAG AA contrast (4.5:1) — לא opacity-40/60 על רקע כהה
+- [x] **A11Y-03**: כל כפתור, טאב ואלמנט אינטראקטיבי כולל aria-label בעברית
 
 ### UX
 
-- [ ] **UX-01**: empty state ברור עם CTA בדפי קואצ', מטרות והיסטוריה — לא מסך ריק
-- [ ] **UX-02**: טפסים מתגלגלים לעמודה אחת במובייל + context של קואצ' מוגבל ל-10 הודעות אחרונות
+- [x] **UX-01**: empty state ברור עם CTA בדפי קואצ', מטרות והיסטוריה — לא מסך ריק
+- [x] **UX-02**: טפסים מתגלגלים לעמודה אחת במובייל + context של קואצ' מוגבל ל-10 הודעות אחרונות
 
 ## Out of Scope
 
@@ -43,11 +43,11 @@
 | STAB-03 | Phase 31 | Complete |
 | STAB-04 | Phase 31 | Complete |
 | STAB-05 | Phase 31 | Complete |
-| A11Y-01 | Phase 32 | Pending |
-| A11Y-02 | Phase 32 | Pending |
-| A11Y-03 | Phase 32 | Pending |
-| UX-01 | Phase 32 | Pending |
-| UX-02 | Phase 32 | Pending |
+| A11Y-01 | Phase 32 | Complete |
+| A11Y-02 | Phase 32 | Complete |
+| A11Y-03 | Phase 32 | Complete |
+| UX-01 | Phase 32 | Complete |
+| UX-02 | Phase 32 | Complete |
 
 **Coverage:**
 - v1.5 requirements: 10 total

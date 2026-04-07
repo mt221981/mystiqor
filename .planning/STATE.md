@@ -3,15 +3,15 @@ gsd_state_version: 1.0
 milestone: v1.5
 milestone_name: System Hardening
 status: executing
-stopped_at: Phase 31 complete — ready for Phase 32
-last_updated: "2026-04-07T16:00:00Z"
+stopped_at: Completed 32-01-PLAN.md
+last_updated: "2026-04-07T05:03:00Z"
 last_activity: 2026-04-07
 progress:
   total_phases: 2
   completed_phases: 1
-  total_plans: 3
-  completed_plans: 3
-  percent: 50
+  total_plans: 4
+  completed_plans: 4
+  percent: 67
 ---
 
 # Project State
@@ -21,16 +21,16 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-07)
 
 **Core value:** ניתוח אישי מיסטי מקיף שמחבר בין כל הכלים -- עם AI שמסנתז תובנות אחודות
-**Current focus:** v1.5 System Hardening — Phase 31: Backend Stability
+**Current focus:** v1.5 System Hardening — Phase 32: Frontend Accessibility & UX
 
 ## Current Position
 
-Phase: 31 of 32 (Backend Stability)
-Plan: —
-Status: Ready to plan
-Last activity: 2026-04-07 — Roadmap created for v1.5 (2 phases, 10 requirements)
+Phase: 32 of 32 (Frontend Accessibility & UX)
+Plan: 1 of 1 complete
+Status: Phase 32 complete
+Last activity: 2026-04-07 — Completed 32-01 RTL sweep, WCAG AA contrast, ARIA roles, empty states, mobile forms, coach context limit
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [██████████] 100%
 
 ## Performance Metrics
 
@@ -51,6 +51,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 31 P01 | 1 | 1 tasks | 1 files |
 | Phase 31 P02 | 11 | 3 tasks | 25 files |
 | Phase 31 P03 | 2 | 2 tasks | 5 files |
+| Phase 32 P01 | 7 | 4 tasks | 13 files |
 
 ## Accumulated Context
 
@@ -68,6 +69,9 @@ All decisions logged in PROJECT.md Key Decisions table.
 - [Phase 31]: dream backgroundWork: added full analyses insert with error check and Hebrew fallback on failure
 - [Phase 31]: Minimal { interpretation: string } Zod wrapper for tarot/palmistry/dream — avoids prompt restructuring while enforcing non-empty LLM responses
 - [Phase 31]: dream backgroundWork validation failure writes Hebrew fallback to ai_interpretation instead of null — polling UI shows feedback
+- [Phase 32]: aria-selected uses string "true"/"false" not boolean — HTML ARIA spec requires string enumeration, IDE linter confirmed
+- [Phase 32]: settings notifications opacity-60 removed from wrapper only — בקרוב badge already existed, not re-added
+- [Phase 32]: coach zero-state uses two-branch conditional — EmptyState for 0 conversations, QuickActions div preserved for returning users
 
 ### Pending Todos
 
@@ -79,6 +83,6 @@ None active.
 
 ## Session Continuity
 
-Last session: 2026-04-06T23:34:21.341Z
-Stopped at: Completed 31-03-PLAN.md
+Last session: 2026-04-07T05:03:00Z
+Stopped at: Completed 32-01-PLAN.md
 Resume file: None
