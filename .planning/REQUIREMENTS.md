@@ -33,17 +33,17 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| PROF-01 | Pending | Pending |
-| NUM-01 | Pending | Pending |
-| NUM-02 | Pending | Pending |
-| JOUR-01 | Pending | Pending |
-| JOUR-02 | Pending | Pending |
-| JOUR-03 | Pending | Pending |
+| PROF-01 | Phase 33 | Pending |
+| NUM-01 | Phase 34 | Pending |
+| NUM-02 | Phase 34 | Pending |
+| JOUR-01 | Phase 35 | Pending |
+| JOUR-02 | Phase 35 | Pending |
+| JOUR-03 | Phase 35 | Pending |
 
 **Coverage:**
 - v1.6 requirements: 6 total
-- Mapped to phases: 0
-- Unmapped: 6
+- Mapped to phases: 6
+- Unmapped: 0
 
 ---
 *Requirements defined: 2026-04-07*
