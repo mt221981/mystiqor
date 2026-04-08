@@ -2,16 +2,16 @@
 gsd_state_version: 1.0
 milestone: v1.6
 milestone_name: Enriched Experience
-status: planning
-stopped_at: Roadmap created — ready to plan Phase 33
-last_updated: "2026-04-07T19:30:00Z"
-last_activity: 2026-04-07
+status: executing
+stopped_at: "34-01 — checkpoint:human-verify (2 tasks complete, awaiting visual verification)"
+last_updated: "2026-04-09T00:00:00Z"
+last_activity: 2026-04-09
 progress:
   total_phases: 3
-  completed_phases: 0
-  total_plans: 0
-  completed_plans: 0
-  percent: 0
+  completed_phases: 1
+  total_plans: 6
+  completed_plans: 2
+  percent: 33
 ---
 
 # Project State
@@ -25,12 +25,12 @@ See: .planning/PROJECT.md (updated 2026-04-07)
 
 ## Current Position
 
-Phase: 33 of 35 (Profile Auto-Fill)
-Plan: —
-Status: Ready to plan
-Last activity: 2026-04-07 — Roadmap created for v1.6 (3 phases: 33, 34, 35)
+Phase: 34 of 35 (Rich Numerology Display)
+Plan: 01 — checkpoint:human-verify
+Status: Awaiting visual verification
+Last activity: 2026-04-09 — Tasks 1+2 complete (NumberCard enriched + MysticScroll + maxTokens 3000)
 
-Progress: [░░░░░░░░░░] 0%
+Progress: [███░░░░░░░] 33%
 
 ## Performance Metrics
 
@@ -70,6 +70,12 @@ None active.
 
 ## Session Continuity
 
-Last session: 2026-04-07T19:30:00Z
-Stopped at: Roadmap created — ROADMAP.md, STATE.md, REQUIREMENTS.md traceability updated
+Last session: 2026-04-09T00:00:00Z
+Stopped at: 34-01 checkpoint:human-verify — NumberCard enriched face + MysticScroll + maxTokens 3000 complete. Awaiting visual approval.
 Resume file: None
+
+### Decisions (34-01)
+
+- [34-01]: Card/CardHeader/CardTitle imports kept in page.tsx — still used by input form and compatibility sections
+- [34-01]: MysticScroll uses plain div (not shadcn Card) — full control via mystic-card-gold CSS class
+- [34-01]: Hebrew letter placed top-right in card face (flex justify-between) for RTL visual balance
