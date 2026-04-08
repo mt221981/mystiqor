@@ -61,13 +61,19 @@ export function NumberCard({
         onClick={() => setOpen(true)}
         onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') setOpen(true) }}
       >
-        <CardContent className="pt-5 pb-4 px-3 flex flex-col items-center gap-1.5">
-          {/* אייקון סוג */}
-          {typeInfo && (
-            <span className="text-lg opacity-70 group-hover:opacity-100 transition-opacity">
-              {typeInfo.icon}
+        <CardContent className="pt-4 pb-3 px-3 flex flex-col items-center gap-1">
+          {/* שורה עליונה: אייקון + אות עברית */}
+          <div className="flex justify-between items-start w-full px-1">
+            <span className="text-base opacity-70 group-hover:opacity-100 transition-opacity">
+              {typeInfo?.icon ?? '✦'}
             </span>
-          )}
+            <span
+              className="text-3xl font-headline font-black text-accent leading-none"
+              aria-hidden="true"
+            >
+              {meaning.hebrewLetter}
+            </span>
+          </div>
 
           {/* מספר גדול במרכז */}
           <span
@@ -87,9 +93,32 @@ export function NumberCard({
             {meaning.title}
           </span>
 
+          {/* שורת ספירה + כוכב */}
+          <div className="flex gap-2 justify-center items-center mt-0.5">
+            <span className="text-[10px] font-body text-primary/60">
+              ספירת {meaning.sephira}
+            </span>
+            <span className="text-[10px] text-accent/40">·</span>
+            <span className="text-[10px] font-body text-accent/70">
+              {meaning.association}
+            </span>
+          </div>
+
+          {/* 3 מילות מפתח ראשונות כ-pills */}
+          <div className="flex flex-wrap gap-1 justify-center mt-1">
+            {meaning.keywords.slice(0, 3).map((kw) => (
+              <span
+                key={kw}
+                className="text-[9px] font-body px-1.5 py-0.5 rounded-full bg-primary/[0.08] text-primary/70 border border-primary/15"
+              >
+                {kw}
+              </span>
+            ))}
+          </div>
+
           {/* רמז ללחיצה */}
-          <span className="text-[10px] font-body text-primary/50 group-hover:text-primary/80 transition-colors mt-1">
-            לחץ לגילוי ▾
+          <span className="text-[10px] font-body text-primary/40 group-hover:text-primary/70 transition-colors mt-1">
+            ▾
           </span>
         </CardContent>
       </Card>
