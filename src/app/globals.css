@@ -302,6 +302,32 @@ body {
     z-index: -1;
   }
 
+  /* ===== עזרי הפיכת קלף 3D ===== */
+
+  /* perspective container לאנימציית flip */
+  .card-perspective {
+    perspective: 1000px;
+  }
+
+  /* preserve-3d על העטיפה המסתובבת */
+  .card-preserve-3d {
+    transform-style: preserve-3d;
+    position: relative;
+  }
+
+  /* גב הקלף — מוסתר בצד ה-back (backfaceVisibility: hidden) */
+  .card-back-face {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  /* פנים הקלף — סובב ב-180 מעלות, מוסתר בצד ה-back */
+  .card-front-face {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    transform: rotateY(180deg);
+  }
+
   /* שכבת דעיכה לכרטיסי כלים — תמונה נמסה לכהה בתחתית */
   .tool-card-fade {
     background: linear-gradient(to bottom, transparent 20%, rgba(13,11,30,0.5) 50%, rgba(13,11,30,0.95) 75%, rgba(13,11,30,1) 100%);
