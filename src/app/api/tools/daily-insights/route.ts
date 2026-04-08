@@ -224,7 +224,7 @@ ${ctx.firstName ? `אתה פונה אל ${ctx.firstName} — ממזל ${zodiacSi
       userId: user.id,
       systemPrompt,
       prompt,
-      maxTokens: 1200,
+      maxTokens: 2500,
     })
 
     const llmText = String(llmResponse.data)

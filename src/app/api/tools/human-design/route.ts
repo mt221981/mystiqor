@@ -71,7 +71,8 @@ export async function POST(request: Request) {
     const llmResponse = await invokeLLM<HDResult>({
       systemPrompt: personalLine + `אתה מומחה Human Design. בהינתן תאריך, שעה ומקום לידה, ספק ניתוח Human Design מפורט.
 החזר JSON בלבד: { type: 'Generator'|'Manifesting Generator'|'Projector'|'Manifestor'|'Reflector', profile: string, authority: string, strategy: string, definedCenters: string[], undefinedCenters: string[], openCenters: string[], channels: string[], gates: string[], description: string, strengths: string[], challenges: string[], disclosure: string }.
-שים disclosure: 'ניתוח זה מבוסס על סימולציה ולא חישוב אסטרונומי מדויק — לניתוח HD מדויק יש לפנות למומחה.'`,
+שים disclosure: 'ניתוח זה מבוסס על סימולציה ולא חישוב אסטרונומי מדויק — לניתוח HD מדויק יש לפנות למומחה.'
+חשוב: ענה בעברית בלבד. כל הפרשנות, הכותרות, התובנות, strengths, challenges — הכל בעברית.`,
       prompt: `תאריך לידה: ${birthDate}, שעה: ${birthTime}, מקום: ${birthPlace}`,
       responseSchema: {
         type: 'string',

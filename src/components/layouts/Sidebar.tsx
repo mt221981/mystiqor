@@ -91,6 +91,16 @@ const NAV_SECTIONS: readonly NavSection[] = [
     ],
   },
   {
+    title: 'מסע אישי',
+    items: [
+      { label: 'נועה — המאמנת', href: '/coach', icon: Sparkles },
+      { label: 'יעדים', href: '/goals', icon: Target },
+      { label: 'מצב רוח', href: '/mood', icon: Smile },
+      { label: 'יומן', href: '/journal', icon: NotebookPen },
+      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: Sun },
+    ],
+  },
+  {
     title: 'עוד כלים',
     items: [
       { label: 'תחזית יומית', href: '/tools/astrology/forecast', icon: SunDim },
@@ -104,16 +114,6 @@ const NAV_SECTIONS: readonly NavSection[] = [
       { label: 'מערכות יחסים', href: '/tools/relationships', icon: Users },
       { label: 'סינתזה', href: '/tools/synthesis', icon: Merge },
       { label: 'אישיות', href: '/tools/personality', icon: Brain },
-    ],
-  },
-  {
-    title: 'מסע אישי',
-    items: [
-      { label: 'נועה — המאמנת', href: '/coach', icon: Sparkles },
-      { label: 'יעדים', href: '/goals', icon: Target },
-      { label: 'מצב רוח', href: '/mood', icon: Smile },
-      { label: 'יומן', href: '/journal', icon: NotebookPen },
-      { label: 'תובנות יומיות', href: '/tools/daily-insights', icon: Sun },
     ],
   },
   {
