@@ -89,39 +89,6 @@ function SpreadPreview({ spreadId, isActive }: SpreadPreviewProps) {
         </div>
       )
 
-    /** צלב קלטי — צלב (4 קלפים) + עמודה ימנית (4 קלפים) */
-    case 'celtic_cross':
-      return (
-        <div className="flex items-center gap-1 h-10">
-          {/* צלב — 3x3 grid עם קלפים בצלב */}
-          <div className="celtic-cross-grid">
-            {/* שורה עליונה: ריק, למעלה, ריק */}
-            <div />
-            <MiniCard isActive={isActive} />
-            <div />
-            {/* שורה אמצעית: שמאל, מרכז, ימין */}
-            <MiniCard isActive={isActive} />
-            <MiniCard isActive={isActive} />
-            <MiniCard isActive={isActive} />
-            {/* שורה תחתונה: ריק, למטה, ריק */}
-            <div />
-            <MiniCard isActive={isActive} />
-            <div />
-          </div>
-
-          {/* מפריד */}
-          <div className="w-px h-6 bg-current opacity-20 mx-0.5" />
-
-          {/* עמודה — 4 קלפים בשורה אנכית */}
-          <div className="flex flex-col gap-0.5">
-            <MiniCard isActive={isActive} />
-            <MiniCard isActive={isActive} />
-            <MiniCard isActive={isActive} />
-            <MiniCard isActive={isActive} />
-          </div>
-        </div>
-      )
-
     default:
       return null
   }

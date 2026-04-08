@@ -105,10 +105,9 @@ export interface TarotSpread {
   readonly positions: readonly string[];
 }
 
-/** 4 פריסות טארוט — קלף בודד, שלושה, יחסים, צלב קלטי */
+/** 3 פריסות טארוט — קלף בודד, שלושה, יחסים */
 export const TAROT_SPREADS: readonly TarotSpread[] = [
   { id: 'single_card', name: 'קלף בודד', description: 'תובנה מיידית', cardCount: 1, positions: ['התובנה'] },
   { id: 'three_card', name: 'שלושה קלפים', description: 'עבר, הווה, עתיד', cardCount: 3, positions: ['עבר', 'הווה', 'עתיד'] },
   { id: 'relationship', name: 'פריסת יחסים', description: '5 קלפים על מערכת יחסים', cardCount: 5, positions: ['המצב שלך', 'המצב של השני', 'הקשר ביניכם', 'האתגרים', 'הפוטנציאל'] },
-  { id: 'celtic_cross', name: 'הצלב הקלטי', description: 'פריסה מקיפה של 10 קלפים', cardCount: 10, positions: ['המצב הנוכחי', 'האתגר/המכשול', 'הבסיס/העבר הרחוק', 'העבר הקרוב', 'האפשרות הטובה ביותר', 'העתיד הקרוב', 'איך אתה רואה את עצמך', 'איך אחרים רואים אותך', 'תקוות ופחדים', 'התוצאה הסופית'] },
 ] as const;

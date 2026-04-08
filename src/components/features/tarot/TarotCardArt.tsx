@@ -115,6 +115,32 @@ const SUIT_SYMBOL: Record<string, string> = {
   pentacles: '⭐',
 }
 
+/** סמל ייחודי לכל קלף Major Arcana — מעשיר את ה-CSS art */
+const MAJOR_SYMBOL: Record<number, string> = {
+  0: '🌀',   // השוטה — ספירלה, מסע ללא סוף
+  1: '⚡',   // הקוסם — כוח יצירה
+  2: '🌙',   // הכוהנת — ירח, אינטואיציה
+  3: '🌿',   // הקיסרית — טבע, שפע
+  4: '👑',   // הקיסר — סמכות
+  5: '🔑',   // ההיירופנט — מפתח לידע
+  6: '💕',   // האוהבים — אהבה
+  7: '⭐',   // המרכבה — כוכב מנחה
+  8: '🦁',   // הכוח — אומץ
+  9: '🏮',   // הנזיר — אור פנימי
+  10: '☸️',  // גלגל המזל — מחזוריות
+  11: '⚖️',  // הצדק — איזון
+  12: '🔮',  // התלוי — חזון
+  13: '🦋',  // המוות — טרנספורמציה
+  14: '🏺',  // המתינות — כלי קדוש
+  15: '🔗',  // השטן — כבלים
+  16: '⚡',  // המגדל — מהפך
+  17: '✨',  // הכוכב — תקווה
+  18: '🌊',  // הירח — תת-מודע
+  19: '☀️',  // השמש — הארה
+  20: '🕊️',  // השיפוט — התעוררות
+  21: '🌍',  // העולם — שלמות
+}
+
 /** צבע טקסט הסוט */
 const SUIT_TEXT_COLOR: Record<string, string> = {
   wands: '#fb923c',
@@ -171,20 +197,50 @@ export function TarotCardArt({
 
   return (
     <div
-      className={`relative w-full h-full rounded-xl bg-gradient-to-br ${gradientClass} overflow-hidden flex flex-col items-center justify-between py-2 px-1`}
+      className={`relative w-full rounded-xl bg-gradient-to-br ${gradientClass} overflow-hidden flex flex-col items-center justify-between py-3 px-2`}
       style={{
-        minHeight: '120px',
-        boxShadow: `0 0 20px ${glowColor}, inset 0 0 30px rgba(0,0,0,0.5)`,
+        aspectRatio: '2 / 3',
+        boxShadow: `0 0 25px ${glowColor}, inset 0 0 40px rgba(0,0,0,0.5)`,
       }}
       aria-hidden="true"
     >
+      {/* מסגרת זהובה פנימית */}
+      <div className="absolute inset-1.5 rounded-lg border border-amber-400/25 pointer-events-none" />
+      <div className="absolute inset-3 rounded-md border border-amber-400/10 pointer-events-none" />
+
       {/* כוכבים דקורטיביים ברקע */}
       <div
-        className="absolute inset-0 opacity-20 pointer-events-none"
+        className="absolute inset-0 opacity-25 pointer-events-none"
         style={{
           backgroundImage:
-            'radial-gradient(circle at 20% 30%, rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(circle at 75% 60%, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle at 50% 80%, rgba(255,255,255,0.12) 1px, transparent 1px)',
-          backgroundSize: '80px 80px, 60px 60px, 100px 100px',
+            'radial-gradient(circle at 15% 20%, rgba(255,255,255,0.2) 1px, transparent 1px), radial-gradient(circle at 80% 15%, rgba(255,255,255,0.15) 1px, transparent 1px), radial-gradient(circle at 45% 75%, rgba(255,255,255,0.18) 1px, transparent 1px), radial-gradient(circle at 70% 50%, rgba(255,255,255,0.12) 1px, transparent 1px), radial-gradient(circle at 25% 60%, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px, 50px 50px, 70px 70px, 40px 40px, 90px 90px',
+        }}
+      />
+
+      {/* עיגול מיסטי מרכזי */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '25%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '60%',
+          height: '40%',
+          border: `1px solid ${accentColor}20`,
+          borderRadius: '50%',
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          top: '30%',
+          left: '50%',
+          transform: 'translateX(-50%)',
+          width: '45%',
+          height: '30%',
+          border: `1px solid ${accentColor}15`,
+          borderRadius: '50%',
         }}
       />
 
@@ -192,7 +248,7 @@ export function TarotCardArt({
       <div
         className="absolute inset-0 pointer-events-none"
         style={{
-          background: `radial-gradient(ellipse at center, ${glowColor} 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse at center 40%, ${glowColor} 0%, transparent 60%)`,
         }}
       />
 
@@ -219,13 +275,17 @@ export function TarotCardArt({
       <div className="relative z-10 flex flex-col items-center justify-center flex-1">
         {isMajor ? (
           <>
+            {/* סמל ייחודי לקלף */}
+            <span className="text-2xl mb-1 select-none opacity-70">
+              {MAJOR_SYMBOL[cardNumber] ?? '✦'}
+            </span>
             {/* אות קבלה גדולה */}
             <span
               className="font-bold leading-none select-none"
               style={{
-                fontSize: 'clamp(2rem, 8vw, 3.5rem)',
+                fontSize: 'clamp(3rem, 12vw, 5rem)',
                 color: accentColor,
-                textShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
+                textShadow: `0 0 25px ${glowColor}, 0 0 50px ${glowColor}, 0 0 80px ${glowColor}`,
                 fontFamily: 'serif',
                 direction: 'rtl',
               }}
@@ -235,7 +295,7 @@ export function TarotCardArt({
             {/* שם קבלה קטן מתחת */}
             {kabbalah && (
               <span
-                className="text-xs opacity-50 mt-1 tracking-wide"
+                className="text-xs opacity-60 mt-1 tracking-widest uppercase"
                 style={{ color: accentColor }}
               >
                 {kabbalah}
@@ -244,20 +304,22 @@ export function TarotCardArt({
           </>
         ) : (
           <>
+            {/* סמל הסוט למעלה */}
+            <span className="text-xl mb-1 opacity-70 select-none">{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
             {/* מספר גדול לארקנה קטנה */}
             <span
               className="font-bold leading-none select-none"
               style={{
-                fontSize: 'clamp(2rem, 8vw, 3rem)',
+                fontSize: 'clamp(2.5rem, 10vw, 4rem)',
                 color: accentColor,
-                textShadow: `0 0 15px ${glowColor}`,
+                textShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
                 fontFamily: 'serif',
               }}
             >
               {minorNumber}
             </span>
-            {/* סמל הסוט */}
-            <span className="text-lg mt-1 opacity-80">{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
+            {/* סמל הסוט תחתון */}
+            <span className="text-lg mt-1 opacity-50 select-none">{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
           </>
         )}
       </div>

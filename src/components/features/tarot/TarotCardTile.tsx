@@ -175,8 +175,8 @@ export function TarotCardTile({
           aria-expanded={isExpanded}
           aria-label={`קלף ${card.name_he} — לחץ לפרטים`}
         >
-          {/* אמנות הקלף — שכבת בסיס */}
-          <div className="relative w-full" style={{ minHeight: '140px' }}>
+          {/* אמנות הקלף — שכבת בסיס עם פרופורציית קלף */}
+          <div className="relative w-full" style={{ aspectRatio: '2 / 3' }}>
             <TarotCardArt
               cardNumber={card.number ?? 0}
               arcana={card.arcana}
