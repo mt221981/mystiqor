@@ -1,8 +1,8 @@
 'use client'
 
 /**
- * בורר פריסות טארוט — 4 כפתורי פריסה עם שם, תיאור ומספר קלפים
- * מדוע: מחליף את SPREAD_OPTIONS הישן (3 כפתורים פשוטים) ב-4 פריסות עשירות מ-TAROT_SPREADS
+ * בורר פריסות טארוט — 4 כפתורי פריסה עם שם, תיאור, מספר קלפים ותצוגה מקדימה ויזואלית
+ * מדוע: מחליף כפתורי טקסט בלבד בממשק עשיר הכולל מיני-תצוגה של פריסת הקלפים
  */
 
 import { TAROT_SPREADS, type TarotSpread } from '@/lib/constants/tarot-data'
@@ -17,8 +17,118 @@ interface SpreadSelectorProps {
   onSelect: (spread: TarotSpread) => void
 }
 
+/** פרופס של MiniCard — מלבן קטן המייצג קלף בתצוגה המקדימה */
+interface MiniCardProps {
+  /** האם הכפתור פעיל (משפיע על הצבע) */
+  isActive: boolean
+}
+
 /**
- * מרנדר 4 כפתורי פריסה עם שם, תיאור ומספר קלפים
+ * מלבן קטן המייצג קלף בודד בתצוגה המקדימה של הפריסה
+ */
+function MiniCard({ isActive }: MiniCardProps) {
+  return (
+    <div
+      className={cn(
+        'mini-card rounded-sm border',
+        isActive
+          ? 'bg-accent/40 border-accent/60'
+          : 'bg-primary/20 border-primary/30'
+      )}
+    />
+  )
+}
+
+/** פרופס של SpreadPreview — תצוגה מקדימה ויזואלית של הפריסה */
+interface SpreadPreviewProps {
+  /** מזהה הפריסה */
+  spreadId: string
+  /** האם הכפתור פעיל */
+  isActive: boolean
+}
+
+/**
+ * מרנדר תצוגה מקדימה מיני של פריסת הקלפים
+ * כל פריסה מוצגת עם מיקומי קלפים אמיתיים
+ */
+function SpreadPreview({ spreadId, isActive }: SpreadPreviewProps) {
+  switch (spreadId) {
+    /** קלף בודד — קלף אחד במרכז */
+    case 'single_card':
+      return (
+        <div className="flex items-center justify-center h-10">
+          <MiniCard isActive={isActive} />
+        </div>
+      )
+
+    /** שלושה קלפים — שורה אחת */
+    case 'three_card':
+      return (
+        <div className="flex items-center justify-center gap-1 h-10">
+          <MiniCard isActive={isActive} />
+          <MiniCard isActive={isActive} />
+          <MiniCard isActive={isActive} />
+        </div>
+      )
+
+    /** פריסת יחסים — 2 + 1 + 2 */
+    case 'relationship':
+      return (
+        <div className="flex flex-col items-center gap-0.5 h-10 justify-center">
+          {/* שורה עליונה: 2 קלפים */}
+          <div className="flex gap-1">
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+          </div>
+          {/* שורה תחתונה: 3 קלפים */}
+          <div className="flex gap-1">
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+          </div>
+        </div>
+      )
+
+    /** צלב קלטי — צלב (4 קלפים) + עמודה ימנית (4 קלפים) */
+    case 'celtic_cross':
+      return (
+        <div className="flex items-center gap-1 h-10">
+          {/* צלב — 3x3 grid עם קלפים בצלב */}
+          <div className="celtic-cross-grid">
+            {/* שורה עליונה: ריק, למעלה, ריק */}
+            <div />
+            <MiniCard isActive={isActive} />
+            <div />
+            {/* שורה אמצעית: שמאל, מרכז, ימין */}
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+            {/* שורה תחתונה: ריק, למטה, ריק */}
+            <div />
+            <MiniCard isActive={isActive} />
+            <div />
+          </div>
+
+          {/* מפריד */}
+          <div className="w-px h-6 bg-current opacity-20 mx-0.5" />
+
+          {/* עמודה — 4 קלפים בשורה אנכית */}
+          <div className="flex flex-col gap-0.5">
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+            <MiniCard isActive={isActive} />
+          </div>
+        </div>
+      )
+
+    default:
+      return null
+  }
+}
+
+/**
+ * מרנדר 4 כפתורי פריסה עם שם, תיאור, מספר קלפים ותצוגה מקדימה ויזואלית
  * @param selectedId — מזהה הפריסה הפעילה
  * @param onSelect — פונקציה שנקראת עם אובייקט הפריסה שנבחרה
  */
@@ -34,17 +144,23 @@ export function SpreadSelector({ selectedId, onSelect }: SpreadSelectorProps) {
             onClick={() => onSelect(spread)}
             aria-pressed={isActive}
             className={cn(
-              'flex h-auto flex-col items-start gap-0.5 px-3 py-2 text-start',
+              'flex h-auto flex-col items-center gap-1 px-3 py-2',
               isActive
                 ? 'border-accent/60 bg-surface-container-high text-accent font-label'
                 : 'border-outline-variant/20 text-on-surface-variant hover:border-primary/40 hover:bg-surface-container'
             )}
           >
-            <span className="font-label text-sm font-medium">
+            {/* תצוגה מקדימה ויזואלית */}
+            <SpreadPreview spreadId={spread.id} isActive={isActive} />
+
+            {/* שם ומספר קלפים */}
+            <span className="font-label text-sm font-medium text-start w-full">
               {spread.name}{' '}
               <span className="text-xs opacity-70">({spread.cardCount})</span>
             </span>
-            <span className="text-xs text-on-surface-variant/85 font-normal">
+
+            {/* תיאור */}
+            <span className="text-xs text-on-surface-variant/85 font-normal text-start w-full">
               {spread.description}
             </span>
           </Button>

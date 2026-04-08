@@ -75,8 +75,8 @@ export function TarotCardTile({
   const topKeywords = card.keywords?.slice(0, 3) ?? []
 
   /** מטא-דאטה עשירה מהקבוע — fallback לנתוני ה-DB */
-  const meta = typeof card.card_number === 'number'
-    ? TAROT_CARD_META[card.card_number]
+  const meta = typeof card.number === 'number'
+    ? TAROT_CARD_META[card.number]
     : undefined
 
   /** ערכים מאוחדים: DB ראשוני, אחרת מהקבוע */
@@ -178,7 +178,7 @@ export function TarotCardTile({
           {/* אמנות הקלף — שכבת בסיס */}
           <div className="relative w-full" style={{ minHeight: '140px' }}>
             <TarotCardArt
-              cardNumber={card.card_number ?? 0}
+              cardNumber={card.number ?? 0}
               arcana={card.arcana}
               suit={card.suit ?? null}
               element={element ?? undefined}
