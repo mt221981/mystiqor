@@ -28,6 +28,7 @@ import { SubNumberBreakdown } from '@/components/features/numerology/SubNumberBr
 import { CompatibilityCard } from '@/components/features/numerology/CompatibilityCard'
 import { SubscriptionGuard } from '@/components/features/subscription/SubscriptionGuard'
 import { ProgressiveReveal, RevealItem } from '@/components/ui/progressive-reveal'
+import { MysticScroll } from '@/components/ui/mystic-scroll'
 import { animations } from '@/lib/animations/presets'
 import { useSubscription } from '@/hooks/useSubscription'
 import { useProfileDefaults } from '@/hooks/useProfileDefaults'
@@ -354,19 +355,11 @@ export default function NumerologyPage() {
           {/* פרשנות AI */}
           {result.interpretation && (
             <RevealItem>
-              <Card className="border-outline-variant/5 bg-surface-container rounded-xl mystic-hover">
-                <CardHeader>
-                  <CardTitle className="text-base font-headline text-primary flex items-center gap-2">
-                    <Hash className="h-4 w-4" />
-                    פרשנות AI מותאמת אישית
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="result-heading-glow prose prose-invert prose-sm max-w-none font-body text-on-surface-variant">
-                    <ReactMarkdown>{result.interpretation}</ReactMarkdown>
-                  </div>
-                </CardContent>
-              </Card>
+              <MysticScroll title="סינתזה מיסטית">
+                <div className="prose prose-invert prose-sm max-w-none result-heading-glow">
+                  <ReactMarkdown>{result.interpretation}</ReactMarkdown>
+                </div>
+              </MysticScroll>
             </RevealItem>
           )}
 

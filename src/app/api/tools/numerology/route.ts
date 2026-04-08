@@ -73,7 +73,7 @@ ${zodiacEnrichment}
   "synthesis": "פרשנות מאחדת של כל 5 המספרים יחד — 5-7 משפטים עמוקים. חבר את כל החלקים לתמונה שלמה. גלה דפוסים, מתחים פוריים בין המספרים, ומסר מרכזי אחד שהמספרים שולחים ל${numbers.name}. שלב רפרנסים קבליים — ספירות, נתיבות, אותיות."
 }`,
       prompt: `${numbers.name}, המספרים שלך: נתיב חיים ${numbers.life_path}, גורל ${numbers.destiny}, נשמה ${numbers.soul}, אישיות ${numbers.personality}, שנה אישית ${numbers.personal_year}. תן פרשנות מיסטית עמוקה ואישית לכל מספר בנפרד ולתמונה המשולבת.`,
-      maxTokens: 2000,
+      maxTokens: 3000,
       responseSchema: {
         type: 'object',
         properties: {
