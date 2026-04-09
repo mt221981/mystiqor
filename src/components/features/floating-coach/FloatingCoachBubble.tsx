@@ -77,8 +77,8 @@ export function FloatingCoachBubble() {
         <div className="absolute inset-0 rounded-full" style={{
           background: 'linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 40%, transparent 60%, rgba(255,255,255,0.04) 100%)',
         }} />
-        {/* תווית */}
-        <span className="absolute -top-8 text-base md:text-lg font-label font-bold text-primary whitespace-nowrap drop-shadow-[0_0_10px_rgba(221,184,255,0.6)]">
+        {/* תווית — מתחת לבועה, לא חוסמת */}
+        <span className="absolute -bottom-7 start-1/2 -translate-x-1/2 text-xs font-label font-bold text-primary/80 whitespace-nowrap drop-shadow-[0_0_6px_rgba(221,184,255,0.4)]">
           נועה
         </span>
       </motion.button>
