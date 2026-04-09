@@ -1,12 +1,11 @@
 'use client'
 
 /**
- * בורר פריסות טארוט — 4 כפתורי פריסה עם שם, תיאור, מספר קלפים ותצוגה מקדימה ויזואלית
- * מדוע: מחליף כפתורי טקסט בלבד בממשק עשיר הכולל מיני-תצוגה של פריסת הקלפים
+ * בורר פריסות טארוט — כרטיסי בחירה גדולים עם תצוגה מקדימה ויזואלית של קלפים
+ * מדוע: נותן למשתמש תחושה מיסטית ומוחשית של מה שהוא הולך לקבל
  */
 
 import { TAROT_SPREADS, type TarotSpread } from '@/lib/constants/tarot-data'
-import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 /** פרופס של SpreadSelector */
@@ -17,71 +16,62 @@ interface SpreadSelectorProps {
   onSelect: (spread: TarotSpread) => void
 }
 
-/** פרופס של MiniCard — מלבן קטן המייצג קלף בתצוגה המקדימה */
-interface MiniCardProps {
-  /** האם הכפתור פעיל (משפיע על הצבע) */
-  isActive: boolean
-}
-
-/**
- * מלבן קטן המייצג קלף בודד בתצוגה המקדימה של הפריסה
- */
-function MiniCard({ isActive }: MiniCardProps) {
+/** קלף מיניאטורי בתצוגה מקדימה — עם גרדיאנט ועיטור */
+function MiniCard({ isActive }: { isActive: boolean }) {
   return (
     <div
       className={cn(
-        'mini-card rounded-sm border',
+        'mini-card rounded border-2 relative overflow-hidden',
         isActive
-          ? 'bg-accent/40 border-accent/60'
-          : 'bg-primary/20 border-primary/30'
+          ? 'border-amber-400/70 bg-gradient-to-b from-purple-800/80 to-indigo-900/80'
+          : 'border-primary/30 bg-gradient-to-b from-purple-950/60 to-indigo-950/60'
       )}
-    />
+    >
+      {/* עיטור מרכזי */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className={cn(
+          'text-[10px] select-none',
+          isActive ? 'text-amber-300/80' : 'text-primary/40'
+        )}>
+          ✦
+        </span>
+      </div>
+      {/* מסגרת פנימית */}
+      <div className={cn(
+        'absolute inset-1 rounded-sm border',
+        isActive ? 'border-amber-400/30' : 'border-primary/15'
+      )} />
+    </div>
   )
 }
 
-/** פרופס של SpreadPreview — תצוגה מקדימה ויזואלית של הפריסה */
-interface SpreadPreviewProps {
-  /** מזהה הפריסה */
-  spreadId: string
-  /** האם הכפתור פעיל */
-  isActive: boolean
-}
-
-/**
- * מרנדר תצוגה מקדימה מיני של פריסת הקלפים
- * כל פריסה מוצגת עם מיקומי קלפים אמיתיים
- */
-function SpreadPreview({ spreadId, isActive }: SpreadPreviewProps) {
+/** תצוגה מקדימה ויזואלית של פריסת קלפים */
+function SpreadPreview({ spreadId, isActive }: { spreadId: string; isActive: boolean }) {
   switch (spreadId) {
-    /** קלף בודד — קלף אחד במרכז */
     case 'single_card':
       return (
-        <div className="flex items-center justify-center h-10">
+        <div className="flex items-center justify-center h-20">
           <MiniCard isActive={isActive} />
         </div>
       )
 
-    /** שלושה קלפים — שורה אחת */
     case 'three_card':
       return (
-        <div className="flex items-center justify-center gap-1 h-10">
+        <div className="flex items-center justify-center gap-2 h-20">
           <MiniCard isActive={isActive} />
           <MiniCard isActive={isActive} />
           <MiniCard isActive={isActive} />
         </div>
       )
 
-    /** פריסת יחסים — 2 + 1 + 2 */
     case 'relationship':
       return (
-        <div className="flex flex-col items-center gap-0.5 h-10 justify-center">
-          {/* שורה עליונה: 2 קלפים */}
-          <div className="flex gap-1">
+        <div className="flex flex-col items-center gap-1.5 h-20 justify-center">
+          <div className="flex gap-2">
             <MiniCard isActive={isActive} />
             <MiniCard isActive={isActive} />
           </div>
-          {/* שורה תחתונה: 3 קלפים */}
-          <div className="flex gap-1">
+          <div className="flex gap-2">
             <MiniCard isActive={isActive} />
             <MiniCard isActive={isActive} />
             <MiniCard isActive={isActive} />
@@ -95,42 +85,50 @@ function SpreadPreview({ spreadId, isActive }: SpreadPreviewProps) {
 }
 
 /**
- * מרנדר 4 כפתורי פריסה עם שם, תיאור, מספר קלפים ותצוגה מקדימה ויזואלית
- * @param selectedId — מזהה הפריסה הפעילה
- * @param onSelect — פונקציה שנקראת עם אובייקט הפריסה שנבחרה
+ * מרנדר כרטיסי בחירת פריסה גדולים עם תצוגה מקדימה ויזואלית
  */
 export function SpreadSelector({ selectedId, onSelect }: SpreadSelectorProps) {
   return (
-    <div className="flex flex-wrap gap-2" role="group" aria-label="בחר פריסת טארוט">
+    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4" role="group" aria-label="בחר פריסת טארוט">
       {TAROT_SPREADS.map((spread) => {
         const isActive = spread.id === selectedId
         return (
-          <Button
+          <button
             key={spread.id}
-            variant="outline"
+            type="button"
             onClick={() => onSelect(spread)}
             aria-pressed={isActive}
             className={cn(
-              'flex h-auto flex-col items-center gap-1 px-3 py-2',
+              'flex flex-col items-center gap-3 px-5 py-5 rounded-2xl border-2 transition-all cursor-pointer',
               isActive
-                ? 'border-accent/60 bg-surface-container-high text-accent font-label'
-                : 'border-outline-variant/20 text-on-surface-variant hover:border-primary/40 hover:bg-surface-container'
+                ? 'border-amber-400/60 bg-gradient-to-b from-surface-container-high to-surface-container shadow-[0_0_25px_rgba(143,45,230,0.25),0_0_10px_rgba(251,191,36,0.15)]'
+                : 'border-outline-variant/20 bg-surface-container hover:border-primary/40 hover:shadow-[0_0_15px_rgba(143,45,230,0.1)]'
             )}
           >
             {/* תצוגה מקדימה ויזואלית */}
             <SpreadPreview spreadId={spread.id} isActive={isActive} />
 
-            {/* שם ומספר קלפים */}
-            <span className="font-label text-sm font-medium text-start w-full">
-              {spread.name}{' '}
-              <span className="text-xs opacity-70">({spread.cardCount})</span>
+            {/* שם */}
+            <span className={cn(
+              'font-headline text-lg font-bold',
+              isActive ? 'text-amber-300' : 'text-on-surface'
+            )}>
+              {spread.name}
+            </span>
+
+            {/* מספר קלפים */}
+            <span className={cn(
+              'text-sm font-label',
+              isActive ? 'text-accent' : 'text-on-surface-variant'
+            )}>
+              {spread.cardCount} קלפים
             </span>
 
             {/* תיאור */}
-            <span className="text-xs text-on-surface-variant/85 font-normal text-start w-full">
+            <span className="text-xs text-on-surface-variant/80 font-body">
               {spread.description}
             </span>
-          </Button>
+          </button>
         )
       })}
     </div>
