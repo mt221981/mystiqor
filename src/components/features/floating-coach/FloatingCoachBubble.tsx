@@ -33,9 +33,9 @@ export function FloatingCoachBubble() {
       }} />
       <motion.button
         onClick={toggle}
-        className="relative w-16 h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center cursor-pointer overflow-hidden"
+        className="relative w-24 h-24 md:w-28 md:h-28 rounded-full flex items-center justify-center cursor-pointer overflow-hidden"
         style={{
-          boxShadow: '0 0 15px rgba(143,45,230,0.5), 0 0 30px rgba(143,45,230,0.25), 0 0 45px rgba(212,168,83,0.12)',
+          boxShadow: '0 0 20px rgba(143,45,230,0.6), 0 0 40px rgba(143,45,230,0.3), 0 0 60px rgba(212,168,83,0.15)',
         }}
         animate={shouldReduceMotion ? {} : { scale: [1, 1.05, 1] }}
         transition={{ duration: 3, repeat: Infinity, repeatType: 'reverse', ease: 'easeInOut' }}
@@ -51,7 +51,7 @@ export function FloatingCoachBubble() {
           alt="נועה — המאמנת האישית"
           fill
           className="object-cover rounded-full"
-          sizes="(max-width: 768px) 64px, 80px"
+          sizes="(max-width: 768px) 96px, 112px"
           priority
         />
 
@@ -61,10 +61,6 @@ export function FloatingCoachBubble() {
         }} />
       </motion.button>
 
-      {/* תווית — מתחת לבועה */}
-      <span className="block text-center mt-1 text-xs font-label font-bold text-primary/80 whitespace-nowrap drop-shadow-[0_0_6px_rgba(221,184,255,0.4)]">
-        נועה
-      </span>
     </div>
   );
 }

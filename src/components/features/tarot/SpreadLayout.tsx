@@ -50,7 +50,7 @@ function SingleCardLayout({
   if (!cards[0]) return null
   return (
     <div className="flex justify-center">
-      <div className="w-full max-w-xs">
+      <div className="w-full max-w-sm">
         <TarotCardTile
           card={cards[0]}
           positionLabel="התובנה"
@@ -71,7 +71,7 @@ function ThreeCardLayout({
   onCardClick,
 }: Pick<SpreadLayoutProps, 'cards' | 'positions' | 'onCardClick'>) {
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-3 max-w-3xl mx-auto">
       {cards.map((card, i) => (
         <TarotCardTile
           key={card.id}
