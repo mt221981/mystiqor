@@ -2,21 +2,19 @@
 
 /**
  * כרטיס תובנה יומית — גיבור הדשבורד
- * מציג מזל (zodiac) ומספר נומרולוגי יומי מחושבים מתאריך לידה
- * אין קריאת LLM — חישוב דטרמיניסטי בלבד (LLM יגיע ב-Phase 4)
+ * טוען תובנה אישית מ-API (LLM) ומציג מזל ומספר יומי
+ * fallback למאגר סטטי אם ה-API לא זמין
  */
 
-import { Sparkles } from 'lucide-react';
-
-// ===== טיפוסים =====
+import { useQuery } from '@tanstack/react-query';
+import { Sparkles, Loader2 } from 'lucide-react';
+import ReactMarkdown from 'react-markdown';
 
 /** Props של כרטיס תובנה יומית */
 interface DailyInsightCardProps {
   /** תאריך לידה בפורמט ISO (YYYY-MM-DD) */
   readonly birthDate: string | null;
 }
-
-// ===== קבועים =====
 
 /** מיפוי מזלות לשמות בעברית */
 const ZODIAC_SIGNS: Array<{
@@ -40,26 +38,7 @@ const ZODIAC_SIGNS: Array<{
   { name: 'דגים', startMonth: 2, startDay: 19, endMonth: 3, endDay: 20 },
 ];
 
-/** מאגר תובנות יומיות בעברית */
-const INSIGHT_POOL: readonly string[] = [
-  'האנרגיה שלך היום מחוברת לכוחות הסתר — הקשב לאינטואיציה שלך',
-  'יום מיוחד לפתיחת דרכים חדשות — הזמן מבשיל לפעולה',
-  'הכוכבים מאירים על הקשרים שלך — יום טוב לחיבורים',
-  'אנרגיית ההחלמה חזקה היום — טפל בגוף ובנפש',
-  'יצירתיות פורחת — אפשר לרעיונות לזרום בחופשיות',
-  'יום של הגשמה — מה שהתחלת ממתין לך',
-  'עוצמה פנימית גבוהה — בטח בעצמך ובדרכך',
-  'הרגע הנוכחי הוא מתנה — תשומת לב מלאה היא הכוח שלך',
-  'שינוי מתגנב — פתח את הלב לאפשרויות לא צפויות',
-];
-
-// ===== פונקציות עזר =====
-
-/**
- * מחשב מזל לפי תאריך לידה
- * @param birthDate תאריך לידה בפורמט YYYY-MM-DD
- * @returns שם המזל בעברית
- */
+/** מחשב מזל לפי תאריך לידה */
 export function getZodiacSign(birthDate: string): string {
   const date = new Date(birthDate);
   const month = date.getUTCMonth() + 1;
@@ -77,58 +56,27 @@ export function getZodiacSign(birthDate: string): string {
       return sign.name;
     }
   }
-
-  return 'גדי'; // fallback לחודש דצמבר/ינואר
+  return 'גדי';
 }
 
-/**
- * מחשב מספר נומרולוגי יומי מתאריך היום
- * מסכם את ספרות תאריך היום (YYYYMMDD) ומצמצם ל-1-9 או מספרי מאסטר 11/22
- * @param today תאריך היום
- * @returns מספר נומרולוגי (1-9, 11, 22)
- */
+/** מחשב מספר נומרולוגי יומי */
 export function getNumerologyDayNumber(today: Date): number {
   const year = today.getFullYear();
   const month = today.getMonth() + 1;
   const day = today.getDate();
-
   const dateString = `${year}${String(month).padStart(2, '0')}${String(day).padStart(2, '0')}`;
   let sum = dateString.split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
-
-  // צמצום עד ל-1-9 או מספרי מאסטר 11/22
   while (sum > 9 && sum !== 11 && sum !== 22) {
     sum = String(sum).split('').reduce((acc, digit) => acc + parseInt(digit, 10), 0);
   }
-
   return sum;
 }
 
-/**
- * מחשב את מספר היום בשנה (1-365/366)
- * @param today תאריך היום
- * @returns מספר יום בשנה
- */
-function getDayOfYear(today: Date): number {
-  const startOfYear = new Date(today.getFullYear(), 0, 0);
-  const diff = today.getTime() - startOfYear.getTime();
-  return Math.floor(diff / (1000 * 60 * 60 * 24));
-}
-
-// ===== קומפוננטה =====
-
-/**
- * כרטיס תובנה יומית — גיבור הדשבורד
- * מציג מזל, מספר יומי, ותובנה מהמאגר
- */
+/** כרטיס תובנה יומית — טוען מ-API עם fallback סטטי */
 export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
   const today = new Date();
   const numerologyNumber = getNumerologyDayNumber(today);
-  const dayOfYear = getDayOfYear(today);
   const zodiacSign = birthDate ? getZodiacSign(birthDate) : 'לא ידוע';
-
-  // בחירת תובנה מהמאגר לפי ערך דטרמיניסטי
-  const insightIndex = (dayOfYear + numerologyNumber) % INSIGHT_POOL.length;
-  const insightText = INSIGHT_POOL[insightIndex];
 
   const todayFormatted = today.toLocaleDateString('he-IL', {
     weekday: 'long',
@@ -137,50 +85,93 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
     year: 'numeric',
   });
 
+  /** טעינת תובנה יומית מ-API */
+  const { data: insight, isLoading } = useQuery({
+    queryKey: ['daily-insight', today.toISOString().slice(0, 10)],
+    queryFn: async () => {
+      const res = await fetch('/api/tools/daily-insights');
+      if (!res.ok) return null;
+      const json = await res.json() as { data?: { title?: string; content?: string; actionable_tip?: string } };
+      return json.data ?? null;
+    },
+    staleTime: 1000 * 60 * 30,
+    retry: 1,
+  });
+
   return (
     <div
-      className="nebula-glow rounded-2xl p-10 md:p-12 relative overflow-hidden"
+      className="nebula-glow rounded-2xl p-8 md:p-10 relative overflow-hidden"
       dir="rtl"
       role="region"
       aria-label="תובנה יומית"
     >
-      {/* שכבת glow עדינה */}
+      {/* שכבת glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent pointer-events-none" aria-hidden="true" />
 
-      <div className="relative flex items-start justify-between gap-4">
-        {/* תוכן */}
-        <div className="flex-1 min-w-0">
-          <p className="text-xs font-label font-medium uppercase text-white/70 mb-1">
-            תובנה יומית
-          </p>
-          <h2 className="text-2xl font-headline font-bold text-white mb-2">{todayFormatted}</h2>
+      <div className="relative">
+        {/* כותרת + תאריך */}
+        <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex-1">
+            <p className="text-xs font-label font-medium uppercase text-white/70 mb-1">
+              תובנה יומית
+            </p>
+            <h2 className="text-2xl font-headline font-bold text-white mb-2">{todayFormatted}</h2>
 
-          <div className="flex items-center gap-4 mb-4">
-            {/* מזל */}
-            <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
-              <span className="text-sm text-white/70">מזל:</span>
-              <span className="text-base font-headline font-semibold text-white ms-1">{zodiacSign}</span>
-            </div>
-
-            {/* מספר יומי */}
-            <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
-              <span className="text-sm text-white/70">מספר יומי:</span>
-              <span className="text-base font-headline font-semibold text-white ms-1">{numerologyNumber}</span>
+            <div className="flex items-center gap-4">
+              <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
+                <span className="text-sm text-white/70">מזל:</span>
+                <span className="text-base font-headline font-semibold text-white ms-1">{zodiacSign}</span>
+              </div>
+              <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
+                <span className="text-sm text-white/70">מספר יומי:</span>
+                <span className="text-base font-headline font-semibold text-white ms-1">{numerologyNumber}</span>
+              </div>
             </div>
           </div>
 
-          {/* תובנה */}
-          <p className="text-sm text-white/80 font-body max-w-prose">
-            {insightText}
-          </p>
+          <div
+            className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-white/10 ring-1 ring-white/20"
+            aria-hidden="true"
+          >
+            <Sparkles className="h-8 w-8 text-white/90" />
+          </div>
         </div>
 
-        {/* אייקון */}
-        <div
-          className="flex h-20 w-20 shrink-0 items-center justify-center rounded-3xl bg-white/10 ring-1 ring-white/20"
-          aria-hidden="true"
-        >
-          <Sparkles className="h-10 w-10 text-white/90" />
+        {/* תוכן התובנה */}
+        <div className="mt-4 space-y-3">
+          {isLoading ? (
+            <div className="flex items-center gap-2 text-white/60">
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span className="text-sm font-body">טוען את התובנה שלך...</span>
+            </div>
+          ) : insight ? (
+            <>
+              {/* כותרת התובנה */}
+              {insight.title && (
+                <h3 className="text-lg font-headline font-bold text-amber-300">
+                  {insight.title}
+                </h3>
+              )}
+              {/* תוכן מלא */}
+              {insight.content && (
+                <div className="text-sm text-white/85 font-body leading-relaxed prose prose-invert max-w-none [&>p]:my-2">
+                  <ReactMarkdown>{insight.content}</ReactMarkdown>
+                </div>
+              )}
+              {/* טיפ פעולה */}
+              {insight.actionable_tip && (
+                <div className="bg-amber-400/10 border border-amber-400/20 rounded-xl px-4 py-3 mt-3">
+                  <p className="text-sm text-amber-200 font-body">
+                    💡 {insight.actionable_tip}
+                  </p>
+                </div>
+              )}
+            </>
+          ) : (
+            <p className="text-sm text-white/80 font-body">
+              האנרגיה שלך היום מחוברת לכוחות הסתר — הקשב לאינטואיציה שלך. הכוכבים מאירים על הקשרים שלך, ויום חדש פותח דרכים שלא ציפית להן. תן למספרים ולמזלות להנחות אותך.
+            </p>
+          )}
         </div>
       </div>
     </div>
