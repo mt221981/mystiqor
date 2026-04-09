@@ -8,7 +8,6 @@
 
 import { memo } from 'react'
 import { motion } from 'framer-motion'
-import { User, Sparkles } from 'lucide-react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 
@@ -31,27 +30,12 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className={`flex gap-3 ${isUser ? 'flex-row-reverse' : 'flex-row'}`}
+      className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}
     >
-      {/* אווטאר — עיגול עם אייקון לפי תפקיד */}
-      <div
-        className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${
-          isUser
-            ? 'bg-gradient-to-br from-primary-container to-secondary-container'
-            : 'bg-primary-container/20 text-primary'
-        }`}
-      >
-        {isUser ? (
-          <User className="w-5 h-5 text-white" />
-        ) : (
-          <Sparkles className="w-5 h-5 text-primary" />
-        )}
-      </div>
-
-      {/* בועת הודעה */}
+      {/* בועת הודעה — ללא אווטאר, רוחב מלא יותר */}
       {isUser ? (
-        /* הודעת משתמש — גרדיאנט קוסמי, זנב בפינה שמאל תחתון (RTL) */
-        <div className="bg-gradient-to-br from-primary-container to-secondary-container rounded-2xl rounded-bl-sm px-4 py-3 max-w-[80%]">
+        /* הודעת משתמש — גרדיאנט קוסמי */
+        <div className="bg-gradient-to-br from-primary-container to-secondary-container rounded-2xl rounded-bl-sm px-4 py-3 max-w-[85%]">
           <p className="text-white font-body text-sm">{message.content}</p>
           {message.created_at && (
             <p className="text-white/70 font-label text-xs mt-1">
@@ -63,8 +47,8 @@ export const ChatMessage = memo(function ChatMessageComponent({ message }: ChatM
           )}
         </div>
       ) : (
-        /* הודעת מאמן — surface-container עם markdown, זנב בפינה ימין תחתון */
-        <div className="bg-surface-container rounded-2xl rounded-br-sm px-4 py-3 max-w-[80%] border border-outline-variant/10">
+        /* הודעת מאמן — surface-container עם markdown, רחבה יותר */
+        <div className="bg-surface-container rounded-2xl rounded-br-sm px-4 py-3 max-w-[92%] border border-outline-variant/10">
           <div
             className="text-on-surface font-body text-sm prose prose-invert max-w-none
               [&>p]:my-2 [&>p]:leading-[1.7]

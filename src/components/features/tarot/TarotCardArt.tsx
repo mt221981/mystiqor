@@ -275,17 +275,17 @@ export function TarotCardArt({
       <div className="relative z-10 flex flex-col items-center justify-center flex-1">
         {isMajor ? (
           <>
-            {/* סמל ייחודי לקלף */}
-            <span className="text-2xl mb-1 select-none opacity-70">
+            {/* סמל ייחודי לקלף — גדול ובולט */}
+            <span className="select-none" style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)' }}>
               {MAJOR_SYMBOL[cardNumber] ?? '✦'}
             </span>
             {/* אות קבלה גדולה */}
             <span
               className="font-bold leading-none select-none"
               style={{
-                fontSize: 'clamp(3rem, 12vw, 5rem)',
+                fontSize: 'clamp(3.5rem, 14vw, 6rem)',
                 color: accentColor,
-                textShadow: `0 0 25px ${glowColor}, 0 0 50px ${glowColor}, 0 0 80px ${glowColor}`,
+                textShadow: `0 0 30px ${glowColor}, 0 0 60px ${glowColor}, 0 0 100px ${glowColor}`,
                 fontFamily: 'serif',
                 direction: 'rtl',
               }}
@@ -304,22 +304,22 @@ export function TarotCardArt({
           </>
         ) : (
           <>
-            {/* סמל הסוט למעלה */}
-            <span className="text-xl mb-1 opacity-70 select-none">{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
+            {/* סמל הסוט למעלה — גדול */}
+            <span className="select-none" style={{ fontSize: 'clamp(2rem, 8vw, 3rem)', opacity: 0.8 }}>{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
             {/* מספר גדול לארקנה קטנה */}
             <span
               className="font-bold leading-none select-none"
               style={{
-                fontSize: 'clamp(2.5rem, 10vw, 4rem)',
+                fontSize: 'clamp(3rem, 12vw, 5rem)',
                 color: accentColor,
-                textShadow: `0 0 20px ${glowColor}, 0 0 40px ${glowColor}`,
+                textShadow: `0 0 25px ${glowColor}, 0 0 50px ${glowColor}`,
                 fontFamily: 'serif',
               }}
             >
               {minorNumber}
             </span>
             {/* סמל הסוט תחתון */}
-            <span className="text-lg mt-1 opacity-50 select-none">{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
+            <span className="select-none" style={{ fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', opacity: 0.5 }}>{SUIT_SYMBOL[suit ?? ''] ?? '✦'}</span>
           </>
         )}
       </div>
