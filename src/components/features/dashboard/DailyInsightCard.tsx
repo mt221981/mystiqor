@@ -100,7 +100,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
 
   return (
     <div
-      className="nebula-glow rounded-2xl p-8 md:p-10 relative overflow-hidden"
+      className="nebula-glow rounded-2xl p-4 sm:p-6 md:p-8 relative overflow-hidden"
       dir="rtl"
       role="region"
       aria-label="תובנה יומית"
@@ -117,7 +117,7 @@ export function DailyInsightCard({ birthDate }: DailyInsightCardProps) {
             </p>
             <h2 className="text-2xl font-headline font-bold text-white mb-2">{todayFormatted}</h2>
 
-            <div className="flex items-center gap-4">
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4">
               <div className="bg-white/10 rounded-lg px-4 py-2 backdrop-blur-sm">
                 <span className="text-sm text-white/70">מזל:</span>
                 <span className="text-base font-headline font-semibold text-white ms-1">{zodiacSign}</span>

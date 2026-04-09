@@ -155,14 +155,14 @@ export function DailyPrompt({ hasActivityToday }: DailyPromptProps) {
         </div>
 
         {/* כפתורי CTA */}
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-2 sm:gap-3">
           {ctaItems.map((cta) => (
-            <Link key={cta.href} href={cta.href}>
+            <Link key={cta.href} href={cta.href} className="w-full sm:w-auto">
               <Button
                 variant="outline"
                 size="sm"
                 className={[
-                  'h-9 rounded-full border-outline-variant/20 bg-surface-container/40 transition-all gap-2 text-sm font-medium',
+                  'w-full sm:w-auto h-9 rounded-full border-outline-variant/20 bg-surface-container/40 transition-all gap-2 text-sm font-medium',
                   hasActivityToday
                     ? cta.activeColorClass
                     : `text-foreground/80 ${cta.colorClass}`,

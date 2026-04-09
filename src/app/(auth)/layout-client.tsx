@@ -63,7 +63,7 @@ export default function AuthLayoutClient({ children }: AuthLayoutClientProps) {
         <div className="flex flex-1 flex-col">
           <Header onMobileMenuOpen={() => setIsMobileNavOpen(true)} />
           <main className="flex-1 overflow-auto pt-16 pb-20 md:pb-0">
-            <div className="mx-auto max-w-7xl px-6 py-8 space-y-8">
+            <div className="mx-auto max-w-7xl px-3 sm:px-6 py-8 space-y-8">
               {children}
             </div>
           </main>

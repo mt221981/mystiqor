@@ -197,7 +197,7 @@ export function StreakCounter() {
         aria-hidden="true"
       />
 
-      <div className="relative flex items-center justify-between gap-4">
+      <div className="relative flex flex-col sm:flex-row items-center gap-3 sm:gap-4">
         {/* צד ימין — להבה + טקסט */}
         <div className="flex items-center gap-3 min-w-0">
           <motion.span
@@ -231,6 +231,7 @@ export function StreakCounter() {
         </div>
 
         {/* 7 נקודות ימים אחרונים */}
+        <div className="overflow-x-auto">
         <div
           className="flex items-center gap-1.5 shrink-0"
           role="list"
@@ -256,6 +257,7 @@ export function StreakCounter() {
               transition={{ delay: 0.05 * dotDays.indexOf(day) }}
             />
           ))}
+        </div>
         </div>
       </div>
     </motion.div>

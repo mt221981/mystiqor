@@ -340,7 +340,7 @@ export default function DashboardPage() {
             <Sparkles className="w-4 h-4" />
             <span>המסע שלך מתחיל כאן</span>
           </div>
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-light text-foreground font-headline">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-light text-foreground font-headline">
             {getHebrewGreeting()},{' '}
             <span className="font-bold text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
               {profile?.full_name?.split(' ')[0] ?? 'חבר'}
@@ -377,21 +377,21 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* ===== 4. כפתורי פעולה מהירים ===== */}
-        <motion.div {...staggerDelay(5)} className="flex flex-wrap justify-center gap-4">
-          <Link href="/mood">
-            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-primary hover:border-primary/50 transition-all gap-2">
+        <motion.div {...staggerDelay(5)} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+          <Link href="/mood" className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto h-10 px-4 sm:px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-primary hover:border-primary/50 transition-all gap-2">
               <Smile className="w-4 h-4" />
               <span>איך אני מרגיש?</span>
             </Button>
           </Link>
-          <Link href="/journal">
-            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-blue-400 hover:border-blue-500/50 transition-all gap-2">
+          <Link href="/journal" className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto h-10 px-4 sm:px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-blue-400 hover:border-blue-500/50 transition-all gap-2">
               <BookOpen className="w-4 h-4" />
               <span>יומן אישי</span>
             </Button>
           </Link>
-          <Link href="/coach">
-            <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-gold hover:border-gold/50 transition-all gap-2">
+          <Link href="/coach" className="w-full sm:w-auto">
+            <Button variant="outline" className="w-full sm:w-auto h-10 px-4 sm:px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-gold hover:border-gold/50 transition-all gap-2">
               <HelpCircle className="w-4 h-4" />
               <span>שאל שאלה</span>
             </Button>

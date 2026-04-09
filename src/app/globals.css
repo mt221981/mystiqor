@@ -2,9 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
-/* גודל בסיס — 21px מובייל, 23px דסקטופ */
+/* גודל בסיס — 18px מובייל, 21px טאבלט, 23px דסקטופ */
 html {
-  font-size: 21px;
+  font-size: 18px;
+}
+@media (min-width: 640px) {
+  html {
+    font-size: 21px;
+  }
 }
 @media (min-width: 768px) {
   html {
