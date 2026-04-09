@@ -28,6 +28,8 @@ import { MoodTrendChart } from '@/components/features/dashboard/MoodTrendChart';
 import { GoalsProgressChart } from '@/components/features/dashboard/GoalsProgressChart';
 import { PeriodSelector, type Period } from '@/components/features/dashboard/PeriodSelector';
 import { StatCards } from '@/components/features/dashboard/StatCards';
+import { StreakCounter } from '@/components/features/dashboard/StreakCounter';
+import { DailyPrompt } from '@/components/features/dashboard/DailyPrompt';
 import { Button } from '@/components/ui/button';
 
 // ===== טיפוסים =====
@@ -258,6 +260,37 @@ export default function DashboardPage() {
     staleTime: CACHE_TIMES.SHORT,
   });
 
+  // === שאילתת בדיקת פעילות היום (לDailyPrompt) ===
+  const { data: hasActivityToday } = useQuery<boolean>({
+    queryKey: ['dashboard-activity-today'],
+    queryFn: async (): Promise<boolean> => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return false;
+      const todayStart = startOfDay(new Date()).toISOString();
+
+      const [analysesToday, moodToday] = await Promise.allSettled([
+        supabase
+          .from('analyses')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .gte('created_at', todayStart),
+        supabase
+          .from('mood_entries')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', user.id)
+          .gte('created_at', todayStart),
+      ]);
+
+      const analysesCount =
+        analysesToday.status === 'fulfilled' ? (analysesToday.value.count ?? 0) : 0;
+      const moodCount =
+        moodToday.status === 'fulfilled' ? (moodToday.value.count ?? 0) : 0;
+
+      return analysesCount + moodCount > 0;
+    },
+    staleTime: CACHE_TIMES.SHORT,
+  });
+
   // === שאילתת ניתוחים לפי תקופה — DASH-05 + Pitfall 7 ===
   const { data: analysesData, isLoading: isAnalysesLoading } = useQuery({
     queryKey: queryKeys.analyses.list({ period }),  // period ב-queryKey — Pitfall 7
@@ -318,13 +351,23 @@ export default function DashboardPage() {
           </p>
         </motion.div>
 
-        {/* ===== 2. גריד 6 כלים עיקריים ===== */}
+        {/* ===== 1b. מונה רצף פעילות ===== */}
         <motion.div {...staggerDelay(1)}>
+          <StreakCounter />
+        </motion.div>
+
+        {/* ===== 2. גריד 6 כלים עיקריים ===== */}
+        <motion.div {...staggerDelay(2)}>
           <HeroToolGrid />
         </motion.div>
 
+        {/* ===== 2b. פרומפט יומי מיסטי ===== */}
+        <motion.div {...staggerDelay(3)}>
+          <DailyPrompt hasActivityToday={hasActivityToday ?? false} />
+        </motion.div>
+
         {/* ===== 3. תובנה יומית עם זוהר ===== */}
-        <motion.div {...staggerDelay(2)} className="max-w-2xl mx-auto w-full">
+        <motion.div {...staggerDelay(4)} className="max-w-2xl mx-auto w-full">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-container to-gold rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000" aria-hidden="true" />
             <div className="relative bg-surface-container rounded-[1.75rem] overflow-hidden shadow-2xl border border-outline-variant/10">
@@ -334,7 +377,7 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* ===== 4. כפתורי פעולה מהירים ===== */}
-        <motion.div {...staggerDelay(3)} className="flex flex-wrap justify-center gap-4">
+        <motion.div {...staggerDelay(5)} className="flex flex-wrap justify-center gap-4">
           <Link href="/mood">
             <Button variant="outline" className="h-10 px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-primary hover:border-primary/50 transition-all gap-2">
               <Smile className="w-4 h-4" />
@@ -356,12 +399,12 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* ===== 5. סטטיסטיקות ===== */}
-        <motion.div {...staggerDelay(4)}>
+        <motion.div {...staggerDelay(6)}>
           <StatCards stats={stats} isLoading={isStatsLoading} />
         </motion.div>
 
         {/* ===== 6. גרפים ומגמות ===== */}
-        <motion.div {...staggerDelay(5)}>
+        <motion.div {...staggerDelay(7)}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
             <PeriodSelector value={period} onChange={setPeriod} />
