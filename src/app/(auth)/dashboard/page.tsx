@@ -30,6 +30,7 @@ import { PeriodSelector, type Period } from '@/components/features/dashboard/Per
 import { StatCards } from '@/components/features/dashboard/StatCards';
 import { StreakCounter } from '@/components/features/dashboard/StreakCounter';
 import { DailyPrompt } from '@/components/features/dashboard/DailyPrompt';
+import { JourneyWidget } from '@/components/features/dashboard/JourneyWidget';
 import { Button } from '@/components/ui/button';
 
 // ===== טיפוסים =====
@@ -361,13 +362,18 @@ export default function DashboardPage() {
           <HeroToolGrid />
         </motion.div>
 
-        {/* ===== 2b. פרומפט יומי מיסטי ===== */}
+        {/* ===== 2a. ויג'ט מסע אישי ===== */}
         <motion.div {...staggerDelay(3)}>
+          <JourneyWidget />
+        </motion.div>
+
+        {/* ===== 2b. פרומפט יומי מיסטי ===== */}
+        <motion.div {...staggerDelay(4)}>
           <DailyPrompt hasActivityToday={hasActivityToday ?? false} />
         </motion.div>
 
         {/* ===== 3. תובנה יומית עם זוהר ===== */}
-        <motion.div {...staggerDelay(4)} className="max-w-2xl mx-auto w-full">
+        <motion.div {...staggerDelay(5)} className="max-w-2xl mx-auto w-full">
           <div className="relative group">
             <div className="absolute -inset-1 bg-gradient-to-r from-primary-container to-gold rounded-[2rem] blur opacity-25 group-hover:opacity-50 transition duration-1000" aria-hidden="true" />
             <div className="relative bg-surface-container rounded-[1.75rem] overflow-hidden shadow-2xl border border-outline-variant/10">
@@ -377,7 +383,7 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* ===== 4. כפתורי פעולה מהירים ===== */}
-        <motion.div {...staggerDelay(5)} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
+        <motion.div {...staggerDelay(6)} className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
           <Link href="/mood" className="w-full sm:w-auto">
             <Button variant="outline" className="w-full sm:w-auto h-10 px-4 sm:px-6 rounded-full border-outline-variant/20 bg-surface-container/50 hover:bg-surface-container-high hover:text-primary hover:border-primary/50 transition-all gap-2">
               <Smile className="w-4 h-4" />
@@ -399,12 +405,12 @@ export default function DashboardPage() {
         </motion.div>
 
         {/* ===== 5. סטטיסטיקות ===== */}
-        <motion.div {...staggerDelay(6)}>
+        <motion.div {...staggerDelay(7)}>
           <StatCards stats={stats} isLoading={isStatsLoading} />
         </motion.div>
 
         {/* ===== 6. גרפים ומגמות ===== */}
-        <motion.div {...staggerDelay(7)}>
+        <motion.div {...staggerDelay(8)}>
           <div className="flex items-center justify-between mb-6">
             <h2 className="text-2xl font-bold font-headline text-gradient-gold">גרפים ומגמות</h2>
             <PeriodSelector value={period} onChange={setPeriod} />

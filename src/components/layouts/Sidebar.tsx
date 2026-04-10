@@ -49,6 +49,7 @@ import {
   Sun,
   GraduationCap,
   Newspaper,
+  Route,
 } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useSubscription } from '@/hooks/useSubscription';
@@ -93,6 +94,7 @@ const NAV_SECTIONS: readonly NavSection[] = [
   {
     title: 'מסע אישי',
     items: [
+      { label: 'המסע שלי', href: '/journey', icon: Route },
       { label: 'נועה — המאמנת', href: '/coach', icon: Sparkles },
       { label: 'יעדים', href: '/goals', icon: Target },
       { label: 'מצב רוח', href: '/mood', icon: Smile },
